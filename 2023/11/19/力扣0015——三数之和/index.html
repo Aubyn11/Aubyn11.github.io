@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0014——最长公共前缀 |  Aubyn</title>
+      <title>力扣0015——三数之和 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0014——最长公共前缀"
+  id="post-力扣0015——三数之和"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0014——最长公共前缀
+  力扣0015——三数之和
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30014%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" class="article-date">
-  <time datetime="2023-11-18T19:29:16.000Z" itemprop="datePublished">2023-11-19</time>
+      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30015%E2%80%94%E2%80%94%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
+  <time datetime="2023-11-18T19:32:03.000Z" itemprop="datePublished">2023-11-19</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">243</span>
+            <span class="post-count">506</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -111,25 +111,31 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-prefix/">最长公共前缀</a></h1>
-<p>难度：<strong>简单</strong></p>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">三数之和</a></h1>
+<p>难度：<strong>中等</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>编写一个函数来查找字符串数组中的最长公共前缀。<br>
-如果不存在公共前缀，返回空字符串 <code>&quot;&quot;</code>。</p>
+<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请<br>
+你返回所有和为 <code>0</code> 且不重复的三元组。<br>
+<strong>注意</strong>：答案中不可以包含重复的三元组。</p>
 <h2 id="示例1">示例1</h2>
 <blockquote>
-<p><strong>输入</strong>：strs = [“flower”,“flow”,“flight”]<br>
-<strong>输出</strong>：“fl”</p>
+<p><strong>输入</strong>：nums = [-1,0,1,2,-1,-4]<br>
+<strong>输出</strong>：[[-1,-1,2],[-1,0,1]]</p>
 </blockquote>
 <h2 id="示例2">示例2</h2>
 <blockquote>
-<p><strong>输入</strong>：strs = [“dog”,“racecar”,“car”]<br>
-<strong>输出</strong>：&quot;&quot;</p>
+<p><strong>输入</strong>：nums = [0,1,1]<br>
+<strong>输出</strong>：[]</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [0,0,0]<br>
+<strong>输出</strong>：[[0,0,0]]</p>
 </blockquote>
 <h2 id="题解">题解</h2>
-<p>对第一个字符串进行遍历，作为第一层遍历，之后对每一个字符串对应的位置进行对比作为第二层遍历，如果不相同直接返回，如果相同则将当前字符加入结果中并继续循环</p>
+<p>先排序，从数组第一个元素开始遍历，遍历到倒数第三个元素，定义一个左指针和一个右指针，左指针为第一层循环值 + 1，右指针为最后一个元素下标，定义三数之和为当前循环数组元素，左指针下标代表元素，右指针代表元素，当左指针小于右指针时，如果和为零，那么就将结果添加到列表中，如果和小于零，左指针自增，如果大于零，右指针自减。</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span>[] strs = &#123; <span class="string">&quot;flower&quot;</span>, <span class="string">&quot;flow&quot;</span>, <span class="string">&quot;flight&quot;</span> &#125;;</span><br><span class="line">        Console.WriteLine(LongestCommonPrefix(strs));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">LongestCommonPrefix</span>(<span class="params"><span class="built_in">string</span>[] strs</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> count = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strs[<span class="number">0</span>].Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">1</span>; j &lt; strs.Length; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (i &gt; (strs[j].Length - <span class="number">1</span>) || strs[j][i] != strs[<span class="number">0</span>][i])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> count;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            count += strs[<span class="number">0</span>][i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; list = ThreeSum(nums);</span><br><span class="line">        <span class="keyword">foreach</span> (IList&lt;<span class="built_in">int</span>&gt; i <span class="keyword">in</span> list)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(<span class="string">@&quot;[&quot;</span>);</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="built_in">int</span> j <span class="keyword">in</span> i)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(j + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.Write(<span class="string">@&quot;]&quot;</span>);</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ThreeSum(<span class="built_in">int</span>[] nums)</span><br><span class="line">    &#123;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; result = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">        <span class="built_in">int</span> len = nums.Length;</span><br><span class="line">        <span class="keyword">if</span> (len &lt; <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        Array.Sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">2</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">int</span> left = i + <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">int</span> right = len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">int</span> sum = nums[i] + nums[left] + nums[right];</span><br><span class="line">                <span class="keyword">if</span> (sum == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.Add(<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;() &#123; nums[i], nums[left], nums[right] &#125;);</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[left] == nums[left + <span class="number">1</span>])</span><br><span class="line">                    &#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[right] == nums[right - <span class="number">1</span>])</span><br><span class="line">                    &#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    left++;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) left++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; <span class="number">0</span>) right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -182,7 +188,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/19/%E5%8A%9B%E6%89%A30014%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/19/%E5%8A%9B%E6%89%A30015%E2%80%94%E2%80%94%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -195,19 +201,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30015%E2%80%94%E2%80%94%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0015——三数之和
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30013%E2%80%94%E2%80%94%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/" class="article-nav-link">
+      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30014%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0013——罗马数字转整数</div>
+        <div class="article-nav-title">力扣0014——最长公共前缀</div>
       </a>
     
   </nav>

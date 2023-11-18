@@ -551,4 +551,40 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0015——三数之和</title>
+    <url>/2023/11/19/%E5%8A%9B%E6%89%A30015%E2%80%94%E2%80%94%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/3sum/">三数之和</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个整数数组 <code>nums</code> ，判断是否存在三元组 <code>[nums[i], nums[j], nums[k]]</code> 满足 <code>i != j</code>、<code>i != k</code> 且 <code>j != k</code> ，同时还满足 <code>nums[i] + nums[j] + nums[k] == 0</code> 。请<br>
+你返回所有和为 <code>0</code> 且不重复的三元组。<br>
+<strong>注意</strong>：答案中不可以包含重复的三元组。</p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [-1,0,1,2,-1,-4]<br>
+<strong>输出</strong>：[[-1,-1,2],[-1,0,1]]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [0,1,1]<br>
+<strong>输出</strong>：[]</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [0,0,0]<br>
+<strong>输出</strong>：[[0,0,0]]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>先排序，从数组第一个元素开始遍历，遍历到倒数第三个元素，定义一个左指针和一个右指针，左指针为第一层循环值 + 1，右指针为最后一个元素下标，定义三数之和为当前循环数组元素，左指针下标代表元素，右指针代表元素，当左指针小于右指针时，如果和为零，那么就将结果添加到列表中，如果和小于零，左指针自增，如果大于零，右指针自减。</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; list = ThreeSum(nums);</span><br><span class="line">        <span class="keyword">foreach</span> (IList&lt;<span class="built_in">int</span>&gt; i <span class="keyword">in</span> list)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(<span class="string">@&quot;[&quot;</span>);</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="built_in">int</span> j <span class="keyword">in</span> i)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(j + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.Write(<span class="string">@&quot;]&quot;</span>);</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ThreeSum(<span class="built_in">int</span>[] nums)</span><br><span class="line">    &#123;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; result = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">        <span class="built_in">int</span> len = nums.Length;</span><br><span class="line">        <span class="keyword">if</span> (len &lt; <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        Array.Sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">2</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">int</span> left = i + <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">int</span> right = len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">int</span> sum = nums[i] + nums[left] + nums[right];</span><br><span class="line">                <span class="keyword">if</span> (sum == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.Add(<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;() &#123; nums[i], nums[left], nums[right] &#125;);</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[left] == nums[left + <span class="number">1</span>])</span><br><span class="line">                    &#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[right] == nums[right - <span class="number">1</span>])</span><br><span class="line">                    &#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                    left++;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) left++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; <span class="number">0</span>) right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
