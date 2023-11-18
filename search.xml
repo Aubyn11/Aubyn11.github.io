@@ -295,4 +295,42 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0009——回文数</title>
+    <url>/2023/11/18/%E5%8A%9B%E6%89%A30009%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E6%95%B0/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/palindrome-number/">回文数</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个整数 <code>x</code> ，如果 <code>x</code> 是一个回文整数，返回 <code>true</code> ；否则，返回 <code>false</code> 。<br>
+回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</p>
+<ul>
+<li>例如，<code>121</code> 是回文，而 <code>123</code> 不是。</li>
+</ul>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：x = 121<br>
+<strong>输出</strong>：true</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：x = -121<br>
+<strong>输出</strong>：false</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：x = 10<br>
+<strong>输出</strong>：false</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>对这个数先进行判断，如果这个数是小于0或者末尾为零（不包括0）的数，那么直接返回false，如果为其他的数，就可以正常按照倒序，然后比对是否为回文</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> x = <span class="number">121</span>;</span><br><span class="line">        Console.WriteLine(IsPalindrome(x));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">IsPalindrome</span>(<span class="params"><span class="built_in">int</span> x</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (x &lt; <span class="number">0</span> || (x % <span class="number">10</span>) == <span class="number">0</span> &amp;&amp; x !=<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (x &gt; num)</span><br><span class="line">        &#123;</span><br><span class="line">            num = num * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">            x /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x == num || x == num / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
