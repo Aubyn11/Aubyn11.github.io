@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0011——盛最多水的容器 |  Aubyn</title>
+      <title>力扣0012——整数转罗马数字 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0011——盛最多水的容器"
+  id="post-力扣0012——整数转罗马数字"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0011——盛最多水的容器
+  力扣0012——整数转罗马数字
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30011%E2%80%94%E2%80%94%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time datetime="2023-11-18T19:15:10.000Z" itemprop="datePublished">2023-11-19</time>
+      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30012%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/" class="article-date">
+  <time datetime="2023-11-18T19:22:01.000Z" itemprop="datePublished">2023-11-19</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">282</span>
+            <span class="post-count">548</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -111,28 +111,48 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/container-with-most-water/">盛最多水的容器</a></h1>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/integer-to-roman/">整数转罗马数字</a></h1>
 <p>难度：<strong>中等</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>给定一个长度为 <code>n</code> 的整数数组 <code>height</code> 。有 <code>n</code> 条垂线，第 <code>i</code> 条线的两个端点是 <code>(i, 0)</code> 和 <code>(i, height[i])</code> 。<br>
-找出其中的两条线，使得它们与 <code>x</code> 轴共同构成的容器可以容纳最多的水。<br>
-返回容器可以储存的最大水量。<br>
-**说明：**你不能倾斜容器。</p>
+<p>罗马数字包含以下七种字符： <code>I</code>， <code>V</code>， <code>X</code>， <code>L</code>，<code>C</code>，<code>D</code> 和 <code>M</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">字符          数值</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
+<p>例如， 罗马数字 2 写做 <code>II</code> ，即为两个并列的 1。12 写做 <code>XII</code> ，即为 <code>X</code> + <code>II</code> 。 27 写做  <code>XXVII</code>, 即为 <code>XX</code> + <code>V</code> + <code>II</code> 。<br>
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 <code>IIII</code>，而是 <code>IV</code>。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 <code>IX</code>。这个特殊的规则只适用于以下六种情况：</p>
+<ul>
+<li><code>I</code> 可以放在 <code>V</code> (5) 和 <code>X</code> (10) 的左边，来表示 4 和 9。</li>
+<li><code>X</code> 可以放在 <code>L</code> (50) 和 <code>C</code> (100) 的左边，来表示 40 和 90。</li>
+<li><code>C</code> 可以放在 <code>D</code> (500) 和 <code>M</code> (1000) 的左边，来表示 400 和 900。</li>
+</ul>
+<p>给你一个整数，将其转为罗马数字。</p>
 <h2 id="示例1">示例1</h2>
-<p><img src="/images/ltc0011_1.jpg" alt="图示"></p>
 <blockquote>
-<p><strong>输入</strong>：[1,8,6,2,5,4,8,3,7]<br>
-<strong>输出</strong>：49</p>
+<p><strong>输入</strong>：num = 3<br>
+<strong>输出</strong>：“III”</p>
 </blockquote>
 <h2 id="示例2">示例2</h2>
 <blockquote>
-<p><strong>输入</strong>：height = [1,1]<br>
-<strong>输出</strong>：1</p>
+<p><strong>输入</strong>：num = 4<br>
+<strong>输出</strong>：“IV”</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 9<br>
+<strong>输出</strong>：“IX”</p>
+</blockquote>
+<h2 id="示例4">示例4</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 58<br>
+<strong>输出</strong>：“LVIII”</p>
+</blockquote>
+<h2 id="示例5">示例5</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 1994<br>
+<strong>输出</strong>：“MCMXCIV”</p>
 </blockquote>
 <h2 id="题解">题解</h2>
-<p>用两个指针直接指向两个边界，循环，进行两个边界的对比，取最小值然后乘以长度，得出面积，如果右边高度比左边高度要高，那么左边的下标加一，反之则是右边下标减一</p>
+<p>使用贪心算法，将每种情况存入到字典中，然后对当前数字进行遍历，如果当前字典索引中的值小于所给的整数，那么就将这个字符添加到StringBuilder中去，并将整数减去当前字典索引中的值，如此循环，直到最后所给数字为0</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    public <span class="type">static</span> <span class="type">void</span> <span class="title function_">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span>[] height = &#123; <span class="number">1</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">7</span> &#125;;</span><br><span class="line">        Console.WriteLine(MaxArea(height));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public <span class="type">static</span> <span class="type">int</span> <span class="title function_">MaxArea</span><span class="params">(<span class="type">int</span>[] height)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> max = <span class="number">0</span>, i = <span class="number">0</span>, j = height.Length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j)</span><br><span class="line">        &#123;</span><br><span class="line">            max = Math.Max((j - i) * Math.Min(height[j], height[i]), max);</span><br><span class="line">            <span class="keyword">if</span> (height[j] &gt; height[i])</span><br><span class="line">                i++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                j--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> num = <span class="number">1994</span>;</span><br><span class="line">        Console.WriteLine(IntToRoman(num));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">IntToRoman</span>(<span class="params"><span class="built_in">int</span> num</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dic = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt;();</span><br><span class="line">        dic.Add(<span class="string">&quot;M&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;CM&quot;</span>, <span class="number">900</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;D&quot;</span>, <span class="number">500</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;CD&quot;</span>, <span class="number">400</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;C&quot;</span>, <span class="number">100</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;XC&quot;</span>, <span class="number">90</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;L&quot;</span>, <span class="number">50</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;XL&quot;</span>, <span class="number">40</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;X&quot;</span>, <span class="number">10</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;IX&quot;</span>, <span class="number">9</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;V&quot;</span>, <span class="number">5</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;IV&quot;</span>, <span class="number">4</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;I&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> i <span class="keyword">in</span> dic)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (num &gt;= i.Value)</span><br><span class="line">            &#123;</span><br><span class="line">                sb.Append(i.Key);</span><br><span class="line">                num -= i.Value;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.ToString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -185,7 +205,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/19/%E5%8A%9B%E6%89%A30011%E2%80%94%E2%80%94%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/19/%E5%8A%9B%E6%89%A30012%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -198,19 +218,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30012%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0012——整数转罗马数字
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/18/%E5%8A%9B%E6%89%A30010%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="article-nav-link">
+      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30011%E2%80%94%E2%80%94%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0010——正则表达式匹配</div>
+        <div class="article-nav-title">力扣0011——盛最多水的容器</div>
       </a>
     
   </nav>

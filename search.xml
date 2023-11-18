@@ -415,4 +415,57 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0012——整数转罗马数字</title>
+    <url>/2023/11/19/%E5%8A%9B%E6%89%A30012%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/integer-to-roman/">整数转罗马数字</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>罗马数字包含以下七种字符： <code>I</code>， <code>V</code>， <code>X</code>， <code>L</code>，<code>C</code>，<code>D</code> 和 <code>M</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">字符          数值</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
+<p>例如， 罗马数字 2 写做 <code>II</code> ，即为两个并列的 1。12 写做 <code>XII</code> ，即为 <code>X</code> + <code>II</code> 。 27 写做  <code>XXVII</code>, 即为 <code>XX</code> + <code>V</code> + <code>II</code> 。<br>
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 <code>IIII</code>，而是 <code>IV</code>。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 <code>IX</code>。这个特殊的规则只适用于以下六种情况：</p>
+<ul>
+<li><code>I</code> 可以放在 <code>V</code> (5) 和 <code>X</code> (10) 的左边，来表示 4 和 9。</li>
+<li><code>X</code> 可以放在 <code>L</code> (50) 和 <code>C</code> (100) 的左边，来表示 40 和 90。</li>
+<li><code>C</code> 可以放在 <code>D</code> (500) 和 <code>M</code> (1000) 的左边，来表示 400 和 900。</li>
+</ul>
+<p>给你一个整数，将其转为罗马数字。</p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 3<br>
+<strong>输出</strong>：“III”</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 4<br>
+<strong>输出</strong>：“IV”</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 9<br>
+<strong>输出</strong>：“IX”</p>
+</blockquote>
+<h2 id="示例4">示例4</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 58<br>
+<strong>输出</strong>：“LVIII”</p>
+</blockquote>
+<h2 id="示例5">示例5</h2>
+<blockquote>
+<p><strong>输入</strong>：num = 1994<br>
+<strong>输出</strong>：“MCMXCIV”</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>使用贪心算法，将每种情况存入到字典中，然后对当前数字进行遍历，如果当前字典索引中的值小于所给的整数，那么就将这个字符添加到StringBuilder中去，并将整数减去当前字典索引中的值，如此循环，直到最后所给数字为0</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> num = <span class="number">1994</span>;</span><br><span class="line">        Console.WriteLine(IntToRoman(num));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">IntToRoman</span>(<span class="params"><span class="built_in">int</span> num</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dic = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt;();</span><br><span class="line">        dic.Add(<span class="string">&quot;M&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;CM&quot;</span>, <span class="number">900</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;D&quot;</span>, <span class="number">500</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;CD&quot;</span>, <span class="number">400</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;C&quot;</span>, <span class="number">100</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;XC&quot;</span>, <span class="number">90</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;L&quot;</span>, <span class="number">50</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;XL&quot;</span>, <span class="number">40</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;X&quot;</span>, <span class="number">10</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;IX&quot;</span>, <span class="number">9</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;V&quot;</span>, <span class="number">5</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;IV&quot;</span>, <span class="number">4</span>);</span><br><span class="line">        dic.Add(<span class="string">&quot;I&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> i <span class="keyword">in</span> dic)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (num &gt;= i.Value)</span><br><span class="line">            &#123;</span><br><span class="line">                sb.Append(i.Key);</span><br><span class="line">                num -= i.Value;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.ToString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
