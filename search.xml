@@ -618,4 +618,40 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0017——电话号码的字母组合</title>
+    <url>/2023/11/19/%E5%8A%9B%E6%89%A30017%E2%80%94%E2%80%94%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/letter-combinations-of-a-phone-number/">电话号码的字母组合</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个仅包含数字 <code>2-9</code> 的字符串，返回所有它能表示的字母组合。答案可以按 <strong>任意顺序</strong> 返回。<br>
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
+<p><img src="/images/ltc_0017_1.png" alt="示例"></p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：digits = “23”<br>
+<strong>输出</strong>：[“ad”,“ae”,“af”,“bd”,“be”,“bf”,“cd”,“ce”,“cf”]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：digits = “”<br>
+<strong>输出</strong>：[]</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：digits = “2”<br>
+<strong>输出</strong>：[“a”,“b”,“c”]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> digits = <span class="string">&quot;23&quot;</span>;</span><br><span class="line">        IList&lt;<span class="built_in">string</span>&gt; list = LetterCombinations(digits);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">string</span> s <span class="keyword">in</span> list)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IList&lt;<span class="built_in">string</span>&gt; <span class="title">LetterCombinations</span>(<span class="params"><span class="built_in">string</span> digits</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;<span class="built_in">string</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line">        <span class="keyword">if</span> (digits.Length == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">        Dictionary&lt;<span class="built_in">char</span>,<span class="built_in">string</span>&gt; dic = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">char</span>,<span class="built_in">string</span>&gt;();</span><br><span class="line">        dic.Add(<span class="string">&#x27;2&#x27;</span>, <span class="string">&quot;abc&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;3&#x27;</span>, <span class="string">&quot;def&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;4&#x27;</span>, <span class="string">&quot;ghi&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;5&#x27;</span>, <span class="string">&quot;jkl&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;6&#x27;</span>, <span class="string">&quot;mno&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;7&#x27;</span>, <span class="string">&quot;pqrs&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;8&#x27;</span>, <span class="string">&quot;tuv&quot;</span>);</span><br><span class="line">        dic.Add(<span class="string">&#x27;9&#x27;</span>, <span class="string">&quot;wxyz&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Recall(<span class="number">0</span>,<span class="string">&quot;&quot;</span>,digits,dic,list);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Recall</span>(<span class="params"><span class="built_in">int</span> index, <span class="built_in">string</span> str, <span class="built_in">string</span> digits, Dictionary&lt;<span class="built_in">char</span>, <span class="built_in">string</span>&gt; dic, List&lt;<span class="built_in">string</span>&gt; list</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (str.Length == digits.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            list.Add(str);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">string</span> temp = dic[digits[index]];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; temp.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            str += temp[i];</span><br><span class="line">            Recall(index + <span class="number">1</span>, str, digits, dic, list);</span><br><span class="line">            str = str.Remove(str.Length - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
