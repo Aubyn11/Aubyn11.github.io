@@ -905,4 +905,37 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0025——K个一组翻转链表</title>
+    <url>/2023/11/19/%E5%8A%9B%E6%89%A30025%E2%80%94%E2%80%94K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/">K个一组翻转链表</a></h1>
+<p>难度：<strong>困难</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你链表的头节点 <code>head</code> ，每 <code>k</code> 个节点一组进行翻转，请你返回修改后的链表。<br>
+<code>k</code> 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 <code>k</code> 的整数倍，那么请将最后剩余的节点保持原有顺序。<br>
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0025_1.jpg" alt="示例图片_1"></p>
+<blockquote>
+<p><strong>输入</strong>：head = [1,2,3,4,5], k = 2<br>
+<strong>输出</strong>：[2,1,4,3,5]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<p><img src="/images/ltc0025_2.jpg" alt="示例图片_2"></p>
+<blockquote>
+<p><strong>输入</strong>：head = [1,2,3,4,5], k = 3<br>
+<strong>输出</strong>：[3,2,1,4,5]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>利用回溯法解题，在方法内定义一个<code>List</code>，再定义一个链表来接收头节点，然后对传进来的链表进行<code>k</code>次循环，如果此时链表内元素已经为空，那么直接返回接受头结点的链表，如果不为空，就将链表内元素加入到<code>List</code>中，完成循环之后对<code>List</code>进行循环，让List的指向反向，然后让<code>List</code>中的第一个元素指向回溯方法，最后返回<code>List</code>中的最后一个元素</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, ListNode next = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                next = <span class="keyword">new</span> ListNode(<span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    next = <span class="keyword">new</span> ListNode(<span class="number">4</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        next = <span class="keyword">new</span> ListNode(<span class="number">5</span>) </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> k = <span class="number">2</span>;</span><br><span class="line">        ListNode reListNode = ReverseKGroup(head, k);</span><br><span class="line">        <span class="keyword">while</span> (reListNode != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(reListNode.val + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">            reListNode = reListNode.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">ReverseKGroup</span>(<span class="params">ListNode head, <span class="built_in">int</span> k</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        List&lt;ListNode&gt; list = <span class="keyword">new</span> List&lt;ListNode&gt;();</span><br><span class="line">        ListNode p = head;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (head == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> p;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            list.Add(head);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list[i].next = list[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        list[<span class="number">0</span>].next = ReverseKGroup(head, k);</span><br><span class="line">        <span class="keyword">return</span> list[k - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
