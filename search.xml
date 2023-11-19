@@ -863,4 +863,46 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0024——两两交换链表中的结点</title>
+    <url>/2023/11/19/%E5%8A%9B%E6%89%A30024%E2%80%94%E2%80%94%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BB%93%E7%82%B9/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/swap-nodes-in-pairs/">两两交换链表中的节点</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0024_1.jpg" alt="示例图片"></p>
+<blockquote>
+<p><strong>输入</strong>：head = [1,2,3,4]<br>
+<strong>输出</strong>：[2,1,4,3]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：head = []<br>
+<strong>输出</strong>：[]</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：head = [1]<br>
+<strong>输出</strong>：[1]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>以交换的两个节点来说，交换的次序为</p>
+<ul>
+<li>将第一个要交换的节点的<code>next</code>变为第二个要交换的节点的<code>next</code></li>
+<li>将第二个要交换的节点的<code>next</code>变为第一个要交换的节点</li>
+<li>将第一个要交换的节点之前的节点的<code>next</code>变为哥第二个要交换的节点</li>
+<li>如果只有一个节点或为空直接返回</li>
+<li>如果有两个节点以上就让第二个节点当作头节点返回</li>
+</ul>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, ListNode next = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                next = <span class="keyword">new</span> ListNode(<span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    next = <span class="keyword">new</span> ListNode(<span class="number">4</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        ListNode list1 = SwapPairs(head);</span><br><span class="line">        <span class="keyword">while</span> (list1 != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(list1.val + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">            list1 = list1.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">SwapPairs</span>(<span class="params">ListNode head</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode pre = <span class="literal">null</span>;</span><br><span class="line">        head = cur.next;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode node = cur.next;</span><br><span class="line">            <span class="keyword">if</span> (node != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                cur.next = cur.next.next;</span><br><span class="line">                node.next = cur;</span><br><span class="line">                <span class="keyword">if</span> (pre != <span class="literal">null</span>)</span><br><span class="line">                    pre.next = node;</span><br><span class="line">            &#125;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
