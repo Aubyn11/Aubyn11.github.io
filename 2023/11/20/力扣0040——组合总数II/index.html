@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0039——组合总数 |  Aubyn</title>
+      <title>力扣0040——组合总数II |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0039——组合总数"
+  id="post-力扣0040——组合总数II"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0039——组合总数
+  力扣0040——组合总数II
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30039%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/" class="article-date">
-  <time datetime="2023-11-19T19:41:38.000Z" itemprop="datePublished">2023-11-20</time>
+      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30040%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0II/" class="article-date">
+  <time datetime="2023-11-19T19:44:25.000Z" itemprop="datePublished">2023-11-20</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">417</span>
+            <span class="post-count">499</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -111,31 +111,36 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum/">组合总数</a></h1>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum-ii/">组合总和 II</a></h1>
 <p>难度：<strong>中等</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>给你一个 <strong>无重复元素</strong> 的整数数组 <code>candidates</code> 和一个目标整数 <code>target</code> ，找出 <code>candidates</code> 中可以使数字和为目标数 <code>target</code> 的 所有 <strong>不同组合</strong> ，并以列表形式返回。你可以按 <strong>任意顺序</strong> 返回这些组合。<br>
-<code>candidates</code> 中的 <strong>同一个</strong> 数字可以 <strong>无限制重复被选取</strong> 。如果至少一个数字的被选数量不同，则两种组合是不同的。<br>
-对于给定的输入，保证和为 <code>target</code> 的不同组合数少于 <code>150</code> 个。</p>
+<p>给定一个候选人编号的集合 <code>candidates</code> 和一个目标数 <code>target</code> ，找出 <code>candidates</code> 中所有可以使数字和为 <code>target</code> 的组合。<br>
+<code>candidates</code> 中的每个数字在每个组合中只能使用 <strong>一次</strong> 。<br>
+<strong>注意</strong>：解集不能包含重复的组合。</p>
 <h2 id="示例1">示例1</h2>
 <blockquote>
-<p><strong>输入</strong>：candidates = [2,3,6,7], target = 7<br>
-<strong>输出</strong>：[[2,2,3],[7]]</p>
+<p><strong>输入</strong>：candidates = [10,1,2,7,6,1,5], target = 8,<br>
+<strong>输出</strong>：<br>
+[<br>
+[1,1,6],<br>
+[1,2,5],<br>
+[1,7],<br>
+[2,6]<br>
+]</p>
 </blockquote>
 <h2 id="示例2">示例2</h2>
 <blockquote>
-<p><strong>输入</strong>：candidates = [2,3,5], target = 8<br>
-<strong>输出</strong>：[[2,2,2,2],[2,3,3],[3,5]]</p>
-</blockquote>
-<h2 id="示例3">示例3</h2>
-<blockquote>
-<p><strong>输入</strong>：candidates = [2], target = 1<br>
-<strong>输出</strong>：[]</p>
+<p><strong>输入</strong>：candidates = [2,5,2,1,2], target = 5,<br>
+<strong>输出</strong>：<br>
+[<br>
+[1,2,2],<br>
+[5]<br>
+]</p>
 </blockquote>
 <h2 id="题解">题解</h2>
-<p>直接利用回溯法，先用一个数取尽，再取下一个数，如果下一个数无法取得，就取出一个数继续尝试，直到最后的值减到0</p>
+<p>使用回溯法，先声名一个<code>List</code>数组存放<code>dandidates</code>中的不同数字的val和出现的次数，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">target&gt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>时，用<code>target</code>除以当前<code>pos</code>位置的<code>curList[pos][0]</code>的<code>val</code>，比较获取应该减去的次数，开始循环，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>o</mi><mi>s</mi><mo>+</mo><mn>1</mn><mtext>，</mtext><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi><mo>−</mo><mi>c</mi><mi>u</mi><mi>r</mi><mi>L</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo stretchy="false">[</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo><mtext>，</mtext><mi>r</mi><mi>e</mi><mi>L</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>A</mi><mi>d</mi><mi>d</mi><mo stretchy="false">(</mo><mi>c</mi><mi>u</mi><mi>r</mi><mi>L</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo stretchy="false">[</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">pos+1，target-curList[pos][0]，reList.Add(curList[pos][0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">L</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mord cjk_fallback">，</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">L</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">A</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">L</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>，通过这个<code>list</code>数组记录<code>val</code>和出现次数</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; res = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="built_in">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] candidates = &#123; <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> target = <span class="number">7</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; result = solution.CombinationSum(candidates, target);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> a <span class="keyword">in</span> result)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> b <span class="keyword">in</span> a)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(b + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; CombinationSum(<span class="built_in">int</span>[] candidates, <span class="built_in">int</span> target)</span><br><span class="line">    &#123;</span><br><span class="line">        Recall(candidates, target, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Recall</span>(<span class="params"><span class="built_in">int</span>[] cadidates, <span class="built_in">int</span> target, <span class="built_in">int</span> start</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            res.Add(<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(list));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = start; i &lt; cadidates.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list.Add(cadidates[i]);</span><br><span class="line">            Recall(cadidates,target - cadidates[i], start);</span><br><span class="line">            list.RemoveAt(list.Count - <span class="number">1</span>);</span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">class Solution</span><br><span class="line">&#123;</span><br><span class="line">    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();</span><br><span class="line">    IList&lt;int&gt; list = new List&lt;int&gt;();</span><br><span class="line">    IList&lt;int[]&gt; curList = new List&lt;int[]&gt;();</span><br><span class="line"></span><br><span class="line">    public static void Main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        int[] candidates = &#123; 2, 5, 2, 1, 2 &#125;;</span><br><span class="line">        int target = 5;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        IList&lt;IList&lt;int&gt;&gt; result = solution.CombinationSum2(candidates, target);</span><br><span class="line">        foreach (var a in result)</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (var b in a)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(b + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public IList&lt;IList&lt;int&gt;&gt; CombinationSum2(int[] candidates, int target)</span><br><span class="line">    &#123;</span><br><span class="line">        Array.Sort(candidates);</span><br><span class="line">        int len = candidates.Length;</span><br><span class="line">        for (int i = 0; i &lt; len; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (curList.Count == 0 || curList[curList.Count - 1][0] != candidates[i])</span><br><span class="line">            &#123;</span><br><span class="line">                curList.Add(new int[] &#123; candidates[i], 1 &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                ++curList[curList.Count - 1][1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Recall(target, 0);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void Recall(int target, int pos)</span><br><span class="line">    &#123;</span><br><span class="line">        if (target == 0)</span><br><span class="line">        &#123;</span><br><span class="line">            res.Add(new List&lt;int&gt;(list));</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (pos &gt;= curList.Count || target &lt; curList[pos][0])</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Recall(target, pos + 1);</span><br><span class="line">        int min = Math.Min(target / curList[pos][0], curList[pos][1]);</span><br><span class="line">        for (int i = 1; i &lt;= min; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list.Add(curList[pos][0]);</span><br><span class="line">            Recall(target - i * curList[pos][0], pos + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for (int i = 1; i &lt;= min; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list.RemoveAt(list.Count - 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -188,7 +193,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/20/%E5%8A%9B%E6%89%A30039%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/20/%E5%8A%9B%E6%89%A30040%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0II/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -201,19 +206,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30040%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0II/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0040——组合总数II
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30038%E2%80%94%E2%80%94%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97/" class="article-nav-link">
+      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30039%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0038——外观数列</div>
+        <div class="article-nav-title">力扣0039——组合总数</div>
       </a>
     
   </nav>
