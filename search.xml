@@ -1523,4 +1523,40 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0039——组合总数</title>
+    <url>/2023/11/20/%E5%8A%9B%E6%89%A30039%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/combination-sum/">组合总数</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个 <strong>无重复元素</strong> 的整数数组 <code>candidates</code> 和一个目标整数 <code>target</code> ，找出 <code>candidates</code> 中可以使数字和为目标数 <code>target</code> 的 所有 <strong>不同组合</strong> ，并以列表形式返回。你可以按 <strong>任意顺序</strong> 返回这些组合。<br>
+<code>candidates</code> 中的 <strong>同一个</strong> 数字可以 <strong>无限制重复被选取</strong> 。如果至少一个数字的被选数量不同，则两种组合是不同的。<br>
+对于给定的输入，保证和为 <code>target</code> 的不同组合数少于 <code>150</code> 个。</p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：candidates = [2,3,6,7], target = 7<br>
+<strong>输出</strong>：[[2,2,3],[7]]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：candidates = [2,3,5], target = 8<br>
+<strong>输出</strong>：[[2,2,2,2],[2,3,3],[3,5]]</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：candidates = [2], target = 1<br>
+<strong>输出</strong>：[]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>直接利用回溯法，先用一个数取尽，再取下一个数，如果下一个数无法取得，就取出一个数继续尝试，直到最后的值减到0</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; res = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="built_in">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] candidates = &#123; <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> target = <span class="number">7</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; result = solution.CombinationSum(candidates, target);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> a <span class="keyword">in</span> result)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> b <span class="keyword">in</span> a)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(b + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; CombinationSum(<span class="built_in">int</span>[] candidates, <span class="built_in">int</span> target)</span><br><span class="line">    &#123;</span><br><span class="line">        Recall(candidates, target, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Recall</span>(<span class="params"><span class="built_in">int</span>[] cadidates, <span class="built_in">int</span> target, <span class="built_in">int</span> start</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            res.Add(<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(list));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = start; i &lt; cadidates.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            list.Add(cadidates[i]);</span><br><span class="line">            Recall(cadidates,target - cadidates[i], start);</span><br><span class="line">            list.RemoveAt(list.Count - <span class="number">1</span>);</span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
