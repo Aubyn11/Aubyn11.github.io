@@ -972,4 +972,35 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0027——移除元素</title>
+    <url>/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/remove-element/">移除元素</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"><strong>原地</strong></a> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。<br>
+不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"><strong>原地</strong></a> 修改输入数组。<br>
+元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [3,2,2,3], val = 3<br>
+<strong>输出</strong>：2, nums = [2,2]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [0,1,2,2,3,0,4,2], val = 2<br>
+<strong>输出</strong>：5, nums = [0,1,4,0,3]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>利用快慢指针，当快指针指向的元素下标小于数组长度进行循环，如果快指针指向的元素不等于<code>val</code>的数值，就让慢指针指向的元素等于快指针指向的元素，慢指针自增，判断结束之后快指针自增，最后返回慢指针的值</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> val = <span class="number">2</span>;</span><br><span class="line">        Console.WriteLine(RemoveElement(nums,val));</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(nums[i] + <span class="string">&quot; , &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">RemoveElement</span>(<span class="params"><span class="built_in">int</span>[] nums, <span class="built_in">int</span> val</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> slow = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> fast = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (fast &lt; nums.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">            &#123;</span><br><span class="line">                nums[slow] = nums[fast];</span><br><span class="line">                slow++;</span><br><span class="line">            &#125;</span><br><span class="line">            fast++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
