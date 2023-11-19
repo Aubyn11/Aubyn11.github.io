@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0027——移除元素 |  Aubyn</title>
+      <title>力扣0028——找出字符串中第一个匹配项的下标 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0027——移除元素"
+  id="post-力扣0028——找出字符串中第一个匹配项的下标"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0027——移除元素
+  力扣0028——找出字符串中第一个匹配项的下标
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="article-date">
-  <time datetime="2023-11-19T16:02:16.000Z" itemprop="datePublished">2023-11-20</time>
+      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30028%E2%80%94%E2%80%94%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/" class="article-date">
+  <time datetime="2023-11-19T16:33:09.000Z" itemprop="datePublished">2023-11-20</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">337</span>
+            <span class="post-count">329</span>
         </span>
     </span>
 
@@ -111,26 +111,24 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/">移除元素</a></h1>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/">找出字符串中第一个匹配项的下标</a></h1>
 <p>难度：<strong>简单</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"><strong>原地</strong></a> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。<br>
-不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"><strong>原地</strong></a> 修改输入数组。<br>
-元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p>给你两个字符串 <code>haystack</code> 和 <code>needle</code> ，请你在 <code>haystack</code> 字符串中找出 <code>needle</code> 字符串的第一个匹配项的下标（下标从 0 开始）。如果 <code>needle</code> 不是 <code>haystack</code> 的一部分，则返回  <code>-1</code>。</p>
 <h2 id="示例1">示例1</h2>
 <blockquote>
-<p><strong>输入</strong>：nums = [3,2,2,3], val = 3<br>
-<strong>输出</strong>：2, nums = [2,2]</p>
+<p><strong>输入</strong>：haystack = “sadbutsad”, needle = “sad”<br>
+<strong>输出</strong>：0</p>
 </blockquote>
 <h2 id="示例2">示例2</h2>
 <blockquote>
-<p><strong>输入</strong>：nums = [0,1,2,2,3,0,4,2], val = 2<br>
-<strong>输出</strong>：5, nums = [0,1,4,0,3]</p>
+<p><strong>输入</strong>：haystack = “leetcode”, needle = “leeto”<br>
+<strong>输出</strong>：-1</p>
 </blockquote>
 <h2 id="题解">题解</h2>
-<p>利用快慢指针，当快指针指向的元素下标小于数组长度进行循环，如果快指针指向的元素不等于<code>val</code>的数值，就让慢指针指向的元素等于快指针指向的元素，慢指针自增，判断结束之后快指针自增，最后返回慢指针的值</p>
+<p>直接使用KMP算法即可，但是需要加上两个判定条件，如果<code>needle</code>为空就返回0，如果<code>needle</code>的长度大于<code>haystack</code>的长度或者<code>haystack</code>为空，就返回-1</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> val = <span class="number">2</span>;</span><br><span class="line">        Console.WriteLine(RemoveElement(nums,val));</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(nums[i] + <span class="string">&quot; , &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">RemoveElement</span>(<span class="params"><span class="built_in">int</span>[] nums, <span class="built_in">int</span> val</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> slow = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> fast = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (fast &lt; nums.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">            &#123;</span><br><span class="line">                nums[slow] = nums[fast];</span><br><span class="line">                slow++;</span><br><span class="line">            &#125;</span><br><span class="line">            fast++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">StrStr</span>(<span class="params"><span class="built_in">string</span> haystack, <span class="built_in">string</span> needle</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">string</span>.IsNullOrEmpty(needle))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (needle.Length &gt; haystack.Length || <span class="built_in">string</span>.IsNullOrEmpty(haystack))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> KMP(haystack, needle);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="built_in">int</span> <span class="title">KMP</span>(<span class="params"><span class="built_in">string</span> haystack, <span class="built_in">string</span> needle</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] next = GetNext(needle);</span><br><span class="line">        <span class="built_in">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; haystack.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (haystack[i] == needle[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j == needle.Length)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> i - j;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i &lt; haystack.Length &amp;&amp; haystack[i] != needle[j])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (j != <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    j = next[j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="built_in">int</span>[] <span class="title">GetNext</span>(<span class="params"><span class="built_in">string</span> str</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] next = <span class="keyword">new</span> <span class="built_in">int</span>[str.Length];</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> i = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; str.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (str[i] == str[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++;</span><br><span class="line">                next[i] = j;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (j == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    next[i] = <span class="number">0</span>;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    j = next[j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -183,7 +181,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/20/%E5%8A%9B%E6%89%A30028%E2%80%94%E2%80%94%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -196,19 +194,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30028%E2%80%94%E2%80%94%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0028——找出字符串中第一个匹配项的下标
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30026%E2%80%94%E2%80%94%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" class="article-nav-link">
+      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0026——删除有序数组中的重复项</div>
+        <div class="article-nav-title">力扣0027——移除元素</div>
       </a>
     
   </nav>
