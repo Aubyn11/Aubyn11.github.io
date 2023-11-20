@@ -137,7 +137,7 @@
 <p>由于字符串中至少存在一个单词，因此字符串中一定有字母。首先找到字符串中的最后一个字母，该字母即为最后一个单词的最后一个字母。</p>
 <p>从最后一个字母开始继续反向遍历字符串，直到遇到空格或者到达字符串的起始位置。遍历到的每个字母都是最后一个单词中的字母，因此遍历到的字母数量即为最后一个单词的长度。</p>
 </blockquote>
-<p><strong>想法代码</strong></p>
+<h2 id="想法代码">想法代码</h2>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> s = <span class="string">&quot;   fly me   to   the moon  &quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span> res = solution.LengthOfLastWord(s);</span><br><span class="line">        Console.WriteLine(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">LengthOfLastWord</span>(<span class="params"><span class="built_in">string</span> s</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> index = s.Length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (s[index] == <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            index--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> wordLength = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &gt;= <span class="number">0</span> &amp;&amp; s[index] != <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            wordLength++;</span><br><span class="line">            index--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> wordLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
@@ -202,6 +202,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30059%E2%80%94%E2%80%94%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            力扣0059——螺旋矩阵II
+          
+        </div>
+      </a>
     
     
       <a href="/2023/11/20/%E5%8A%9B%E6%89%A30057%E2%80%94%E2%80%94%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/" class="article-nav-link">
