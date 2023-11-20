@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0078——子集 |  Aubyn</title>
+      <title>力扣0079——单词搜索 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0078——子集"
+  id="post-力扣0079——单词搜索"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0078——子集
+  力扣0079——单词搜索
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30078%E2%80%94%E2%80%94%E5%AD%90%E9%9B%86/" class="article-date">
-  <time datetime="2023-11-20T21:23:26.000Z" itemprop="datePublished">2023-11-21</time>
+      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30079%E2%80%94%E2%80%94%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" class="article-date">
+  <time datetime="2023-11-20T21:26:59.000Z" itemprop="datePublished">2023-11-21</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">320</span>
+            <span class="post-count">781</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -111,24 +111,51 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subsets/">子集</a></h1>
+  <h1>单词搜索</h1>
 <p>难度：<strong>中等</strong></p>
-<h2 id="题目描述">题目描述</h2>
-<p>给你一个整数数组 <code>nums</code> ，数组中的元素 <strong>互不相同</strong> 。返回该数组所有可能的子集（幂集）。<br>
-解集 <strong>不能</strong> 包含重复的子集。你可以按 <strong>任意顺序</strong> 返回解集。</p>
-<h2 id="示例1">示例1</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,2,3]</span><br><span class="line">输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]</span><br></pre></td></tr></table></figure>
-<h2 id="示例2">示例2</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：[[],[0]]</span><br></pre></td></tr></table></figure>
-<h2 id="题解">题解</h2>
+<h2 id="题目描述：">题目描述：</h2>
+<p>给定一个 <code>m x n</code> 二维字符网格 <code>board</code> 和一个字符串单词 <code>word</code> 。如果 <code>word</code> 存在于网格中，返回 <code>true</code> ；否则，返回 <code>false</code> 。<br>
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。</p>
+<h2 id="示例1：">示例1：</h2>
+<p><img src="/images/ltc0079_1.jpg" alt="image"></p>
 <blockquote>
-<p>利用回溯算法可解<br>
-每个结果都需要存储，不需要约束条件<br>
-由于每个都需要存储，所以不需要剪枝<br>
-注意，这个算法依旧需要回头</p>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “ABCCED”<br>
+<strong>输出</strong>：true</p>
 </blockquote>
+<h2 id="示例2：">示例2：</h2>
+<p><img src="/images/ltc0079_2.jpg" alt="image"></p>
+<blockquote>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “SEE”<br>
+<strong>输出</strong>：true</p>
+</blockquote>
+<h2 id="示例3：">示例3：</h2>
+<p><img src="/images/ltc0079_3.jpg" alt="image"></p>
+<blockquote>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “ABCB”<br>
+<strong>输出</strong>：false</p>
+</blockquote>
+<h2 id="题解：">题解：</h2>
+<p>根据题目可得需要用到回溯算法<br>
+遍历表格内的每一个元素，如果满足要求即可回溯，最终得到结果，以下为具体步骤:</p>
+<ul>
+<li>定义两个方向数组<code>moveX</code>和<code>moveY</code></li>
+<li>如果当前位置的元素和单词中的元素内容不相同，返回<code>false</code></li>
+<li>如果遍历到单词的最后一个元素，返回<code>true</code></li>
+<li>将当前位置设置为<code>true</code>，并进行循环：
+<ul>
+<li>新的方向为当前方向加上第<code>i</code>次循环中<code>moveX[i]</code>和<code>move[Y]</code>的值</li>
+<li>如果新的方向均大于零并且移动的下一次元素位置不超过二维数组边界并且将要遍历的元素没有使用过，那么就进行回溯，将新的移动位置传入到回溯，并将判断的单词元素下标加一</li>
+<li>如果回溯结束之后满足条件，返回<code>ture</code></li>
+<li>如果循环结束之后没有最终满足，对操作进行回头，即将当前位置设为未使用并返回<code>false</code></li>
+</ul>
+</li>
+<li>遍历每一个元素，对其都进行回溯，如果其中的元素在回溯中最后返回<code>true</code>，则返回<code>true</code></li>
+<li>如果所有元素都不满足条件，则返回<code>false</code></li>
+</ul>
+<p>最后的结果即为题目答案</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; res = solution.Subsets(nums);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> i <span class="keyword">in</span> res)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> i)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(j + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; Subsets(<span class="built_in">int</span>[] nums)</span><br><span class="line">    &#123;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ans = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="literal">null</span> || nums.Length == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        DFS(nums, <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(), <span class="number">0</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DFS</span>(<span class="params"><span class="built_in">int</span>[] nums, List&lt;<span class="built_in">int</span>&gt; path, <span class="built_in">int</span> start,IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ans</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans.Add(<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(path));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = start; i &lt; nums.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            path.Add(nums[i]);</span><br><span class="line"></span><br><span class="line">            DFS(nums, path, i + <span class="number">1</span>,ans);</span><br><span class="line"></span><br><span class="line">            path.Remove(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">readonly</span> <span class="built_in">int</span>[] desX = <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">readonly</span> <span class="built_in">int</span>[] desY = <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span>[][] board =</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;E&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;S&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;E&#x27;</span> &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">string</span> word = <span class="string">&quot;ABCB&quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">bool</span> res = solution.Exist(board, word);</span><br><span class="line">        Console.WriteLine(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">bool</span> <span class="title">DFS</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y, <span class="built_in">string</span> word, <span class="built_in">int</span> index, <span class="built_in">char</span>[][] board, <span class="built_in">bool</span>[,] used</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (word[index] != board[x][y]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (index == word.Length - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        used[x, y] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> newX = x + desX[i];</span><br><span class="line">            <span class="built_in">int</span> newY = y + desY[i];</span><br><span class="line">            <span class="keyword">if</span> (newX &gt;= <span class="number">0</span> &amp;&amp; newY &gt;= <span class="number">0</span> &amp;&amp; newX &lt; board.Length &amp;&amp; newY &lt; board[<span class="number">0</span>].Length &amp;&amp; used[newX, newY] != <span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (DFS(newX, newY, word, index + <span class="number">1</span>, board, used)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        used[x, y] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Exist</span>(<span class="params"><span class="built_in">char</span>[][] board, <span class="built_in">string</span> word</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">bool</span>[,] used = <span class="keyword">new</span> <span class="built_in">bool</span>[board.Length, board[<span class="number">0</span>].Length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; board.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; board[i].Length; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == word[<span class="number">0</span>])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (DFS(i, j, word, <span class="number">0</span>, board, used)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 
       <!-- reward -->
       
     </div>
@@ -180,7 +207,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/21/%E5%8A%9B%E6%89%A30078%E2%80%94%E2%80%94%E5%AD%90%E9%9B%86/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/21/%E5%8A%9B%E6%89%A30079%E2%80%94%E2%80%94%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -193,19 +220,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30079%E2%80%94%E2%80%94%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0079——单词搜索
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30077%E2%80%94%E2%80%94%E7%BB%84%E5%90%88/" class="article-nav-link">
+      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30078%E2%80%94%E2%80%94%E5%AD%90%E9%9B%86/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0077——组合</div>
+        <div class="article-nav-title">力扣0078——子集</div>
       </a>
     
   </nav>

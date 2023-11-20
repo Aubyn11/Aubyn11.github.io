@@ -3091,4 +3091,59 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0079——单词搜索</title>
+    <url>/2023/11/21/%E5%8A%9B%E6%89%A30079%E2%80%94%E2%80%94%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/</url>
+    <content><![CDATA[<h1>单词搜索</h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述：">题目描述：</h2>
+<p>给定一个 <code>m x n</code> 二维字符网格 <code>board</code> 和一个字符串单词 <code>word</code> 。如果 <code>word</code> 存在于网格中，返回 <code>true</code> ；否则，返回 <code>false</code> 。<br>
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。</p>
+<h2 id="示例1：">示例1：</h2>
+<p><img src="/images/ltc0079_1.jpg" alt="image"></p>
+<blockquote>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “ABCCED”<br>
+<strong>输出</strong>：true</p>
+</blockquote>
+<h2 id="示例2：">示例2：</h2>
+<p><img src="/images/ltc0079_2.jpg" alt="image"></p>
+<blockquote>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “SEE”<br>
+<strong>输出</strong>：true</p>
+</blockquote>
+<h2 id="示例3：">示例3：</h2>
+<p><img src="/images/ltc0079_3.jpg" alt="image"></p>
+<blockquote>
+<p><strong>输入</strong>：board = [[“A”,“B”,“C”,“E”],[“S”,“F”,“C”,“S”],[“A”,“D”,“E”,“E”]], word = “ABCB”<br>
+<strong>输出</strong>：false</p>
+</blockquote>
+<h2 id="题解：">题解：</h2>
+<p>根据题目可得需要用到回溯算法<br>
+遍历表格内的每一个元素，如果满足要求即可回溯，最终得到结果，以下为具体步骤:</p>
+<ul>
+<li>定义两个方向数组<code>moveX</code>和<code>moveY</code></li>
+<li>如果当前位置的元素和单词中的元素内容不相同，返回<code>false</code></li>
+<li>如果遍历到单词的最后一个元素，返回<code>true</code></li>
+<li>将当前位置设置为<code>true</code>，并进行循环：
+<ul>
+<li>新的方向为当前方向加上第<code>i</code>次循环中<code>moveX[i]</code>和<code>move[Y]</code>的值</li>
+<li>如果新的方向均大于零并且移动的下一次元素位置不超过二维数组边界并且将要遍历的元素没有使用过，那么就进行回溯，将新的移动位置传入到回溯，并将判断的单词元素下标加一</li>
+<li>如果回溯结束之后满足条件，返回<code>ture</code></li>
+<li>如果循环结束之后没有最终满足，对操作进行回头，即将当前位置设为未使用并返回<code>false</code></li>
+</ul>
+</li>
+<li>遍历每一个元素，对其都进行回溯，如果其中的元素在回溯中最后返回<code>true</code>，则返回<code>true</code></li>
+<li>如果所有元素都不满足条件，则返回<code>false</code></li>
+</ul>
+<p>最后的结果即为题目答案</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">readonly</span> <span class="built_in">int</span>[] desX = <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">readonly</span> <span class="built_in">int</span>[] desY = <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span>[][] board =</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;E&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;S&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;E&#x27;</span> &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">string</span> word = <span class="string">&quot;ABCB&quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">bool</span> res = solution.Exist(board, word);</span><br><span class="line">        Console.WriteLine(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">bool</span> <span class="title">DFS</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y, <span class="built_in">string</span> word, <span class="built_in">int</span> index, <span class="built_in">char</span>[][] board, <span class="built_in">bool</span>[,] used</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (word[index] != board[x][y]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (index == word.Length - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        used[x, y] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> newX = x + desX[i];</span><br><span class="line">            <span class="built_in">int</span> newY = y + desY[i];</span><br><span class="line">            <span class="keyword">if</span> (newX &gt;= <span class="number">0</span> &amp;&amp; newY &gt;= <span class="number">0</span> &amp;&amp; newX &lt; board.Length &amp;&amp; newY &lt; board[<span class="number">0</span>].Length &amp;&amp; used[newX, newY] != <span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (DFS(newX, newY, word, index + <span class="number">1</span>, board, used)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        used[x, y] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Exist</span>(<span class="params"><span class="built_in">char</span>[][] board, <span class="built_in">string</span> word</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">bool</span>[,] used = <span class="keyword">new</span> <span class="built_in">bool</span>[board.Length, board[<span class="number">0</span>].Length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; board.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; board[i].Length; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == word[<span class="number">0</span>])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (DFS(i, j, word, <span class="number">0</span>, board, used)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
