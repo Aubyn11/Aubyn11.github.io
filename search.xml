@@ -1600,4 +1600,39 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0041——缺失的第一个正数</title>
+    <url>/2023/11/20/%E5%8A%9B%E6%89%A30041%E2%80%94%E2%80%94%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/first-missing-positive/">缺失的第一个正数</a></h1>
+<p>难度：<strong>困难</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个未排序的整数数组 <code>nums</code> ，请你找出其中没有出现的最小的正整数。<br>
+请你实现时间复杂度为 <code>O(n)</code> 并且只使用常数级别额外空间的解决方案。</p>
+<h2 id="示例1">示例1</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [1,2,0]<br>
+<strong>输出</strong>：3</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [3,4,-1,1]<br>
+<strong>输出</strong>：2</p>
+</blockquote>
+<h2 id="示例3">示例3</h2>
+<blockquote>
+<p><strong>输入</strong>：nums = [7,8,9,11,12]<br>
+<strong>输出</strong>：1</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>先过滤负数和零，然后进行升序排列，得到的数列如果都大于<code>1</code>，那么直接返回<code>1</code>，其他的情况就是集合内相邻的两个数相减，如果结果大于<code>1</code>，就说明缺失的正数在这两个数之间，返回小值加一即可，如果上述条件都不符合，就返回最大值加一</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> res = solution.FirstMissingPositive(nums);</span><br><span class="line">        Console.WriteLine(res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">FirstMissingPositive</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> li = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(nums).Where(c =&gt; c &gt; <span class="number">0</span>).ToList();</span><br><span class="line">        <span class="keyword">if</span> (li.Count &lt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        li.Sort();</span><br><span class="line">        <span class="keyword">if</span> (li.First() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; li.Count - <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> c = li[i + <span class="number">1</span>] - li[i];</span><br><span class="line">            <span class="keyword">if</span> (c &gt; <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> li[i] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> li[li.Count - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
