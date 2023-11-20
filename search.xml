@@ -1900,4 +1900,36 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0048——旋转图像</title>
+    <url>/2023/11/20/%E5%8A%9B%E6%89%A30048%E2%80%94%E2%80%94%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/rotate-image/">旋转图像</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个 n × n 的二维矩阵 <code>matrix</code> 表示一个图像。请你将图像顺时针旋转 90 度。<br>
+你必须在<a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"><strong>原地</strong></a>旋转图像，这意味着你需要直接修改输入的二维矩阵。<strong>请不要</strong>使用另一个矩阵来旋转图像。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0048_1.jpg" alt="示例图片_1"></p>
+<blockquote>
+<p><strong>输入</strong>：matrix = [[1,2,3],[4,5,6],[7,8,9]]<br>
+<strong>输出</strong>：[[7,4,1],[8,5,2],[9,6,3]]</p>
+</blockquote>
+<h2 id="示例2">示例2</h2>
+<p><img src="/images/ltc0048_2.jpg" alt="示例图片_2"></p>
+<blockquote>
+<p><strong>输入</strong>：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]<br>
+<strong>输出</strong>：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>将最外圈进行旋转，左上转右上，以此类推，之后再旋转内圈即可</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span>[][] matrix = <span class="keyword">new</span> <span class="built_in">int</span>[<span class="number">3</span>][]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span> <span class="built_in">int</span>[] &#123; <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span> &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line">        solution.Rotate(matrix);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> i <span class="keyword">in</span> matrix)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> j <span class="keyword">in</span> i)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(j + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Rotate</span>(<span class="params"><span class="built_in">int</span>[][] matrix</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[<span class="number">0</span>].Length == <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">int</span> r = <span class="number">0</span>, c = matrix.Length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; matrix.Length / <span class="number">2</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; (c - r); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">int</span> temp = matrix[r][r + j];</span><br><span class="line">                matrix[r][r + j] = matrix[c - j][r];</span><br><span class="line">                matrix[c - j][r] = matrix[c][c - j];</span><br><span class="line">                matrix[c][c - j] = matrix[r + j][c];</span><br><span class="line">                matrix[r + j][c] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            r++;</span><br><span class="line">            c--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
