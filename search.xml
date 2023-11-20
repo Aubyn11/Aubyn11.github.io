@@ -2567,4 +2567,61 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0065——有效数字</title>
+    <url>/2023/11/21/%E5%8A%9B%E6%89%A30065%E2%80%94%E2%80%94%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/valid-number/">有效数字</a></h1>
+<p>难度：<strong>困难</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p><strong>有效数字</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>一个 <strong>小数</strong> 或者 <strong>整数</strong></li>
+<li>（可选）一个 <code>'e'</code> 或 <code>'E'</code> ，后面跟着一个 <strong>整数</strong></li>
+</ol>
+<p><strong>小数</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>（可选）一个符号字符（<code>'+'</code> 或 <code>'-'</code>）</li>
+<li>下述格式之一：1. 至少一位数字，后面跟着一个点 <code>'.'</code>
+<ol start="2">
+<li>至少一位数字，后面跟着一个点 <code>'.'</code> ，后面再跟着至少一位数字</li>
+<li>一个点 <code>'.'</code> ，后面跟着至少一位数字</li>
+</ol>
+</li>
+</ol>
+<p><strong>整数</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>（可选）一个符号字符（<code>'+'</code> 或 <code>'-'</code>）</li>
+<li>至少一位数字</li>
+</ol>
+<p>部分有效数字列举如下：<code>[&quot;2&quot;, &quot;0089&quot;, &quot;-0.1&quot;, &quot;+3.14&quot;, &quot;4.&quot;, &quot;-.9&quot;, &quot;2e10&quot;, &quot;-90E3&quot;, &quot;3e+7&quot;, &quot;+6e-1&quot;, &quot;53.5e93&quot;, &quot;-123.456e789&quot;]</code><br>
+部分无效数字列举如下：<code>[&quot;abc&quot;, &quot;1a&quot;, &quot;1e&quot;, &quot;e3&quot;, &quot;99e2.5&quot;, &quot;--6&quot;, &quot;-+3&quot;, &quot;95a54e53&quot;]</code><br>
+给你一个字符串 <code>s</code> ，如果 <code>s</code> 是一个 <strong>有效数字</strong> ，请返回 <code>true</code> 。</p>
+<h2 id="示例1">示例1</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;0&quot;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
+<h2 id="示例2">示例2</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;e&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+<h2 id="示例3">示例3</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;.&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+<h2 id="题解">题解</h2>
+<blockquote>
+<p>可以直接使用正则表达式进行匹配，<code>^\s*-?\d+(\.\d+)?([eE][-+]?\d+)?\s*$</code>为当前正确得正则表达式，解读如下：</p>
+<ul>
+<li><code>^\s*</code>表示以零个、一个或多个空格开头</li>
+<li><code>-?</code>表示一个可选的负号</li>
+<li><code>\d+</code>表示一个或多个的数字</li>
+<li><code>(\.\d+)?</code>表示一个可选的小数部分，包括一个小数点和至少一个数字</li>
+<li><code>([eE][-+]?\d+)?</code>表示科学计数法，包括<code>&quot;e&quot;</code>或<code>&quot;E&quot;</code>，可选的正负号和至少一个数字</li>
+<li><code>\s*</code>表示以零个、一个或多个空字符</li>
+<li><code>$</code>表示结尾</li>
+</ul>
+</blockquote>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Regex compare = <span class="keyword">new</span> Regex(<span class="string">@&quot;^\s*-?\d+(\.\d+)?([eE][-+]?\d+)?\s*$&quot;</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> s = <span class="string">&quot;e&quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        Console.WriteLine(solution.IsNumber(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">IsNumber</span>(<span class="params"><span class="built_in">string</span> s</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> compare.IsMatch(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
