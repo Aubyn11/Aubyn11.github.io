@@ -3269,4 +3269,28 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0083——删除排序链表中的重复元素</title>
+    <url>/2023/11/21/%E5%8A%9B%E6%89%A30083%E2%80%94%E2%80%94%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list/">删除排序链表中的重复元素</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个已排序的链表的头 <code>head</code> ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0083_1.jpg" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：head = [1,1,2]</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
+<h2 id="示例2">示例2</h2>
+<p><img src="/images/ltc0083_2.jpg" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：head = [1,1,2,3,3]</span><br><span class="line">输出：[1,2,3]</span><br></pre></td></tr></table></figure>
+<h2 id="题解">题解</h2>
+<p>和0082一样的解题方法，将条件稍微改一下即可解题</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, ListNode next = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            next = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        ListNode ans = solution.DeleteDuplicates(head);</span><br><span class="line">        <span class="keyword">while</span> (ans != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(ans.val + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            ans = ans.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">DeleteDuplicates</span>(<span class="params">ListNode head</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ListNode ans = <span class="keyword">new</span> ListNode();</span><br><span class="line">        ListNode p = head;</span><br><span class="line">        ListNode t = ans;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (p.val != p.next?.val)</span><br><span class="line">            &#123;</span><br><span class="line">                t.next = p;</span><br><span class="line">                t = t.next;</span><br><span class="line">            &#125;</span><br><span class="line">            p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
