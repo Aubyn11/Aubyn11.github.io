@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0085——最大矩形 |  Aubyn</title>
+      <title>力扣0086——分隔链表 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0085——最大矩形"
+  id="post-力扣0086——分隔链表"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0085——最大矩形
+  力扣0086——分隔链表
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30085%E2%80%94%E2%80%94%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/" class="article-date">
-  <time datetime="2023-11-21T12:09:32.000Z" itemprop="datePublished">2023-11-21</time>
+      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30086%E2%80%94%E2%80%94%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/" class="article-date">
+  <time datetime="2023-11-21T13:15:00.000Z" itemprop="datePublished">2023-11-21</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">601</span>
+            <span class="post-count">346</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">1 min</span>
         </span>
     </span>
 </div>
@@ -111,29 +111,20 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximal-rectangle/">最大矩形</a></h1>
-<p>难度：<strong>困难</strong></p>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-list/description/">分隔链表</a></h1>
+<p>难度：<strong>中等</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>给定一个仅包含 <code>0</code> 和 <code>1</code> 、大小为 <code>rows x cols</code> 的二维二进制矩阵，找出只包含 <code>1</code> 的最大矩形，并返回其面积。</p>
+<p>给你一个链表的头节点 <code>head</code> 和一个特定值 <code>x</code> ，请你对链表进行分隔，使得所有 <strong>小于</strong> <code>x</code> 的节点都出现在 <strong>大于或等于</strong> <code>x</code> 的节点之前。<br>
+你应当 <strong>保留</strong> 两个分区中每个节点的初始相对位置。</p>
 <h2 id="示例1">示例1</h2>
-<p><img src="/images/ltc0085_1.jpg" alt="image"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix = [[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]]</span><br><span class="line">输出：6</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ltc0086_1.jpg" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,4,3,2,5,2], x = 3</span><br><span class="line">输出：[1,2,2,4,3,5]</span><br></pre></td></tr></table></figure>
 <h2 id="示例2">示例2</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix = []</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-<h2 id="示例3">示例3</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix = [[&quot;0&quot;]]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-<h2 id="示例4">示例4</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix = [[&quot;1&quot;]]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
-<h2 id="示例5">示例5</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：matrix = [[&quot;0&quot;,&quot;0&quot;]]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [2,1], x = 2</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
 <h2 id="题解">题解</h2>
-<p>是0084的进阶，可以将它升维转换为二维数组，具体如下<br>
-比如matrix = [[“1”,“0”,“1”,“0”,“0”],[“1”,“0”,“1”,“1”,“1”],[“1”,“1”,“1”,“1”,“1”],[“1”,“0”,“0”,“1”,“0”]]<br>
-可以转换为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">4 0 3 0 0</span><br><span class="line">3 0 2 3 2</span><br><span class="line">2 1 1 2 1</span><br><span class="line">1 0 0 1 0</span><br></pre></td></tr></table></figure>
-<p>即：将需要讨论的内容缩小，将本来需要讨论的纵坐标转化为每一行的高，之后就可以根据0084的算法来对每一行的内容都取最大面积，之后对结果进行对比，最大的数即为结果</p>
+<p>来用两个链表进行拼接，如果比目标值小就添加到第一个链表，比目标值大或与目标值相等就添加到第二个链表，最后将两个链表拼接</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">char</span>[][] matrix = </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;0&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;1&#x27;</span> &#125;,</span><br><span class="line">            <span class="keyword">new</span>[] &#123; <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;0&#x27;</span> &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span> ans = solution.MaximalRectangle(matrix);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MaximalRectangle</span>(<span class="params"><span class="built_in">char</span>[][] matrix</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> maxArea = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> rows = matrix.Length;</span><br><span class="line">        <span class="built_in">int</span> cols = matrix[<span class="number">0</span>].Length;</span><br><span class="line">        <span class="built_in">int</span>[] heights = <span class="keyword">new</span> <span class="built_in">int</span>[cols];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; rows; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; cols; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    heights[j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    heights[j]++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            maxArea = Math.Max(maxArea, GetMaxArea(heights));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">GetMaxArea</span>(<span class="params"><span class="built_in">int</span>[] heights</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] left = <span class="keyword">new</span> <span class="built_in">int</span>[heights.Length];</span><br><span class="line">        <span class="built_in">int</span>[] right = <span class="keyword">new</span> <span class="built_in">int</span>[heights.Length];</span><br><span class="line">        Array.Fill(left, <span class="number">-1</span>);</span><br><span class="line">        Array.Fill(right, heights.Length);</span><br><span class="line">        Stack&lt;<span class="built_in">int</span>&gt; stack = <span class="keyword">new</span> Stack&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; heights.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> height = heights[i];</span><br><span class="line">            <span class="keyword">while</span> (stack.Count &gt; <span class="number">0</span> &amp;&amp; heights[stack.Peek()] &gt;= height)</span><br><span class="line">            &#123;</span><br><span class="line">                right[stack.Pop()] = i;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stack.Count &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                left[i] = stack.Peek();</span><br><span class="line">            &#125;</span><br><span class="line">            stack.Push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; heights.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = Math.Max(ans, (right[i] - left[i] - <span class="number">1</span>) * heights[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, ListNode next = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            next = <span class="keyword">new</span> ListNode(<span class="number">4</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                next = <span class="keyword">new</span> ListNode(<span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        next = <span class="keyword">new</span> ListNode(<span class="number">5</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        ListNode ans = solution.Partition(head, <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span> (ans != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(ans.val);</span><br><span class="line">            ans = ans.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">Partition</span>(<span class="params">ListNode head, <span class="built_in">int</span> x</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        ListNode ans = head;</span><br><span class="line">        ListNode temp1 = <span class="keyword">new</span> ListNode();</span><br><span class="line">        ListNode temp2 = <span class="keyword">new</span> ListNode();</span><br><span class="line">        ListNode s1 = temp1,s2 = temp2;</span><br><span class="line">        <span class="keyword">while</span> (ans != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (ans.val &lt; x)</span><br><span class="line">            &#123;</span><br><span class="line">                s1.next = ans;</span><br><span class="line">                s1 = s1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                s2.next = ans;</span><br><span class="line">                s2 = s2.next;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = ans.next;</span><br><span class="line">        &#125;</span><br><span class="line">        s1.next = temp2.next;</span><br><span class="line">        s2.next = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> temp1.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -185,7 +176,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/21/%E5%8A%9B%E6%89%A30085%E2%80%94%E2%80%94%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2023/11/21/%E5%8A%9B%E6%89%A30086%E2%80%94%E2%80%94%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -198,19 +189,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30086%E2%80%94%E2%80%94%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0086——分隔链表
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30084%E2%80%94%E2%80%94%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/" class="article-nav-link">
+      <a href="/2023/11/21/%E5%8A%9B%E6%89%A30085%E2%80%94%E2%80%94%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0084——柱状图中最大的矩形</div>
+        <div class="article-nav-title">力扣0085——最大矩形</div>
       </a>
     
   </nav>
