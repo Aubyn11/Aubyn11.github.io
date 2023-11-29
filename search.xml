@@ -3455,4 +3455,39 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0089——格雷编码</title>
+    <url>/2023/11/30/%E5%8A%9B%E6%89%A30089%E2%80%94%E2%80%94%E6%A0%BC%E9%9B%B7%E7%BC%96%E7%A0%81/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/gray-code/solutions/1636093/by-stormsunshine-gxoi/">格雷编码</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p><strong>n 位格雷码序列</strong> 是一个由 <code>2n</code> 个整数组成的序列，其中：</p>
+<ul>
+<li>每个整数都在范围 <code>[0, 2n - 1]</code> 内（含 <code>0</code> 和 <code>2n - 1</code>）</li>
+<li>第一个整数是 <code>0</code></li>
+<li>一个整数在序列中出现 <strong>不超过一次</strong></li>
+<li>每对 <strong>相邻</strong> 整数的二进制表示 <strong>恰好一位不同</strong> ，且</li>
+<li><strong>第一个</strong> 和 <strong>最后一个</strong> 整数的二进制表示 <strong>恰好一位不同</strong></li>
+</ul>
+<p>给你一个整数 <code>n</code> ，返回任一有效的 <strong>n 位格雷码序列</strong> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入：</strong> n = 2<br>
+<strong>输出：</strong>[0,1,3,2]</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> n = 1<br>
+<strong>输出：</strong>[0,1]</p>
+<h2 id="题解">题解</h2>
+<p>依题意得，数组的第一个元素必定是<code>0</code>，依据之后的规律可以发现，需要用到位运算<br>
+定义<code>temp</code>为中间变量，令 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>e</mi><mi>m</mi><mi>p</mi><mo>=</mo><mn>1</mn><mo>&lt;</mo><mo>&lt;</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">temp = 1 &lt;&lt; (n-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 即每一次循环中，temp都可以取到每一次遍历的位运算数<br>
+定义一个<code>List</code>表，第一个元素为<code>0</code>，之后每一次遍历都需要对当前数组添加数据，添加的数据内容为让当前<code>List</code>表中的元素与<code>temp</code>进行按位或运算对的值<br>
+遍历到最后将<code>List</code>表返回即为最终结果</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> n = <span class="number">2</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; ans = solution.GrayCode(n);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> ans)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">GrayCode</span>(<span class="params"><span class="built_in">int</span> n</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;()&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> lastTime = GrayCode(n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">var</span> temp = <span class="number">1</span> &lt;&lt; (n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = lastTime.Count - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            lastTime.Add(lastTime[i] | temp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> lastTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
