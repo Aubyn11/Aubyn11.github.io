@@ -3385,4 +3385,45 @@
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0087——扰乱字符串</title>
+    <url>/2023/11/29/%E5%8A%9B%E6%89%A30087%E2%80%94%E2%80%94%E6%89%B0%E4%B9%B1%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/scramble-string/description/">扰乱字符串</a></h1>
+<p>难度：<strong>困难</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>使用下面描述的算法可以扰乱字符串 <code>s</code> 得到字符串 <code>t</code> ：</p>
+<ol>
+<li>如果字符串的长度为 1 ，算法停止</li>
+<li>如果字符串的长度 &gt; 1 ，执行下述步骤：
+<ul>
+<li>在一个随机下标处将字符串分割成两个非空的子字符串。即，如果已知字符串 <code>s</code> ，则可以将其分成两个子字符串 <code>x</code> 和 <code>y</code> ，且满足 <code>s = x + y</code> 。</li>
+<li><strong>随机</strong> 决定是要「交换两个子字符串」还是要「保持这两个子字符串的顺序不变」。即，在执行这一步骤之后，<code>s</code> 可能是 <code>s = x + y</code> 或者 <code>s = y + x</code> 。</li>
+<li>在 <code>x</code> 和 <code>y</code> 这两个子字符串上继续从步骤 1 开始递归执行此算法。</li>
+</ul>
+</li>
+</ol>
+<p>给你两个 <strong>长度相等</strong> 的字符串 <code>s1</code> 和 <code>s2</code>，判断 <code>s2</code> 是否是 <code>s1</code> 的扰乱字符串。如果是，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入：</strong> s1 = “great”, s2 = “rgeat”<br>
+<strong>输出：</strong> true</p>
+<h2 id="示例2">示例2</h2>
+<p>**输入：**s1 = “abcde”, s2 = “caebd”<br>
+**输出：**false</p>
+<h2 id="示例3">示例3</h2>
+<p>**输入：**s1 = “a”, s2 = “a”<br>
+**输出：**true</p>
+<h2 id="题解">题解</h2>
+<p>直接使用动态规划来解题，原始的递归方法中存在大量的重复操作，从而使时间复杂度大幅提高，这时可以使用一个三维数组<code>dp[i][j][k]</code>来记录，<code>i</code>表示<code>s1</code>起始位置，<code>j</code>表示<code>s2</code>起始位置，<code>k</code>表示当前字符串的长度<br>
+转移方程如下：<br>
+dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; dp[i+m,j,k-m])<br>
+其中m的取值范围是[1,k)。这表示切割位置可以在1到k之间选择。</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Net.Http.Headers;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    List&lt;List&lt;<span class="built_in">string</span>&gt;&gt; strings = <span class="keyword">new</span> List&lt;List&lt;<span class="built_in">string</span>&gt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> s1 = <span class="string">&quot;great&quot;</span>;</span><br><span class="line">        <span class="built_in">string</span> s2 = <span class="string">&quot;rgeat&quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">bool</span> ans = solution.IsScramble(s1, s2);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">IsScramble</span>(<span class="params"><span class="built_in">string</span> s1, <span class="built_in">string</span> s2</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s1.Equals(s2))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> length = s1.Length;</span><br><span class="line">        <span class="built_in">int</span>[,,] dp = <span class="keyword">new</span> <span class="built_in">int</span>[length, length, length + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> k = <span class="number">1</span>; k &lt;= length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt;= length - k; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt;= length - k; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (k == <span class="number">1</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        dp[i, j, k] = s1[i] == s2[j] ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">int</span> m = <span class="number">1</span>; m &lt; k; m++)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((dp[i, j, m] == <span class="number">1</span> &amp;&amp; dp[i + m, j + m, k - m] == <span class="number">1</span>) || (dp[i, j + k - m, m] == <span class="number">1</span> &amp;&amp; dp[i + m, j, k - m] == <span class="number">1</span>))</span><br><span class="line">                        &#123;</span><br><span class="line">                            dp[i, j, k] = <span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>, <span class="number">0</span>, length] == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
