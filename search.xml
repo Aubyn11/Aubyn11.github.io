@@ -3528,4 +3528,62 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0091——解码方法</title>
+    <url>/2023/12/03/%E5%8A%9B%E6%89%A30091%E2%80%94%E2%80%94%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/decode-ways/description/">解码方法</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>一条包含字母 <code>A-Z</code> 的消息通过以下映射进行了 <strong>编码</strong> ：</p>
+<p>‘A’ -&gt; “1”<br>
+‘B’ -&gt; “2”<br>
+…<br>
+‘Z’ -&gt; “26”</p>
+<p>要 <strong>解码</strong> 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，<code>&quot;11106&quot;</code> 可以映射为：</p>
+<ul>
+<li><code>&quot;AAJF&quot;</code> ，将消息分组为 <code>(1 1 10 6)</code></li>
+<li><code>&quot;KJF&quot;</code> ，将消息分组为 <code>(11 10 6)</code></li>
+</ul>
+<p>注意，消息不能分组为 <code>(1 11 06)</code> ，因为 <code>&quot;06&quot;</code> 不能映射为 <code>&quot;F&quot;</code> ，这是由于 <code>&quot;6&quot;</code> 和 <code>&quot;06&quot;</code> 在映射中并不等价。</p>
+<p>给你一个只含数字的 <strong>非空</strong> 字符串 <code>s</code> ，请计算并返回 <strong>解码</strong> 方法的 <strong>总数</strong> 。</p>
+<p>题目数据保证答案肯定是一个 <strong>32 位</strong> 的整数。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入：</strong> s = “12”<br>
+<strong>输出：</strong> 2</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> s = “226”<br>
+<strong>输出：</strong> 3</p>
+<h2 id="示例3">示例3</h2>
+<p><strong>输入：</strong> s = “06”<br>
+<strong>输出：</strong> 0</p>
+<h2 id="题解">题解</h2>
+<p>依题意得，编码得第一个数字不能为1，则可分为以下部分：</p>
+<ul>
+<li>当<code>s[0] == '0'</code>，那么直接返回<code>0</code></li>
+<li>之后由第二个元素开始遍历
+<ul>
+<li>当当前元素为<code>0</code>，那么前一个元素只能为两种情况：
+<ul>
+<li>当前一个元素为<code>1</code>或<code>2</code>时，只有一种解法</li>
+<li>当前一个元素不为上述两个数，则没有解法</li>
+</ul>
+</li>
+<li>当当前元素为<code>1</code>或<code>2</code>并且前一个元素和当前元素拼接的数字不大于26
+<ul>
+<li>有两种解法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>最后将遍历结束的值返回即为所求</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> s = <span class="string">&quot;27&quot;</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span> ans = solution.NumDecodings(s);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">NumDecodings</span>(<span class="params"><span class="built_in">string</span> s</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> pre = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">int</span> curr = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; s.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> temp = curr;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] == <span class="string">&#x27;1&#x27;</span> || s[i - <span class="number">1</span>] == <span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    curr = pre;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (s[i - <span class="number">1</span>] == <span class="string">&#x27;1&#x27;</span> || s[i - <span class="number">1</span>] == <span class="string">&#x27;2&#x27;</span> &amp;&amp; (s[i - <span class="number">1</span>] - <span class="string">&#x27;0&#x27;</span>) * <span class="number">10</span> + (s[i] - <span class="string">&#x27;0&#x27;</span>) &lt;= <span class="number">26</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                curr = curr + pre;</span><br><span class="line">            &#125;</span><br><span class="line">            pre = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
