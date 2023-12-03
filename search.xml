@@ -3586,4 +3586,34 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0092——反转链表II</title>
+    <url>/2023/12/03/%E5%8A%9B%E6%89%A30092%E2%80%94%E2%80%94%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8II/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/reverse-linked-list-ii/description/">反转链表II</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你单链表的头指针 <code>head</code> 和两个整数 <code>left</code> 和 <code>right</code> ，其中 <code>left &lt;= right</code> 。请你反转从位置 <code>left</code> 到位置 <code>right</code> 的链表节点，返回 <strong>反转后的链表</strong> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0092_1.jpg" alt="image"><br>
+<strong>输入：</strong> head = [1,2,3,4,5], left = 2, right = 4<br>
+<strong>输出：</strong>[1,4,3,2,5]</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> head = [5], left = 1, right = 1<br>
+<strong>输出：</strong>[5]</p>
+<h2 id="题解">题解</h2>
+<p>由于没有提及修改原链表节点，那么可以直接修改值，具体方法如下</p>
+<ul>
+<li>快慢指针，慢指针指向<code>left</code>，快指针指向<code>right</code>，将两个值交换</li>
+<li>将慢指针右移，快指针移动到<code>right - 1</code>，继续交换</li>
+</ul>
+<p>当左右指针会面，即可结束，得到最终答案</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> ListNode next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, ListNode next = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val; </span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            next = <span class="keyword">new</span> ListNode(<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                next = <span class="keyword">new</span> ListNode(<span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    next = <span class="keyword">new</span> ListNode(<span class="number">4</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        next = <span class="keyword">new</span> ListNode(<span class="number">5</span>) </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">int</span> left = <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">int</span> right = <span class="number">4</span>;</span><br><span class="line">        ListNode ans = solution.ReverseBetween(head, left, right);</span><br><span class="line">        <span class="keyword">while</span> (ans != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(ans.val + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            ans = ans.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseBetween</span>(<span class="params">ListNode head, <span class="built_in">int</span> left, <span class="built_in">int</span> right</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (left == right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode ans = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; left - <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = left; i &lt; right; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode fast = head;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; right - <span class="number">1</span>; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                fast = fast.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">int</span> temp = fast.val;</span><br><span class="line">            fast.val = slow.val;</span><br><span class="line">            slow.val = temp;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
