@@ -3407,11 +3407,11 @@
 <p><strong>输入：</strong> s1 = “great”, s2 = “rgeat”<br>
 <strong>输出：</strong> true</p>
 <h2 id="示例2">示例2</h2>
-<p>**输入：**s1 = “abcde”, s2 = “caebd”<br>
-**输出：**false</p>
+<p><strong>输入：</strong> s1 = “abcde”, s2 = “caebd”<br>
+<strong>输出：</strong> false</p>
 <h2 id="示例3">示例3</h2>
-<p>**输入：**s1 = “a”, s2 = “a”<br>
-**输出：**true</p>
+<p><strong>输入：</strong> s1 = “a”, s2 = “a”<br>
+<strong>输出：</strong> true</p>
 <h2 id="题解">题解</h2>
 <p>直接使用动态规划来解题，原始的递归方法中存在大量的重复操作，从而使时间复杂度大幅提高，这时可以使用一个三维数组<code>dp[i][j][k]</code>来记录，<code>i</code>表示<code>s1</code>起始位置，<code>j</code>表示<code>s2</code>起始位置，<code>k</code>表示当前字符串的长度<br>
 转移方程如下：<br>
@@ -3483,6 +3483,29 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
 遍历到最后将<code>List</code>表返回即为最终结果</p>
 <h2 id="想法代码">想法代码</h2>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> n = <span class="number">2</span>;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; ans = solution.GrayCode(n);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> ans)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">GrayCode</span>(<span class="params"><span class="built_in">int</span> n</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;()&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> lastTime = GrayCode(n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">var</span> temp = <span class="number">1</span> &lt;&lt; (n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = lastTime.Count - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            lastTime.Add(lastTime[i] | temp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> lastTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣0090——子集II</title>
+    <url>/2023/11/30/%E5%8A%9B%E6%89%A30090%E2%80%94%E2%80%94%E5%AD%90%E9%9B%86II/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/subsets-ii/solutions/1927200/by-stormsunshine-jdn0/">子集</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个整数数组 <code>nums</code> ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。</p>
+<p>解集 <strong>不能</strong> 包含重复的子集。返回的解集中，子集可以按 <strong>任意顺序</strong> 排列。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入：</strong> nums = [1,2,2]<br>
+<strong>输出：</strong>[[],[1],[1,2],[1,2,2],[2],[2,2]]</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> nums = [0]<br>
+<strong>输出：</strong>[[],[0]]</p>
+<h2 id="题解">题解</h2>
+]]></content>
       <categories>
         <category>Algorithm</category>
       </categories>

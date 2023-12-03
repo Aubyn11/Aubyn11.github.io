@@ -130,11 +130,11 @@
 <p><strong>输入：</strong> s1 = “great”, s2 = “rgeat”<br>
 <strong>输出：</strong> true</p>
 <h2 id="示例2">示例2</h2>
-<p>**输入：**s1 = “abcde”, s2 = “caebd”<br>
-**输出：**false</p>
+<p><strong>输入：</strong> s1 = “abcde”, s2 = “caebd”<br>
+<strong>输出：</strong> false</p>
 <h2 id="示例3">示例3</h2>
-<p>**输入：**s1 = “a”, s2 = “a”<br>
-**输出：**true</p>
+<p><strong>输入：</strong> s1 = “a”, s2 = “a”<br>
+<strong>输出：</strong> true</p>
 <h2 id="题解">题解</h2>
 <p>直接使用动态规划来解题，原始的递归方法中存在大量的重复操作，从而使时间复杂度大幅提高，这时可以使用一个三维数组<code>dp[i][j][k]</code>来记录，<code>i</code>表示<code>s1</code>起始位置，<code>j</code>表示<code>s2</code>起始位置，<code>k</code>表示当前字符串的长度<br>
 转移方程如下：<br>
