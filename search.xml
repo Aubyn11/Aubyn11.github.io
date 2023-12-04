@@ -3658,4 +3658,32 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0094——二叉树的中序遍历</title>
+    <url>/2023/12/04/%E5%8A%9B%E6%89%A30094%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/description/">二叉树的中序遍历</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个二叉树的根节点 <code>root</code> ，返回 <em>它的 <strong>中序</strong> 遍历</em> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0094_1.jpg" alt="image"><br>
+<strong>输入：</strong> root = [1,null,2,3]<br>
+<strong>输出：</strong>[1,3,2]</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> root = []<br>
+<strong>输出：</strong>[]</p>
+<h2 id="示例3">示例3</h2>
+<p><strong>输入：</strong> root = [1]<br>
+<strong>输出：</strong>[1]</p>
+<h2 id="题解">题解</h2>
+<p>根据中序遍历的基本思想直接写出即可</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val=<span class="number">0</span>, TreeNode left=<span class="literal">null</span>, TreeNode right=<span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            right = <span class="keyword">new</span> TreeNode(<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                left = <span class="keyword">new</span> TreeNode(<span class="number">3</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; ans = solution.InorderTraversal(root);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> x <span class="keyword">in</span> ans)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(x + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">InorderTraversal</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; ans = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">        BackTrack(root, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BackTrack</span>(<span class="params">TreeNode root, IList&lt;<span class="built_in">int</span>&gt; ans</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BackTrack(root.left, ans);</span><br><span class="line">        ans.Add(root.val);</span><br><span class="line">        BackTrack(root.right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
