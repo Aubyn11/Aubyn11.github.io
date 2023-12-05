@@ -3928,4 +3928,50 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0102——二叉树的层序遍历</title>
+    <url>/2023/12/06/%E5%8A%9B%E6%89%A30102%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/description/">二叉树的层序遍历</a></h1>
+<p>难度：<strong>中等</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你二叉树的根节点 <code>root</code> ，返回其节点值的 <strong>层序遍历</strong> 。 （即逐层地，从左到右访问所有节点）。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0102_1.jpg" alt="image"><br>
+<strong>输入：</strong> root = [3,9,20,null,null,15,7]<br>
+<strong>输出：</strong>[[3],[9,20],[15,7]]</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> root = [1]<br>
+<strong>输出：</strong>[[1]]</p>
+<h2 id="示例3">示例3</h2>
+<p><strong>输入：</strong> root = []<br>
+<strong>输出：</strong>[]</p>
+<h2 id="题解">题解</h2>
+<p>由题意得，可以利用队列来进行解题，可获得如下步骤</p>
+<ul>
+<li>将根节点入队，当队列内元素个数不为零，进行如下循环：
+<ul>
+<li>进行队列元素个数次循环（嵌套第一次循环内）
+<ul>
+<li>队列出队一个元素，将其添加到列表中，判断其左右子树是否为空
+<ul>
+<li>如果均为空，则结束本次循环</li>
+<li>如果有元素，就将其入队</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>将列表添加到答案中，并进行下一次循环</li>
+</ul>
+</li>
+</ul>
+<p>循环结束后得答案即为所求</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, TreeNode left = <span class="literal">null</span>, TreeNode right = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode roots = <span class="keyword">new</span> TreeNode(<span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            left = <span class="keyword">new</span> TreeNode(<span class="number">9</span>),</span><br><span class="line">            right = <span class="keyword">new</span> TreeNode(<span class="number">20</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                left = <span class="keyword">new</span> TreeNode(<span class="number">15</span>),</span><br><span class="line">                right = <span class="keyword">new</span> TreeNode(<span class="number">7</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ans = solution.LevelOrder(roots);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> a <span class="keyword">in</span> ans)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> b <span class="keyword">in</span> a)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(b + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; LevelOrder(TreeNode root)</span><br><span class="line">    &#123;</span><br><span class="line">        IList&lt;IList&lt;<span class="built_in">int</span>&gt;&gt; ans = <span class="keyword">new</span> List&lt;IList&lt;<span class="built_in">int</span>&gt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> Queue&lt;TreeNode&gt;();</span><br><span class="line">        queue.Enqueue(root);</span><br><span class="line">        <span class="keyword">while</span> (queue.Count &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            IList&lt;<span class="built_in">int</span>&gt; tmp = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">            <span class="built_in">int</span> count  = queue.Count;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode treeNode = queue.Dequeue();</span><br><span class="line">                tmp.Add(treeNode.val);</span><br><span class="line">                <span class="keyword">if</span> (treeNode.left != <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    queue.Enqueue(treeNode.left);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (treeNode.right != <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    queue.Enqueue(treeNode.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ans.Add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
