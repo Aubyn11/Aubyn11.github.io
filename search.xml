@@ -4104,4 +4104,34 @@ dp[i,j,k] = (dp[i,j,m] &amp;&amp; dp[i+m,j+m,k-m]) || (dp[i,j+k-m,m] &amp;&amp; 
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0108——将有序数组转换为二叉搜索树</title>
+    <url>/2023/12/08/%E5%8A%9B%E6%89%A30108%E2%80%94%E2%80%94%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/description/">将有序数组转换为二叉搜索树</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给你一个整数数组 <code>nums</code> ，其中元素已经按 <strong>升序</strong> 排列，请你将其转换为一棵 <strong>高度平衡</strong> 二叉搜索树。</p>
+<p><strong>高度平衡</strong> 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc0108_1.jpg" alt="image"><br>
+<strong>输入：</strong> nums = [-10,-3,0,5,9]<br>
+<strong>输出：</strong>[0,-3,9,-10,null,5]<br>
+或者也可以为：<br>
+<img src="/images/ltc0108_2.jpg" alt="image"><br>
+<strong>输出：</strong>[0,-10,5,null,-3,null,9]</p>
+<h2 id="示例2">示例2</h2>
+<p><img src="/images/ltc0108_3.jpg" alt="iamge"><br>
+<strong>输入：</strong> nums = [1,3]<br>
+<strong>输出：</strong>[3,1]</p>
+<h2 id="题解">题解</h2>
+<p>直接使用回溯法，基本原理就是二分数组，将左边的值按照二分法赋值给左子树，右边的值按照二分法赋值给右子树</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, TreeNode left = <span class="literal">null</span>, TreeNode right = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] nums = &#123; <span class="number">-10</span>, <span class="number">-3</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">9</span> &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        TreeNode root = solution.SortedArrayToBST(nums);</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">        solution.AddTree(root, list);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> list)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">SortedArrayToBST</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> BackTrack(nums,<span class="number">0</span>,nums.Length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">BackTrack</span>(<span class="params"><span class="built_in">int</span>[] nums, <span class="built_in">int</span> start, <span class="built_in">int</span> end</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (start &gt; end)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> mid = (end - start) / <span class="number">2</span> + start;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TreeNode(nums[mid], BackTrack(nums, start, mid - <span class="number">1</span>), BackTrack(nums, mid + <span class="number">1</span>, end));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddTree</span>(<span class="params">TreeNode root, IList&lt;<span class="built_in">int</span>&gt; ans</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        AddTree(root.left, ans);</span><br><span class="line">        ans.Add(root.val);</span><br><span class="line">        AddTree(root.right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
