@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>力扣0110——平衡二叉树 |  Aubyn</title>
+      <title>力扣0111——二叉树的最小深度 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-力扣0110——平衡二叉树"
+  id="post-力扣0111——二叉树的最小深度"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  力扣0110——平衡二叉树
+  力扣0111——二叉树的最小深度
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/01/27/%E5%8A%9B%E6%89%A30110%E2%80%94%E2%80%94%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-date">
-  <time datetime="2024-01-26T22:49:46.000Z" itemprop="datePublished">2024-01-27</time>
+      <a href="/2024/01/28/%E5%8A%9B%E6%89%A30111%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" class="article-date">
+  <time datetime="2024-01-28T01:41:31.000Z" itemprop="datePublished">2024-01-28</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">380</span>
+            <span class="post-count">353</span>
         </span>
     </span>
 
@@ -111,29 +111,23 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/balanced-binary-tree/description/">平衡二叉树</a></h1>
+  <h1><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-depth-of-binary-tree/description/">二叉树的最小深度</a></h1>
 <p>难度：<strong>简单</strong></p>
 <h2 id="题目描述">题目描述</h2>
-<p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
-<p>本题中，一棵高度平衡二叉树定义为：</p>
-<blockquote>
-<p>一个二叉树_每个节点_ 的左右两个子树的高度差的绝对值不超过 1 。</p>
-</blockquote>
+<p>给定一个二叉树，找出其最小深度。</p>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</p>
+<p><strong>说明：</strong> 叶子节点是指没有子节点的节点。</p>
 <h2 id="示例1">示例1</h2>
-<p><img src="/images/ltc0110_1.jpg" alt="image"></p>
-<p><strong>输入：</strong> root = [3,9,20,null,null,15,7]<br>
-<strong>输出：</strong> true</p>
+<p><img src="/images/ltc0111_1.jpg" alt="iamge"><br>
+<strong>输入：</strong> root = [3,9,20,null,null,15,7]<br>
+<strong>输出：</strong> 2</p>
 <h2 id="示例2">示例2</h2>
-<p><img src="/images/ltc0110_2.jpg" alt="image"></p>
-<p><strong>输入：</strong> root = [1,2,2,3,3,null,null,4,4]<br>
-<strong>输出：</strong> false</p>
-<h2 id="示例3">示例3</h2>
-<p><strong>输入：</strong> root = []<br>
-<strong>输出：</strong> true</p>
+<p><strong>输入：</strong> root = [2,null,3,null,4,null,5,null,6]<br>
+<strong>输出：</strong> 5</p>
 <h2 id="题解">题解</h2>
-<p>利用递归的思想对整棵树进行遍历，如果左子树深度减右子树深度大于<code>1</code>，那么将返回值设定为<code>-1</code>，如果不是，则将返回值的定为<code>1 + 左右子树深度的最大值</code>，最终判定最后的返回值是否为<code>-1</code>，如果是<code>-1</code>,那么就不是二叉搜索树，反之则是二叉搜索树</p>
+<p>使用回溯法，遍历每一个节点，当一个节点没有左子树和右子树之后结束本次遍历，将结果存储并在之后进行对比，如果和上一次的回溯结果相比本次更小则将结果替换，直到遍历完所有节点</p>
 <h2 id="想法代码">想法代码</h2>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, TreeNode left = <span class="literal">null</span>, TreeNode right = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode root= <span class="keyword">new</span> TreeNode</span><br><span class="line">        &#123;</span><br><span class="line">            val= <span class="number">3</span>,</span><br><span class="line">            left = <span class="keyword">new</span> TreeNode(<span class="number">9</span>),</span><br><span class="line">            right = <span class="keyword">new</span> TreeNode</span><br><span class="line">            &#123;</span><br><span class="line">                val= <span class="number">20</span>,</span><br><span class="line">                left = <span class="keyword">new</span> TreeNode(<span class="number">15</span>),</span><br><span class="line">                right= <span class="keyword">new</span> TreeNode(<span class="number">7</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">bool</span> ans = solution.IsBalanced(root);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">IsBalanced</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> !(BackTrack(root) == <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">BackTrack</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> leftH = BackTrack(root.left);</span><br><span class="line">        <span class="keyword">if</span> (leftH == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> rightH = BackTrack(root.right);</span><br><span class="line">        <span class="keyword">if</span> (rightH == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Math.Abs(leftH - rightH) &gt; <span class="number">1</span> ? <span class="number">-1</span> : (<span class="number">1</span> + Math.Max(leftH, rightH));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, TreeNode left = <span class="literal">null</span>, TreeNode right = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode</span><br><span class="line">        &#123;</span><br><span class="line">            val = <span class="number">2</span>,</span><br><span class="line">            right = <span class="keyword">new</span> TreeNode</span><br><span class="line">            &#123;</span><br><span class="line">                val = <span class="number">3</span>,</span><br><span class="line">                right = <span class="keyword">new</span> TreeNode</span><br><span class="line">                &#123;</span><br><span class="line">                    val = <span class="number">4</span>,</span><br><span class="line">                    right = <span class="keyword">new</span> TreeNode</span><br><span class="line">                    &#123;</span><br><span class="line">                        val = <span class="number">5</span>,</span><br><span class="line">                        right = <span class="keyword">new</span> TreeNode</span><br><span class="line">                        &#123;</span><br><span class="line">                            val = <span class="number">6</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span> ans = solution.MinDepth(root);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MinDepth</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> ans = <span class="built_in">int</span>.MaxValue;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root.left != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = Math.Min(ans, MinDepth(root.left));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root.right != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = Math.Min(ans, MinDepth(root.right));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -185,7 +179,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/01/27/%E5%8A%9B%E6%89%A30110%E2%80%94%E2%80%94%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/01/28/%E5%8A%9B%E6%89%A30111%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -198,19 +192,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/01/28/%E5%8A%9B%E6%89%A30111%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            力扣0111——二叉树的最小深度
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/01/17/%E5%8A%9B%E6%89%A30109%E2%80%94%E2%80%94%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%E8%BD%AC%E6%8D%A2%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="article-nav-link">
+      <a href="/2024/01/27/%E5%8A%9B%E6%89%A30110%E2%80%94%E2%80%94%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0109——有序链表转换二叉搜索树</div>
+        <div class="article-nav-title">力扣0110——平衡二叉树</div>
       </a>
     
   </nav>
