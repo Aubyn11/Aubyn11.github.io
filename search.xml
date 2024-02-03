@@ -4553,4 +4553,30 @@ Node *next;<br>
         <tag>Algorithm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>力扣0121——买卖股票的最佳时机</title>
+    <url>/2024/02/03/%E5%8A%9B%E6%89%A30121%E2%80%94%E2%80%94%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/">买卖股票的最佳时机</a></h1>
+<p>难度：<strong>简单</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>给定一个数组 <code>prices</code> ，它的第 <code>i</code> 个元素 <code>prices[i]</code> 表示一支给定股票第 <code>i</code> 天的价格。</p>
+<p>你只能选择 <strong>某一天</strong> 买入这只股票，并选择在 <strong>未来的某一个不同的日子</strong> 卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
+<p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 <code>0</code> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入：</strong>[7,1,5,3,6,4]<br>
+<strong>输出：</strong> 5</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> prices = [7,6,4,3,1]<br>
+<strong>输出：</strong> 0</p>
+<h2 id="题解">题解</h2>
+<p>因为直接双层嵌套循环，时间复杂度为O(n!)，时间复杂度不达标，所以需要降低复杂度，可以运用一次遍历，求出当前位置获得利润的最大值</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params">String[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">int</span>[] prices = &#123; <span class="number">7</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">4</span> &#125;;</span><br><span class="line">        <span class="built_in">int</span> ans = solution.MaxProfit(prices);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MaxProfit</span>(<span class="params"><span class="built_in">int</span>[] prices</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> pre = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; prices.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = Math.Max(ans, prices[i] - pre);</span><br><span class="line">            pre = Math.Min(pre, prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
