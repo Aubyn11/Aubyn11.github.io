@@ -4608,7 +4608,8 @@ Node *next;<br>
   <entry>
     <title>计算机网络——01什么是InterNet</title>
     <url>/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9401%E4%BB%80%E4%B9%88%E6%98%AFInterNet/</url>
-    <content><![CDATA[<h2 id="1-1-什么是网络">1.1 什么是网络</h2>
+    <content><![CDATA[<h1>什么是InterNet</h1>
+<h2 id="1-1-什么是网络">1.1 什么是网络</h2>
 <p>由节点和边组成的与形状大小无关的拓扑</p>
 <h2 id="1-2-什么是internet">1.2 什么是Internet</h2>
 <ul>
@@ -4728,6 +4729,118 @@ Node *next;<br>
       </categories>
       <tags>
         <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——02网络边缘</title>
+    <url>/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9402%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</url>
+    <content><![CDATA[<h1>网络边缘</h1>
+<h2 id="网络结构">网络结构</h2>
+<ul>
+<li>网络边缘：
+<ul>
+<li>主机</li>
+<li>应用程序（客户端和服务器）</li>
+</ul>
+</li>
+<li>网络核心
+<ul>
+<li>互联着的路由器</li>
+<li>网络的网络</li>
+</ul>
+</li>
+<li>接入网、物理媒体
+<ul>
+<li>有线或无线通信链路</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络边缘">网络边缘</h2>
+<ul>
+<li><font color=red>端系统（主机）</font>
+<ul>
+<li>运行应用程序</li>
+</ul>
+</li>
+<li><font color=red>客户/服务器模式（C/S模式）</font>
+<ul>
+<li>客户端想服务器请求、接收服务</li>
+</ul>
+</li>
+<li><font color=red>对等（<strong>peer-peer</strong>）模式</font>
+<ul>
+<li>很少（甚至没有）专门的服务器</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络边缘：采用网络设施的面向服务链接">网络边缘：采用网络设施的面向服务链接</h2>
+<ul>
+<li><font color=red><strong>目标</strong></font>：在端系统之间传输数据
+<ul>
+<li>握手：在数据传输之前做好准备
+<ul>
+<li>两个通信主机之间<font color=red>连接建立状态</font></li>
+</ul>
+</li>
+<li><strong>TCP</strong> - 传输控制协议
+<ul>
+<li><strong>Internet</strong>上面向连接的服务（只有端系统知道）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><font color=red><strong>TCP服务</strong></font>
+<ul>
+<li>可靠的、按顺序的传输数据
+<ul>
+<li>确认和重传</li>
+</ul>
+</li>
+<li>流量控制
+<ul>
+<li>发送方不会淹没接收方</li>
+</ul>
+</li>
+<li>拥塞控制
+<ul>
+<li>当网络拥塞时，发送方降低发送速率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络边缘：采用基础设施的无连接服务">网络边缘：采用基础设施的无连接服务</h2>
+<ul>
+<li><font color=red><strong>目标</strong></font>：在端系统之间传输数据
+<ul>
+<li>无连接服务</li>
+</ul>
+</li>
+<li><font color=red><strong>UDP</strong></font>-用户数据报协议
+<ul>
+<li>无连接</li>
+<li>不可靠传输</li>
+<li>无流量控制</li>
+<li>无拥塞控制</li>
+</ul>
+</li>
+<li><font color=red>使用<strong>TCP</strong>的应用</font>
+<ul>
+<li>HTTP（Web）、FTP（文件传送）、Telent（远程登陆）、SMTP（email）</li>
+</ul>
+</li>
+<li><font color=red>使用<strong>UDP</strong>的应用</font>
+<ul>
+<li>流媒体、远程会议、DNS、Internet电话</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
