@@ -4843,4 +4843,161 @@ Node *next;<br>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——03网络核心</title>
+    <url>/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9403%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/</url>
+    <content><![CDATA[<h1>网络核心</h1>
+<h2 id="网络核心">网络核心</h2>
+<ul>
+<li>网络核心：路由器的网络状态</li>
+<li><font color=red>基本问题</font>：数据怎样通过网络进行传输
+<ul>
+<li><font color=red>电路交换</font>：为每个呼叫预留一条专有电路</li>
+<li><font color=red>分组交换</font>
+<ul>
+<li>将要传送的数据分成一个个单位：分组</li>
+<li>将分组从一个路由器传到相邻路由器（<strong>hop</strong>），一段段最终从源端传到目标端</li>
+<li>每段：采用链路的最大传输能力（带宽）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络核心：电路交换">网络核心：电路交换</h2>
+<p><font color=red>端到端的资源被分配给从源端到目标端的呼叫“call”</font></p>
+<ul>
+<li>图中，每段链路有4条线路：<br>
+<img src="/images/wl_02_1.png" alt="示例">
+<ul>
+<li>该呼叫采用了上面链路的第二个线路，右边链路的第一个链路（piece）</li>
+</ul>
+</li>
+<li>独享资源：不同享
+<ul>
+<li>每个呼叫一旦建立起来就能够保证性能</li>
+</ul>
+</li>
+<li>如果呼叫没有数据发送，被分配的资源就会被浪费（<em>no sharing</em>)</li>
+<li>通常被传统电话网络采用</li>
+</ul>
+<p><font color=red>为呼叫预留端-端资源</font></p>
+<ul>
+<li>链路带宽、交换能力</li>
+<li>专用资源：不共享</li>
+<li>保证性能</li>
+<li>要求简历呼叫连接</li>
+</ul>
+<p>网络资源（如带宽）被分成<font color=red>片</font></p>
+<ul>
+<li>为呼叫分配片</li>
+<li>如果某个呼叫没有数据，则其资源片处于<font color=red>空闲状态</font>（不共享）</li>
+<li>将带宽分成片
+<ul>
+<li>频分（FDM）</li>
+<li>时分（TDM）</li>
+<li>波分（WDM）</li>
+</ul>
+</li>
+</ul>
+<p>电路交换不适合计算机之间的通信</p>
+<ul>
+<li>建立连接时间长</li>
+<li>计算机之间的通信有突发性，如果使用线路交换，则浪费的片段多
+<ul>
+<li>即使这个呼叫没有数据传递，其所占据的片也不能够被别的呼叫使用</li>
+</ul>
+</li>
+<li>可靠性不高？</li>
+</ul>
+<h2 id="网络核心：分组交换">网络核心：分组交换</h2>
+<p><font color=red>以分组为单位存储-转发方式</font></p>
+<ul>
+<li>网络带宽资源不再被分为一个个片，传输时使用全部带宽</li>
+<li>主机之间传输的数据被分为一个个分组</li>
+</ul>
+<p><font color=red>资源共享，按需使用</font></p>
+<ul>
+<li>存储、转发：分组每次移动一跳（hop）
+<ul>
+<li>在转发之前，节点必须收到整个分组</li>
+<li>延迟比线路交换要大</li>
+<li>排队时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="分组交换：存储-转发">分组交换：存储-转发</h2>
+<ul>
+<li>被运输到下一个链路之前，整个分组必须到达路由器：<font color=red>存储-转发</font></li>
+<li>在一个速率为<strong>R bps</strong>的链路，一个长度为<strong>L bps</strong>的分组存储转发延时：<strong>L/R s</strong></li>
+</ul>
+<h2 id="分组交换：排队延迟和丢失">分组交换：排队延迟和丢失</h2>
+<ul>
+<li>如果到达速率 &gt; 链路的输出速率
+<ul>
+<li>分组将会排队，等待传输</li>
+<li>如果路由器的缓存用完了，分组将会被抛弃</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络核心的关键功能">网络核心的关键功能</h2>
+<ul>
+<li><font color=red><em>路由</em></font>：决定分组采用的源到目标的路径</li>
+<li><font color=red><em>转发</em></font>：将分组从路由器的输入链路转移到输出链路</li>
+</ul>
+<h2 id="分组交换：统计多路复用">分组交换：统计多路复用</h2>
+<p><img src="/images/wl_02_2.png" alt="示例"><br>
+<strong>A &amp; B</strong>时分复用链路资源<br>
+<strong>A &amp; B</strong>分组没有固定的模式 → <font color=red>统计多路复用</font></p>
+<h2 id="分组交换-vs-电路交换">分组交换 vs. 电路交换</h2>
+<p><font color=red>分组交换允许更多用户使用网络</font><br>
+<font color=red>分组交换是“突发数据的胜利者”</font></p>
+<ul>
+<li>适用于对突发式数据传输
+<ul>
+<li>资源共享</li>
+<li>简单，不必建立呼叫</li>
+</ul>
+</li>
+<li><font color=red>过度使用会造成网络拥塞</font>，分组延时和丢失
+<ul>
+<li>对可靠的数据传输需要协议来约束：拥塞控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="分组交换网络：存储-转发">分组交换网络：存储-转发</h2>
+<p><font color=red>分组交换</font>：分组的存储转发一段一段从源端到目标端，按照有无网络层的连接，分成：</p>
+<ul>
+<li><font color=red>数据报网络</font>
+<ul>
+<li>分组的目标地址表示下一跳</li>
+<li>在不同的阶段，路由可以改变</li>
+<li>类似于问路</li>
+<li><strong>Internet</strong></li>
+</ul>
+</li>
+<li><font color=red>虚电路网络</font>
+<ul>
+<li>每个分组都带有标签，虚电路标识<strong>VC ID</strong>，标签决定下一跳</li>
+<li>在<font color=red>呼叫建立时</font>决定路径，在整个呼叫中路径保持不变</li>
+<li><font color=red>路由器维持每个呼叫的状态信息</font></li>
+<li><strong>X.25</strong> 和 <strong>ATM</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据报的工作原理">数据报的工作原理</h2>
+<ul>
+<li>在通信之前，无须建立起一个连接，有数据就传输</li>
+<li>每一个分组都独立路由（路径不一样，可能会失序）</li>
+<li>路由器根据分组的目标地址进行路由</li>
+</ul>
+<h2 id="虚电路的工作原理">虚电路的工作原理</h2>
+<p><img src="/images/wl_02_3.png" alt="工作原理"></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
