@@ -5000,4 +5000,231 @@ Node *next;<br>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——04接入网和物理媒体</title>
+    <url>/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9404%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93/</url>
+    <content><![CDATA[<h1>接入网和物理媒体</h1>
+<h2 id="接入网络和物理媒体">接入网络和物理媒体</h2>
+<ul>
+<li><font color=red>怎样将端系统和边缘路由器连接？</font>
+<ul>
+<li>住宅接入网络</li>
+<li>单位接入网络（学校、公司）</li>
+<li>无线接入网络</li>
+</ul>
+</li>
+</ul>
+<h2 id="住宅接入：modem">住宅接入：modem</h2>
+<ul>
+<li>将上网数据<font color=red>调制</font>加载到音频信号上，在电话线上传输，在局端将其中的数据<font color=red>解调</font>出来；
+<ul>
+<li>调频</li>
+<li>调幅</li>
+<li>调相位</li>
+<li>综合调制</li>
+</ul>
+</li>
+<li><font color=red>拨号调制解调器</font>
+<ul>
+<li><strong>56Kbps</strong>的速率直接接入路由器（通常更低）</li>
+<li>不能同时上网和打电话；不能总是在线</li>
+</ul>
+</li>
+</ul>
+<h2 id="接入网-dsl">接入网（DSL）</h2>
+<ul>
+<li>采用<font color=red>现有的</font>到交换局DSLAM的电话线
+<ul>
+<li>DSL线路上的数据被传到互连网</li>
+<li>DSL线路上的语音被传到电话网</li>
+</ul>
+</li>
+<li>&lt; 2.5Mbps上行传输速率(typically &lt; 1Mbps)</li>
+<li>&lt; 24Mbps下行运输速率(typically &lt; 10Mps)</li>
+</ul>
+<h2 id="接入网：线缆网络">接入网：线缆网络</h2>
+<p>有线电视信号线缆双向改造<br>
+<font color=red><em>FDM</em></font>：在不同频段传输不同信道的数据，数字电视和上网数据（上下行）</p>
+<ul>
+<li>HFC：
+<ul>
+<li>非对称：最高30Mbps的下行传输速率，2Mbps上行传输速率</li>
+</ul>
+</li>
+<li>线缆和光纤网络将整个家庭用户接入到ISP路由器</li>
+<li>各用户<font color=red>共享</font>到线缆头端的接入网络
+<ul>
+<li>与DSL不同，DSL每个用户一个专用线路到CO（central office）</li>
+</ul>
+</li>
+</ul>
+<h2 id="住宅接入：电缆模式">住宅接入：电缆模式</h2>
+<p><img src="/images/wl_04_1.png" alt="示例"></p>
+<h2 id="接入网：家庭网络">接入网：家庭网络</h2>
+<p><img src="/images/wl_04_2.png" alt="示例"></p>
+<h2 id="企业接入网络">企业接入网络</h2>
+<p><img src="/images/wl_04_3.png" alt="示例"><br>
+经常被企业或大学等机构采用</p>
+<ul>
+<li>10 Mbps, 100Mbps, 1Gbps, 10Gbps传输率</li>
+<li>现在，端系统经常直接接到以太网络交换机上</li>
+</ul>
+<h2 id="无线接入网路">无线接入网路</h2>
+<p>各无线端系统共享无线接入网络（端系统到无线路由器）</p>
+<ul>
+<li>通过基站或者加接入点</li>
+</ul>
+<p><font color=red><strong>无线LAN</strong></font></p>
+<ul>
+<li>建筑物内部（100 ft）</li>
+<li>802.11 b/g（WIFI）：11，54Mbps 传输速率</li>
+</ul>
+<p><font color=red><strong>广域无线接入</strong></font></p>
+<ul>
+<li>由电信运营商提供</li>
+<li>1 到 10 Mbps</li>
+<li>3G、4G、LTE</li>
+</ul>
+<h2 id="物理媒体">物理媒体</h2>
+<ul>
+<li><font color=red><strong>Bit</strong></font>：在传输-接收对间传播</li>
+<li><font color=red>物理链路</font>：在每个传输-接收对，跨越一种物理媒体</li>
+<li><font color=red>引导型媒体</font>
+<ul>
+<li>信号沿着固体媒介或导引</li>
+</ul>
+</li>
+<li><font color=red>非引导型媒体</font>
+<ul>
+<li>信号自由传播</li>
+</ul>
+</li>
+</ul>
+<h3 id="引导型媒体">引导型媒体</h3>
+<ul>
+<li><font color=red>双绞线</font>
+<ul>
+<li>两个绝缘铜线</li>
+<li>5类：100Mbps 以太网 ，Gbps 千兆位以太网</li>
+<li>6类：10Gbps万兆以太网</li>
+</ul>
+</li>
+<li><font color=red>同轴电缆</font>
+<ul>
+<li>两根同轴的铜导线</li>
+<li>双向</li>
+<li>基带电缆：
+<ul>
+<li>电缆上一个单个信道</li>
+<li>Ethernet</li>
+</ul>
+</li>
+<li>宽带电缆：
+<ul>
+<li>电缆上有多个信道</li>
+<li>HFC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><font color=red>光缆</font>
+<ul>
+<li>光脉冲，每个脉冲表示一个 bit，在玻璃纤维中传输</li>
+<li>高速： 点到点的高速传输（如10 Gps-100Gbps传输速率 ）</li>
+<li>低误码率：在两个中继器之 间可以有很长的距离，不受 电磁噪声的干扰</li>
+<li>安全</li>
+</ul>
+</li>
+</ul>
+<h2 id="物理媒介：无线链路">物理媒介：无线链路</h2>
+<ul>
+<li>开放空间传输电磁波，携带要传输的数据</li>
+<li>无需物理“线缆”</li>
+<li>双向</li>
+<li>传播环境效应
+<ul>
+<li>反射</li>
+<li>吸收</li>
+<li>干扰</li>
+</ul>
+</li>
+</ul>
+<h3 id="font-color-red-无线链路类型-font"><font color=red><strong>无线链路类型</strong></font></h3>
+<ul>
+<li>地面微波</li>
+<li>LAN</li>
+<li>wide-area</li>
+<li>卫星
+<ul>
+<li>每个信道Kbps到45Kbps（或者多个聚集信道）</li>
+<li>270msec端到端延迟</li>
+<li>同步静止卫星和低轨卫星</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣0124——二叉树的最大路径和</title>
+    <url>/2024/02/05/%E5%8A%9B%E6%89%A30124%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/description/">二叉树的最大路径和</a></h1>
+<p>难度：<strong>困难</strong></p>
+<h2 id="题目描述">题目描述</h2>
+<p>二叉树中的 <strong>路径</strong> 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p>
+<p><strong>路径和</strong> 是路径中各节点值的总和。</p>
+<p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><img src="/images/ltc_0124_1.jpg" alt="images"><br>
+<strong>输入：</strong> root = [1,2,3]<br>
+<strong>输出：</strong> 6</p>
+<h2 id="示例2">示例2</h2>
+<p><img src="/images/ltc_0124_2.jpg" alt="images"><br>
+<strong>输入：</strong> root = [-10,9,20,null,null,15,7]<br>
+<strong>输出：</strong> 42</p>
+<h2 id="题解">题解</h2>
+<p>因为每个节点只能遍历一次，所以当选择的根节点不为最顶层的节点的时候，叶子节点只能选择一个，可以利用回溯算法，将两个叶子节点其中的最大值（需要大于0）和当前节点的和与0进行比较的结果返回，回溯结束之后就可以得到最终结果</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> TreeNode left;</span><br><span class="line">    <span class="keyword">public</span> TreeNode right;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val = <span class="number">0</span>, TreeNode left = <span class="literal">null</span>, TreeNode right = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.left = left;</span><br><span class="line">        <span class="keyword">this</span>.right = right;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode</span><br><span class="line">        &#123;</span><br><span class="line">            val = <span class="number">-10</span>,</span><br><span class="line">            left = <span class="keyword">new</span> TreeNode(<span class="number">9</span>),</span><br><span class="line">            right = <span class="keyword">new</span> TreeNode</span><br><span class="line">            &#123;</span><br><span class="line">                val = <span class="number">20</span>,</span><br><span class="line">                left = <span class="keyword">new</span> TreeNode(<span class="number">15</span>),</span><br><span class="line">                right = <span class="keyword">new</span> TreeNode(<span class="number">7</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">int</span> x = solution.MaxPathSum(root);</span><br><span class="line">        Console.WriteLine(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> ans = <span class="built_in">int</span>.MinValue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MaxPathSum</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        BackTrack(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">BackTrack</span>(<span class="params">TreeNode root</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">int</span> left = BackTrack(root.left);</span><br><span class="line">        <span class="built_in">int</span> right = BackTrack(root.right);</span><br><span class="line">        <span class="built_in">int</span> current = Math.Max(<span class="number">0</span>, left) + Math.Max(<span class="number">0</span>, right) + root.val;</span><br><span class="line">        ans = Math.Max(current, ans);</span><br><span class="line">        <span class="keyword">return</span> Math.Max(<span class="number">0</span>, Math.Max(left, right)) + root.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣0125——验证回文串</title>
+    <url>/2024/02/06/%E5%8A%9B%E6%89%A30125%E2%80%94%E2%80%94%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/</url>
+    <content><![CDATA[<h1><a href="https://leetcode.cn/problems/valid-palindrome/description/">验证回文串</a></h1>
+<p>难度：<font color=green><strong>简单</strong></font></p>
+<h2 id="题目描述">题目描述</h2>
+<p>如果在将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 <strong>回文串</strong> 。</p>
+<p>字母和数字都属于字母数字字符。</p>
+<p>给你一个字符串 <code>s</code>，如果它是 <strong>回文串</strong> ，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<h2 id="示例1">示例1</h2>
+<p><strong>输入:</strong> s = “A man, a plan, a canal: Panama”<br>
+<strong>输出：</strong> true</p>
+<h2 id="示例2">示例2</h2>
+<p><strong>输入：</strong> s = “race a car”<br>
+<strong>输出：</strong> false</p>
+<h2 id="示例3">示例3</h2>
+<p><strong>输入：</strong> s = &quot; &quot;<br>
+<strong>输出：</strong> true</p>
+<h2 id="题解">题解</h2>
+<p>直接利用正则表达删除掉空格和标点符号，并将所有的字母转换为小写，之后将它转换为zhar数组并将其翻转，再将它变为字符串之后与经过正则处理之后的字符串进行对比即可</p>
+<h2 id="想法代码">想法代码</h2>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="built_in">string</span> s = s = <span class="string">&quot;A man, a plan, a canal: Panama&quot;</span>;</span><br><span class="line">        <span class="built_in">bool</span> ans = solution.IsPalindrome(s);</span><br><span class="line">        Console.WriteLine(ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">IsPalindrome</span>(<span class="params"><span class="built_in">string</span> s</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> temp = Regex.Replace(s, <span class="string">&quot;[^A-Za-z0-9]&quot;</span>, <span class="string">&quot;&quot;</span>).ToLower();</span><br><span class="line">        <span class="built_in">char</span>[] tempArr = temp.ToCharArray();</span><br><span class="line">        Array.Reverse(tempArr);</span><br><span class="line">        <span class="keyword">return</span> temp.Equals(<span class="keyword">new</span> <span class="built_in">string</span>(tempArr));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
 </search>
