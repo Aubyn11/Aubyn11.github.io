@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Archives |  Aubyn</title>
+      <title>计算机网络——05Internet结构和ISP |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -55,256 +55,250 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-计算机网络——05Internet结构和ISP"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络——05Internet结构和ISP
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" class="article-date">
+  <time datetime="2024-02-08T00:03:12.000Z" itemprop="datePublished">2024-02-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
   
-  <ul class="ads">
-    
-        <li>
-            <a href="">
-                <img src="" width="" alt="">
-            </a>
-        </li>
-    
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">989</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>Internet结构和ISP</h1>
+<h2 id="互连网络结构：网络的网络">互连网络结构：网络的网络</h2>
+<ul>
+<li>端系统通过<font color=red>接入ISPs</font>连接到互连网
+<ul>
+<li>住宅、公司和大学的ISPs</li>
 </ul>
-  
-  
-  <article class="articles">
-    
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2023" class="archive-year">2023</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30031%E2%80%94%E2%80%94%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" class="archive-article-date">
-  <time datetime="2023-11-19T17:33:17.000Z" itemprop="datePublished">11/20</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/20/%E5%8A%9B%E6%89%A30031%E2%80%94%E2%80%94%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/"
-    >力扣0031——下一个排列</a> 
-</h2>
+</li>
+<li>接入ISPs相应的必须是互联的
+<ul>
+<li>因此任何2个端系统可相互发送分组到对方</li>
+</ul>
+</li>
+<li>导致的“网络的网络”非常复杂
+<ul>
+<li>发展和演化是通过<font color=red>经济的</font>和<font color=red>国家的</font>政策来驱动的</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>问题</strong></font>：给定数百万接入ISPs，如何将他们互联到一起?</p>
+<p><img src="/images/wl_05_1.png" alt="图例"></p>
+<p><font color=red><strong>选项</strong></font>：<em>将每个接入ISPs都连接到全局ISP（全局范围内覆盖）？</em></p>
+<p><font color=red><strong>客户</strong></font>ISPs和<font color=red><strong>提供者</strong></font>ISPs有经济合约</p>
+<p><img src="/images/wl_05_2.png" alt="图例"></p>
+<p><font color=red><strong>竞争</strong></font>：如果全局ISP是有利可为的业务，那会有竞争者</p>
+<p><img src="/images/wl_05_3.png" alt="图例"></p>
+<p><font color=red><strong>合作</strong></font>：通过ISP之间的合作可以完成业务的扩展，肯定会有互联，对等互联的结算关系</p>
+<p><img src="/images/wl_05_4.png" alt="图例"></p>
+<p><font color=red>接入方式</font>：</p>
+<ul>
+<li>对等连接（路由器之间的连接）</li>
+<li>IXP</li>
+</ul>
+<p>然后业务会细分（全球接入和区域接入），区域网络将出现，用于将ISPs连接到全局ISPs<br>
+<img src="/images/wl_05_5.png" alt="图例"></p>
+<ul>
+<li>除了ISP，客户端两个身份，还有ICP这个角色，比如百度，谷歌等提供内容的服务商</li>
+<li>ISP是提供基本连接的，ICP是提供业务的，早期ICP通过连入ISP来进行信息传输，会出现两个问题
+<ul>
+<li>成本过高：钱都要交给ISP</li>
+<li>ISP没办法向全球的用户提供高质量的服务</li>
+</ul>
+</li>
+<li>因此ICP就搭建自己的专网，即在全球范围内部署自己的数据中心机房，这些机房之间采用自己的专线，（或者是自己搭的，或者是租的，比如国内是不允许谷歌自己搭电缆的，要不然挖的乱七八糟的），而且机房的位置都靠近核心的ISP设备，用户通过ISP接进来，很快就能访问到谷歌的ISP，即使附近没有机房，也可以通过ISP连接到附近有机房的ISP</li>
+<li>这样降低了成本，也提高了服务质量</li>
+<li>国内也是类似，不过也可以向政府提案提速降费</li>
+</ul>
+<p>之后<font color=red>内容提供商网络</font>可能会构建他们的网络，将他们的服务、内容更加靠近端用户，向客户提供更好的服务，减少自己的运营支出<br>
+<img src="/images/wl_05_6.png" alt="图例"></p>
+<p>ICP数据服务中心机房部署的位置需要考虑很多因素</p>
+<ul>
+<li>离ISP数据中心机房较近</li>
+<li>有的部署在温度较低的环境：北极、水底</li>
+<li>比如大山：战争、自然灾害影响较小</li>
+</ul>
+<p><img src="/images/wl_05_7.png" alt="image"></p>
+<p>在网络的最中心，一些为数不多的充分连接的大范围网络（分布广、节点有限、但是之间有着多重连接）</p>
+<ul>
+<li><font color=red>“tier-1” commercial ISPs</font> (e.g., Level 3, Sprint, AT&amp;T, NTT), 国家或者国际 范围的覆盖</li>
+<li><font color=red>content provider network</font> (e.g., Google): 将它们的数据中心接入ISP，方便周边 用户的访问；通常私有网络之间用专网绕过第一层ISP和区域</li>
+</ul>
+<h2 id="internet结构：network-of-networks">Internet结构：network of networks</h2>
+<ul>
+<li>松散的层次结构</li>
+<li><font color=red><strong>中心：第一层ISP</strong></font>国家/国际覆盖，速率很高
+<ul>
+<li>直接与其他第一层ISP相连</li>
+<li>与大量的第二层ISP和其他客户网络相连</li>
+</ul>
+</li>
+<li><font color=red><strong>第二层ISP</strong></font>：更小些的（通常是局域性的）ISP
+<ul>
+<li>与一个或多个第一层ISPs，也可能与其他第二层ISP</li>
+</ul>
+</li>
+<li><font color=red><strong>第三层ISP与其他本地ISP</strong></font>
+<ul>
+<li>接入网（与端系统最近）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_05_8.png" alt="第一层ISP"></p>
+<p><img src="/images/wl_05_9.png" alt="美国骨干网BBN的覆盖情况"></p>
+<p><img src="/images/wl_05_10.png" alt="Sprint的覆盖情况"></p>
+<ul>
+<li>POP是上级和下级的关系</li>
+<li>下级通过与上级连接，上级再与ISP连接</li>
+</ul>
+<p><img src="/images/wl_05_11.png" alt="第二层ISP"></p>
+<p><img src="/images/wl_05_12.png" alt="一个分组要经过许多网络"></p>
+<h2 id="isp之间的连接">ISP之间的连接</h2>
+<ul>
+<li>POP：高层ISP面向客户网络的接入点，涉及费用结算
+<ul>
+<li>如一个低层ISP接入多个高层ISP，多宿（multi home）</li>
+</ul>
+</li>
+<li>对等接入：2个ISP对等互接，不涉及费用结算</li>
+<li>IXP：多个对等ISP互联互通之处，通常不涉及费用结算</li>
+<li>ICP自己部署专用网络，同时和各级ISP连接</li>
+</ul>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30030%E2%80%94%E2%80%94%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/" class="archive-article-date">
-  <time datetime="2023-11-19T17:30:20.000Z" itemprop="datePublished">11/20</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/20/%E5%8A%9B%E6%89%A30030%E2%80%94%E2%80%94%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/"
-    >力扣0030——串联所有单词的子串</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30029%E2%80%94%E2%80%94%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/" class="archive-article-date">
-  <time datetime="2023-11-19T17:27:01.000Z" itemprop="datePublished">11/20</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/20/%E5%8A%9B%E6%89%A30029%E2%80%94%E2%80%94%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4/"
-    >力扣0029——两数相除</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30028%E2%80%94%E2%80%94%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/" class="archive-article-date">
-  <time datetime="2023-11-19T16:33:09.000Z" itemprop="datePublished">11/20</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/20/%E5%8A%9B%E6%89%A30028%E2%80%94%E2%80%94%E6%89%BE%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%B9%E9%85%8D%E9%A1%B9%E7%9A%84%E4%B8%8B%E6%A0%87/"
-    >力扣0028——找出字符串中第一个匹配项的下标</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="archive-article-date">
-  <time datetime="2023-11-19T16:02:16.000Z" itemprop="datePublished">11/20</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/20/%E5%8A%9B%E6%89%A30027%E2%80%94%E2%80%94%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/"
-    >力扣0027——移除元素</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30026%E2%80%94%E2%80%94%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" class="archive-article-date">
-  <time datetime="2023-11-19T15:58:49.000Z" itemprop="datePublished">11/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/19/%E5%8A%9B%E6%89%A30026%E2%80%94%E2%80%94%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/"
-    >力扣0026——删除有序数组中的重复项</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30025%E2%80%94%E2%80%94K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  <time datetime="2023-11-19T15:54:45.000Z" itemprop="datePublished">11/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/19/%E5%8A%9B%E6%89%A30025%E2%80%94%E2%80%94K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/"
-    >力扣0025——K个一组翻转链表</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30024%E2%80%94%E2%80%94%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BB%93%E7%82%B9/" class="archive-article-date">
-  <time datetime="2023-11-19T15:50:40.000Z" itemprop="datePublished">11/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/19/%E5%8A%9B%E6%89%A30024%E2%80%94%E2%80%94%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BB%93%E7%82%B9/"
-    >力扣0024——两两交换链表中的结点</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30023%E2%80%94%E2%80%94%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  <time datetime="2023-11-19T15:48:06.000Z" itemprop="datePublished">11/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/19/%E5%8A%9B%E6%89%A30023%E2%80%94%E2%80%94%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/"
-    >力扣0023——合并K个升序链表</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/19/%E5%8A%9B%E6%89%A30022%E2%80%94%E2%80%94%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/" class="archive-article-date">
-  <time datetime="2023-11-19T15:43:07.000Z" itemprop="datePublished">11/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/19/%E5%8A%9B%E6%89%A30022%E2%80%94%E2%80%94%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/"
-    >力扣0022——括号生成</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/10/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/archives/page/12/">12</a><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><a class="extend next" rel="next" href="/archives/page/12/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/02/06/%E5%8A%9B%E6%89%A30125%E2%80%94%E2%80%94%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">力扣0125——验证回文串</div>
+      </a>
+    
   </nav>
+
   
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -431,6 +425,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
