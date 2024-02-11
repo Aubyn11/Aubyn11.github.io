@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络——05Internet结构和ISP |  Aubyn</title>
+      <title>计算机网络——06分组延时、丢失和吞吐量 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-计算机网络——05Internet结构和ISP"
+  id="post-计算机网络——06分组延时、丢失和吞吐量"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  计算机网络——05Internet结构和ISP
+  计算机网络——06分组延时、丢失和吞吐量
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" class="article-date">
-  <time datetime="2024-02-08T00:03:12.000Z" itemprop="datePublished">2024-02-08</time>
+      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/" class="article-date">
+  <time datetime="2024-02-08T04:49:17.000Z" itemprop="datePublished">2024-02-08</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">989</span>
+            <span class="post-count">961</span>
         </span>
     </span>
 
@@ -111,106 +111,143 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>Internet结构和ISP</h1>
-<h2 id="互连网络结构：网络的网络">互连网络结构：网络的网络</h2>
+  <h1>分组延时、丢失和吞吐量</h1>
+<h2 id="分组丢失和延时是怎样发生的">分组丢失和延时是怎样发生的</h2>
+<p>在路由器缓冲区的分组队列</p>
 <ul>
-<li>端系统通过<font color=red>接入ISPs</font>连接到互连网
+<li><font color=red>分组到达链路的速率超过了链路输出的能力</font></li>
+<li>分组等待排到队头、被传输</li>
+</ul>
+<p><img src="/images/wl_06_1.png" alt="图例"></p>
+<p>延时原因：</p>
 <ul>
-<li>住宅、公司和大学的ISPs</li>
+<li>当当前链路有别的分组进行传输，分组没有到达队首，就会进行排队，从而产生排队延迟</li>
+<li>丢失原因：分组到达的时候，队列满了，就会丢弃</li>
+<li>除了排队延时，还有传输延时</li>
+</ul>
+<h2 id="四种延时类型">四种延时类型</h2>
+<ul>
+<li><font color=red>节点处理延时</font>
+<ul>
+<li>检查<strong>bit</strong>级差错</li>
+<li>检查分组首部和决定将分组导向何处</li>
 </ul>
 </li>
-<li>接入ISPs相应的必须是互联的
+<li><font color=red><strong>排队延时</strong></font>
 <ul>
-<li>因此任何2个端系统可相互发送分组到对方</li>
+<li>在输出链路上等待传输的时间</li>
+<li>依赖于路由器的拥塞程度</li>
 </ul>
 </li>
-<li>导致的“网络的网络”非常复杂
+<li><font color=red>传输延时</font>
 <ul>
-<li>发展和演化是通过<font color=red>经济的</font>和<font color=red>国家的</font>政策来驱动的</li>
+<li><strong>R</strong> = 链路带宽(<strong>bps</strong>)</li>
+<li><strong>L</strong> = 分组长度(<strong>bits</strong>)</li>
+<li>将分组发送到链路上的时间 = <strong>L / R</strong></li>
+<li>存储转发延时</li>
 </ul>
 </li>
-</ul>
-<p><font color=red><strong>问题</strong></font>：给定数百万接入ISPs，如何将他们互联到一起?</p>
-<p><img src="/images/wl_05_1.png" alt="图例"></p>
-<p><font color=red><strong>选项</strong></font>：<em>将每个接入ISPs都连接到全局ISP（全局范围内覆盖）？</em></p>
-<p><font color=red><strong>客户</strong></font>ISPs和<font color=red><strong>提供者</strong></font>ISPs有经济合约</p>
-<p><img src="/images/wl_05_2.png" alt="图例"></p>
-<p><font color=red><strong>竞争</strong></font>：如果全局ISP是有利可为的业务，那会有竞争者</p>
-<p><img src="/images/wl_05_3.png" alt="图例"></p>
-<p><font color=red><strong>合作</strong></font>：通过ISP之间的合作可以完成业务的扩展，肯定会有互联，对等互联的结算关系</p>
-<p><img src="/images/wl_05_4.png" alt="图例"></p>
-<p><font color=red>接入方式</font>：</p>
+<li><font color=red>传播延时</font>
 <ul>
-<li>对等连接（路由器之间的连接）</li>
-<li>IXP</li>
-</ul>
-<p>然后业务会细分（全球接入和区域接入），区域网络将出现，用于将ISPs连接到全局ISPs<br>
-<img src="/images/wl_05_5.png" alt="图例"></p>
-<ul>
-<li>除了ISP，客户端两个身份，还有ICP这个角色，比如百度，谷歌等提供内容的服务商</li>
-<li>ISP是提供基本连接的，ICP是提供业务的，早期ICP通过连入ISP来进行信息传输，会出现两个问题
-<ul>
-<li>成本过高：钱都要交给ISP</li>
-<li>ISP没办法向全球的用户提供高质量的服务</li>
-</ul>
-</li>
-<li>因此ICP就搭建自己的专网，即在全球范围内部署自己的数据中心机房，这些机房之间采用自己的专线，（或者是自己搭的，或者是租的，比如国内是不允许谷歌自己搭电缆的，要不然挖的乱七八糟的），而且机房的位置都靠近核心的ISP设备，用户通过ISP接进来，很快就能访问到谷歌的ISP，即使附近没有机房，也可以通过ISP连接到附近有机房的ISP</li>
-<li>这样降低了成本，也提高了服务质量</li>
-<li>国内也是类似，不过也可以向政府提案提速降费</li>
-</ul>
-<p>之后<font color=red>内容提供商网络</font>可能会构建他们的网络，将他们的服务、内容更加靠近端用户，向客户提供更好的服务，减少自己的运营支出<br>
-<img src="/images/wl_05_6.png" alt="图例"></p>
-<p>ICP数据服务中心机房部署的位置需要考虑很多因素</p>
-<ul>
-<li>离ISP数据中心机房较近</li>
-<li>有的部署在温度较低的环境：北极、水底</li>
-<li>比如大山：战争、自然灾害影响较小</li>
-</ul>
-<p><img src="/images/wl_05_7.png" alt="image"></p>
-<p>在网络的最中心，一些为数不多的充分连接的大范围网络（分布广、节点有限、但是之间有着多重连接）</p>
-<ul>
-<li><font color=red>“tier-1” commercial ISPs</font> (e.g., Level 3, Sprint, AT&amp;T, NTT), 国家或者国际 范围的覆盖</li>
-<li><font color=red>content provider network</font> (e.g., Google): 将它们的数据中心接入ISP，方便周边 用户的访问；通常私有网络之间用专网绕过第一层ISP和区域</li>
-</ul>
-<h2 id="internet结构：network-of-networks">Internet结构：network of networks</h2>
-<ul>
-<li>松散的层次结构</li>
-<li><font color=red><strong>中心：第一层ISP</strong></font>国家/国际覆盖，速率很高
-<ul>
-<li>直接与其他第一层ISP相连</li>
-<li>与大量的第二层ISP和其他客户网络相连</li>
-</ul>
-</li>
-<li><font color=red><strong>第二层ISP</strong></font>：更小些的（通常是局域性的）ISP
-<ul>
-<li>与一个或多个第一层ISPs，也可能与其他第二层ISP</li>
-</ul>
-</li>
-<li><font color=red><strong>第三层ISP与其他本地ISP</strong></font>
-<ul>
-<li>接入网（与端系统最近）</li>
+<li><strong>d</strong> = 物理链路的长度</li>
+<li><strong>s</strong> = 在媒体上的传播速度(<strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∗</mo><mn>1</mn><msup><mn>0</mn><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">2 * 10^{8}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span></span> m/sec</strong>)</li>
+<li>传播延时 = <strong>d/s</strong></li>
 </ul>
 </li>
 </ul>
-<p><img src="/images/wl_05_8.png" alt="第一层ISP"></p>
-<p><img src="/images/wl_05_9.png" alt="美国骨干网BBN的覆盖情况"></p>
-<p><img src="/images/wl_05_10.png" alt="Sprint的覆盖情况"></p>
+<h2 id="节点延时">节点延时</h2>
+<p><img src="/images/wl_06_2.png" alt="图例"></p>
+<h2 id="排队延时">排队延时</h2>
 <ul>
-<li>POP是上级和下级的关系</li>
-<li>下级通过与上级连接，上级再与ISP连接</li>
+<li><strong>R</strong> = 链路带宽（bps）</li>
+<li><strong>L</strong> = 分组长度（bits）</li>
+<li><strong>a</strong> = 分组到达队列的平均速率</li>
 </ul>
-<p><img src="/images/wl_05_11.png" alt="第二层ISP"></p>
-<p><img src="/images/wl_05_12.png" alt="一个分组要经过许多网络"></p>
-<h2 id="isp之间的连接">ISP之间的连接</h2>
+<p><font color=red><strong>流量强度 = La / R</strong></font></p>
 <ul>
-<li>POP：高层ISP面向客户网络的接入点，涉及费用结算
+<li><strong>La / R ~ 0</strong>：平均排队延时很小</li>
+<li><strong>La / R -&gt; 1</strong>：排队延时变得很大</li>
+<li><strong>La / R &gt; 1</strong>：比特到达队列的速率超过了从该队列输出的速率，平均排队时间将趋向无穷大</li>
+</ul>
+<p><font color=red><em>系统设计时流量强度不能大于1</em></font></p>
+<p><img src="/images/wl_06_3.png" alt="图例"></p>
+<h2 id="internet的延时和路由">Internet的延时和路由</h2>
 <ul>
-<li>如一个低层ISP接入多个高层ISP，多宿（multi home）</li>
+<li>Internet 的延时和路由是怎样的？
+<ul>
+<li><font color=red><strong>Traceroute</strong> 诊断程序</font>：提供从源端，经过路由器，到目的的延时测量</li>
+<li><strong>For all i</strong>:
+<ul>
+<li>沿着目的的路径，向每个路由器发送<strong>3</strong>个探测分组</li>
+<li>路由器 <em>i</em> 将向发送方返回一个分组</li>
+<li>发送方对发送和回复之间间隔计时</li>
 </ul>
 </li>
-<li>对等接入：2个ISP对等互接，不涉及费用结算</li>
-<li>IXP：多个对等ISP互联互通之处，通常不涉及费用结算</li>
-<li>ICP自己部署专用网络，同时和各级ISP连接</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_06_4.png" alt="图示"></p>
+<p>Traceroute 是 利用 <code>ICMP协议（互联网控制报文协议）</code> 运作的<br>
+TTL的原理：</p>
+<ul>
+<li>假设源客户端是A，目标客户端是B，中间的路由器标号一次为 1 2 3 4 5</li>
+<li>在分组的头部header中有一个字段叫TTL（Time to leave）是整数，每经过一个路由器时路由器将TTL-1，如果TTL=0，则该路由器向原客户端发送消息，从而得到时间</li>
+<li>A设置TTL=1，那么第一个路由器返回时间；设置TTL=2，那么第二个路由器返回时间</li>
+</ul>
+<p>依次增大TTL，得到每个路由器返回的延时</p>
+<ul>
+<li>
+<p>对于目标客户端B，设置TTL足够大能够达到B，但是设置端口号没有对应的服务，这样到达B之后找不到对应的端口号就又会向A返回时间，得到B的延时</p>
+</li>
+<li>
+<p>在Windows系统下</p>
+<ul>
+<li>Tracert hostname</li>
+<li>如 Tracert <a target="_blank" rel="noopener" href="http://www.gucas.ac.cn">www.gucas.ac.cn</a></li>
+</ul>
+</li>
+<li>
+<p>更完整的例子</p>
+<ul>
+<li>tract [-d] [-h maximum_hops] [-j computer-list] [-w timeout] target_name</li>
+<li>请见帮助： <a target="_blank" rel="noopener" href="http://www.linkwan.com/gb/broadmeter/article/trace">http://www.linkwan.com/gb/broadmeter/article/trace</a> -help.htm</li>
+</ul>
+</li>
+<li>
+<p>测试网址</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.traceroute.org">www.traceroute.org</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.linkwan.com">www.linkwan.com</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="分组丢失">分组丢失</h2>
+<ul>
+<li>链路的队列缓冲区容量有限</li>
+<li>当分组到达一个满的队列时，该分组将会丢失</li>
+<li>丢失的分组可能会被前一个节点或源端系统重传，或根本不重传</li>
+</ul>
+<p><img src="/images/wl_06_5.png" alt="图示"></p>
+<h2 id="吞吐量">吞吐量</h2>
+<ul>
+<li><font color=red><em>吞吐量</em></font>：在源端和目标端之间传输的速率（数据量 / 单位时间）
+<ul>
+<li><font color=red><em>瞬间吞吐量</em></font>：在一个时间点的速率</li>
+<li><font color=red><em>平均吞吐量</em></font>：在一个长时间内平均值</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_06_6.png" alt="图示"></p>
+<p><img src="/images/wl_06_7.png" alt="图示"></p>
+<blockquote>
+<p>吞吐量取决于吞吐量最小的路径</p>
+</blockquote>
+<p><img src="/images/wl_06_8.png" alt="图示"></p>
+<h2 id="吞吐量：互联网场景">吞吐量：互联网场景</h2>
+<p><img src="/images/wl_06_9.png" alt="图示"></p>
+<ul>
+<li>如图，可以看到R链路同时由多个连接共享，这样的话不同的连接就要平分带宽</li>
+<li>这样尽管R的带宽比<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">R_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">R_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>大，但是实际给AB的带宽是 1/n，最终比较的是 1/n 的大小</li>
 </ul>
  
       <!-- reward -->
@@ -264,7 +301,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,19 +314,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            计算机网络——06分组延时、丢失和吞吐量
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/02/06/%E5%8A%9B%E6%89%A30125%E2%80%94%E2%80%94%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/" class="article-nav-link">
+      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣0125——验证回文串</div>
+        <div class="article-nav-title">计算机网络——05Internet结构和ISP</div>
       </a>
     
   </nav>

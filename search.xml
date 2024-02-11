@@ -5339,4 +5339,153 @@ Node *next;<br>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——06分组延时、丢失和吞吐量</title>
+    <url>/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/</url>
+    <content><![CDATA[<h1>分组延时、丢失和吞吐量</h1>
+<h2 id="分组丢失和延时是怎样发生的">分组丢失和延时是怎样发生的</h2>
+<p>在路由器缓冲区的分组队列</p>
+<ul>
+<li><font color=red>分组到达链路的速率超过了链路输出的能力</font></li>
+<li>分组等待排到队头、被传输</li>
+</ul>
+<p><img src="/images/wl_06_1.png" alt="图例"></p>
+<p>延时原因：</p>
+<ul>
+<li>当当前链路有别的分组进行传输，分组没有到达队首，就会进行排队，从而产生排队延迟</li>
+<li>丢失原因：分组到达的时候，队列满了，就会丢弃</li>
+<li>除了排队延时，还有传输延时</li>
+</ul>
+<h2 id="四种延时类型">四种延时类型</h2>
+<ul>
+<li><font color=red>节点处理延时</font>
+<ul>
+<li>检查<strong>bit</strong>级差错</li>
+<li>检查分组首部和决定将分组导向何处</li>
+</ul>
+</li>
+<li><font color=red><strong>排队延时</strong></font>
+<ul>
+<li>在输出链路上等待传输的时间</li>
+<li>依赖于路由器的拥塞程度</li>
+</ul>
+</li>
+<li><font color=red>传输延时</font>
+<ul>
+<li><strong>R</strong> = 链路带宽(<strong>bps</strong>)</li>
+<li><strong>L</strong> = 分组长度(<strong>bits</strong>)</li>
+<li>将分组发送到链路上的时间 = <strong>L / R</strong></li>
+<li>存储转发延时</li>
+</ul>
+</li>
+<li><font color=red>传播延时</font>
+<ul>
+<li><strong>d</strong> = 物理链路的长度</li>
+<li><strong>s</strong> = 在媒体上的传播速度(<strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>∗</mo><mn>1</mn><msup><mn>0</mn><mn>8</mn></msup></mrow><annotation encoding="application/x-tex">2 * 10^{8}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span></span></span></span> m/sec</strong>)</li>
+<li>传播延时 = <strong>d/s</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="节点延时">节点延时</h2>
+<p><img src="/images/wl_06_2.png" alt="图例"></p>
+<h2 id="排队延时">排队延时</h2>
+<ul>
+<li><strong>R</strong> = 链路带宽（bps）</li>
+<li><strong>L</strong> = 分组长度（bits）</li>
+<li><strong>a</strong> = 分组到达队列的平均速率</li>
+</ul>
+<p><font color=red><strong>流量强度 = La / R</strong></font></p>
+<ul>
+<li><strong>La / R ~ 0</strong>：平均排队延时很小</li>
+<li><strong>La / R -&gt; 1</strong>：排队延时变得很大</li>
+<li><strong>La / R &gt; 1</strong>：比特到达队列的速率超过了从该队列输出的速率，平均排队时间将趋向无穷大</li>
+</ul>
+<p><font color=red><em>系统设计时流量强度不能大于1</em></font></p>
+<p><img src="/images/wl_06_3.png" alt="图例"></p>
+<h2 id="internet的延时和路由">Internet的延时和路由</h2>
+<ul>
+<li>Internet 的延时和路由是怎样的？
+<ul>
+<li><font color=red><strong>Traceroute</strong> 诊断程序</font>：提供从源端，经过路由器，到目的的延时测量</li>
+<li><strong>For all i</strong>:
+<ul>
+<li>沿着目的的路径，向每个路由器发送<strong>3</strong>个探测分组</li>
+<li>路由器 <em>i</em> 将向发送方返回一个分组</li>
+<li>发送方对发送和回复之间间隔计时</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_06_4.png" alt="图示"></p>
+<p>Traceroute 是 利用 <code>ICMP协议（互联网控制报文协议）</code> 运作的<br>
+TTL的原理：</p>
+<ul>
+<li>假设源客户端是A，目标客户端是B，中间的路由器标号一次为 1 2 3 4 5</li>
+<li>在分组的头部header中有一个字段叫TTL（Time to leave）是整数，每经过一个路由器时路由器将TTL-1，如果TTL=0，则该路由器向原客户端发送消息，从而得到时间</li>
+<li>A设置TTL=1，那么第一个路由器返回时间；设置TTL=2，那么第二个路由器返回时间</li>
+</ul>
+<p>依次增大TTL，得到每个路由器返回的延时</p>
+<ul>
+<li>
+<p>对于目标客户端B，设置TTL足够大能够达到B，但是设置端口号没有对应的服务，这样到达B之后找不到对应的端口号就又会向A返回时间，得到B的延时</p>
+</li>
+<li>
+<p>在Windows系统下</p>
+<ul>
+<li>Tracert hostname</li>
+<li>如 Tracert <a href="http://www.gucas.ac.cn">www.gucas.ac.cn</a></li>
+</ul>
+</li>
+<li>
+<p>更完整的例子</p>
+<ul>
+<li>tract [-d] [-h maximum_hops] [-j computer-list] [-w timeout] target_name</li>
+<li>请见帮助： <a href="http://www.linkwan.com/gb/broadmeter/article/trace">http://www.linkwan.com/gb/broadmeter/article/trace</a> -help.htm</li>
+</ul>
+</li>
+<li>
+<p>测试网址</p>
+<ul>
+<li><a href="http://www.traceroute.org">www.traceroute.org</a></li>
+<li><a href="http://www.linkwan.com">www.linkwan.com</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="分组丢失">分组丢失</h2>
+<ul>
+<li>链路的队列缓冲区容量有限</li>
+<li>当分组到达一个满的队列时，该分组将会丢失</li>
+<li>丢失的分组可能会被前一个节点或源端系统重传，或根本不重传</li>
+</ul>
+<p><img src="/images/wl_06_5.png" alt="图示"></p>
+<h2 id="吞吐量">吞吐量</h2>
+<ul>
+<li><font color=red><em>吞吐量</em></font>：在源端和目标端之间传输的速率（数据量 / 单位时间）
+<ul>
+<li><font color=red><em>瞬间吞吐量</em></font>：在一个时间点的速率</li>
+<li><font color=red><em>平均吞吐量</em></font>：在一个长时间内平均值</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_06_6.png" alt="图示"></p>
+<p><img src="/images/wl_06_7.png" alt="图示"></p>
+<blockquote>
+<p>吞吐量取决于吞吐量最小的路径</p>
+</blockquote>
+<p><img src="/images/wl_06_8.png" alt="图示"></p>
+<h2 id="吞吐量：互联网场景">吞吐量：互联网场景</h2>
+<p><img src="/images/wl_06_9.png" alt="图示"></p>
+<ul>
+<li>如图，可以看到R链路同时由多个连接共享，这样的话不同的连接就要平分带宽</li>
+<li>这样尽管R的带宽比<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">R_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">R_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>大，但是实际给AB的带宽是 1/n，最终比较的是 1/n 的大小</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
