@@ -5678,4 +5678,28 @@ TTL的原理：</p>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>UnityShader——01Shader和渲染管线</title>
+    <url>/2024/02/11/UnityShader%E2%80%94%E2%80%9401Shader%E5%92%8C%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/</url>
+    <content><![CDATA[<h1>Shader和渲染管线</h1>
+<h2 id="什么是shader">什么是Shader</h2>
+<p><strong>Shader</strong>中文翻译为着色器，是一种较为短小的程序片段，用于告诉图形硬件如何计算和输出图像，过去由汇编语言编写，现在也可以使用高级语言进行编写。<br>
+即，<strong>Shader</strong>是一种可编程图形管线的算法片段<br>
+主要分为两类，<strong>Vertex Shader</strong>和<strong>Fragment Shader</strong></p>
+<h2 id="什么是渲染管线">什么是渲染管线</h2>
+<p>渲染管线也称为渲染流水线，是显示芯片内部处理图形信号相互独立的并行处理单元。一个流水线是一序列可以并行和按照固定顺序进行的阶段。每个阶段都从它的前一阶段接收输入，然后把输出发给随后的阶段。就像一个在同一时间内，不同阶段不同的汽车一起制造的装配线，传统的图形硬件流水线以流水的方式处理大量的顶点、几何图元和片段</p>
+<p><img src="/images/Shader/Shader_01/Shader_01_1.png" alt="示例"></p>
+<p><img src="/images/Shader/Shader_01/Shader_01_2.png" alt="示例"></p>
+<p><img src="/images/Shader/Shader_01/Shader_01_3.png" alt="示例"></p>
+<h2 id="shader和材质-贴图的关系">Shader和材质、贴图的关系</h2>
+<p><strong>Shader</strong>（着色器）实际上就是一小段程序，它负责将输入的顶点数据以指定的形式和输入的贴图或者颜色等组合起来，然后输出。绘图单元可以依据这个输出来将图像绘制到屏幕上。输入的贴图或者颜色等，加上对应的Shader，以及对Shader特定的参数设置，将这些内容打包存储在一起，得到的就是一个<strong>Material</strong>（材质）。之后，我们便可以将材质赋予三维物体来进行渲染（输出）了<br>
+举个例子：材质就像引擎最终使用的商品，Shader就像生产这种商品的加工方法，而贴图就像是原材料</p>
+]]></content>
+      <categories>
+        <category>UnityShader</category>
+      </categories>
+      <tags>
+        <tag>UnityShader</tag>
+      </tags>
+  </entry>
 </search>
