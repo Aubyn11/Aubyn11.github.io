@@ -5702,4 +5702,493 @@ TTL的原理：</p>
         <tag>UnityShader</tag>
       </tags>
   </entry>
+  <entry>
+    <title>UnityShader——02三大主流编程语言</title>
+    <url>/2024/02/11/UnityShader%E2%80%94%E2%80%9402%E4%B8%89%E5%A4%A7%E4%B8%BB%E6%B5%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<h1>三大主流编程语言</h1>
+<h2 id="shader-language">Shader Language</h2>
+<p>Shader language的发展方向是设计出在便携性方面可以与C++/JAVA相比的高级语言，“赋予程序员灵活而方便的编程方式”，并“利用图形硬件的并行性，提高算法的效率”</p>
+<p>Shader language目前主要有 3 种语言，基于OpenGL的OpenGL Shading Language，简称GLSL，基于DirectX的High Level Shading Language，简称HLSL，还有NVIDA公司的C for Graphic简称Cg语言</p>
+]]></content>
+      <categories>
+        <category>UnityShader</category>
+      </categories>
+      <tags>
+        <tag>UnityShader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——08应用层原理</title>
+    <url>/2024/02/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9408%E5%BA%94%E7%94%A8%E5%B1%82%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1>应用层原理</h1>
+<h2 id="创建一个新的网络">创建一个新的网络</h2>
+<p><font color=red><strong>编程</strong></font></p>
+<ul>
+<li>在不同的端系统上运行</li>
+<li>通过网络基础设施提供的服务，应用进程批次通信</li>
+<li>如<strong>Web</strong>
+<ul>
+<li><strong>Web</strong>服务器软件与浏览器软件通信</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>网络核心</strong>中没有应用层软件</font></p>
+<ul>
+<li>网络核心没有应用层功能</li>
+<li>网络应用只能在端系统上存在
+<ul>
+<li>快速网络应用开发和部署</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络应用的体系架构">网络应用的体系架构</h2>
+<p>可能的应用架构</p>
+<ul>
+<li>客户-服务器模式（C/S）</li>
+<li>对等模式（P2P）</li>
+<li>混合体：客户-服务器和对等体系结构</li>
+</ul>
+<h2 id="客户-服务器-c-s-体系结构">客户-服务器（C/S）体系结构</h2>
+<ul>
+<li><font color=red>服务器</font>
+<ul>
+<li>一直运行</li>
+<li>固定的IP和周知的端口号（约定）</li>
+<li>扩展性：服务器场
+<ul>
+<li>数据中心进行拓展</li>
+<li>拓展性差</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><font color=red>客户端</font>
+<ul>
+<li>主动与服务器通信</li>
+<li>与互连网有间歇性的连接</li>
+<li>可能是动态IP地址</li>
+<li>不直接与其他客户端通信</li>
+</ul>
+</li>
+<li><font color=red>缺点</font>
+<ul>
+<li>可拓展性差</li>
+<li>达到一定能限，性能暴跌</li>
+<li>可靠性差</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_08_1.png" alt=""></p>
+<h2 id="对等体-p2p-体系结构">对等体（P2P）体系结构</h2>
+<ul>
+<li>（几乎）没有一直运行的服务器</li>
+<li>任意端系统之间可以进行通信</li>
+<li>每一个节点既是客户端又是服务器
+<ul>
+<li><font color=red>自拓展性-新<strong>peer</strong>节点带来新的服务能力，当然也带来新的服务请求</font></li>
+</ul>
+</li>
+<li>参与的主机间歇性连接且可以改变<strong>IP</strong>地址
+<ul>
+<li><font color=red>难以管理</font></li>
+</ul>
+</li>
+</ul>
+<h2 id="c-s和p2p体系结构的混合体">C/S和P2P体系结构的混合体</h2>
+<p><font color=red><strong>Napster</strong></font></p>
+<ul>
+<li>文件搜索：集中
+<ul>
+<li>主机在中心服务器上注册其资源</li>
+<li>主机向中心服务器铲鲟资源位置</li>
+</ul>
+</li>
+<li>文件传输：<strong>P2P</strong>
+<ul>
+<li>任意<strong>Peer</strong>节点之间</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>即时通信</strong></font></p>
+<ul>
+<li>在线检测：集中
+<ul>
+<li>当用户上线时，向中心服务器注册其IP地址</li>
+<li>用户与中心服务器联系，以找到其在线好友的位置</li>
+</ul>
+</li>
+<li>两个用户之间聊天：<strong>P2P</strong></li>
+</ul>
+<h2 id="进程通信">进程通信</h2>
+<p><font color=red>进程</font>：在主机上运行的应用程序</p>
+<ul>
+<li>在同一个主机内，使用<font color=red>进程间通信机制</font>通信（操作系统定义）</li>
+<li>不同主机，通过交换<font color=red>报文</font>来通信
+<ul>
+<li>使用<strong>OS</strong>提供的通信服务</li>
+<li>按照应用协议交换报文
+<ul>
+<li>借助传输层提供的服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意：<strong>P2P</strong>架构的应用也有客户端进程和服务器进程之分</li>
+</ul>
+<p><font color=red>客户端进程</font>：发起通信的进程</p>
+<p><font color=red>服务器进程</font>：等待连接的进程</p>
+<h2 id="分布式进程通信需要解决的问题">分布式进程通信需要解决的问题</h2>
+<p><img src="/images/wl_08_2.png" alt=""></p>
+<ul>
+<li>问题1：进程标示和寻址问题（<font color=red>服务用户</font>）</li>
+<li>问题2：传输层-应用层提供服务是如何（<font color=red>服务</font>）
+<ul>
+<li>位置：层间界面的<strong>SAP</strong>（<strong>TCP/IP:socket</strong>）</li>
+<li>形式：应用程序接口<strong>API</strong>（<strong>TCP/IP:socke API</strong>）</li>
+</ul>
+</li>
+<li>问题3：如何使用传输层提供的服务，实现应用进程之间的报文交换，实现应用（<font color=red>用户使用服务</font>）
+<ul>
+<li>定义应用层协议：报文格式、解释、时序等</li>
+<li>编制程序：使用<strong>OS</strong>提供的<strong>API</strong>，调用网络基础设施提供通信服务传报文，实现应用时序等</li>
+</ul>
+</li>
+</ul>
+<h2 id="问题1：对进程进行编址">问题1：对进程进行编址</h2>
+<ul>
+<li>进程为了接收报文必须有一个<strong>标识</strong>，即<strong>SAP</strong>（发送也需要标识）
+<ul>
+<li>主机：唯一的<strong>32</strong>位<font color=red><strong>IP地址</strong></font>
+<ul>
+<li>仅仅有<strong>IP</strong>地址不能够唯一标示一个进程：在一台端系统上有很多应用进程在运行</li>
+</ul>
+</li>
+<li>所采用的传输层协议：<strong>TCP or UDP</strong></li>
+<li><font color=red>端口号</font></li>
+</ul>
+</li>
+<li>一些知名端口号例子：
+<ul>
+<li><strong>HTTP:TCP 80 Mail:TCP25 ftp:TCP 2</strong></li>
+</ul>
+</li>
+<li>一个进程：用<strong>IP + port</strong>标示端节点</li>
+<li>本质上，一对主机进程之间的通信由 2 个端节点构成</li>
+</ul>
+<h2 id="问题2：传输层提供的服务-需要穿过层间的信息">问题2：传输层提供的服务-需要穿过层间的信息</h2>
+<ul>
+<li>层间接口必须要携带的信息
+<ul>
+<li>要传输的报文（对于本层来说：<strong>SDU</strong>）</li>
+<li>谁传的：对方的应用进程的标示：<strong>IP + TCP(UDP)</strong> 端口</li>
+<li>传给谁：对方的应用进程的标示：对方的<strong>IP + TCP(UDP)</strong> 端口号</li>
+</ul>
+</li>
+<li>传输层实体（<strong>tcp</strong>或者<strong>udp</strong>实体）根据这些信息进行<strong>TCP</strong>报文段（<strong>UDP</strong>数据报）的封装
+<ul>
+<li>源端口号，目标端口号，数据等</li>
+<li>将<strong>IP</strong>地址往下交<strong>IP</strong>实体，用于封装<strong>IP</strong>数据报：源<strong>IP</strong>，目标<strong>IP</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="问题2：传输层提供的服务-层间信息的代表">问题2：传输层提供的服务-层间信息的代表</h2>
+<ul>
+<li>如果<strong>Socket API</strong>每次传输报文，都携带如此多的信息，太繁琐易错，不便于管理</li>
+<li>用个代号标示通信的双方或者单方：<strong>socket</strong></li>
+<li>就像<strong>OS</strong>打开文件返回的句柄一样
+<ul>
+<li>对句柄的操作，就是对文件的操作</li>
+</ul>
+</li>
+<li><strong>TCP socket</strong>:
+<ul>
+<li><strong>TCP</strong>服务，两个进程之间的通信需要之前要建立连接
+<ul>
+<li>两个进程通信会<font color=red>持续</font>一段时间，通信关系稳定</li>
+</ul>
+</li>
+<li>可以用一个整数标示两个应用实体之间的通信关系，<font color=red>本地</font>标示</li>
+<li>穿过层间接口的信息量<font color=red>最小</font></li>
+<li><strong>TCP socket</strong>：源<strong>IP</strong>，源端口，目标<strong>IP</strong>，目标端口</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp之上的套接字-socket">TCP之上的套接字（socket）</h3>
+<ul>
+<li>对于使用面向连接服务（<strong>TCP</strong>）的应用而言，套接字是 4 元组的一个具有<font color=red>本地意义的标示</font>
+<ul>
+<li>4 元组：（<font color=red>源<strong>IP</strong>、源<strong>port</strong>、目标<strong>IP</strong>、目标<strong>port</strong></font>）</li>
+<li>唯一的指定了一个会话（ 2 个进程之间的会话关系）</li>
+<li>应用使用这个标示，与远程的应用进程通信</li>
+<li>不必在每一个报文的发送都要指定这 4 元组</li>
+<li>就像使用操作系统打开一个文件，<strong>OS</strong>返回一个文件句柄一样，以后使用这个文件句柄，而不是使用这个文件的目录名、文件名</li>
+<li>简单、便于管理</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp-socket">TCP socket</h3>
+<p><img src="/images/wl_08_3.png" alt=""></p>
+<p><img src="/images/wl_08_4.png" alt="例子"></p>
+<h2 id="问题2：传输层提供的服务-层间信息代码">问题2：传输层提供的服务-层间信息代码</h2>
+<ul>
+<li><strong>UDP socket</strong>:
+<ul>
+<li><strong>UDP</strong>服务，两个进程之间的通信需要之前无需建立连接
+<ul>
+<li>每个报文都是独立传输的</li>
+<li>前后报文可能给不同的分布式进程</li>
+</ul>
+</li>
+<li>因此，只能用一个整数表示本应用实体的标示
+<ul>
+<li>因为这个报文可能传给另一个分布式进程</li>
+</ul>
+</li>
+<li>穿过层间接口的信息大小最小</li>
+<li><strong>UDP socket</strong>：本<strong>IP</strong>，本端口</li>
+<li>但是传输报文时，必须要提供对方<strong>IP，port</strong>
+<ul>
+<li>接收报文时，传输层需要上传对方的<strong>IP，port</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="udp之上的套接字-socket">UDP之上的套接字（socket）</h3>
+<ul>
+<li>对于使用无连接服务（UDP）的应用而言，套接字是2元组的一个具有<font color=red>本地意义的标示</font>
+<ul>
+<li>2 元组：<font color=red><strong>IP、port</strong></font>（源端指定）</li>
+<li><strong>UDP</strong>套接字指定了应用所在的一个<font color=red>端节点（end point）</font></li>
+<li>在发送数据时，采用创建好的本地套接字（标示<strong>ID</strong>），就不必在发送每个报文中指明自己所采用的<strong>ip</strong>和<strong>port</strong></li>
+<li>但是在发送报文时，必须要指定对方的<strong>ip</strong>和<strong>udp，port</strong>（另外一个端节点）</li>
+</ul>
+</li>
+</ul>
+<h3 id="套接字-socket">套接字(Socket)</h3>
+<ul>
+<li>进程向<font color=red>套接字</font>发送报文或从套接字接收报文</li>
+<li>套接字&lt;-&gt;门户
+<ul>
+<li>发送进程将报文<strong>推出</strong>门户，发送进程依赖于传输层设施另外一侧的门将报文交付给接受进程</li>
+<li>接收进程从另外一端的门户<strong>收到</strong>报文（依赖于传输层设施）</li>
+</ul>
+</li>
+</ul>
+<h2 id="问题3：如何使用传输层提供的服务实现应用">问题3：如何使用传输层提供的服务实现应用</h2>
+<ul>
+<li>定义应用层协议、报文格式、解释、时序等</li>
+<li>编制程序，通过<strong>API</strong>调用网络基础设施提供通信服务传报文，解析报文，实现应用时序等</li>
+</ul>
+<h2 id="应用层协议">应用层协议</h2>
+<ul>
+<li>定义了：运行在不同端系统上的应用进程如何相互交换报文
+<ul>
+<li>交换的<font color=red>报文类型</font>：请求和应答报文</li>
+<li>各种报文类型的<font color=red>语法</font>:报文中的各个字段及其描述</li>
+<li>字段的<font color=red>语义</font>：即字段取值的含义</li>
+<li>进程何时，如何发送报文及对报文进行响应的&lt;/font color=red&gt;规则</font></li>
+</ul>
+</li>
+<li>应用协议仅仅是应用的一个组成部分
+<ul>
+<li><strong>Web</strong>应用：<strong>HTTP</strong>协议、<strong>web</strong>客户端、<strong>web</strong>服务器、<strong>HTML</strong></li>
+</ul>
+</li>
+</ul>
+<p><font color=red>公开协议</font>:</p>
+<ul>
+<li>由<strong>RFC</strong>文档定义</li>
+<li>允许互操作</li>
+<li>如<strong>HTTP、SMTP</strong></li>
+</ul>
+<p><font color=red>专有（私有）协议</font>：</p>
+<ul>
+<li>协议不公开</li>
+<li>如：<strong>Skype</strong></li>
+</ul>
+<h2 id="应用需要传输层提供什么样的服务">应用需要传输层提供什么样的服务</h2>
+<p><font color=red>数据丢失率</font></p>
+<ul>
+<li>有些应用则要求100%的可靠数据传输</li>
+<li>有些应用能容忍一定比例以下的数据丢失</li>
+</ul>
+<p><font color=red>延迟</font></p>
+<ul>
+<li>一些应用出于有效性考虑，对数据传输有严格的时间限制
+<ul>
+<li>Internet电话、交互式游戏</li>
+<li>延迟，延迟差</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>吞吐</font></p>
+<ul>
+<li>一些应用必须需要最小限度的吞吐，从而使得应用能够有效运转</li>
+<li>一些应用能充分利用可供使用的吞吐（弹性应用）</li>
+</ul>
+<p><font color=red>安全性</font></p>
+<ul>
+<li>机密性</li>
+<li>完整性</li>
+<li>可认证性（鉴别）</li>
+</ul>
+<h3 id="常见应用对传输服务的要求">常见应用对传输服务的要求</h3>
+<table>
+<thead>
+<tr>
+<th>应用</th>
+<th>数据丢失率</th>
+<th>吞吐</th>
+<th>时间敏感性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件传输</td>
+<td>不能丢失</td>
+<td>弹性</td>
+<td>不</td>
+</tr>
+<tr>
+<td>e-mail</td>
+<td>不能丢失</td>
+<td>弹性</td>
+<td>不</td>
+</tr>
+<tr>
+<td>Web文档</td>
+<td>不嫩柜式</td>
+<td>弹性</td>
+<td>不</td>
+</tr>
+<tr>
+<td>实时音视频</td>
+<td>容忍丢失</td>
+<td>音频：5kbps-1Mbps，视频：100kbps-5Mbps</td>
+<td>是，100ms</td>
+</tr>
+<tr>
+<td>存储音视频</td>
+<td>容忍丢失</td>
+<td>同上</td>
+<td>是，几秒</td>
+</tr>
+<tr>
+<td>交互式游戏</td>
+<td>容忍丢失</td>
+<td>kbps-10kbps</td>
+<td>是，100ms</td>
+</tr>
+<tr>
+<td>即时讯息</td>
+<td>不能丢失</td>
+<td>弹性</td>
+<td>是和不是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="internet传输层提供的服务">Internet传输层提供的服务</h2>
+<p><font color=red>TCP服务</font>：</p>
+<ul>
+<li>可靠的传输服务</li>
+<li>流量控制：发送方不会淹没接受方</li>
+<li>拥塞控制：当网络出现拥塞时，最小吞吐保证和安全</li>
+<li>面向连接：要求客户端进程和服务器进程之间建立连接</li>
+</ul>
+<p><font color=red>UDP服务</font></p>
+<ul>
+<li>不可靠数据传输</li>
+<li>不提供的服务：可靠、流量控制、拥塞控制、时间、带宽控制、建立连接</li>
+</ul>
+<h2 id="udp存在的必要性">UDP存在的必要性</h2>
+<ul>
+<li>能够<font color=red>区分不同的进程</font>，而<strong>IP</strong>服务不能
+<ul>
+<li>在<strong>IP</strong>提供的主机到主机端到端功能的基础上，区分了主机的应用进程</li>
+</ul>
+</li>
+<li><font color=red>无需建立连接</font>，省去了建立连接的时间，适合事务性的应用</li>
+<li><font color=red>不做可靠性的工作</font>，例如检错重发，适合那些对实时性要求比较高而对正确性要求不告而应用
+<ul>
+<li>因为为了实现可靠性（准确性、保存等），必须付出时间代价（检错重发）</li>
+</ul>
+</li>
+<li>没有拥塞控制和流量控制，<font color=red>应用能够按照设定的速度发送数据</font>
+<ul>
+<li>而在<strong>TCP</strong>上面的应用，应用发送数据的速度和主机向网络发送的实际速度是不一致的，因为有流量控制和拥塞控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="internet应用及其应用层协议和传输协议">Internet应用及其应用层协议和传输协议</h2>
+<table>
+<thead>
+<tr>
+<th>应用</th>
+<th>应用层协议</th>
+<th>下层传输的协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e-mail</td>
+<td>SMTP[RFC 2821]</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>远程终端访问</td>
+<td>Telent[RFC 854]</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Web</td>
+<td>HTTP[RFC 2616]</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>文件传输</td>
+<td>FTP[RFC 959]</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>流媒体</td>
+<td>专用协议</td>
+<td>TCP或UDP</td>
+</tr>
+<tr>
+<td>Internet电话</td>
+<td>专用协议</td>
+<td>TCP或UDP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="安全tcp">安全TCP</h2>
+<p>TCP &amp; UDP</p>
+<ul>
+<li>都没有加密</li>
+<li>明文通过互联网传输，甚至密码</li>
+</ul>
+<p>SSL</p>
+<ul>
+<li>在TCP上面实现，提供加密的TCP连接</li>
+<li>私密性</li>
+<li>数据完整性</li>
+<li>端到端的鉴别</li>
+</ul>
+<p>SSL在应用层</p>
+<ul>
+<li>应用采用SSL库，SSL库使用TCP通信</li>
+</ul>
+<p>SSL socket API</p>
+<ul>
+<li>应用通过API将明文交给socket，SSL将其加密在互联网上传输</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
