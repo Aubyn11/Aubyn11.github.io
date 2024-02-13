@@ -6652,4 +6652,115 @@ if是有可能有，有可能没有</p>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络10——FTP</title>
+    <url>/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/</url>
+    <content><![CDATA[<h1>FTP</h1>
+<h2 id="ftp：文件传输协议">FTP：文件传输协议</h2>
+<ul>
+<li>向远程主机上传输文件或从远程主机接收文件</li>
+<li>客户/服务器模式
+<ul>
+<li>客户端：发起传输的一方</li>
+<li>服务器：远程主机</li>
+</ul>
+</li>
+<li><strong>ftp:RFC 959</strong></li>
+<li><strong>ftp</strong>服务器：端口号为21</li>
+</ul>
+<p><img src="/images/wl_10_1.png" alt=""></p>
+<h2 id="ftp：控制连接与数据连接分开">FTP：控制连接与数据连接分开</h2>
+<p>控制连接</p>
+<ul>
+<li><strong>FTP</strong>客户端与<strong>FTP</strong>服务器通过端口 21 联系，并使用<strong>TCP</strong>为传输协议</li>
+<li>客户端通过控制连接获得身份确认</li>
+<li>客户端通过控制连接发送命令浏览远程目录</li>
+</ul>
+<p>数据连接</p>
+<ul>
+<li>收到一个文件传输命令时，服务器打开一个到客户端的数据连接</li>
+<li>一个文件传输完成后，服务器关闭连接</li>
+</ul>
+<p>继续控制连接</p>
+<ul>
+<li>客户端继续通过控制连接发送命令：下载文件</li>
+</ul>
+<p>重新开启数据连接</p>
+<ul>
+<li>服务器打开 第二个TCP 数据连接用来传输另一个文件（服务器主动）</li>
+<li>然后又关闭连接</li>
+</ul>
+<p>控制连接： <font color=red>带外（ “out of band” ）</font>传送 ，就是服务端可以向客户端发送请求建立连接</p>
+<p>FTP服务器维护用户的状态信息： 当前路径、用户帐户与控制连接对应</p>
+<p>FTP是有状态的协议</p>
+<h2 id="ftp命令-响应">FTP命令、响应</h2>
+<p><font color=red>命令样例</font></p>
+<ul>
+<li>在控制连接上以<strong>ASCII</strong>文本方式传送</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USER username</td>
+<td>发送用户名</td>
+</tr>
+<tr>
+<td>PASS password</td>
+<td>发送命令</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td>请服务器返回远程主机当前目录的文件列表</td>
+</tr>
+<tr>
+<td>RETR filename</td>
+<td>从远程主机的当前目录检索文件 (gets)</td>
+</tr>
+<tr>
+<td>STOR filename</td>
+<td>向远程主机的当前目录存放文件 (puts)</td>
+</tr>
+</tbody>
+</table>
+<p><font color=red>返回码示例</font></p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>状态信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>331</td>
+<td>Username OK, password required</td>
+</tr>
+<tr>
+<td>125</td>
+<td>data connection already open; transfer starting</td>
+</tr>
+<tr>
+<td>425</td>
+<td>Can’t open data connection</td>
+</tr>
+<tr>
+<td>452</td>
+<td>Error writing file</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>

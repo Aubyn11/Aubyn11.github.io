@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Archives: 2024/2 |  Aubyn</title>
+      <title>计算机网络10——FTP |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -55,256 +55,249 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-计算机网络10——FTP"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络10——FTP
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/" class="article-date">
+  <time datetime="2024-02-13T10:22:44.000Z" itemprop="datePublished">2024-02-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
   
-  <ul class="ads">
-    
-        <li>
-            <a href="">
-                <img src="" width="" alt="">
-            </a>
-        </li>
-    
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">446</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>FTP</h1>
+<h2 id="ftp：文件传输协议">FTP：文件传输协议</h2>
+<ul>
+<li>向远程主机上传输文件或从远程主机接收文件</li>
+<li>客户/服务器模式
+<ul>
+<li>客户端：发起传输的一方</li>
+<li>服务器：远程主机</li>
 </ul>
-  
-  
-  <article class="articles">
-    
-    
-    <h1 class="page-type-title">2024/2</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2024" class="archive-year">2024</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/" class="archive-article-date">
-  <time datetime="2024-02-13T10:22:44.000Z" itemprop="datePublished">02/13</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/"
-    >计算机网络10——FTP</a> 
-</h2>
+</li>
+<li><strong>ftp:RFC 959</strong></li>
+<li><strong>ftp</strong>服务器：端口号为21</li>
+</ul>
+<p><img src="/images/wl_10_1.png" alt=""></p>
+<h2 id="ftp：控制连接与数据连接分开">FTP：控制连接与数据连接分开</h2>
+<p>控制连接</p>
+<ul>
+<li><strong>FTP</strong>客户端与<strong>FTP</strong>服务器通过端口 21 联系，并使用<strong>TCP</strong>为传输协议</li>
+<li>客户端通过控制连接获得身份确认</li>
+<li>客户端通过控制连接发送命令浏览远程目录</li>
+</ul>
+<p>数据连接</p>
+<ul>
+<li>收到一个文件传输命令时，服务器打开一个到客户端的数据连接</li>
+<li>一个文件传输完成后，服务器关闭连接</li>
+</ul>
+<p>继续控制连接</p>
+<ul>
+<li>客户端继续通过控制连接发送命令：下载文件</li>
+</ul>
+<p>重新开启数据连接</p>
+<ul>
+<li>服务器打开 第二个TCP 数据连接用来传输另一个文件（服务器主动）</li>
+<li>然后又关闭连接</li>
+</ul>
+<p>控制连接： <font color=red>带外（ “out of band” ）</font>传送 ，就是服务端可以向客户端发送请求建立连接</p>
+<p>FTP服务器维护用户的状态信息： 当前路径、用户帐户与控制连接对应</p>
+<p>FTP是有状态的协议</p>
+<h2 id="ftp命令-响应">FTP命令、响应</h2>
+<p><font color=red>命令样例</font></p>
+<ul>
+<li>在控制连接上以<strong>ASCII</strong>文本方式传送</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USER username</td>
+<td>发送用户名</td>
+</tr>
+<tr>
+<td>PASS password</td>
+<td>发送命令</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td>请服务器返回远程主机当前目录的文件列表</td>
+</tr>
+<tr>
+<td>RETR filename</td>
+<td>从远程主机的当前目录检索文件 (gets)</td>
+</tr>
+<tr>
+<td>STOR filename</td>
+<td>向远程主机的当前目录存放文件 (puts)</td>
+</tr>
+</tbody>
+</table>
+<p><font color=red>返回码示例</font></p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>状态信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>331</td>
+<td>Username OK, password required</td>
+</tr>
+<tr>
+<td>125</td>
+<td>data connection already open; transfer starting</td>
+</tr>
+<tr>
+<td>425</td>
+<td>Can’t open data connection</td>
+</tr>
+<tr>
+<td>452</td>
+<td>Error writing file</td>
+</tr>
+</tbody>
+</table>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9409Web-and-HTTP/" class="archive-article-date">
-  <time datetime="2024-02-13T02:10:37.000Z" itemprop="datePublished">02/13</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9409Web-and-HTTP/"
-    >计算机网络——09Web and HTTP</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9408%E5%BA%94%E7%94%A8%E5%B1%82%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  <time datetime="2024-02-12T00:15:59.000Z" itemprop="datePublished">02/12</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9408%E5%BA%94%E7%94%A8%E5%B1%82%E5%8E%9F%E7%90%86/"
-    >计算机网络——08应用层原理</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/11/UnityShader%E2%80%94%E2%80%9402%E4%B8%89%E5%A4%A7%E4%B8%BB%E6%B5%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="archive-article-date">
-  <time datetime="2024-02-11T11:09:35.000Z" itemprop="datePublished">02/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/11/UnityShader%E2%80%94%E2%80%9402%E4%B8%89%E5%A4%A7%E4%B8%BB%E6%B5%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"
-    >UnityShader——02三大主流编程语言</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/11/UnityShader%E2%80%94%E2%80%9401Shader%E5%92%8C%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/" class="archive-article-date">
-  <time datetime="2024-02-11T07:36:37.000Z" itemprop="datePublished">02/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/11/UnityShader%E2%80%94%E2%80%9401Shader%E5%92%8C%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/"
-    >UnityShader——01Shader和渲染管线</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9407%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/" class="archive-article-date">
-  <time datetime="2024-02-11T02:23:06.000Z" itemprop="datePublished">02/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9407%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/"
-    >计算机网络——07协议层次及服务模型</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/" class="archive-article-date">
-  <time datetime="2024-02-08T04:49:17.000Z" itemprop="datePublished">02/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9406%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/"
-    >计算机网络——06分组延时、丢失和吞吐量</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/" class="archive-article-date">
-  <time datetime="2024-02-08T00:03:12.000Z" itemprop="datePublished">02/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9405Internet%E7%BB%93%E6%9E%84%E5%92%8CISP/"
-    >计算机网络——05Internet结构和ISP</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/06/%E5%8A%9B%E6%89%A30125%E2%80%94%E2%80%94%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/" class="archive-article-date">
-  <time datetime="2024-02-06T00:53:00.000Z" itemprop="datePublished">02/06</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/06/%E5%8A%9B%E6%89%A30125%E2%80%94%E2%80%94%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2/"
-    >力扣0125——验证回文串</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/05/%E5%8A%9B%E6%89%A30124%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/" class="archive-article-date">
-  <time datetime="2024-02-05T00:28:03.000Z" itemprop="datePublished">02/05</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/05/%E5%8A%9B%E6%89%A30124%E2%80%94%E2%80%94%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/"
-    >力扣0124——二叉树的最大路径和</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2024/02/page/2/">2</a><a class="page-number" href="/archives/2024/02/page/3/">3</a><a class="extend next" rel="next" href="/archives/2024/02/page/2/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9409Web-and-HTTP/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络——09Web and HTTP</div>
+      </a>
+    
   </nav>
+
   
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -431,6 +424,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
