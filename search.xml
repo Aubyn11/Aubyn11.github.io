@@ -6653,8 +6653,8 @@ if是有可能有，有可能没有</p>
       </tags>
   </entry>
   <entry>
-    <title>计算机网络10——FTP</title>
-    <url>/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C10%E2%80%94%E2%80%94FTP/</url>
+    <title>计算机网络——10FTP</title>
+    <url>/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/</url>
     <content><![CDATA[<h1>FTP</h1>
 <h2 id="ftp：文件传输协议">FTP：文件传输协议</h2>
 <ul>
@@ -6755,6 +6755,7 @@ if是有可能有，有可能没有</p>
 </tr>
 </tbody>
 </table>
+<hr>
 ]]></content>
       <categories>
         <category>计算机网络</category>
