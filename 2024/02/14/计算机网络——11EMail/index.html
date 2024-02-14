@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络——10FTP |  Aubyn</title>
+      <title>计算机网络——11EMail |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-计算机网络——10FTP"
+  id="post-计算机网络——11EMail"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  计算机网络——10FTP
+  计算机网络——11EMail
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/" class="article-date">
-  <time datetime="2024-02-13T10:49:41.000Z" itemprop="datePublished">2024-02-13</time>
+      <a href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" class="article-date">
+  <time datetime="2024-02-14T00:45:31.000Z" itemprop="datePublished">2024-02-14</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">446</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -111,107 +111,179 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>FTP</h1>
-<h2 id="ftp：文件传输协议">FTP：文件传输协议</h2>
+  <h1>EMail</h1>
+<h2 id="电子邮件-email">电子邮件（EMail）</h2>
+<p><font color=red>3个主要组成部分</font></p>
 <ul>
-<li>向远程主机上传输文件或从远程主机接收文件</li>
-<li>客户/服务器模式
+<li>用户代理</li>
+<li>邮件服务器</li>
+<li>简单邮件传输协议：<strong>SMTP</strong></li>
+</ul>
+<p><font color=red>用户代理</font></p>
 <ul>
-<li>客户端：发起传输的一方</li>
-<li>服务器：远程主机</li>
+<li>又名“邮件阅读器”</li>
+<li>撰写、编辑和阅读邮件</li>
+<li>输入和输出邮件保存在服务器上</li>
+</ul>
+<p><img src="/images/wl_11_1.png" alt=""></p>
+<p><font color=red>邮件服务器</font></p>
+<ul>
+<li><font color=red>邮箱</font>中管理和维护发送给用户的邮件</li>
+<li>输出<font color=red>报文队列</font>保持待发送邮件报文</li>
+<li>邮件服务器之间的<font color=red><strong>SMTP</strong>协议</font>：发送<strong>emmail</strong>报文
+<ul>
+<li>客户：发送方邮件服务器</li>
+<li>服务器：接收端邮件服务器</li>
 </ul>
 </li>
-<li><strong>ftp:RFC 959</strong></li>
-<li><strong>ftp</strong>服务器：端口号为21</li>
 </ul>
-<p><img src="/images/wl_10_1.png" alt=""></p>
-<h2 id="ftp：控制连接与数据连接分开">FTP：控制连接与数据连接分开</h2>
-<p>控制连接</p>
+<h2 id="email：smtp-rfc-2821">EMail：SMTP[RFC 2821]</h2>
 <ul>
-<li><strong>FTP</strong>客户端与<strong>FTP</strong>服务器通过端口 21 联系，并使用<strong>TCP</strong>为传输协议</li>
-<li>客户端通过控制连接获得身份确认</li>
-<li>客户端通过控制连接发送命令浏览远程目录</li>
-</ul>
-<p>数据连接</p>
+<li>使用TCP在客户端和服务器之间传送报文，端口号为25</li>
+<li>直接传输：从发送方服务器到接收方服务器</li>
+<li>传输的三个阶段
 <ul>
-<li>收到一个文件传输命令时，服务器打开一个到客户端的数据连接</li>
-<li>一个文件传输完成后，服务器关闭连接</li>
+<li>握手</li>
+<li>传输报文</li>
+<li>关闭</li>
 </ul>
-<p>继续控制连接</p>
+</li>
+<li>命令/相应交互
 <ul>
-<li>客户端继续通过控制连接发送命令：下载文件</li>
+<li>命令：ASCII文本</li>
+<li>响应：状态码和状态信息</li>
 </ul>
-<p>重新开启数据连接</p>
+</li>
+<li>报文必须为7位ASCII码</li>
+</ul>
+<h2 id="邮件发送流程">邮件发送流程</h2>
+<h3 id="举例：alice给bob发送报文">举例：Alice给Bob发送报文</h3>
+<p><img src="/images/wl_11_2.png" alt=""></p>
 <ul>
-<li>服务器打开 第二个TCP 数据连接用来传输另一个文件（服务器主动）</li>
-<li>然后又关闭连接</li>
+<li>Alice使用用户代理撰写邮件并发送给 <a href="mailto:bob@someschool.edu">bob@someschool.edu</a></li>
+<li>Alice的用户代理将邮件发送到她的邮件服务器；邮件放在报文队列中</li>
+<li>SMTP的客户端打开到Bob邮件服务器的TCP连接（建立TCP连接）</li>
+<li>SMTP客户端通过TCP连接发送Alice的邮件</li>
+<li>Bob的邮件服务器将邮件放到Bob的邮箱（POP3，）</li>
+<li>Bob调用他的用户代理阅读邮件</li>
 </ul>
-<p>控制连接： <font color=red>带外（ “out of band” ）</font>传送 ，就是服务端可以向客户端发送请求建立连接</p>
-<p>FTP服务器维护用户的状态信息： 当前路径、用户帐户与控制连接对应</p>
-<p>FTP是有状态的协议</p>
-<h2 id="ftp命令-响应">FTP命令、响应</h2>
-<p><font color=red>命令样例</font></p>
+<h3 id="简单的smtp交互">简单的SMTP交互</h3>
+<p>以下是两个右键服务器进行SMTP交互的流程</p>
 <ul>
-<li>在控制连接上以<strong>ASCII</strong>文本方式传送</li>
+<li>C：客户，发送方邮件服务器</li>
+<li>S：服务器，接收方邮件服务器</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>USER username</td>
-<td>发送用户名</td>
-</tr>
-<tr>
-<td>PASS password</td>
-<td>发送命令</td>
-</tr>
-<tr>
-<td>LIST</td>
-<td>请服务器返回远程主机当前目录的文件列表</td>
-</tr>
-<tr>
-<td>RETR filename</td>
-<td>从远程主机的当前目录检索文件 (gets)</td>
-</tr>
-<tr>
-<td>STOR filename</td>
-<td>向远程主机的当前目录存放文件 (puts)</td>
-</tr>
-</tbody>
-</table>
-<p><font color=red>返回码示例</font></p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>状态信息</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>331</td>
-<td>Username OK, password required</td>
-</tr>
-<tr>
-<td>125</td>
-<td>data connection already open; transfer starting</td>
-</tr>
-<tr>
-<td>425</td>
-<td>Can’t open data connection</td>
-</tr>
-<tr>
-<td>452</td>
-<td>Error writing file</td>
-</tr>
-</tbody>
-</table>
-<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">S: 220 hamburger.edu</span><br><span class="line">C: HELO crepes.fr</span><br><span class="line">S: 250 Hello crepes.fr, pleased to meet you</span><br><span class="line">C: MAIL FROM: &lt;alice@crepes.fr&gt; #邮件来自的邮箱</span><br><span class="line">S: 250 alice@crepes.fr... Sender ok #接受成功</span><br><span class="line">C: RCPT TO: &lt;bob@hamburger.edu&gt; #邮件去往的邮箱</span><br><span class="line">S: 250 bob@hamburger.edu ... Recipient ok # 接受成功</span><br><span class="line">C: DATA  # 邮件信息</span><br><span class="line">S: 354 Enter mail, end with &quot;.&quot; on a line by itself</span><br><span class="line">C: Do you like ketchup?</span><br><span class="line">C: How about pickles?</span><br><span class="line">C: .</span><br><span class="line">S: 250 Message accepted for delivery</span><br><span class="line">C: QUIT</span><br><span class="line">S: 221 hamburger.edu closing connection</span><br></pre></td></tr></table></figure>
+<h2 id="smtp-总结">SMTP 总结</h2>
+<ul>
+<li>SMTP使用持久连接</li>
+<li>SMTP要求报文（首部和主体）为７位ASCII编码</li>
+<li>SMTP服务器使用CRLF，CRLF决定报文的尾部</li>
+</ul>
+<p><font color=red>HTTP比较</font></p>
+<ul>
+<li>HTTP：拉（pull）</li>
+<li>SMTP：推（push）</li>
+<li>二者都是ASCII形式的命令/响应交互、状态码</li>
+<li>HTTP：每个对象封装在各自的响应报文中</li>
+<li>SMTP：多个对象包含在一个报文中</li>
+</ul>
+<h2 id="邮件报文格式">邮件报文格式</h2>
+<p>SMTP：交换email报文的协议<br>
+RFC 822：文本交换的标准</p>
+<ul>
+<li>
+<p>首部行：如</p>
+<ul>
+<li>To:</li>
+<li>From:</li>
+<li>Subject:</li>
+</ul>
+<p>与SMTP命令不同</p>
+</li>
+<li>
+<p>主体</p>
+<ul>
+<li>报文，只能是ASCII码字符</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_11_3.png" alt=""></p>
+<h3 id="报文格式：多媒体拓展">报文格式：多媒体拓展</h3>
+<ul>
+<li>MIME：多媒体邮件扩展（multimedia mail extension）, RFC 2045, 2056</li>
+<li>在报文首部用额外的行申明MIME内容类型</li>
+</ul>
+<p><img src="/images/wl_11_4.png" alt=""></p>
+<h2 id="邮件访问协议">邮件访问协议</h2>
+<p><img src="/images/wl_11_5.png" alt=""></p>
+<ul>
+<li>SMTP: 传送到接收方的邮件服务器</li>
+<li>邮件访问协议：从服务器访问邮件 （3种方式）
+<ul>
+<li>POP3：邮局访问协议（Post Office Protocol）[RFC 1939]
+<ul>
+<li>用户身份确认 (代理&lt;–&gt;服务器) 并下载</li>
+</ul>
+</li>
+<li>IMAP：Internet邮件访问协议（Internet Mail Access Protocol）[RFC 1730]
+<ul>
+<li>更多特性和功能 (更复杂) ；在服务器上处理存储的报文</li>
+</ul>
+</li>
+<li>HTTP：Hotmail , Yahoo! Mail等
+<ul>
+<li>方便</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="pop3协议">POP3协议</h2>
+<p><font color=red><strong>用户确认阶段</strong></font></p>
+<ul>
+<li>客户端命令：
+<ul>
+<li>user: 申明用户名</li>
+<li>pass: 口令</li>
+</ul>
+</li>
+<li>服务器响应
+<ul>
+<li>+OK</li>
+<li>-ERR</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>事物处理阶段</strong></font></p>
+<p>客户端：</p>
+<ul>
+<li>list: 报文号列表</li>
+<li>retr: 根据报文号检索报文</li>
+<li>dele: 删除</li>
+<li>quit：关闭连接</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 用户确认阶段</span><br><span class="line">S: +OK POP3 server ready</span><br><span class="line">C: user bob</span><br><span class="line">S: +OK</span><br><span class="line">C: pass hungry</span><br><span class="line">S: +OK user successfully logged on</span><br><span class="line"># 事物处理阶段</span><br><span class="line">C: list</span><br><span class="line">S: 1 498</span><br><span class="line">S: 2 912</span><br><span class="line">S: .</span><br><span class="line">C: retr 1</span><br><span class="line">S: &lt;message 1 contents&gt;</span><br><span class="line">S: .</span><br><span class="line">C: dele 1</span><br><span class="line">C: retr 2</span><br><span class="line">S: &lt;message 1 contents&gt;</span><br><span class="line">S: .</span><br><span class="line">C: dele 2</span><br><span class="line">C: quit</span><br><span class="line">S: +OK POP3 server signing off</span><br></pre></td></tr></table></figure>
+<ul>
+<li>先前的例子使用 “下载 并删除”模式。
+<ul>
+<li>如果改变客户机，Bob不 能阅读邮件</li>
+</ul>
+</li>
+<li>“下载并保留”：不同 客户机上为报文的拷贝</li>
+<li>POP3在会话中是无状态的</li>
+</ul>
+<p><font color=red><strong>IMAP</strong></font></p>
+<ul>
+<li>IMAP服务器将每个报文 与一个文件夹联系起来</li>
+<li>允许用户用目录来组织 报文</li>
+<li>允许用户读取报文组件</li>
+<li>IMAP在会话过程中保留 用户状态：
+<ul>
+<li>目录名、报文ID与目录名 之间映射</li>
+</ul>
+</li>
+</ul>
  
       <!-- reward -->
       
@@ -264,7 +336,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,19 +349,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            计算机网络——11EMail
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9409Web-and-HTTP/" class="article-nav-link">
+      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">计算机网络——09Web and HTTP</div>
+        <div class="article-nav-title">计算机网络——10FTP</div>
       </a>
     
   </nav>
