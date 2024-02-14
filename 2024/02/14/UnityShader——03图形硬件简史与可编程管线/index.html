@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络——11EMail |  Aubyn</title>
+      <title>UnityShader——03图形硬件简史与可编程管线 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-计算机网络——11EMail"
+  id="post-UnityShader——03图形硬件简史与可编程管线"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  计算机网络——11EMail
+  UnityShader——03图形硬件简史与可编程管线
 </h1>
  
 
@@ -75,11 +75,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" class="article-date">
-  <time datetime="2024-02-14T00:45:31.000Z" itemprop="datePublished">2024-02-14</time>
+      <a href="/2024/02/14/UnityShader%E2%80%94%E2%80%9403%E5%9B%BE%E5%BD%A2%E7%A1%AC%E4%BB%B6%E7%AE%80%E5%8F%B2%E4%B8%8E%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%AE%A1%E7%BA%BF/" class="article-date">
+  <time datetime="2024-02-14T02:39:32.000Z" itemprop="datePublished">2024-02-14</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+    <a class="article-category-link" href="/categories/UnityShader/">UnityShader</a>
   </div>
   
 <div class="word_count">
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1k</span>
+            <span class="post-count">2.2k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -111,179 +111,26 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>EMail</h1>
-<h2 id="电子邮件-email">电子邮件（EMail）</h2>
-<p><font color=red>3个主要组成部分</font></p>
-<ul>
-<li>用户代理</li>
-<li>邮件服务器</li>
-<li>简单邮件传输协议：<strong>SMTP</strong></li>
-</ul>
-<p><font color=red>用户代理</font></p>
-<ul>
-<li>又名“邮件阅读器”</li>
-<li>撰写、编辑和阅读邮件</li>
-<li>输入和输出邮件保存在服务器上</li>
-</ul>
-<p><img src="/images/wl_11_1.png" alt=""></p>
-<p><font color=red>邮件服务器</font></p>
-<ul>
-<li><font color=red>邮箱</font>中管理和维护发送给用户的邮件</li>
-<li>输出<font color=red>报文队列</font>保持待发送邮件报文</li>
-<li>邮件服务器之间的<font color=red><strong>SMTP</strong>协议</font>：发送<strong>emmail</strong>报文
-<ul>
-<li>客户：发送方邮件服务器</li>
-<li>服务器：接收端邮件服务器</li>
-</ul>
-</li>
-</ul>
-<h2 id="email：smtp-rfc-2821">EMail：SMTP[RFC 2821]</h2>
-<ul>
-<li>使用TCP在客户端和服务器之间传送报文，端口号为25</li>
-<li>直接传输：从发送方服务器到接收方服务器</li>
-<li>传输的三个阶段
-<ul>
-<li>握手</li>
-<li>传输报文</li>
-<li>关闭</li>
-</ul>
-</li>
-<li>命令/相应交互
-<ul>
-<li>命令：ASCII文本</li>
-<li>响应：状态码和状态信息</li>
-</ul>
-</li>
-<li>报文必须为7位ASCII码</li>
-</ul>
-<h2 id="邮件发送流程">邮件发送流程</h2>
-<h3 id="举例：alice给bob发送报文">举例：Alice给Bob发送报文</h3>
-<p><img src="/images/wl_11_2.png" alt=""></p>
-<ul>
-<li>Alice使用用户代理撰写邮件并发送给 <a href="mailto:bob@someschool.edu">bob@someschool.edu</a></li>
-<li>Alice的用户代理将邮件发送到她的邮件服务器；邮件放在报文队列中</li>
-<li>SMTP的客户端打开到Bob邮件服务器的TCP连接（建立TCP连接）</li>
-<li>SMTP客户端通过TCP连接发送Alice的邮件</li>
-<li>Bob的邮件服务器将邮件放到Bob的邮箱（POP3，）</li>
-<li>Bob调用他的用户代理阅读邮件</li>
-</ul>
-<h3 id="简单的smtp交互">简单的SMTP交互</h3>
-<p>以下是两个右键服务器进行SMTP交互的流程</p>
-<ul>
-<li>C：客户，发送方邮件服务器</li>
-<li>S：服务器，接收方邮件服务器</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">S: 220 hamburger.edu</span><br><span class="line">C: HELO crepes.fr</span><br><span class="line">S: 250 Hello crepes.fr, pleased to meet you</span><br><span class="line">C: MAIL FROM: &lt;alice@crepes.fr&gt; #邮件来自的邮箱</span><br><span class="line">S: 250 alice@crepes.fr... Sender ok #接受成功</span><br><span class="line">C: RCPT TO: &lt;bob@hamburger.edu&gt; #邮件去往的邮箱</span><br><span class="line">S: 250 bob@hamburger.edu ... Recipient ok # 接受成功</span><br><span class="line">C: DATA  # 邮件信息</span><br><span class="line">S: 354 Enter mail, end with &quot;.&quot; on a line by itself</span><br><span class="line">C: Do you like ketchup?</span><br><span class="line">C: How about pickles?</span><br><span class="line">C: .</span><br><span class="line">S: 250 Message accepted for delivery</span><br><span class="line">C: QUIT</span><br><span class="line">S: 221 hamburger.edu closing connection</span><br></pre></td></tr></table></figure>
-<h2 id="smtp-总结">SMTP 总结</h2>
-<ul>
-<li>SMTP使用持久连接</li>
-<li>SMTP要求报文（首部和主体）为７位ASCII编码</li>
-<li>SMTP服务器使用CRLF，CRLF决定报文的尾部</li>
-</ul>
-<p><font color=red>HTTP比较</font></p>
-<ul>
-<li>HTTP：拉（pull）</li>
-<li>SMTP：推（push）</li>
-<li>二者都是ASCII形式的命令/响应交互、状态码</li>
-<li>HTTP：每个对象封装在各自的响应报文中</li>
-<li>SMTP：多个对象包含在一个报文中</li>
-</ul>
-<h2 id="邮件报文格式">邮件报文格式</h2>
-<p>SMTP：交换email报文的协议<br>
-RFC 822：文本交换的标准</p>
-<ul>
-<li>
-<p>首部行：如</p>
-<ul>
-<li>To:</li>
-<li>From:</li>
-<li>Subject:</li>
-</ul>
-<p>与SMTP命令不同</p>
-</li>
-<li>
-<p>主体</p>
-<ul>
-<li>报文，只能是ASCII码字符</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/wl_11_3.png" alt=""></p>
-<h3 id="报文格式：多媒体拓展">报文格式：多媒体拓展</h3>
-<ul>
-<li>MIME：多媒体邮件扩展（multimedia mail extension）, RFC 2045, 2056</li>
-<li>在报文首部用额外的行申明MIME内容类型</li>
-</ul>
-<p><img src="/images/wl_11_4.png" alt=""></p>
-<h2 id="邮件访问协议">邮件访问协议</h2>
-<p><img src="/images/wl_11_5.png" alt=""></p>
-<ul>
-<li>SMTP: 传送到接收方的邮件服务器</li>
-<li>邮件访问协议：从服务器访问邮件 （3种方式）
-<ul>
-<li>POP3：邮局访问协议（Post Office Protocol）[RFC 1939]
-<ul>
-<li>用户身份确认 (代理&lt;–&gt;服务器) 并下载</li>
-</ul>
-</li>
-<li>IMAP：Internet邮件访问协议（Internet Mail Access Protocol）[RFC 1730]
-<ul>
-<li>更多特性和功能 (更复杂) ；在服务器上处理存储的报文</li>
-</ul>
-</li>
-<li>HTTP：Hotmail , Yahoo! Mail等
-<ul>
-<li>方便</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="pop3协议">POP3协议</h2>
-<p><font color=red><strong>用户确认阶段</strong></font></p>
-<ul>
-<li>客户端命令：
-<ul>
-<li>user: 申明用户名</li>
-<li>pass: 口令</li>
-</ul>
-</li>
-<li>服务器响应
-<ul>
-<li>+OK</li>
-<li>-ERR</li>
-</ul>
-</li>
-</ul>
-<p><font color=red><strong>事物处理阶段</strong></font></p>
-<p>客户端：</p>
-<ul>
-<li>list: 报文号列表</li>
-<li>retr: 根据报文号检索报文</li>
-<li>dele: 删除</li>
-<li>quit：关闭连接</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 用户确认阶段</span><br><span class="line">S: +OK POP3 server ready</span><br><span class="line">C: user bob</span><br><span class="line">S: +OK</span><br><span class="line">C: pass hungry</span><br><span class="line">S: +OK user successfully logged on</span><br><span class="line"># 事物处理阶段</span><br><span class="line">C: list</span><br><span class="line">S: 1 498</span><br><span class="line">S: 2 912</span><br><span class="line">S: .</span><br><span class="line">C: retr 1</span><br><span class="line">S: &lt;message 1 contents&gt;</span><br><span class="line">S: .</span><br><span class="line">C: dele 1</span><br><span class="line">C: retr 2</span><br><span class="line">S: &lt;message 1 contents&gt;</span><br><span class="line">S: .</span><br><span class="line">C: dele 2</span><br><span class="line">C: quit</span><br><span class="line">S: +OK POP3 server signing off</span><br></pre></td></tr></table></figure>
-<ul>
-<li>先前的例子使用 “下载 并删除”模式。
-<ul>
-<li>如果改变客户机，Bob不 能阅读邮件</li>
-</ul>
-</li>
-<li>“下载并保留”：不同 客户机上为报文的拷贝</li>
-<li>POP3在会话中是无状态的</li>
-</ul>
-<p><font color=red><strong>IMAP</strong></font></p>
-<ul>
-<li>IMAP服务器将每个报文 与一个文件夹联系起来</li>
-<li>允许用户用目录来组织 报文</li>
-<li>允许用户读取报文组件</li>
-<li>IMAP在会话过程中保留 用户状态：
-<ul>
-<li>目录名、报文ID与目录名 之间映射</li>
-</ul>
-</li>
-</ul>
+  <h1>图形硬件简史与可编程管线</h1>
+<h2 id="gpu发展简史">GPU发展简史</h2>
+<p>GPU英文全称Graphic Processing Unit，中文翻译为“图形处理器”，在现代计算机系统中的作用变得越来越重要</p>
+<p>20世纪六七十年代，受硬件条件的限制，图形显示器只是计算机输出的一种工具，限于硬件发展水平。人们只是纯粹从软件实现的角度来考虑图形用户界面的规范问题，此时还没有GPU的概念</p>
+<p>GPU概念在20世纪70年代末和80年代初被提出，使用单片集成电路作为图形芯片，此时的GPU被用于视频游戏和动画方面，它能够很快的进行几张图片的合成（仅限于此）。在20世纪80年代末到90年代初这段时间内，基于数字信号处理芯片的GPU被研发出来，与前代相比速度更快，功能更强，当然价格是非常的昂贵。在1991年，S3 Graphics公司研制出第一个单芯片2D加速器，到了1995年，主流的PC图形芯片厂商都在自己的芯片上增加了对2D加速器的支持</p>
+<p>1998年NVIDA公司宣布modern GPU研发成功，标志着GPU研发的历史性突破成为现实，通常将20世纪70年代末到1998年的这一段时间，称为pre-GPU时期，而自1998年往后的GPU称为modern GPU，在pre-GPU时期，一些图形厂商如SGI、Evans &amp; Sutherland，都研发了各自的GPu，这些GPU在现在并没有被淘汰，依然在持续改进和被广泛的使用，当然价格也是非常的高昂。modern GPU使用晶体管( transistors）进行计算，在微芯片( microchip）中，GPU所使用的晶体管已经远远超过CPU。例如，Intel在2.4GHz 的Pentium lV上使用5千5百万(55million）个晶体管;而NVIDIA在GeForce FX GPU上使用超过1亿2千5百万( 125 million）个晶体管，在NVIDDIA 7800 GXT上的晶14体管达到3亿2百万( 302 million)个。</p>
+<p>回顾GPU的发展历史，自1998年后可以分为4个阶段。NVIDIA于1998年宣布Modern GPU研发成功，这标志着第一代Modern GPU的诞生，第一代GPU包括NVIDIA TNT2，ATI 的Rage和3Dfx的Voodoo。这些GPU可以独立于CPU进行像素缓存区的更新，并可以光栅化三角面片以及进行纹理操作，但是缺乏三维顶点的空间坐标变换能力，这意味着“必须依赖于CPU执行顶点坐标变换的计算”。这一时期的GPU功能非常有限，只能用于纹理组合的数学计算或者像素颜色值的计算。</p>
+<p>1999年，nvidia推出了一款可以用“惊变”来形容的显示核心代号NV10的geforce 256。nVidia率先将硬体T&amp;L整合到显示核中。T&amp;L原先由CPU负责,或者由另一个独立处理机处理。T&amp;L是一大进步,原因是显视核心从CPU接管了大量工作。硬件T&amp;L引擎带来的效果是，3D模型可以用更多的多边形来描绘，这样就拥有了更加细腻的效果。而对于Lighting来说，CPU不必冉计算大重的光照数据，直接通过显卡就能获得更好的效能。同时，这一阶段的GPU对于纹理的操作也扩展到了立方体纹理(cube map） 。NVIDIA的GeForce MAX，ATI的Radeon 7500等都是在这一阶段研发的。</p>
+<p>2001年是第三代modern GPU的发展时期，这一时期研发的GPU提供vertex programmability (顶点编程能力），如GeForce 3，GeForce 4Ti，ATI的8500等。这些GPU允许应用程序指定一个序列的指令进行顶点操作控制(GPU编程的本质! )，这同样是一个具有开创意义的时期，这一时期确立的GPU编程思想一直延续到今天，不但深入到工程领域帮助改善人类日常生活（医疗、地质勘探、游戏、电影等），而且开创或延伸了计算机科学的诸多研究领域（体绘制、光照模拟、人群动画、通用计算等）。同时，Direct8和OpenGL都本着与时俱进的精神，提供了支持vertexprogrammability 的扩展。不过，这一时期的GPU还不支持像素级的编程能力，即fragment programmability （片段编程能力）。</p>
+<p>所谓Vertex，就是我们熟悉的组成3D图形的顶点，由于设计3D模型是基于坐标空间内部设计的，所以Vertex信息包含了3D模型在空间内的坐标等信息。Vertex Shader则是对于Vertex信息的运算编程器，可以通过赋予特定的算法而在工作中改变3D模型的外形，Vertex Shader顶点运算单元可以直接检索显存中的材质数据。现在的游戏场景越来越复杂了。所涉及到的材质和多边形数量都非常惊人。顶点材质技术可以极大的提高GPU在处理复杂的游戏场景时的效率。并且游戏开发人员还可以利用Vertex Shader的这一新的特性，充分发挥想象，实现很多非常漂亮的特效。例如在星际争霸2demo片中展示的神族母舰黑洞的技能效果。</p>
+<p>第四代GPU的发展时期从2002年末到2003年。NVIDIA的GeForceFX和ATI Radeon 9700同时在市场的舞台上闪亮登场，这两种GPU都支持vertex programmability和fragmentProgrammability。同时DirectX和OpenGL也扩展了自身的API，用以支持vertex programmability和fragment programmability。自2003年起，可编程图形处理器正式诞生，并且由于DirectX和OpenGL锲而不舍的追赶潮流，导致基于图形硬件的编程技术简称GPU编程，也宣告诞生。</p>
+<h2 id="gpu的优越性">GPU的优越性</h2>
+<p>由于GPU具有高并行结构，所以GPU在处理图形数据和复杂算法方面拥有比CPU更高的效率。CPU大部分面积为控制器和寄存器，与之相比，GPU拥有更多的ALU (Arithmetic Logic Unit,逻辑运算单元）用于数据处理，这样的结构适合对密集型数据进行并行处理。</p>
+<p><img src="/images/Shader/Shader_02/Shader_02_1.png" alt=""></p>
+<p>GPU采用流式并行计算模式，可对每个数据进行独立的并行计算，所谓“对数据进行独立计算”，即，流内任意元素的计算不依赖于其它同类型数据，例如，计算一个顶点的世界位置坐标，不依赖于其他顶点的位置，所谓“并行计算”是指“多个数据可以同时被使用，多个数据并行运算的时间和1个数据单独执行的时间是一样的”。所以，在顶点处理程序中，可以同时处理N个顶点数据。</p>
+<h2 id="gpu的缺陷">GPU的缺陷</h2>
+<p>由于“任意一个元素的计算不依赖于其它同类型数据”，导致“需要知道数据之间相关性的”算法，在GPU上难以得到实现，一个典型的例子是射线与物体的求交运算。GPU中的控制器少于cPU，致使控制能力有限。另外，进行GPU编程必须掌握计算机图形学相关知识，以及图形处理APl，入门门槛较高，学习周期较长，尤其国内关于GPU编程的资料较为匮乏，这些都导致了学习的难度。在早期，GPU编程只能使用汇编语言，开发难度高、效率低，不过，随着高级Shader language的兴起，在GPU上编程已经容易多了。</p>
+<h2 id="gpu的更多应用">GPU的更多应用</h2>
+<p><font color=green><strong>科学可视化计算</strong></font>:由于人体CT、地质勘探、气象数据、流体力学等科学可视化计算处理的数据量极大，仅仅基于CPU进行计算完全不能满足实时性要求，而在GPU上进行计算则可以任双率上运到质的突破，许多在CPU上非常耗时的算法，如体绘制中的光线投射算法，都可以成功移植到GPu上，所以基于GPU的科学可视化研究目前已经成为主流。</p>
+<p><font color=green><strong>通用算法</strong></font>:基于GPU进行通用计算的研究逐渐成为热点，被称之为GPGPU ( General-Purpose Computing on Graphics ProcessingUnits,也被称为GPGP，或GP2)，很多数值计算等通用算法都已经在GPU上得到了实现，并有不俗的性能农现，日E，线t八效，物理仿真和光线跟踪算法都已经成功的移植到GPu上。在国内，中国科学院计算技术研究所进行了基于GPU的串匹配算法的实现。</p>
  
       <!-- reward -->
       
@@ -336,12 +183,12 @@ RFC 822：文本交换的标准</p>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/14/UnityShader%E2%80%94%E2%80%9403%E5%9B%BE%E5%BD%A2%E7%A1%AC%E4%BB%B6%E7%AE%80%E5%8F%B2%E4%B8%8E%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%AE%A1%E7%BA%BF/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UnityShader/" rel="tag">UnityShader</a></li></ul>
 
     </footer>
   </div>
@@ -349,19 +196,10 @@ RFC 822：文本交换的标准</p>
    
   <nav class="article-nav">
     
-      <a href="/2024/02/14/UnityShader%E2%80%94%E2%80%9403%E5%9B%BE%E5%BD%A2%E7%A1%AC%E4%BB%B6%E7%AE%80%E5%8F%B2%E4%B8%8E%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%AE%A1%E7%BA%BF/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            UnityShader——03图形硬件简史与可编程管线
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/" class="article-nav-link">
+      <a href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">计算机网络——10FTP</div>
+        <div class="article-nav-title">计算机网络——11EMail</div>
       </a>
     
   </nav>
