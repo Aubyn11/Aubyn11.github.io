@@ -7343,4 +7343,29 @@ RFC 822：文本交换的标准</p>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>UnityShader——04渲染流水</title>
+    <url>/2024/02/15/UnityShader%E2%80%94%E2%80%9404%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4/</url>
+    <content><![CDATA[<h1>渲染流水</h1>
+<p><img src="/images/Shader/Shader_04/Shader_04_1.png" alt=""></p>
+<h2 id="gpu应用阶段">GPU应用阶段</h2>
+<ul>
+<li>把数据加载到显存中</li>
+<li>设置渲染状态</li>
+<li>调用DrawCall</li>
+</ul>
+<p><img src="/images/Shader/Shader_04/Shader_04_2.png" alt="数据加载到显存中"></p>
+<p>将渲染所需数据从硬盘加载到内存中，网格纹理等数据又被加载到显存中（一般加载到显存后内存中的数据就会被移除）</p>
+<p><img src="/images/Shader/Shader_04/Shader_04_3.png" alt="设置渲染状态"></p>
+<p>这些状态定义了场景中的网格是怎样被渲染的。例如：使用哪个顶点着色器，片原着色点，光源属性，材质等</p>
+<p><img src="/images/Shader/Shader_04/Shader_04_4.png" alt="调用DrawCall"></p>
+<p>DrawCall就是一个命令，它的发起方是Cpu，接收方是Gpu，这个命令仅仅会指向一个需要被渲染的图元列表，而不会包含任何材质信息</p>
+]]></content>
+      <categories>
+        <category>UnityShader</category>
+      </categories>
+      <tags>
+        <tag>UnityShader</tag>
+      </tags>
+  </entry>
 </search>
