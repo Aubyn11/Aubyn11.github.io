@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">33</span>
+            <span class="post-count">567</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -113,7 +113,148 @@
        
   <h1>初识C++</h1>
 <h2 id="书写helloworld">书写HelloWorld</h2>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;HelloWorldd&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;HelloWorldd&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注释">注释</h2>
+<p><strong>作用</strong>：在代码中加一些说明和解释，方便自己或其他程序员阅读代码<br>
+<strong>两种格式</strong>：</p>
+<ul>
+<li><strong>单行注释</strong>：<code>//描述信息</code>
+<ul>
+<li>通常放在一行代码的上方，或者一条语句的末尾，<code>对该行代码说明</code></li>
+</ul>
+</li>
+<li><strong>多行注释</strong>：<code>/*描述信息*/</code>
+<ul>
+<li>通常放在一段代码的上方，<code>对该段代码做整体说明</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：编译器在编译代码时，会忽略注释的内容</p>
+</blockquote>
+<h2 id="变量">变量</h2>
+<p><strong>作用</strong>：给一段指定的内存空间起名，方便操作这段内存</p>
+<p><strong>语法</strong>：<code>数据类型 数据名 = 初始值</code></p>
+<p><strong>示例</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常量">常量</h2>
+<p><strong>作用</strong>：用于记录程序中不可更改的数据<br>
+C++定义常量两种方式</p>
+<ul>
+<li>#define 宏常量：<code>#define 常量名 常量值</code>
+<ul>
+<li><code>通常在文件上定义</code>，表示一个常量</li>
+</ul>
+</li>
+<li>const修饰的变量：<code>const 数据类型 常量名 = 常量值</code>
+<ul>
+<li><code>通常在变量定义前加关键字const</code>，修饰该变量为常量，不可修改</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宏常量</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> day 365</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;一年一共有&quot;</span> &lt;&lt; day &lt;&lt; <span class="string">&quot;天&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//const修饰的常量</span></span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> date = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;一周一共有&quot;</span> &lt;&lt; date &lt;&lt; <span class="string">&quot;天&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关键字">关键字</h2>
+<p><strong>作用</strong>：关键字是C++中预先保留的单词（标识符）</p>
+<ul>
+<li><strong>在定义变量或者常量的时候，不要用关键字</strong></li>
+</ul>
+<p>C++关键字如下：</p>
+<table>
+<thead>
+<tr>
+<th>asm</th>
+<th>do</th>
+<th>if</th>
+<th>return</th>
+<th>typeof</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auto</td>
+<td>double</td>
+<td>inline</td>
+<td>short</td>
+<td>typeid</td>
+</tr>
+<tr>
+<td>bool</td>
+<td>dynamic_cast</td>
+<td>int</td>
+<td>signed</td>
+<td>typename</td>
+</tr>
+<tr>
+<td>break</td>
+<td>else</td>
+<td>long</td>
+<td>sizeof</td>
+<td>union</td>
+</tr>
+<tr>
+<td>case</td>
+<td>enum</td>
+<td>mutable</td>
+<td>static</td>
+<td>unsinged</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>explicit</td>
+<td>namespace</td>
+<td>static_cast</td>
+<td>using</td>
+</tr>
+<tr>
+<td>char</td>
+<td>export</td>
+<td>new</td>
+<td>struct</td>
+<td>void</td>
+</tr>
+<tr>
+<td>const</td>
+<td>false</td>
+<td>private</td>
+<td>template</td>
+<td>volatile</td>
+</tr>
+<tr>
+<td>const_cast</td>
+<td>float</td>
+<td>protected</td>
+<td>this</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>public</td>
+<td>throw</td>
+<td>while</td>
+</tr>
+<tr>
+<td>default</td>
+<td>friend</td>
+<td>register</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>delete</td>
+<td>goto</td>
+<td>reinterpret_cast</td>
+<td>try</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>提示：在给变量或者常量起名称的时候，不要用C++的关键字，否则会产生歧义</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//int int = 10;</span></span><br><span class="line">	<span class="comment">//第二个int是关键字，不可以做为变量的名称</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>

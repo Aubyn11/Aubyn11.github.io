@@ -6984,7 +6984,148 @@ RFC 822：文本交换的标准</p>
     <url>/2024/02/14/C-%E8%BF%9B%E4%BF%AE%E2%80%94%E2%80%94C-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1>初识C++</h1>
 <h2 id="书写helloworld">书写HelloWorld</h2>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;HelloWorldd&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;HelloWorldd&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注释">注释</h2>
+<p><strong>作用</strong>：在代码中加一些说明和解释，方便自己或其他程序员阅读代码<br>
+<strong>两种格式</strong>：</p>
+<ul>
+<li><strong>单行注释</strong>：<code>//描述信息</code>
+<ul>
+<li>通常放在一行代码的上方，或者一条语句的末尾，<code>对该行代码说明</code></li>
+</ul>
+</li>
+<li><strong>多行注释</strong>：<code>/*描述信息*/</code>
+<ul>
+<li>通常放在一段代码的上方，<code>对该段代码做整体说明</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：编译器在编译代码时，会忽略注释的内容</p>
+</blockquote>
+<h2 id="变量">变量</h2>
+<p><strong>作用</strong>：给一段指定的内存空间起名，方便操作这段内存</p>
+<p><strong>语法</strong>：<code>数据类型 数据名 = 初始值</code></p>
+<p><strong>示例</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常量">常量</h2>
+<p><strong>作用</strong>：用于记录程序中不可更改的数据<br>
+C++定义常量两种方式</p>
+<ul>
+<li>#define 宏常量：<code>#define 常量名 常量值</code>
+<ul>
+<li><code>通常在文件上定义</code>，表示一个常量</li>
+</ul>
+</li>
+<li>const修饰的变量：<code>const 数据类型 常量名 = 常量值</code>
+<ul>
+<li><code>通常在变量定义前加关键字const</code>，修饰该变量为常量，不可修改</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//宏常量</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> day 365</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;一年一共有&quot;</span> &lt;&lt; day &lt;&lt; <span class="string">&quot;天&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//const修饰的常量</span></span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> date = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;一周一共有&quot;</span> &lt;&lt; date &lt;&lt; <span class="string">&quot;天&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关键字">关键字</h2>
+<p><strong>作用</strong>：关键字是C++中预先保留的单词（标识符）</p>
+<ul>
+<li><strong>在定义变量或者常量的时候，不要用关键字</strong></li>
+</ul>
+<p>C++关键字如下：</p>
+<table>
+<thead>
+<tr>
+<th>asm</th>
+<th>do</th>
+<th>if</th>
+<th>return</th>
+<th>typeof</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auto</td>
+<td>double</td>
+<td>inline</td>
+<td>short</td>
+<td>typeid</td>
+</tr>
+<tr>
+<td>bool</td>
+<td>dynamic_cast</td>
+<td>int</td>
+<td>signed</td>
+<td>typename</td>
+</tr>
+<tr>
+<td>break</td>
+<td>else</td>
+<td>long</td>
+<td>sizeof</td>
+<td>union</td>
+</tr>
+<tr>
+<td>case</td>
+<td>enum</td>
+<td>mutable</td>
+<td>static</td>
+<td>unsinged</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>explicit</td>
+<td>namespace</td>
+<td>static_cast</td>
+<td>using</td>
+</tr>
+<tr>
+<td>char</td>
+<td>export</td>
+<td>new</td>
+<td>struct</td>
+<td>void</td>
+</tr>
+<tr>
+<td>const</td>
+<td>false</td>
+<td>private</td>
+<td>template</td>
+<td>volatile</td>
+</tr>
+<tr>
+<td>const_cast</td>
+<td>float</td>
+<td>protected</td>
+<td>this</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>public</td>
+<td>throw</td>
+<td>while</td>
+</tr>
+<tr>
+<td>default</td>
+<td>friend</td>
+<td>register</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>delete</td>
+<td>goto</td>
+<td>reinterpret_cast</td>
+<td>try</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>提示：在给变量或者常量起名称的时候，不要用C++的关键字，否则会产生歧义</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//int int = 10;</span></span><br><span class="line">	<span class="comment">//第二个int是关键字，不可以做为变量的名称</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -7366,6 +7507,232 @@ RFC 822：文本交换的标准</p>
       </categories>
       <tags>
         <tag>UnityShader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——13P2P应用</title>
+    <url>/2024/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9413P2P%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<h1>P2P应用</h1>
+<h2 id="纯p2p架构">纯P2P架构</h2>
+<ul>
+<li>没有（或极少）一直运行额服务器</li>
+<li>任意端系统都可以直接通信</li>
+<li>利用peer的服务能力</li>
+<li>Peer节点间歇上网，每次IP地址都有可能变化</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li>文件分发</li>
+<li>流媒体</li>
+<li>VoIP</li>
+</ul>
+<h2 id="文件分发：c-s-vs-p2p">文件分发：C/S vs P2P</h2>
+<p><font color=red><em>问题</em></font>：从一台服务器分发文件（大小F）到N个Peer需要多少时间</p>
+<ul>
+<li>Peer节点上下载能力是有限的资源</li>
+</ul>
+<p><img src="/images/wl_13_1.png" alt=""></p>
+<h3 id="文件分发时间：c-s模式">文件分发时间：C/S模式</h3>
+<ul>
+<li><font color=red><em>服务器传输</em></font>：都是由服务器发送给peer，服务器必须顺序传输（上载）N个文件拷贝：
+<ul>
+<li>发送一个copy：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi mathvariant="normal">/</mi><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">F/u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">/</span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>发送N个copy：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>F</mi><mi mathvariant="normal">/</mi><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">NF/u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">/</span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+<li><font color=red><em>客户端</em></font>：每个客户端必须下载一个文件拷贝
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo></mrow><annotation encoding="application/x-tex">d_{min} =</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>客户端最小的下载速度</li>
+<li>下载带宽最小的客户端下载的时间：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi mathvariant="normal">/</mi><msub><mi>d</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F/d_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">/</span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+<li>采用C/S方法将一个F大小的文件分发给N个客户端耗时： <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>c</mi><mi mathvariant="normal">/</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{c/s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.03853em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mtight">/</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> max{NF/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,F/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>}</li>
+</ul>
+<h3 id="文件分发时间：p2p模式">文件分发时间：P2P模式</h3>
+<ul>
+<li><font color=red><em>服务器传输</em></font>：最少需要上载一份拷贝
+<ul>
+<li>发送一个拷贝的时间：F/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+<li><font color=red><em>客户端</em></font>：每个客户端必须下载一个拷贝
+<ul>
+<li>最小下载带宽客户单耗时：F/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+<li><font color=red><em>客户端</em></font>：所有客户端总体下载量NF：
+<ul>
+<li>最大上载带宽是：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo></mrow><annotation encoding="application/x-tex">\sum</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span></span></span></span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">u_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>除了服务器可以上载，其他所有的peer节点都可以上载</li>
+</ul>
+</li>
+<li>采用P2P方法将一个F大小的文件分发给N个客户端耗时：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>p</mi><mn>2</mn><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{p2p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">p</span><span class="mord mtight">2</span><span class="mord mathdefault mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo></mrow><annotation encoding="application/x-tex">\geq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">≥</span></span></span></span> max{F/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,NF/(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">u_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msub><mi>u</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum u_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)}</li>
+<li>分子随着N线性变化，每个节点需要下载，整体下载量随着N增大；分母也是如此,随着peer节点的增多，每个peer也带了服务能力</li>
+</ul>
+<p><img src="/images/wl_13_2.png" alt=""></p>
+<h3 id="p2p文件共享">P2P文件共享</h3>
+<p><font color=red>例子</font></p>
+<ul>
+<li>Alice在其笔记本电脑上 运行P2P客户端程序</li>
+<li>间歇性地连接到 Internet，每次从其 ISP得到新的IP地址</li>
+<li>请求“双截棍.MP3”</li>
+<li>应用程序显示其他有“ 双截棍.MP3” 拷贝的对 等方</li>
+<li>Alice选择其中一个对等方， 如Bob.</li>
+<li>文件从Bob’s PC传送到 Alice的笔记本上：HTTP</li>
+<li>当Alice下载时，其他用户也 可以从Alice处下载</li>
+<li>Alice的对等方既是一个Web 客户端，也是一个瞬时Web 服务器</li>
+</ul>
+<p>所有的对等方都是服务器 = 可扩展性好</p>
+<h2 id="p2p：集中式目录">P2P：集中式目录</h2>
+<p>最初的“Napster”设计就是这个架构</p>
+<ul>
+<li>当对等方连接时，它告知中心服务器：
+<ul>
+<li>IP地址</li>
+<li>内容</li>
+</ul>
+</li>
+<li>Alice查询 “双截棍 .MP3” ，服务器返回Bob拥有这个文件</li>
+<li>Alice从Bob处请求文件</li>
+</ul>
+<p><img src="/images/wl_13_3.png" alt=""></p>
+<h3 id="p2p：集中式目录中存在的问题">P2P：集中式目录中存在的问题</h3>
+<ul>
+<li>单点故障</li>
+<li>性能瓶颈</li>
+<li>侵犯版权</li>
+</ul>
+<blockquote>
+<p>文件传输是分散的，而定位内容是高度集中的</p>
+</blockquote>
+<h2 id="查询洪泛：gnutella">查询洪泛：Gnutella</h2>
+<ul>
+<li>全分布式
+<ul>
+<li>没有中心服务器</li>
+</ul>
+</li>
+<li>开放文件共享协议</li>
+<li>许多<strong>Gnutella</strong>客户端实现了<strong>Gnutella</strong>协议
+<ul>
+<li>类似<strong>HTTP</strong>有许多的浏览器</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>覆盖网络：图</font></p>
+<ul>
+<li>如果X和Y之间有一个TCP连接，则二者之间存在一条边</li>
+<li>所有活动的对等方和边就是覆盖网络</li>
+<li>边并不是物理链路</li>
+<li>给定一个对等方，通常所连接的节点少于 10 个</li>
+</ul>
+<h3 id="gnutella：协议">Gnutella：协议</h3>
+<ul>
+<li>在已有的TCP连接上发送查询报文</li>
+<li>对等方转发查询报文</li>
+<li>以反方向返回查询命中报文</li>
+</ul>
+<blockquote>
+<p>可拓展性：限制范围的洪泛查询<br>
+<img src="/images/wl_13_4.png" alt=""></p>
+</blockquote>
+<h3 id="gnutella：对等方加入">Gnutella：对等方加入</h3>
+<ul>
+<li>对等方X必须首先发现某些已经覆盖在网络中的其他对等方：使用可用对等方列表
+<ul>
+<li>自己维持一张对等方列表（经常开机的对等方的IP）</li>
+<li>联系维持列表二Gnutella结点</li>
+</ul>
+</li>
+<li>X接着试图与该列表上的对等方建立TCP连接，直到与某个对等方Y建立连接</li>
+<li>X向Y发送一个Ping报文，Y转发该Ping报文</li>
+<li>所有收到Ping报文的对等方以Ping报文格式响应
+<ul>
+<li>IP地址，共享文件的数量及总字节数</li>
+</ul>
+</li>
+<li>X收到许多Ping报文然后它能建立其他TCP连接</li>
+</ul>
+<h2 id="利用不匀称性：kazaa">利用不匀称性：KaZaA</h2>
+<ul>
+<li>每个对等方要么是一个组长，要么隶属与一个组长
+<ul>
+<li>对等方与其组长之间有TCP连接</li>
+<li>组长对之间有TCP连接</li>
+</ul>
+</li>
+<li>组长跟踪其所有的孩子的内容</li>
+<li>组长与其他组长联系
+<ul>
+<li>转发查询到其他组长</li>
+<li>获得其他组长的数据拷贝</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_13_5.png" alt=""></p>
+<h3 id="kazaa：查询">KaZaA：查询</h3>
+<ul>
+<li>每个文件有一个散列标识码和一个描述符</li>
+<li>客户端向其组长发送关键字查询</li>
+<li>组长用匹配进行相应：
+<ul>
+<li><font color=red>对每个匹配：元数据、散列标识码和IP地址</font></li>
+</ul>
+</li>
+<li>如果组长将查询转发给其他组长，其他组长也以匹配进行相应</li>
+<li>客户端选择要下载的文件
+<ul>
+<li><font color=red>向拥有文件的对等方发送一个带散列标识码的HTTP请求</font></li>
+</ul>
+</li>
+</ul>
+<h2 id="p2p文件分发：bittorrent">P2P文件分发：BitTorrent</h2>
+<ul>
+<li>文件被分为一个个块256KB</li>
+<li>网路中的这些peers发送接收文件块，相互服务</li>
+</ul>
+<p><img src="/images/wl_13_6.png" alt=""></p>
+<p>Peer加入torrent：</p>
+<ul>
+<li>一开始没有块，但是将会通过其他节点处理积累文件块</li>
+<li>向跟踪服务器注册，获得peer节点列表，和部分peer节点构成邻居关系（“连接”）</li>
+</ul>
+<blockquote>
+<ul>
+<li>当peer下载时，该peer可以同时向其他节点提供上载服务</li>
+<li>Peer可能会变换用于交换块的peer节点</li>
+<li><font color=red><em>扰动churn</em></font>：peer节点可能会上线或者下线</li>
+<li>一旦一个peer拥有整个文件，它会（自私的）离开或者保留（利他主义）在torrent中</li>
+</ul>
+</blockquote>
+<h3 id="bittorrent：请求-发送文件块">BitTorrent：请求，发送文件块</h3>
+<p><font color=red><em>请求块</em></font>：</p>
+<ul>
+<li>在任何给定时间，不同peer节点拥有一个文件块的子集</li>
+<li>周期性的，Alice节点向邻居询问他们拥有哪些块的信息</li>
+<li>Alice向peer节点请求他希望的块，稀缺的块</li>
+</ul>
+<p><font color=red><em>发送块：一报还一报 tit-for-tat</em></font></p>
+<ul>
+<li>Alice向4个peer发送块，这些块向他自己提供最大带宽的服务
+<ul>
+<li>其他peer被Alice阻塞（将不会从Alice处获得服务）</li>
+<li>每10秒重新评估一次：前4位</li>
+</ul>
+</li>
+<li>每隔30秒，随机选择其他peer节点，向这个节点发送块
+<ul>
+<li>“优化疏通”这个节点</li>
+<li>新选择的节点可以加入这个top 4</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
