@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络 |  Aubyn</title>
+      <title>计算机网络——14CDN |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -55,154 +55,288 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-计算机网络——14CDN"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络——14CDN
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/" class="article-date">
+  <time datetime="2024-02-17T00:00:32.000Z" itemprop="datePublished">2024-02-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
   
-  <ul class="ads">
-    
-        <li>
-            <a href="">
-                <img src="" width="" alt="">
-            </a>
-        </li>
-    
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">888</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>CDN</h1>
+<h2 id="视频流化服务和cdn：上下文">视频流化服务和CDN：上下文</h2>
+<ul>
+<li>视频流量：占据着互连网大部分的带宽
+<ul>
+<li>Netflix，YouTube：占据37%，16%的下行流量</li>
 </ul>
-  
-  
-  <article class="articles">
-    
-    
-    <h1 class="page-type-title">计算机网络</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2024" class="archive-year">2024</a>
+</li>
+<li>挑战：规模性-如何服务~1B用户？
+<ul>
+<li>单个超级服务器无法提供服务（为什么）</li>
+</ul>
+</li>
+<li>挑战：异构性
+<ul>
+<li>不同用户拥有不同的能力</li>
+</ul>
+</li>
+<li><font color=red><em>解决方案</em></font>：分布式的，应用层面的基础设施</li>
+</ul>
+<h2 id="多媒体：视频">多媒体：视频</h2>
+<ul>
+<li>视频：固定速度显示的图像序列</li>
+<li>网络视频特点：
+<ul>
+<li>高码率：&gt;10x于音频,高的网络带宽需求</li>
+<li>可以被压缩</li>
+<li>90%%以上的网络流量是视频</li>
+</ul>
+</li>
+<li>数字化图像：像素的阵列
+<ul>
+<li>每个像素被若干bits表示</li>
+</ul>
+</li>
+<li>编码：使用图像内和图像间的冗余来降低编码的比特数
+<ul>
+<li>空间冗余（图像内）</li>
+<li>时间冗余（相邻的图像间）<br>
+<img src="/images/wl_14_1.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<p>编码方式：</p>
+<ul>
+<li><font color=red>CBR</font>：以固定速率编码</li>
+<li><font color=red>VBR</font>：视频编码速率随时间的变化而变化</li>
+</ul>
+<h2 id="多媒体流化服务：dash">多媒体流化服务：DASH</h2>
+<ul>
+<li>服务器：
+<ul>
+<li>将视频文件分割成多个块</li>
+<li>每个块独立存储，编码于不同码率（8-10种）</li>
+<li>告示文件：提供不同块的URL</li>
+</ul>
+</li>
+<li>客户端
+<ul>
+<li>先获取告示文件</li>
+<li>周期性的测量服务器到客户端的带宽</li>
+<li>查询告示文件，在一个时刻请求一个块，HTTP头部指定字节范围
+<ul>
+<li>如果带宽足够，选择最大的码率的视频块</li>
+<li>会话中的不同时刻，可以切换请求不同的编码块（取决于当时的可用带宽）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>智能客户端：客户端自适应决定
+<ul>
+<li><font color=red>什么时候</font>请求块（不至于缓存挨饿或者溢出）</li>
+<li>请求<font color=red>什么编码速率</font>的视频块（当带宽足够用时，请求高质量的视频块）</li>
+<li><font color=red>哪里</font>去请求块（可以向离自己近的服务器发送URL，或者向高可用带宽的服务器请求）</li>
+</ul>
+</li>
+</ul>
+<h2 id="cdn">CDN</h2>
+<ul>
+<li><font color=red><em>挑战</em></font>：服务器如何通过网络向上百万用户同时流化视频内容</li>
+<li><font color=red><em>选择1</em></font>：单个的、大的超级服务中心&quot;mega-server&quot;
+<ul>
+<li>服务器到客户端路径上跳数越多，瓶颈链路的带宽小导致停顿</li>
+<li>“二八规律”决定了网络同时充斥着同一个视频的多个拷贝，效率低（付费高、贷款浪费、效果差）</li>
+<li>单点故障点，性能瓶颈</li>
+<li>周边网络的拥塞</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>评述：相当简单，但是这个方法<font color=red>不可拓展</font></p>
+</blockquote>
+<ul>
+<li>
+<p><font color=red><em>选择2</em></font>：通过<font color=red>CDN</font>，全网部署缓存节点，存储服务内容，就近为用户提供服务，提高用户体验</p>
+<ul>
+<li><em>enter deep</em>：将CDN服务器深入到许多接入网
+<ul>
+<li>更接近用户、数量多、离用户近、管理困难</li>
+<li>Akamai，1700个位置</li>
+</ul>
+</li>
+<li><em>bring home</em>：部署在少数（10个左右）关键位置，如将服务器蔟安装于POP附近（离若干<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>1</mn><mrow><mi>s</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">1^{st}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7935559999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7935559999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">t</span></span></span></span></span></span></span></span></span></span></span></span>ISP POP较近）
+<ul>
+<li>采用租用线路将服务器蔟连接起来</li>
+<li>Limelight</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>CDN：在CDN节点中存储内容的多个拷贝</p>
+</li>
+<li>
+<p>用户从CDN种请求内容：</p>
+<ul>
+<li>重定向到最近的拷贝，请求内容</li>
+</ul>
+</li>
+</ul>
+<p>Netflix的例子:<br>
+<img src="/images/wl_14_2.png" alt=""></p>
+<h3 id="cdns">CDNs</h3>
+<p><img src="/images/wl_14_3.png" alt=""></p>
+<p>OTT挑战：在拥塞的互联网上复制内容</p>
+<ul>
+<li>从哪个CDN节点中获取内容</li>
+<li>用户在网络拥塞时的行为</li>
+<li>在哪些CDN节点中存储什么内容</li>
+</ul>
+<h3 id="cdn：-简单-内容访问场景">CDN：“简单”内容访问场景</h3>
+<ul>
+<li>Bob(客户端)请求视频http://netcinema.com/6Y7B23V-</li>
+<li>视频存储在CDN，位于http://KingCDN.com/NetC6y&amp;B23V</li>
+<li>下图中的authorative是权威服务器</li>
+</ul>
+<p><img src="/images/wl_14_4.png" alt=""></p>
+<h3 id="netflix案例">Netflix案例</h3>
+<p><img src="/images/wl_14_5.png" alt=""></p>
+ 
+      <!-- reward -->
+      
     </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9404%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93/" class="archive-article-date">
-  <time datetime="2024-02-04T10:48:08.000Z" itemprop="datePublished">02/04</time>
-</a>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9404%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93/"
-    >计算机网络——04接入网和物理媒体</a> 
-</h2>
- 
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
 
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9403%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/" class="archive-article-date">
-  <time datetime="2024-02-04T06:48:54.000Z" itemprop="datePublished">02/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9403%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/"
-    >计算机网络——03网络核心</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9402%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/" class="archive-article-date">
-  <time datetime="2024-02-04T06:12:50.000Z" itemprop="datePublished">02/04</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9402%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/"
-    >计算机网络——02网络边缘</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9401%E4%BB%80%E4%B9%88%E6%98%AFInterNet/" class="archive-article-date">
-  <time datetime="2024-02-03T06:36:22.000Z" itemprop="datePublished">02/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9401%E4%BB%80%E4%B9%88%E6%98%AFInterNet/"
-    >计算机网络——01什么是InterNet</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-      
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/" alt="微信分享二维码">
     </div>
-  </div>
-  
-  
+</div>
 
-  
-  <nav class="page-nav">
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
     
-    <a class="extend prev" rel="prev" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">上一页</a><a class="page-number" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">1</a><span class="page-number current">2</span>
+    
+      <a href="/2024/02/16/UnityShader%E2%80%94%E2%80%9405%E5%87%A0%E4%BD%95%E9%98%B6%E6%AE%B5%E5%92%8C%E5%85%89%E6%A0%85%E5%8C%96%E9%98%B6%E6%AE%B5/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">UnityShader——05几何阶段和光栅化阶段</div>
+      </a>
+    
   </nav>
+
   
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -329,6 +463,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link

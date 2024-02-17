@@ -7125,7 +7125,59 @@ C++定义常量两种方式</p>
 <p>提示：在给变量或者常量起名称的时候，不要用C++的关键字，否则会产生歧义</p>
 </blockquote>
 <p>示例：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//int int = 10;</span></span><br><span class="line">	<span class="comment">//第二个int是关键字，不可以做为变量的名称</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//int int = 10;</span></span><br><span class="line">	<span class="comment">//第二个int是关键字，不可以做为变量的名称</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="标识符命名规则">标识符命名规则</h2>
+<p><strong>作用</strong>：C++规定给标识符（常量、变量）命名时，有一套自己的规则</p>
+<ul>
+<li>标识符不能是关键字</li>
+<li>标识符只能由字母、数字、下划线组成</li>
+<li>第一个字符必须为字母或下划线</li>
+<li>标识符中字母区分大小写</li>
+</ul>
+<blockquote>
+<p>建议：给标识符命名时，争取做到见名知意的效果，方便自己和他人的阅读</p>
+</blockquote>
+<h1>数据类型</h1>
+<h2 id="整型">整型</h2>
+<p><strong>作用</strong>：整型变量表示的是<code>整数类型</code>的数据<br>
+C++中能够表示整型的数据类型有以下几种方式，<strong>区别在于内存空间不同</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>占用空间</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>short(短整型)</td>
+<td>2字节</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup></mrow><annotation encoding="application/x-tex">-2^{15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span> ~ <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup></mrow><annotation encoding="application/x-tex">2^{15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span> - 1</td>
+</tr>
+<tr>
+<td>int(整型)</td>
+<td>4字节</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">-2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> ~ <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> - 1</td>
+</tr>
+<tr>
+<td>long(长整型)</td>
+<td>Windows为4字节，Linux为4字节（32位），8字节（64位）</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">-2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span> ~ <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
+</tr>
+<tr>
+<td>long long(长长整型)</td>
+<td>8字节</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>63</mn></msup><mtext> </mtext><msup><mn>2</mn><mn>63</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-2^{63} ~ 2^{63} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mspace nobreak"> </span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sizeof关键字">sizeof关键字</h2>
+<p><strong>作用</strong>：利用sizeof关键字可以<code>统计数据类型所占内存大小</code><br>
+<strong>语法</strong>：<code>sizeof(数据类型/变量)</code><br>
+<strong>示例</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;short类型所占内存空间为：&quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">short</span>) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;int类型所占内存空间为：&quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">int</span>) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;long类型所占内存空间为：&quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">long</span>) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;long long类型所占内存空间为：&quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">long</span> <span class="type">long</span>) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -7830,6 +7882,156 @@ C++定义常量两种方式</p>
       </categories>
       <tags>
         <tag>UnityShader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——14CDN</title>
+    <url>/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/</url>
+    <content><![CDATA[<h1>CDN</h1>
+<h2 id="视频流化服务和cdn：上下文">视频流化服务和CDN：上下文</h2>
+<ul>
+<li>视频流量：占据着互连网大部分的带宽
+<ul>
+<li>Netflix，YouTube：占据37%，16%的下行流量</li>
+</ul>
+</li>
+<li>挑战：规模性-如何服务~1B用户？
+<ul>
+<li>单个超级服务器无法提供服务（为什么）</li>
+</ul>
+</li>
+<li>挑战：异构性
+<ul>
+<li>不同用户拥有不同的能力</li>
+</ul>
+</li>
+<li><font color=red><em>解决方案</em></font>：分布式的，应用层面的基础设施</li>
+</ul>
+<h2 id="多媒体：视频">多媒体：视频</h2>
+<ul>
+<li>视频：固定速度显示的图像序列</li>
+<li>网络视频特点：
+<ul>
+<li>高码率：&gt;10x于音频,高的网络带宽需求</li>
+<li>可以被压缩</li>
+<li>90%%以上的网络流量是视频</li>
+</ul>
+</li>
+<li>数字化图像：像素的阵列
+<ul>
+<li>每个像素被若干bits表示</li>
+</ul>
+</li>
+<li>编码：使用图像内和图像间的冗余来降低编码的比特数
+<ul>
+<li>空间冗余（图像内）</li>
+<li>时间冗余（相邻的图像间）<br>
+<img src="/images/wl_14_1.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<p>编码方式：</p>
+<ul>
+<li><font color=red>CBR</font>：以固定速率编码</li>
+<li><font color=red>VBR</font>：视频编码速率随时间的变化而变化</li>
+</ul>
+<h2 id="多媒体流化服务：dash">多媒体流化服务：DASH</h2>
+<ul>
+<li>服务器：
+<ul>
+<li>将视频文件分割成多个块</li>
+<li>每个块独立存储，编码于不同码率（8-10种）</li>
+<li>告示文件：提供不同块的URL</li>
+</ul>
+</li>
+<li>客户端
+<ul>
+<li>先获取告示文件</li>
+<li>周期性的测量服务器到客户端的带宽</li>
+<li>查询告示文件，在一个时刻请求一个块，HTTP头部指定字节范围
+<ul>
+<li>如果带宽足够，选择最大的码率的视频块</li>
+<li>会话中的不同时刻，可以切换请求不同的编码块（取决于当时的可用带宽）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>智能客户端：客户端自适应决定
+<ul>
+<li><font color=red>什么时候</font>请求块（不至于缓存挨饿或者溢出）</li>
+<li>请求<font color=red>什么编码速率</font>的视频块（当带宽足够用时，请求高质量的视频块）</li>
+<li><font color=red>哪里</font>去请求块（可以向离自己近的服务器发送URL，或者向高可用带宽的服务器请求）</li>
+</ul>
+</li>
+</ul>
+<h2 id="cdn">CDN</h2>
+<ul>
+<li><font color=red><em>挑战</em></font>：服务器如何通过网络向上百万用户同时流化视频内容</li>
+<li><font color=red><em>选择1</em></font>：单个的、大的超级服务中心&quot;mega-server&quot;
+<ul>
+<li>服务器到客户端路径上跳数越多，瓶颈链路的带宽小导致停顿</li>
+<li>“二八规律”决定了网络同时充斥着同一个视频的多个拷贝，效率低（付费高、贷款浪费、效果差）</li>
+<li>单点故障点，性能瓶颈</li>
+<li>周边网络的拥塞</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>评述：相当简单，但是这个方法<font color=red>不可拓展</font></p>
+</blockquote>
+<ul>
+<li>
+<p><font color=red><em>选择2</em></font>：通过<font color=red>CDN</font>，全网部署缓存节点，存储服务内容，就近为用户提供服务，提高用户体验</p>
+<ul>
+<li><em>enter deep</em>：将CDN服务器深入到许多接入网
+<ul>
+<li>更接近用户、数量多、离用户近、管理困难</li>
+<li>Akamai，1700个位置</li>
+</ul>
+</li>
+<li><em>bring home</em>：部署在少数（10个左右）关键位置，如将服务器蔟安装于POP附近（离若干<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>1</mn><mrow><mi>s</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">1^{st}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7935559999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7935559999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">t</span></span></span></span></span></span></span></span></span></span></span></span>ISP POP较近）
+<ul>
+<li>采用租用线路将服务器蔟连接起来</li>
+<li>Limelight</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>CDN：在CDN节点中存储内容的多个拷贝</p>
+</li>
+<li>
+<p>用户从CDN种请求内容：</p>
+<ul>
+<li>重定向到最近的拷贝，请求内容</li>
+</ul>
+</li>
+</ul>
+<p>Netflix的例子:<br>
+<img src="/images/wl_14_2.png" alt=""></p>
+<h3 id="cdns">CDNs</h3>
+<p><img src="/images/wl_14_3.png" alt=""></p>
+<p>OTT挑战：在拥塞的互联网上复制内容</p>
+<ul>
+<li>从哪个CDN节点中获取内容</li>
+<li>用户在网络拥塞时的行为</li>
+<li>在哪些CDN节点中存储什么内容</li>
+</ul>
+<h3 id="cdn：-简单-内容访问场景">CDN：“简单”内容访问场景</h3>
+<ul>
+<li>Bob(客户端)请求视频http://netcinema.com/6Y7B23V-</li>
+<li>视频存储在CDN，位于http://KingCDN.com/NetC6y&amp;B23V</li>
+<li>下图中的authorative是权威服务器</li>
+</ul>
+<p><img src="/images/wl_14_4.png" alt=""></p>
+<h3 id="netflix案例">Netflix案例</h3>
+<p><img src="/images/wl_14_5.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
