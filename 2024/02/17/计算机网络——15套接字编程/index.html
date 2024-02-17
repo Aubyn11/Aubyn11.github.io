@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>计算机网络——15套接字编程 |  Aubyn</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-计算机网络——15套接字编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络——15套接字编程
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9415%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time datetime="2024-02-17T02:34:43.000Z" itemprop="datePublished">2024-02-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>套接字编程</h1>
+<h2 id="socket编程">Socket编程</h2>
+<p>Socket编程：应用进程使用传输层提供的服务才能够交换报文，实现应用协议，实现应用<br>
+TCP/IP：应用进程使用Socket API访问传输服务<br>
+地点：界面上的SAP<br>
+方式：Socket API</p>
+<p><font color=red>目标</font>：学习如何构建能借助sockets进行通信的C/S应用程序<br>
+<font color=red>socke</font>：分布式应用进程之间的门，传输层协议提供的端到端服务接口</p>
+<p><img src="/images/wl_15_1.png" alt=""></p>
+<p>2种传输层服务的socket类型</p>
+<ul>
+<li>TCP：可靠的、字节流的服务</li>
+<li>UDP：不可靠（数据UDP数据报）服务</li>
+</ul>
+<h3 id="tcp套接字编程">TCP套接字编程</h3>
+<p><font color=red>套接字</font>：应用进程与端到端传输协议(TCP或UDP）之间的门户<br>
+<font color=red>TCP服务</font>：从一个进程向另一个进程可靠的传输字节流</p>
+<p><font color=red>服务器首先运行，等待连接建立</font><br>
+服务器进程必须先处于运行状态</p>
+<ul>
+<li>创建欢迎socket</li>
+<li>和本地端口捆绑</li>
+<li>在欢迎socket上阻塞式等待接受用户的连接</li>
+</ul>
+<p><font color=red>客户端主动和服务器建立连接</font><br>
+创建客户端本地套接字（<font color=red>隐式捆绑</font>到本地port）</p>
+<ul>
+<li>指定服务器进程的IP地址和端口号，与服务器进程连接</li>
+</ul>
+<p>当与客户端连接请求到来时</p>
+<ul>
+<li>服务器接受来自客户端的请求，接触阻塞式等待，返回一个新的socket（与欢迎socket不一样），与客户端通信
+<ul>
+<li>允许服务器与多个客户端通信</li>
+<li>使用的IP和源端口来区分不同的客户端</li>
+</ul>
+</li>
+</ul>
+<p>连接API调用有效时，客户端P与服务器之间建立了TCP连接</p>
+<p><font color=red>从应用程序的角度</font><br>
+TCP在客户端和服务器进程之间提供了可靠的、字节流（管道）服务</p>
+<h3 id="c-s模式的应用样例">C/S模式的应用样例</h3>
+<ul>
+<li>客户端从标准输入装置读取一行字符，发送给服务器</li>
+<li>服务器从socket读取字符</li>
+<li>服务器将字符串装换成大写，然后返回给客户端</li>
+<li>客户端从socket种读取一行字符，然后打印出来</li>
+</ul>
+<p>实际上，这里描述了C-S之间交互的动作次序</p>
+<h3 id="数据结构sockaddr-in">数据结构sockaddr_in</h3>
+<p><font color=red>IP地址和port捆绑关系的数据结构（标示进程的端节点）</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">socketaddr_in</span>&#123;</span></span><br><span class="line">    <span class="type">short</span> sin_family;   <span class="comment">//AF_INET</span></span><br><span class="line">    u_short sin_port;   <span class="comment">//port</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>    <span class="comment">//IP address unsigned long</span></span><br><span class="line">    <span class="type">char</span> sin_zero[<span class="number">8</span>];   <span class="comment">//align</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sin_family</td>
+<td>地址簇，这个结构体不仅仅用于IP的通信，还可以用于其他的通信，这里设置为常量AF_INET，表明是TCP/IP的协议簇</td>
+</tr>
+<tr>
+<td>sin_port</td>
+<td>端口号</td>
+</tr>
+<tr>
+<td>sin_addr</td>
+<td>ip地址</td>
+</tr>
+<tr>
+<td>sin_zero</td>
+<td>起对其作用，因为ipx的地址长度比ip的长度，其他地址也是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据结构hostent">数据结构hostent</h3>
+<p><font color=red>域名和IP地址的数据结构</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> &#123;</span> </span><br><span class="line">    <span class="type">char</span> *h_name;	<span class="comment">//域名</span></span><br><span class="line">    <span class="type">char</span> **h_aliases;	<span class="comment">//别名</span></span><br><span class="line">    <span class="type">int</span> h_addrtype;	</span><br><span class="line">    <span class="type">int</span> h_length; <span class="comment">//地址长度</span></span><br><span class="line">    <span class="type">char</span> **h_addr_list;	<span class="comment">//IP地址</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> h_addr h_addr_list[0];</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h_name</td>
+<td>字符串</td>
+<td>主机域名</td>
+</tr>
+<tr>
+<td>h_aliases</td>
+<td>字符串数组</td>
+<td>主机的一系列别名</td>
+</tr>
+<tr>
+<td>h_addrtype</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>h_length</td>
+<td>数字</td>
+<td>地址长度</td>
+</tr>
+<tr>
+<td>h_addr_list</td>
+<td>字符串数组</td>
+<td>ip地址，可以将其复制到sockaddr_in的ip中</td>
+</tr>
+</tbody>
+</table>
+<p>作为调用域名解析函数时的参数 返回后，将IP地址拷贝到 sockaddr_in的IP地址部分</p>
+<h3 id="c-s-socket交互：tcp">C/S socket交互：TCP</h3>
+<p><img src="/images/wl_15_2.png" alt=""></p>
+<h3 id="例子：c客户端-tcp">例子：C客户端（TCP）</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">    <span class="comment">// sad表示 server addr</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">sad</span>;</span> <span class="comment">/* structure to hold an IP address of server */</span></span><br><span class="line">    <span class="type">int</span> clientSocket; <span class="comment">/* socket descriptor */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">ptrh</span>;</span> <span class="comment">/* pointer to a host table entry */</span></span><br><span class="line">    <span class="type">char</span> Sentence[<span class="number">128</span>];</span><br><span class="line">    <span class="type">char</span> modifiedSentence[<span class="number">128</span>];</span><br><span class="line">    <span class="comment">//	argv[0]是程序的名字</span></span><br><span class="line">    host = argv[<span class="number">1</span>]; <span class="comment">// argv[1] 表示服务器的域名</span></span><br><span class="line">    port = atoi(argv[<span class="number">2</span>]); <span class="comment">// argv[2]表示服务端的端口</span></span><br><span class="line">    clientSocket = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 这里底层自动使用了bind</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// sad先清0</span></span><br><span class="line">    <span class="built_in">memset</span>((<span class="type">char</span> *)&amp;sad,<span class="number">0</span>,<span class="keyword">sizeof</span>(sad)); <span class="comment">/* clear sockaddr structure */</span></span><br><span class="line">    sad.sin_family = AF_INET; <span class="comment">/* set family to Internet */</span></span><br><span class="line">    <span class="comment">// port先转换成短整形，然后设置成网络次序</span></span><br><span class="line">    sad.sin_port = htons((u_short)port);</span><br><span class="line">    ptrh = gethostbyname(host);</span><br><span class="line">    <span class="comment">/* Convert host name to IP address */</span></span><br><span class="line">    <span class="comment">//将IP地址拷贝到sad.sin_addr</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;sad.sin_addr, ptrh-&gt;h_addr, ptrh-&gt;h_length);</span><br><span class="line">    connect(clientSocket, (<span class="keyword">struct</span> sockaddr *)&amp;sad, <span class="keyword">sizeof</span>(sad));</span><br><span class="line"></span><br><span class="line">    gets(Sentence); <span class="comment">// get input stream from client</span></span><br><span class="line">    n=write(clientSocket, Sentence, <span class="built_in">strlen</span>(Sentence)+<span class="number">1</span>); <span class="comment">// send line to server</span></span><br><span class="line">    n=read(clientSocket, modifiedSentence, <span class="keyword">sizeof</span>(modifiedSentence)); <span class="comment">// read line from server</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;FROM SERVER: %s\n&quot;</span>,modifiedSentence);</span><br><span class="line">    close(clientSocket);  <span class="comment">// close the connection</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="例子：c服务器-tcp">例子：C服务器（TCP）</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">    <span class="comment">// 只有一个参数，就是服务端的端口号</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">sad</span>;</span> <span class="comment">/* structure to hold an IP address of server*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cad</span>;</span> <span class="comment">/*client */</span></span><br><span class="line">    <span class="type">int</span> welcomeSocket, connectionSocket; <span class="comment">/* socket descriptor */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">ptrh</span>;</span> <span class="comment">/* pointer to a host table entry */</span></span><br><span class="line">    <span class="type">char</span> clientSentence[<span class="number">128</span>];</span><br><span class="line">    <span class="type">char</span> capitalizedSentence[<span class="number">128</span>];</span><br><span class="line">    <span class="comment">// port</span></span><br><span class="line">    port = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    welcomeSocket = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>((<span class="type">char</span> *)&amp;sad,<span class="number">0</span>,<span class="keyword">sizeof</span>(sad)); <span class="comment">/* clear sockaddr structure */</span></span><br><span class="line">    sad.sin_family = AF_INET; <span class="comment">/* set family to Internet */</span></span><br><span class="line">    sad.sin_addr.s_addr = INADDR_ANY; <span class="comment">/* set the local IP address */</span></span><br><span class="line">    sad.sin_port = htons((u_short)port);<span class="comment">/* set the port number */</span></span><br><span class="line">    <span class="comment">// 此处赋值，在表中进行赋值</span></span><br><span class="line">    bind(welcomeSocket, (<span class="keyword">struct</span> sockaddr *)&amp;sad, <span class="keyword">sizeof</span>(sad));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// specify the maximum number of clients that can be queued</span></span><br><span class="line">    listen(welcomeSocket, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">            connectionSocket=accept(welcomeSocket, (<span class="keyword">struct</span> sockaddr *)&amp;cad, &amp;alen);</span><br><span class="line">            n=read(connectionSocket, clientSentence, <span class="keyword">sizeof</span>(clientSentence));</span><br><span class="line">            <span class="comment">// capitalize Sentence and store the result in capitalizedSentence</span></span><br><span class="line">            n=write(connectionSocket, capitalizedSentence, <span class="built_in">strlen</span>(capitalizedSentence)+<span class="number">1</span>);</span><br><span class="line">            close(connectionSocket);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="udp-socket编程">UDP Socket编程</h2>
+<p><font color=red>UDP在客户端和服务器之间没有连接</font></p>
+<ul>
+<li>没有握手</li>
+<li>发送端在每一个报文中明确地指明目标的IP地址和端口号</li>
+<li>服务器必须从收到的分组中提取出发送端的IP地址和端口号</li>
+</ul>
+<p><font color=red>传送的数据可能乱序，也可能丢失</font></p>
+<p><font colore=red>进程视角看UDP服务</font><br>
+UDP为客户端和服务器提供不可靠的字节组的传送服务</p>
+<h3 id="c-s交互：udp">C/S交互：UDP</h3>
+<p><img src="/images/wl_15_3.png" alt=""></p>
+<h3 id="例子：c客户端">例子：C客户端</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* client.c */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">sad</span>;</span> <span class="comment">/* structure to hold an IP address */</span></span><br><span class="line">    <span class="type">int</span> clientSocket; <span class="comment">/* socket descriptor */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">ptrh</span>;</span> <span class="comment">/* pointer to a host table entry */</span></span><br><span class="line">    <span class="type">char</span> Sentence[<span class="number">128</span>];</span><br><span class="line">    <span class="type">char</span> modifiedSentence[<span class="number">128</span>];</span><br><span class="line">    host = argv[<span class="number">1</span>]; port = atoi(argv[<span class="number">2</span>]);</span><br><span class="line">    clientSocket = socket(PF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">/* determine the server&#x27;s address */</span></span><br><span class="line">    <span class="built_in">memset</span>((<span class="type">char</span> *)&amp;sad,<span class="number">0</span>,<span class="keyword">sizeof</span>(sad)); <span class="comment">/* clear sockaddr structure */</span></span><br><span class="line">    sad.sin_family = AF_INET; <span class="comment">/* set family to Internet */</span></span><br><span class="line">    sad.sin_port = htons((u_short)port);</span><br><span class="line">    ptrh = gethostbyname(host);</span><br><span class="line">    <span class="comment">/* Convert host name to IP address */</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;sad.sin_addr, ptrh-&gt;h_addr, ptrh-&gt;h_length);</span><br><span class="line">    gets(Sentence);</span><br><span class="line">    addr_len =<span class="keyword">sizeof</span>(<span class="keyword">struct</span> sockaddr);</span><br><span class="line">    n=sendto(clientSocket, Sentence, <span class="built_in">strlen</span>(Sentence)+<span class="number">1</span>, (<span class="keyword">struct</span> sockaddr *) &amp;sad, addr_len);</span><br><span class="line">    n=recvfrom(clientSocket, modifiedSentence, <span class="keyword">sizeof</span>(modifiedSentence),(<span class="keyword">struct</span> sockaddr *) &amp;sad, &amp;addr_len);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;FROM SERVER: %s\n&quot;</span>,modifiedSentence);</span><br><span class="line">    close(clientSocket);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="例子：c服务器">例子：C服务器</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* server.c */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">sad</span>;</span> <span class="comment">/* structure to hold an IP address */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cad</span>;</span></span><br><span class="line">    <span class="type">int</span> serverSocket; <span class="comment">/* socket descriptor */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">ptrh</span>;</span> <span class="comment">/* pointer to a host table entry */</span></span><br><span class="line">    <span class="type">char</span> clientSentence[<span class="number">128</span>];</span><br><span class="line">    <span class="type">char</span> capitalizedSentence[<span class="number">128</span>];</span><br><span class="line">    port = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    serverSocket = socket(PF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>((<span class="type">char</span> *)&amp;sad,<span class="number">0</span>,<span class="keyword">sizeof</span>(sad)); <span class="comment">/* clear sockaddr structure */</span></span><br><span class="line">    sad.sin_family = AF_INET; <span class="comment">/* set family to Internet */</span></span><br><span class="line">    sad.sin_addr.s_addr = INADDR_ANY; <span class="comment">/* set the local IP address */</span></span><br><span class="line">    sad.sin_port = htons((u_short)port);<span class="comment">/* set the port number */</span></span><br><span class="line">    bind(serverSocket, (<span class="keyword">struct</span> sockaddr *)&amp;sad, <span class="keyword">sizeof</span>(sad));</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        n=recvfrom(serverSocket, clientSentence, <span class="keyword">sizeof</span>(clientSentence), <span class="number">0</span></span><br><span class="line">                   (<span class="keyword">struct</span> sockaddr *) &amp;cad, &amp;addr_len );</span><br><span class="line">        <span class="comment">/* capitalize Sentence and store the result in capitalizedSentence*/</span></span><br><span class="line">        n=sendto(serverSocket , capitalizedSentence, <span class="built_in">strlen</span>(capitalizedSentence)+<span class="number">1</span>,</span><br><span class="line">                 (<span class="keyword">struct</span> sockaddr *) &amp;cad, &amp;addr_len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9415%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络——14CDN</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> Aubyn
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Aubyn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+ 
+    
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.css">
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.js"></script>
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/contrib/auto-render.min.js"></script>
+        
+    
+ 
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
