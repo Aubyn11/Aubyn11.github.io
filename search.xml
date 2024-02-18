@@ -8494,4 +8494,88 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——18无连接传输UDP</title>
+    <url>/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9418%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93UDP/</url>
+    <content><![CDATA[<h1>无连接传输UDP</h1>
+<h2 id="udp">UDP</h2>
+<ul>
+<li>“尽力而为的”服务，报文段可能
+<ul>
+<li>丢失</li>
+<li>送到应用进程的报文段乱序</li>
+</ul>
+</li>
+<li><font color=red>无连接</font>
+<ul>
+<li>UDP发送端和接收端之间没有握手</li>
+<li>每个UDP报文段都被独立的处理</li>
+</ul>
+</li>
+<li>UDP被用于
+<ul>
+<li>流媒体</li>
+<li>DNS</li>
+<li>SNMP</li>
+</ul>
+</li>
+<li>在UDP上实现可靠传输
+<ul>
+<li><font color=red>在应用层增加可靠性</font></li>
+<li><font color=red>应用特定的差错格式</font></li>
+</ul>
+</li>
+</ul>
+<h2 id="udp：用户数据报协议">UDP：用户数据报协议</h2>
+<p><font color=red>为什么要有UDP</font></p>
+<ul>
+<li>不建立连接（会增加延时）</li>
+<li>简单：在发送端和接收端没有连接状态</li>
+<li><font color=red>报文段的头部很小（开销小）</font></li>
+<li><font color=red>无拥塞控制和流量控制</font>：UDP可以尽可能快的发送报文段
+<ul>
+<li>应用 -&gt; 传输的速率 = 主机 -&gt; 网格的速率</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_18_1.png" alt=""></p>
+<h2 id="udp校验和">UDP校验和</h2>
+<p><font color=red>目标</font>：检测在被传输报文段中的差错（如比特反转）</p>
+<p><font color=red>发送方</font></p>
+<ul>
+<li>将报文段的内容视为16比特的整数</li>
+<li>校验和：报文段的加法和（1的补运算）</li>
+<li>发送方将校验和放在UDP的校验和字段</li>
+</ul>
+<p><font color=red>接收方</font></p>
+<ul>
+<li>计算接收到的报文段的校验和</li>
+<li>检查计算出的校验和与校验和字段的内容是否相等
+<ul>
+<li>不相等——检测到差错</li>
+<li>相等：没有检测到差错 ，但也许还是有差错 (残存错误，未检测出来)</li>
+</ul>
+</li>
+</ul>
+<h2 id="internet校验和的例子">Internet校验和的例子</h2>
+<ul>
+<li>注意：当数字相加时，在最高位的进位要回卷（加到最低位上），再加到结果上</li>
+</ul>
+<p><img src="/images/wl_18_2.png" alt=""></p>
+<ul>
+<li>目标端：校验范围+校验和=1111111111111111 通过校验
+<ul>
+<li>否则没有通过校验</li>
+</ul>
+</li>
+<li>注：求和时，必须将进位回卷到结果上（进位回滚）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
