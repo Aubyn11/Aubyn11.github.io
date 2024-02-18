@@ -8578,4 +8578,51 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>UnityShader——07数学知识：向量</title>
+    <url>/2024/02/18/UnityShader%E2%80%94%E2%80%9407%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%90%91%E9%87%8F/</url>
+    <content><![CDATA[<h1>数学知识：向量</h1>
+<h2 id="二维-笛卡尔-坐标系">二维（笛卡尔）坐标系</h2>
+<p><img src="/images/Shader/Shader_07/Shader_07_1.png" alt=""></p>
+<h2 id="二维向量-矢量">二维向量（矢量）</h2>
+<p>具有方向的线段叫做有向线段，以<strong>A</strong>为起点、<strong>B</strong>为终点的有向线段作为向量，可以记作 <strong>v = B - A</strong>。区别于有向线段，在一般的数学研究中，向量是可以平移的。</p>
+<p><img src="/images/Shader/Shader_07/Shader_07_2.png" alt=""></p>
+<p>一个向量的坐标等于表示此向量的有向线段的终点坐标减去始点的坐标。</p>
+<p><img src="/images/Shader/Shader_07/Shader_07_3.png" alt=""></p>
+<h3 id="二维向量加法">二维向量加法</h3>
+<p><img src="/images/Shader/Shader_07/Shader_07_4.png" alt=""></p>
+<p><img src="/images/Shader/Shader_07/Shader_07_5.png" alt=""></p>
+<h3 id="二维向量减法">二维向量减法</h3>
+<p><img src="/images/Shader/Shader_07/Shader_07_6.png" alt=""></p>
+<h3 id="二维向量点乘">二维向量点乘</h3>
+<p><img src="/images/Shader/Shader_07/Shader_07_7.png" alt=""></p>
+<p><img src="/images/Shader/Shader_07/Shader_07_8.png" alt=""></p>
+<p>根据这个公式就可以计算向量a和向量b之间的夹角。从而就可以进一步判断这两个向量是否是同一方向，是否正交(也就是垂直)等方向关系，具体对应关系为：</p>
+<ul>
+<li>a·b&gt;0    方向基本相同，夹角在0°到90°之间</li>
+<li>a·b=0    正交，相互垂直</li>
+<li>a·b&lt;0    方向基本相反，夹角在90°到180°之间</li>
+</ul>
+<h3 id="二维向量叉乘">二维向量叉乘</h3>
+<ul>
+<li>两个向量的叉乘，又叫向量积、外积、叉积，叉乘的运算结果是一个向量而不是一个标量。并且两个向量的叉积与这两个向量组成的坐标平面垂直。</li>
+<li>向量的叉乘公式为：<strong>a ^ b = |a| * |b| * sinθ</strong>,叉乘的结果是一个新的向量，所以也称为向量积，它垂直于相乘的<strong>a、b</strong>两向量所构成的平面。</li>
+</ul>
+<p>向量积被定义为：</p>
+<ul>
+<li>模长：（在这里θ表示两向量之间的夹角(共起点的前提下)（0° ≤ θ ≤ 180°），它位于这两个矢量所定义的平面上。）</li>
+<li>方向：a向量与b向量的向量积的方向与这两个向量所在平面垂直，且遵守右手定则。（一个简单的确定满足“右手定则”的结果向量的方向的方法是这样的：若坐标系是满足右手定则的，当右手的四指从a以不超过180度的转角转向b时，竖起的大拇指指向是c的方向。c = a ∧ b）</li>
+</ul>
+<p><img src="/images/Shader/Shader_07/Shader_07_9.png" alt=""></p>
+<p><img src="/images/Shader/Shader_07/Shader_07_10.png" alt=""></p>
+<h3 id="二维单位向量">二维单位向量</h3>
+<p><img src="/images/Shader/Shader_07/Shader_07_11.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>UnityShader</category>
+      </categories>
+      <tags>
+        <tag>UnityShader</tag>
+      </tags>
+  </entry>
 </search>
