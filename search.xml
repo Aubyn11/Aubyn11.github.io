@@ -8417,4 +8417,81 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——17多路复用和解复用</title>
+    <url>/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9417%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%92%8C%E8%A7%A3%E5%A4%8D%E7%94%A8/</url>
+    <content><![CDATA[<h1>多路复用和解复用</h1>
+<h2 id="多路复用-解复用">多路复用/解复用</h2>
+<p><font color=red>在发送方主机多路复用</font><br>
+从多个套接字接收来自多个进程的报文，根据套接字对应的IP地址和端口号等信息对报文段用头部加以封装（连头部信息用于以后的解复用）</p>
+<p><font color=red>在接收方主机多路解复用</font><br>
+根据报文段的头部信息中的IP地址和端口号接收到的报文段发给正确的套接字（和对应的应用进程）</p>
+<h2 id="多路解复用工作原理">多路解复用工作原理</h2>
+<ul>
+<li>解复用原理
+<ul>
+<li>TCP或者UDP实体采用哪些信息，将报文段的数据部分交给正确的socket，从而交给正确的进程</li>
+</ul>
+</li>
+<li>主机收到IP数据报
+<ul>
+<li>每个数据报有源IP地址和目标地址</li>
+<li>每个数据包承载一个传输层报文段</li>
+<li>每个报文段有一个源端口号和目标端口号（特定应用有著名的端口号）</li>
+</ul>
+</li>
+<li>主机联合使用<font color=red>IP地址和端口号</font>将报文段发送给合适的套接字</li>
+</ul>
+<p><img src="/images/wl_17_1.png" alt=""></p>
+<h2 id="无连接-udp-多路解复用">无连接（UDP）多路解复用</h2>
+<ul>
+<li>在接收端，UDP套接字用二元组标识(<font color=red>目标IP地址、目标端口号</font>)</li>
+<li>当主机接收到UDP段时：
+<ul>
+<li>检查UDP段中的目标端 口号</li>
+<li>将UDP段交给具备那个端口号的套接字</li>
+</ul>
+</li>
+<li>如果两个不同源IP地址/源端口号的数据报，但是<font color=red>有相同的目标IP地址和端口号</font>，则被定位到相同的套接字</li>
+</ul>
+<h2 id="面向连接-tcp-的多路解复用">面向连接（TCP）的多路解复用</h2>
+<ul>
+<li>TCP套接字:四元组本 地标识：
+<ul>
+<li>源IP地址</li>
+<li>源端口号</li>
+<li>目的IP地址</li>
+<li>目的端口号</li>
+</ul>
+</li>
+</ul>
+<p>解复用：接收主机用 这四个值来将数据报 定位到合适的套接字</p>
+<ul>
+<li>服务器能够在一个TCP端口上同时支持多个TCP套接字：
+<ul>
+<li>每个套接字由其四元组标识（有不同的源IP和源PORT）</li>
+</ul>
+</li>
+<li>Web服务器对每个连接客户端有不同的套接字
+<ul>
+<li>非持久对每个请求有不同的套接字</li>
+</ul>
+</li>
+</ul>
+<h2 id="无连接的解复用：例子">无连接的解复用：例子</h2>
+<p><img src="/images/wl_17_2.png" alt=""></p>
+<p><img src="/images/wl_17_3.png" alt=""></p>
+<h2 id="面向连接的解复用：例子">面向连接的解复用：例子</h2>
+<p><img src="/images/wl_17_4.png" alt=""></p>
+<p><img src="/images/wl_17_5.png" alt=""></p>
+<p><img src="/images/wl_17_6.png" alt=""></p>
+<p><img src="/images/wl_17_7.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
