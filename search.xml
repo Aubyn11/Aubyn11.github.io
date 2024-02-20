@@ -9126,4 +9126,307 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——20面向连接的传输：TCP</title>
+    <url>/2024/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9420%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BC%A0%E8%BE%93%EF%BC%9ATCP/</url>
+    <content><![CDATA[<h1>面向连接的传输：TCP</h1>
+<h2 id="tcp：概述">TCP：概述</h2>
+<p><font color=red>点对点</font></p>
+<ul>
+<li>一个发送方、一个接收方</li>
+</ul>
+<p><font color=red>可靠的、按顺序的字节流</font></p>
+<ul>
+<li>没有报文边界</li>
+</ul>
+<p><font color=red>管道化（流水线）</font></p>
+<ul>
+<li>TCP拥塞控制和流量控制设置窗口大小</li>
+</ul>
+<p><font color=red>发送和接收缓存</font></p>
+<p><font color=red>全双工数据</font></p>
+<ul>
+<li>在同一连接中数据流双向流动</li>
+<li>MSS：最大报文段大小</li>
+</ul>
+<p><font color=red>面向连接</font></p>
+<ul>
+<li>在数据交换之前，通过握手（交换控制报文）初始化发送方、接收方的状态变量</li>
+</ul>
+<p><font color=red>有流量控制</font></p>
+<ul>
+<li>发送方不会淹没接收方</li>
+</ul>
+<h2 id="tcp报文段结构">TCP报文段结构</h2>
+<p><img src="/images/wl_20_1.png" alt=""></p>
+<h3 id="tcp序号-确认号">TCP序号，确认号</h3>
+<p><font color=red>序号</font></p>
+<ul>
+<li>报文段首字节的在字节流的编号</li>
+</ul>
+<p><font color=red>确认号</font></p>
+<ul>
+<li>期望从另一方收到的下一个字节的序号</li>
+<li>累计确认</li>
+</ul>
+<p>接收方如何处理乱序的报文段-没有规定</p>
+<p><img src="/images/wl_20_2.png" alt=""></p>
+<h3 id="tcp往返延时-rtt-和超时">TCP往返延时（RTT）和超时</h3>
+<p>怎样设置TCP超时</p>
+<ul>
+<li>比RTT要长
+<ul>
+<li>但RTT是变化的</li>
+</ul>
+</li>
+<li>太短：太早超时
+<ul>
+<li>不必要的重传</li>
+</ul>
+</li>
+<li>太长：对报文段丢失反应太慢，消极</li>
+</ul>
+<p>怎样估计RTT</p>
+<ul>
+<li><strong>SampleRTT</strong>：测量从报文段发出到收到确认的时间
+<ul>
+<li>如果有重传，忽略此次测量</li>
+</ul>
+</li>
+<li><strong>SampleRTT</strong>会变化，因此估计的RTT应该比较平滑
+<ul>
+<li>对几个最近的测量值求平均，而不是仅用当前的<strong>SampleRTT</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp序号和确认号">TCP序号和确认号</h3>
+<p><img src="/images/wl_20_3.png" alt=""></p>
+<h3 id="tcp往返延时和超时">TCP往返延时和超时</h3>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>+</mo><mi>a</mi><mo>∗</mo><mi>S</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">EstimatedRTT = (1- a)*EstimatedRTT + a*SampleRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span></p>
+<ul>
+<li>指数加权移动平均</li>
+<li>过去样本的影响呈指数衰减</li>
+<li>推荐值：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.125</mn></mrow><annotation encoding="application/x-tex">a = 0.125</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span><span class="mord">2</span><span class="mord">5</span></span></span></span></li>
+</ul>
+<p><img src="/images/wl_20_4.png" alt=""></p>
+<p><font color=red>设置超时</font></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">EstimtedRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> + 安全边界时间
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">EstimatedRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>变化大(方差大) → 较大的安全边界时间</li>
+</ul>
+</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">SampleRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>会偏离<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">EstimatedRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>多远：
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>e</mi><mi>v</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>β</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>D</mi><mi>e</mi><mi>v</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>+</mo><mi>β</mi><mo>∗</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>−</mo><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">DevRTT = (1-β)*DevRTT + β*|SampleRTT-EstimatedRTT|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord">∣</span></span></span></span></li>
+<li>推荐值：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0.25</mn></mrow><annotation encoding="application/x-tex">β = 0.25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">5</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<p>超时时间间隔设置为：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi>o</mi><mi>u</mi><mi>t</mi><mi>I</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>v</mi><mi>a</mi><mi>l</mi><mo>=</mo><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>+</mo><mn>4</mn><mo>∗</mo><mi>D</mi><mi>e</mi><mi>v</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">TimeoutInterval = EstimatedRTT + 4*DevRTT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span></li>
+</ul>
+<h2 id="tcp：可靠数据传输">TCP：可靠数据传输</h2>
+<ul>
+<li>TCP在IP不可靠服务的基础上建立了rdt
+<ul>
+<li>管道化的报文段
+<ul>
+<li>GBN or SR</li>
+</ul>
+</li>
+<li>累计确认</li>
+<li>单个重传定时器</li>
+<li>是否可以接受乱序的，没有规范</li>
+</ul>
+</li>
+<li>通过以下事件触发重传
+<ul>
+<li>超时（只重发那个最早的未确认段：SR）</li>
+<li>重复的确认</li>
+</ul>
+</li>
+<li>首先考虑简化的TCP发送方：
+<ul>
+<li>忽略重复的确认</li>
+<li>忽略流量控制和拥塞控制</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp发送方-简化版">TCP发送方（简化版）</h3>
+<p><img src="/images/wl_20_5.png" alt=""></p>
+<h3 id="tcp发送方事件">TCP发送方事件</h3>
+<p>&lt;font color=red从应用层接收数据</font>：</p>
+<ul>
+<li>用nextseq创建报文段</li>
+<li>序号nextseq为报文段首字节的字节流编号</li>
+<li>如果还没有运行，启动定时器
+<ul>
+<li>定时器与最早未确认的报文段关联（单个重传定时器）</li>
+<li>过期间隔：TimeOutInterval</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>超时</font>：</p>
+<ul>
+<li>重传后沿最老的报文段</li>
+<li>重新启动定时器</li>
+</ul>
+<p><font color=red>收到确认</font>：</p>
+<ul>
+<li>如果是对尚未确认的报文段确认
+<ul>
+<li>更新已被确认的报文序号（后沿移动）</li>
+<li>如果当前还有未被确认的报文段，重新启动定时器 (发完，就关掉定时器)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_20_6.png" alt=""></p>
+<h3 id="伪代码">伪代码</h3>
+<p>上述操作的伪代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">NextSeqNum = InitialSeqNum</span><br><span class="line">SendBase = InitialSeqNum</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一直循环</span></span><br><span class="line">loop (forever) &#123;</span><br><span class="line">	<span class="comment">// 判断事件</span></span><br><span class="line">	<span class="keyword">switch</span>(event)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 如果收到了应用层的数据</span></span><br><span class="line">    event: data received from application above</span><br><span class="line">    	<span class="comment">// 用NextSeqNum创建TCPsegment</span></span><br><span class="line">		create TCP segment with sequence number NextSeqNum</span><br><span class="line">		<span class="comment">// 如果定时器不在运行的话，开始</span></span><br><span class="line">		<span class="keyword">if</span> (timer currently not running)</span><br><span class="line">			start timer</span><br><span class="line">		<span class="comment">// 传给IP</span></span><br><span class="line">		pass segment to IP</span><br><span class="line">		<span class="comment">// 前沿移动</span></span><br><span class="line">		NextSeqNum = NextSeqNum + length(data)</span><br><span class="line"></span><br><span class="line">    event: timer timeout</span><br><span class="line">		retransmit not-yet-acknowledged segment with</span><br><span class="line">		smallest sequence number</span><br><span class="line">	start timer</span><br><span class="line"></span><br><span class="line">    event: ACK received, with ACK field value of y</span><br><span class="line">		<span class="keyword">if</span> (y &gt; SendBase) &#123;</span><br><span class="line">			SendBase = y</span><br><span class="line">			<span class="keyword">if</span> (there are currently not-yet-acknowledged segments)</span><br><span class="line">			start timer</span><br><span class="line">		&#125;</span><br><span class="line">&#125; <span class="comment">/* end of loop forever */</span></span><br></pre></td></tr></table></figure>
+<p>注释：</p>
+<ul>
+<li>SendBase-1: 最后一个累积确认的字节</li>
+<li>例：
+<ul>
+<li>SendBase-1 = 71；y= 73, 因此接收方期望73+ ; y是ACK的值</li>
+<li>y &gt; SendBase，因此新的数据被确认</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp：重传">TCP：重传</h3>
+<p><img src="/images/wl_20_7.png" alt=""></p>
+<p><img src="/images/wl_20_8.png" alt=""></p>
+<h3 id="接收方产生tcp-ack的建议">接收方产生TCP ACK的建议</h3>
+<table>
+<thead>
+<tr>
+<th>接收方的事件</th>
+<th>TCP接收方动作</th>
+<th>补充</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所期望序号的报文段按序到达。所有在期望序号之前的数据都已经被确认</td>
+<td>延迟发送ACK（提高效率，少发一个ACK）。对另一个按序报文段的到达最多等待500ms。如果下一个报文段在这个时间间隔内没有到达，则发送一个ACK。</td>
+<td>就是当接受到y0之后，不发送ACK=y0+1，而是当顺序接受到y1之后，发送ACK=y1+1注意必须是顺序接受到，如果是乱序，仍然请求y0+1,如果超时还未接受到，再发y0+1</td>
+</tr>
+<tr>
+<td>有期望序号的报文段到达。 另一个按序报文段等待发送ACK</td>
+<td>立即发送单个累积ACK，以确认两个按序报文段。</td>
+<td>就是上一条说的情况</td>
+</tr>
+<tr>
+<td>比期望序号大的报文段乱序到达。 检测出数据流中的间隔</td>
+<td>立即发送重复的ACK，指明下一个期待字节的序号</td>
+<td>如果收到了y0，然后乱序收到了y2，那么重新请求ACK=y0 + 1</td>
+</tr>
+<tr>
+<td>能部分或完全填充接收数据间隔 的报文段到达</td>
+<td>若该报文段起始于间隔（gap）的低端，则立即发送ACK（给确认。反映下一段的需求）。</td>
+<td>请求ACK=y0+1，此时已经乱序收到了y2的内容请求之后得到的gap并不能填充y0到y2的空间，只能达到y1，因此重新请求ACK=y1 + 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="快速重传">快速重传</h2>
+<ul>
+<li>超时周期往往太长
+<ul>
+<li>在重传丢失报文段之前的延时太长</li>
+</ul>
+</li>
+<li>通过&lt;font color=red重复</font>的ACK来检测 报文段丢失
+<ul>
+<li>发送方通常连续发送大量 报文段</li>
+<li>如果报文段丢失，通常会引起多个重复的ACK</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_20_9.png" alt=""></p>
+<ul>
+<li>如果发送方收到同一数据 的3个冗余ACK，重传最 小序号的段：
+<ul>
+<li><font color=red>快速重传</font>：在定时器过时之前重发报文段</li>
+<li>它假设跟在被确认的数据 后面的数据丢失了
+<ul>
+<li>第一个ACK是正常的；（比如第一个ACK=50，表明收到了49，是正常的，请求50）</li>
+<li>收到第二个该段的ACK，表 示接收方收到一个该段后的乱序段； （因为再次请求50）</li>
+<li>收到第3，4个该段的ack，表 示接收方收到该段之后的2个 ，3个乱序段，可能性非常大段丢失了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/iamges/wl_20_10.png" alt=""></p>
+<h3 id="快速重传算法">快速重传算法</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">event: ACK received, with ACK field value of y</span><br><span class="line">	<span class="title function_">if</span> <span class="params">(y &gt; SendBase)</span> &#123;</span><br><span class="line">		SendBase = y</span><br><span class="line">		<span class="keyword">if</span> (there are currently not-yet-acknowledged segments)</span><br><span class="line">			start timer</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123; <span class="comment">// 已确认报文段的一个重复确认</span></span><br><span class="line">		increment count of dup ACKs received <span class="keyword">for</span> y</span><br><span class="line">		<span class="keyword">if</span> (count of dup ACKs received <span class="keyword">for</span> y = <span class="number">3</span>) &#123;</span><br><span class="line">		resend segment with sequence number y  <span class="comment">// 快速重传</span></span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="tcp-流量控制">TCP 流量控制</h2>
+<p>接收方控制发送方，不让发送方发送的太多、太快以至于让 接收方的缓冲区溢出</p>
+<p><img src="/images/wl_20_11.png" alt=""></p>
+<ul>
+<li>接收方在其向发送方的TCP段 头部的rwnd字段“通告”其空闲buffer大小
+<ul>
+<li>RcvBuffer大小通过socket选项设置 (典型默认大小为4096 字节)</li>
+<li>很多操作系统自动调整 RcvBuffer</li>
+<li>发送方限制未确认(“inflight”)字节的个数≤接收 方发送过来的 rwnd 值</li>
+</ul>
+</li>
+<li>保证接收方不会被淹没</li>
+</ul>
+<p><img src="/images/wl_20_12.png" alt=""></p>
+<p><img src="/images/wl_20_13.png" alt=""></p>
+<h2 id="tcp连接管理">TCP连接管理</h2>
+<p>在正式交换数据之前，发送方和接收方握手建立通信关系:</p>
+<ul>
+<li>同意建立连接（每一方都知道对方愿意建立连接）</li>
+<li>同意连接参数</li>
+</ul>
+<p><img src="/images/wl_20_14.png" alt=""></p>
+<h3 id="同意建立连接">同意建立连接</h3>
+<p><img src="/images/wl_20_15.png" alt=""></p>
+<p>在网络中，2次握手建 立连接总是可行吗？</p>
+<ul>
+<li>变化的延迟（连接请求的段没有丢，但可能超时）</li>
+<li>由于丢失造成的重传 (e.g. req_conn(x))</li>
+<li>报文乱序</li>
+<li>相互看不到对方</li>
+</ul>
+<p>以下是两次握手的问题：</p>
+<ul>
+<li>半连接</li>
+<li>接受老数据问题</li>
+</ul>
+<p><img src="/images/wl_20_16.png" alt=""></p>
+<p>三次握手<br>
+<img src="/images/wl_20_17.png" alt=""></p>
+<h3 id="三次握手解决：半连接和接收老数据问题">三次握手解决：半连接和接收老数据问题</h3>
+<p><img src="/images/wl_20_18.png" alt=""></p>
+<h3 id="tcp三次握手-fsm">TCP三次握手 FSM</h3>
+<p><img src="/images/wl_20_19.png" alt=""></p>
+<h2 id="tcp关闭连接">TCP关闭连接</h2>
+<ul>
+<li>客户端，服务器分别关闭它自己这一侧的连接
+<ul>
+<li>发送FIN bit = 1的TCP段</li>
+</ul>
+</li>
+<li>一旦接收到FIN，用ACK回应
+<ul>
+<li>接到FIN段，ACK可以和它自己发出的FIN段一起发 送</li>
+</ul>
+</li>
+<li>可以处理同时的FIN交换</li>
+</ul>
+<p><img src="/images/wl_20_20.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
