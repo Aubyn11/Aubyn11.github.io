@@ -9429,4 +9429,28 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>UnityShader——08数学知识_2</title>
+    <url>/2024/02/20/UnityShader%E2%80%94%E2%80%9408%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86-2/</url>
+    <content><![CDATA[<h1>数学知识_2</h1>
+<h2 id="二维坐标系旋转">二维坐标系旋转</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_1.png" alt=""></p>
+<h2 id="二维坐标系平移">二维坐标系平移</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_2.png" alt=""></p>
+<h2 id="二维坐标系旋转和平移">二维坐标系旋转和平移</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_3.png" alt=""></p>
+<h2 id="三维坐标系">三维坐标系</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_4.png" alt=""></p>
+<h2 id="三维坐标基本运算">三维坐标基本运算</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_5.png" alt=""></p>
+<h2 id="矩阵">矩阵</h2>
+<p><img src="/images/Shader/Shader_08/Shader_08_6.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>UnityShader</category>
+      </categories>
+      <tags>
+        <tag>UnityShader</tag>
+      </tags>
+  </entry>
 </search>
