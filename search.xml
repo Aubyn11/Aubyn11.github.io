@@ -9926,4 +9926,158 @@ OpenGL中是列向量</p>
         <tag>UnityShader</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——23网络层导论</title>
+    <url>/2024/03/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9423%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AF%BC%E8%AE%BA/</url>
+    <content><![CDATA[<h1>网络层导论</h1>
+<h2 id="网络层服务">网络层服务</h2>
+<ul>
+<li>在发送主机和接收主机对之间传送<font color=red>段</font>（segment）</li>
+<li>在发送端将段封装到数据报中</li>
+<li>在接收端，将段上交给传输层实体</li>
+<li>网络层协议存在于每一个主机和路由器</li>
+<li>路由器检查每一个经过它的IP数据报的头部</li>
+</ul>
+<h2 id="网络层的关键功能">网络层的关键功能</h2>
+<p><font color=red>网络层功能</font></p>
+<ul>
+<li>转发: 将分组从路由器的输入接口转发到合适的输出接口</li>
+<li>路由: 使用路由算法来决定分组从发送主机到目标接收主机的路径
+<ul>
+<li>路由选择算法</li>
+<li>路由选择协议</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据平面-控制平面">数据平面、控制平面</h2>
+<p><font color=red>数据平面</font></p>
+<ul>
+<li>本地，每个路由器功能</li>
+<li>决定从路由器输入端口到达的分组如何转发到输出端口</li>
+<li>转发功能：
+<ul>
+<li>传统方式：基于目标 地址+转发表</li>
+<li>SDN方式：基于多个字段+流表</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>控制平面</font></p>
+<ul>
+<li>网络范围内的逻辑</li>
+<li>决定数据报如何在路由器之间 路由，决定数据报从源到目标主机之间的端到端路径</li>
+<li>2个控制平面方法:
+<ul>
+<li>传统的路由算法: 在路由器中被实现（功能单一：根据目标的IP地址进行转发）</li>
+<li>software-defined networking (SDN): 在远程的服务器中实现（匹配很多字段，功能更多：泛洪、转发、修改字段）</li>
+</ul>
+</li>
+</ul>
+<h2 id="传统方式：每一路由器-per-router-控制平面">传统方式：每一路由器(Per-router)控制平面</h2>
+<p>在<font color=red>每一个路由器</font>中的单独路由器算法元件，在控制平面进行交互</p>
+<p><img src="/images/wl_23_1.png" alt=""></p>
+<p><img src="/images/wl_23_2.png" alt=""></p>
+<h2 id="sdn方式：逻辑集中的控制平面">SDN方式：逻辑集中的控制平面</h2>
+<p>一个不同的（通常是远程的）控制器与本地控制代理（CAs） 交互</p>
+<p><img src="/images/wl_23_3.png" alt=""></p>
+<h2 id="网络服务模型">网络服务模型</h2>
+<p>从发送方主机到接收方主机传输数据报的“通道” ，网络提供什么样的服务模型？</p>
+<p><font color=red>对于单个数据报的服务</font>:</p>
+<ul>
+<li>可靠传送</li>
+<li>延迟保证，如：少于 40ms的延迟</li>
+</ul>
+<p><font color=red>对于数据报流的服务</font>:</p>
+<ul>
+<li>保序数据报传送</li>
+<li>保证流的最小带宽</li>
+<li>分组之间的延迟差（延迟差为0，那么发送就会立即接受到，对于多媒体来说很好）</li>
+</ul>
+<h2 id="连接建立">连接建立</h2>
+<ul>
+<li>在某些网络提供有连接的网络
+<ul>
+<li>ATM, frame relay, X.25</li>
+</ul>
+</li>
+<li>在分组传输之前，在两个主机之间，在通过一些 路由器所构成的路径上建立一个网络层连接
+<ul>
+<li>涉及到路由器</li>
+</ul>
+</li>
+<li>网络层和传输层连接服务区别:
+<ul>
+<li><font color=red>网络层</font>: 在2个主机之间，涉及到路径上的一些路由器 —— 有连接</li>
+<li><font color=red>传输层</font>: 在2个进程之间，很可能只体现在端系统上 (TCP连接) —— 面向连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络层服务模型">网络层服务模型</h2>
+<table>
+<thead>
+<tr>
+<th>网络架构</th>
+<th>服务模型</th>
+<th>是否保证带宽</th>
+<th>是否保证丢失</th>
+<th>是否保序</th>
+<th>是否保证延迟</th>
+<th>拥塞反馈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet</td>
+<td>best effort(尽力而为)</td>
+<td>none</td>
+<td>no</td>
+<td>no</td>
+<td>no</td>
+<td>no(inferred via loss)</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>CBR恒定速率</td>
+<td>constant rate</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no congestion</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>VBR 变化速率</td>
+<td>guaranteed rate</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no congestion</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>ABR 可用比特率</td>
+<td>guaranteed rate</td>
+<td>no</td>
+<td>yes</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>UBR 不指明比特率</td>
+<td>one</td>
+<td>no</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
