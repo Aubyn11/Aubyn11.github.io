@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络——25Internet Protocol |  Aubyn</title>
+      <title>计算机网络——26通用转发和SDN |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -56,7 +56,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-计算机网络——25Internet-Protocol"
+  id="post-计算机网络——26通用转发和SDN"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  计算机网络——25Internet Protocol
+  计算机网络——26通用转发和SDN
 </h1>
  
 
@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/03/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9425Internet-Protocol/" class="article-date">
-  <time datetime="2024-03-05T21:49:47.000Z" itemprop="datePublished">2024-03-06</time>
+      <a href="/2024/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9426%E9%80%9A%E7%94%A8%E8%BD%AC%E5%8F%91%E5%92%8CSDN/" class="article-date">
+  <time datetime="2024-03-13T00:22:34.000Z" itemprop="datePublished">2024-03-13</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.6k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">10 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -111,428 +111,223 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>Internet Protocol</h1>
-<h2 id="互联网中的网络层">互联网中的网络层</h2>
-<p>主机、路由器中的网络层功能</p>
-<p><img src="/images/wl_25_1.png" alt=""></p>
-<h2 id="ip数据报格式">IP数据报格式</h2>
-<p><img src="/images/wl_25_2.png" alt=""></p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ver</td>
-<td>版本号，如Ipv4就是0100</td>
-</tr>
-<tr>
-<td>head len</td>
-<td>头部的长度，一般头部是20个字节(也就是上图中的5行)，但是也有可选项，也就是头部是变长的，因此可以使用head len来计算可选项</td>
-</tr>
-<tr>
-<td>type of service</td>
-<td>数据段的类型，本来为输出队列的调度机制提供参考的，但后来废弃了</td>
-</tr>
-<tr>
-<td>length</td>
-<td>数据报总厂</td>
-</tr>
-<tr>
-<td>16-bit的id，flags fragment offset</td>
-<td>后面的分片/重组</td>
-</tr>
-<tr>
-<td>time to live（TTL）</td>
-<td>可用以ICMP协议</td>
-</tr>
-<tr>
-<td>upper layer</td>
-<td>将负载交给的上层协议，比如说TCP，还是UDP，还是ICMP，实际上是根据端口号区分的</td>
-</tr>
-<tr>
-<td>Internet checksum</td>
-<td>校验头部的</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ip分片和重组">IP分片和重组</h2>
+  <h1>通用转发和SDN</h1>
+<p><em><font color=red>网络层功能</font></em>：</p>
 <ul>
-<li>网络链路有MTU (最大传输单元) –链路层帧所携带的最大数据长度
-<ul>
-<li>不同的链路类型</li>
-<li>不同的MTU</li>
+<li><em>转发</em>： 对于从某个端口 到来的分组转发到合适的 输出端口</li>
+<li><em>路由</em>： 决定分组从源端 到目标端的路径</li>
 </ul>
-</li>
-<li>大的IP数据报在网络上被分片 (“fragmented”)
+<h2 id="网络层">网络层</h2>
+<h3 id="传统路由器的功能">传统路由器的功能</h3>
+<p>每个路由器(Per Route)的控制平面 （传统）</p>
 <ul>
-<li>一个数据报被分割成若干个小 的数据报
-<ul>
-<li>相同的ID</li>
-<li>不同的偏移量</li>
-<li>最后一个分片标记为0</li>
+<li>每个路由器上都有实现路由算法元件（它们之间需要相互交互），形成传统IP实现方式的控制平面</li>
+<li>控制平面式分布式的，由各个路由器的各自完成，难于管理</li>
 </ul>
-</li>
-<li>“重组”只在最终的目标主机进行：减少路由器的负担，要是每个路由器都重组再分片压力太大</li>
-<li>IP头部的信息被用于标识，排序相关分片</li>
+<p><img src="/images/wl_26_1.png" alt=""></p>
+<p>路由器的网络层功能：</p>
+<ul>
+<li>IP转发：对于到来的分组按照路由表决定如何转发，数据平面</li>
+<li>路由：决定路径，计算路由表；处在控制平面</li>
+</ul>
+<h3 id="传统的网络设备">传统的网络设备</h3>
+<p>还有其他种类繁多网络设备（中间盒）：</p>
+<ul>
+<li>交换机；防火墙；NAT；IDS；负载均衡设备</li>
+<li>未来：不断增加的需求和相应的网络设备</li>
+<li>需要不同的设备去实现不同的网络功能
+<ul>
+<li>每台设备集成了控制平面和数据平面的功能</li>
+<li>控制平面分布式地实现了各种控制平面功能</li>
+<li>升级和部署网络设备非常困难</li>
 </ul>
 </li>
 </ul>
-<p><img src="/images/wl_25_3.png" alt=""></p>
+<h3 id="网络设备控制平面的实现方式特点">网络设备控制平面的实现方式特点</h3>
+<p>互联网网络设备：传统方式都是通过分布式，每台设备的方法来实现数据平面和控制平面功能</p>
+<ul>
+<li>垂直集成：每台路由器或其他网络设备，包括：
+<ul>
+<li>硬件、在私有的操作系统；</li>
+<li>互联网标准协议(IP, RIP, IS-IS, OSPF, BGP)的私有实现</li>
+<li>从上到下都由一个厂商提供（代价大、被设备上“绑架”“）</li>
+</ul>
+</li>
+<li>每个设备都实现了数据平面和控制平面的事情
+<ul>
+<li>控制平面的功能是分布式实现的</li>
+</ul>
+</li>
+<li>设备基本上只能（分布式升级困难）按照固定方式工作， 控制逻辑固化。</li>
+<li>不同的网络功能需要不同的 “middleboxes”：防火墙、负载均衡设备、NAT boxes, .</li>
+<li>（数据+控制平面）集成&gt;（控制逻辑）分布-&gt;固化
+<ul>
+<li>代价大；升级困难；管理困难等</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题">问题</h3>
+<ul>
+<li>垂直集成造成价格昂贵</li>
+<li>不便于创新的生态（垄断）</li>
+<li>分布式、固化设备功能造成网络设备种类繁多
+<ul>
+<li>无法改变路由等工作逻辑，无法实现流量工程等高级 特性</li>
+<li>配置错误影响全网运行；升级和维护会涉及到全网设 备：管理困难</li>
+<li>要增加新的网络功能，需要设计、实现以及部署新的 特定设备，设备种类繁多</li>
+</ul>
+</li>
+<li>~2005：开始重新思考网络控制平面的处理方式
+<ul>
+<li>集中：远程的控制器集中实现控制逻辑</li>
+<li>远程：数据平面和控制平面的分离</li>
+</ul>
+</li>
+</ul>
+<h2 id="sdn：逻辑上集中的控制平面">SDN：逻辑上集中的控制平面</h2>
+<p>一个不同的（通常是远程）控制器和CA交互，控制器决定分组转发的逻辑（可编程），CA所在设备执行逻辑</p>
+<p><img src="/images/wl_26_2.png" alt=""></p>
+<h3 id="sdn的主要思路">SDN的主要思路</h3>
+<ul>
+<li>网络设备数据平面和控制平面分离</li>
+<li>数据平面 - 分组交换机
+<ul>
+<li>将路由器、交换机和目前大多数网络设备的功能进一步抽象成：<strong>按照流表（由控制平面设置的控制逻辑）进行PDU（帧、分组）的动作（包括转发、丢弃、拷贝、泛洪、阻塞）</strong></li>
+<li>统一化设备功能：SDN交换机（分组交换机），执行控制逻辑</li>
+</ul>
+</li>
+<li>控制平面 - 控制器 + 网络应用
+<ul>
+<li>分离、集中</li>
+<li>计算和下发控制逻辑：流表</li>
+</ul>
+</li>
+</ul>
+<h3 id="sdn控制平面和数据平面分离的优势">SDN控制平面和数据平面分离的优势</h3>
+<ul>
+<li><font color=red>水平集成</font>控制平面的<font color=red>开放实现</font>（而非私有实现），创造出好的产业状态，促进发展
+<ul>
+<li>分组交换机、控制器和各种控制逻辑网络应用APP可由不同厂商生产，专业化，引入竞争形成良好生态</li>
+</ul>
+</li>
+<li><font color=red><strong>集中</strong></font>式实现控制逻辑，网络<font color=red>管理容易</font>
+<ul>
+<li>集中式控制器了解网络状况，编程简单，传统方式困难</li>
+<li>避免路由器的误配置</li>
+</ul>
+</li>
+<li>基于流表的<strong>匹配 + 行动</strong>的工作方式允许“<font color=red>可编程的</font>”分组交换机
+<ul>
+<li>实现流量工程等高级特性</li>
+<li>在此框架下实现各种新型（未来）的网络设备</li>
+</ul>
+</li>
+</ul>
+<h3 id="类比：主框架到pc的演变">类比：主框架到PC的演变</h3>
+<p><img src="/images/wl_26_3.png" alt=""></p>
+<h3 id="流量工程：传统路由比较困难">流量工程：传统路由比较困难</h3>
+<p><img src="/images/wl_26_4.png" alt=""></p>
+<p>Q: 网管如果需要u到z的流量走uvwz,x到z的流量走xwyz，怎么办？<br>
+A: 需要定义链路的代价，流量路由算法以此运算（ IP路由面向目标，无法操作） (或者需要新的路由算法)!</p>
+<p><img src="/images/wl_26_5.png" alt=""></p>
+<p>Q: 如果网管需要将u到z的流量分成2路：uvwz 和uxyz ( 负载均衡)，怎么办?（IP路由面向目标）<br>
+A: 无法完成(在原有体系下只有使用新的路由选择算法 ，而在全网部署新的路由算法是个大的事情)</p>
+<p><img src="/images/wl_26_6.png" alt=""></p>
+<p>Q:如果需要w对蓝色的和红色的流量采用不同的路由，怎么办？<br>
+A: 无法操作 (基于目标的转发，采用LS, DV 路由)</p>
+<h3 id="sdn特点">SDN特点</h3>
+<p><img src="/images/wl_26_7.png" alt=""></p>
+<h2 id="sdn架构">SDN架构</h2>
+<h3 id="数据平面交换机">数据平面交换机</h3>
+<ul>
+<li>快速、简单、商业化交换设备，采用硬件实现通用转发功能</li>
+<li>流表被控制器计算和安装</li>
+<li>基于南向API，SDN控制器访问基于流的交换机
+<ul>
+<li>定义了哪些可以被控制哪些不能</li>
+<li>定义了和控制器的协议</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_26_8.png" alt=""></p>
+<h3 id="sdn控制器">SDN控制器</h3>
+<ul>
+<li>维护网络状态信息</li>
+<li>通过上面的北向API和网络应用交互</li>
+<li>通过下面的南向API和网络交换机交互</li>
+<li>逻辑上集中，但是在实现上通常由于性能、可拓展性、容错性以及鲁棒性采用分布式方法</li>
+</ul>
+<p><img src="/images/wl_26_9.png" alt=""></p>
+<h3 id="控制应用">控制应用</h3>
+<ul>
+<li>控制的大脑：采用下层提供的服务（SDN控制器提供的API），实现网络功能
+<ul>
+<li>路由器交换机</li>
+<li>接入控制防火墙</li>
+<li>负载均衡</li>
+<li>其他功能</li>
+</ul>
+</li>
+<li><em>非绑定</em>：可以被第三方提供，与控制器厂商以通常上不同，与分组交换机厂商也可以不同</li>
+</ul>
+<p><img src="/images/wl_26_10.png" alt=""></p>
+<h3 id="流表">流表</h3>
+<p>每个路由器包含一个<font color=red>流表</font>（被逻辑上集中的控制器计算和分发）</p>
+<p><img src="/images/wl_26_11.png" alt=""></p>
+<h2 id="openflow">OpenFlow</h2>
+<h3 id="openflow数据平面抽象">OpenFlow数据平面抽象</h3>
+<ul>
+<li>流：由分组（帧）头部字段所定义</li>
+<li>通用转发：简单的分组处理规则
+<ul>
+<li><font color=red><em>模式</em></font>：将分组头部字段和流表进行匹配</li>
+<li><font color=red><em>行动</em></font>：<em>对于匹配上的分组，可以是<font color=red>丢弃、转发、修改、将匹配的分组发送给控制器</font></em></li>
+<li><font color=red><em>优先权Priority</em></font>：几个模式匹配了，优先采用哪个，消除歧义</li>
+<li><font color=red><em>计数器Counters</em></font>：#bytes 以及 #packets</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_26_12.png" alt=""></p>
+<h3 id="流表的表项结构">流表的表项结构</h3>
+<p><img src="/images/wl_26_13.png" alt=""></p>
 <p>例子：</p>
-<p><img src="/images/wl_25_4.png" alt=""></p>
-<ul>
-<li>（接受到了）4000 字节数据报：
-<ul>
-<li>20字节头部</li>
-<li>3980字节数据</li>
-</ul>
-</li>
-<li>MTU = 1500 bytes
-<ul>
-<li>第一片：20字节头部+1480字节数据；偏移量：0</li>
-<li>第二片：20字节头部+1480字节数据（1480字节应用数据）；偏移量：1480/8=185</li>
-<li>第三片：20字节头部+1020字节数据（应用数据）；偏移量：2960/8=370</li>
-</ul>
-</li>
-</ul>
-<h2 id="ip编址：引论">IP编址：引论</h2>
-<ul>
-<li><font color=red>IP地址</font>: 32位标示，对主机或者路由器的接口编址</li>
-<li><font color=red>接口</font>: 主机/路由器和物 理链路的连接处
-<ul>
-<li>路由器通常拥有多个接口</li>
-<li>主机也有可能有多个接口</li>
-<li>IP地址和每一个接口关联</li>
-</ul>
-</li>
-<li><font color=red>一个IP地址和一个接口相关联</font></li>
-</ul>
-<p><img src="/images/wl_25_5.png" alt=""></p>
-<p><img src="/images/wl_25_6.png" alt=""></p>
-<h2 id="子网">子网</h2>
-<ul>
-<li>IP地址：
-<ul>
-<li>子网部分（高位bits）</li>
-<li>主机部分（低位bits）</li>
-</ul>
-</li>
-<li>什么是子网？
-<ul>
-<li>一个子网内的节点（主 机或者路由器）它们的<font color=red>IP地址的高位部分相同</font> ，这些节点构成的网络的一部分叫做子网</li>
-<li>子网内节点的分组的收发<font color=red>无需路由器介入（借助交换机即可）</font>，子网内各主机可以在物理上相互直接到达 ——只需要交换机即可，一跳可达</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/wl_25_7.png" alt=""></p>
-<h3 id="划分子网方法">划分子网方法</h3>
-<ul>
-<li>要判断一个子网, 将每一个接口从主机或者路由 器上分开,构成了一个个网络的孤岛</li>
-<li><font color=red>每一个孤岛（网络）都 是一个都可以被称之为 subnet</font>.</li>
-</ul>
-<p><img src="/images/wl_25_8.png" alt=""></p>
-<h2 id="ip地址类型">IP地址类型</h2>
-<h3 id="ip地址分类">IP地址分类</h3>
-<p><img src="/images/wl_25_9.png" alt=""></p>
-<h3 id="特殊ip地址">特殊IP地址</h3>
-<ul>
-<li>一些约定：
-<ul>
-<li>子网(网络)部分全为0，表示本网络</li>
-<li>主机部分全为0，表示本主机</li>
-<li>主机部分全为1表示，广播地址，这个网络的所有主机</li>
-<li>除了前面的类号 全为1——在本地网络广播</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/wl_25_10.png" alt=""></p>
-<h3 id="内网-专用-ip地址">内网(专用)IP地址</h3>
-<ul>
-<li>专用地址：地址空间的一部份供专用地址使用</li>
-<li>永远不会被当做公用地址来分配, 不会与公用地址重复</li>
-<li>只在局部网络中有意义，区分不同的设备</li>
-<li>路由器不对目标地址是专用地址的分组进行转发</li>
-<li>专用地址范围</li>
-</ul>
+<p><img src="/images/wl_26_14.png" alt=""></p>
+<h3 id="openflow抽象">OpenFlow抽象</h3>
+<p><font color=red>match + action</font>：统一化各种网络设备提供的功能</p>
 <table>
 <thead>
 <tr>
-<th>IP类型</th>
-<th>专用地址范围</th>
-<th>MASK</th>
+<th>设备</th>
+<th>match</th>
+<th>action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A类</td>
-<td>10.0.0.0-10.255.255.255</td>
-<td>255.0.0.0</td>
+<td>路由器</td>
+<td>最长前缀匹配</td>
+<td>通过一条链路转发</td>
 </tr>
 <tr>
-<td>B类</td>
-<td>172.16.0.0-172.31.255.255</td>
-<td>255.255.0.0</td>
+<td>防火墙</td>
+<td>IP地址和TCP/UDP端口号</td>
+<td>允许或者禁止</td>
 </tr>
 <tr>
-<td>C类</td>
-<td>192.168.0.0-192.168.255.255</td>
-<td>255.255.255.0</td>
+<td>交换机</td>
+<td>目标MAC地址</td>
+<td>转发或者泛洪</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>IP地址和端口号</td>
+<td>重写地址和端口号</td>
 </tr>
 </tbody>
 </table>
-<h3 id="cidr-无类域间路由">CIDR(无类域间路由)</h3>
-<ul>
-<li>子网部分可以在任意的位置（而不必是固定的位置）</li>
-<li>地址格式: <font color=red>a.b.c.d/x</font>, 其中 x 是 地址中子网号的长度</li>
-</ul>
-<p>实例：</p>
-<p><img src="/images/wl_25_11.png" alt=""></p>
-<h3 id="转发表和转发算法">转发表和转发算法</h3>
-<table>
-<thead>
-<tr>
-<th>Destination Subnet Num</th>
-<th>Mask</th>
-<th>Next hop</th>
-<th>Interface</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>202.38.73.0</td>
-<td>255.255.255.192</td>
-<td>IPx</td>
-<td>Lan1</td>
-</tr>
-<tr>
-<td>202.38.64.0</td>
-<td>255.255.255.192</td>
-<td>IPy</td>
-<td>Lan2</td>
-</tr>
-<tr>
-<td>…</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Default</td>
-<td></td>
-<td>IPz</td>
-<td>Lan0</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>获得IP数据报的目标地址IP Des addr</li>
-<li>遍历转发表中的每一个表项
-<ul>
-<li>如 (IP Des addr) &amp; (mask) == destination, 则按照表项 对应的接口转发该数据报</li>
-<li>如果都没有找到,则使用默认表项转发数据报，一般是整个网络的出口 default Gateway</li>
-</ul>
-</li>
-</ul>
-<h2 id="如何获得一个ip地址">如何获得一个IP地址</h2>
-<ul>
-<li>系统管理员将地址配置在一个文件中
-<ul>
-<li>Wintel: control-panel-&gt;network- &gt;configuration-&gt;tcp/ip-&gt;properties</li>
-<li>UNIX: /etc/rc.config</li>
-</ul>
-</li>
-<li>DHCP：从服务器中动态获取一个IP地址
-<ul>
-<li>“plug-and-play”</li>
-</ul>
-</li>
-</ul>
-<h3 id="dhcp-dynamic-host-configuration-protocol">DHCP: Dynamic Host Configuration Protocol</h3>
-<p>目标:</p>
-<ul>
-<li>允许主机在加入网络的时候，动态地从服务器那里获得IP地址
-<ul>
-<li>可以更新对主机在用IP地址的租用期-租期快到了</li>
-<li>重新启动时，允许重新使用以前用过的IP地址</li>
-<li>支持移动用户加入到该网络（短期在网）</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/wl_25_12.png" alt=""></p>
-<p>DHCP工作概况:</p>
-<table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>含义</th>
-<th>源地址</th>
-<th>目标地址</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>主机上限时广播“DHCP discover”报文</td>
-<td>问一下有活着的DHCP服务器吗</td>
-<td>0.0.0.0,32全0的本机地址，因为此时还没有分配ip地址</td>
-<td>255.255.255.255,（32位全1的广播地址，因为不知道DHCP服务在哪）</td>
-</tr>
-<tr>
-<td>DHCP服务器用“DHCP offer”单播提供报文响应</td>
-<td>DHCP服务器表明自己的存在；并且包含分配给主机的关于ip的配套信息(包括那四项)</td>
-<td>DHCP服务器的地址</td>
-<td>255.255.255.255,也是全局广播，根据事务号来区分</td>
-</tr>
-<tr>
-<td>主机单播请求IP地址:发送“DHCP request”报文</td>
-<td>主机向DHCP服务器确定ip配置信息</td>
-<td>0.0.0.0,也是表示自己的地址</td>
-<td>255.255.255.255,也是广播</td>
-</tr>
-<tr>
-<td>DHCP服务器发送地址:“DHCP ack”报文</td>
-<td>DHCP把配置信息给主机</td>
-<td>DHCP服务器的地址</td>
-<td>255.255.255.255,广播</td>
-</tr>
-</tbody>
-</table>
-<p><img src="/images/wl_25_13.png" alt=""></p>
-<p>示例：</p>
-<p><img src="/images/wl_25_14.png" alt=""></p>
-<h3 id="机构获取ip子网部分">机构获取ip子网部分</h3>
-<p>假设某个学校，有八个校区，要获取ip子网</p>
-<ul>
-<li>首先从ISP获取大的网络，ISP’s block 11001000 00010111 00010000 00000000 200.23.16.0/20</li>
-<li>然后再划分，由于有8个校区，也就是要划分成8个部分，用原有的20位后面的3位来表示子网，从而进行划分</li>
-</ul>
-<h3 id="isp获取地址块">ISP获取地址块</h3>
-<p>Q：一个ISP如何获得一个地址块?</p>
-<p>A：向ICANN申请</p>
-<ul>
-<li>分配地址</li>
-<li>管理DNS</li>
-<li>分配域名，解决冲突</li>
-</ul>
-<h2 id="ip层次编址-路由聚集">IP层次编址/路由聚集</h2>
-<h3 id="路由聚集">路由聚集</h3>
-<p><img src="/images/wl_25_15.png" alt=""></p>
-<h3 id="最长精确匹配">最长精确匹配</h3>
-<p><img src="/images/wl_25_16.png" alt=""></p>
-<h2 id="nat-网络地址转换">NAT: 网络地址转换</h2>
-<h3 id="原理">原理</h3>
-<p><img src="/images/wl_25_17.png" alt=""></p>
-<p>特点:本地网络只有一个有效IP地址</p>
-<p>NAT 路由器必须:</p>
-<ul>
-<li>外出数据包：替换源地址:端口号为 NAT的IP地址:新的端口号，目标IP和端口不变；远端的C/S将会用NAP IP地址，新端口号作为目标地址</li>
-<li>记住每个转换替换对(映射)（在NAT转换表中）源IP:端口 vs NAP IP:新端口</li>
-<li>进入数据包：替换目标IP地址和端口号，采用存储在NAT表中的mapping表项，用（源IP，端口）</li>
-</ul>
-<h3 id="流程">流程</h3>
-<p><img src="/images/wl_25_18.png" alt=""></p>
-<h3 id="优点">优点</h3>
-<p>省钱：不需要从ISP分配一块地址，可用一个IP地址用于所有的（局域网）设备<br>
-可以在局域网改变设备的地址情况下而无须通知外界<br>
-可以改变ISP（地址变化）而不需要改变内部的设备地址<br>
-安全：局域网内部的设备没有明确的地址，对外是不可见的</p>
-<h3 id="nat的争议和问题">NAT的争议和问题</h3>
-<p>NAT能够篡改接受的分组的端口信息</p>
-<ul>
-<li>路由器只应该对第3层做信息处理，而这里对端口号（4层）作了处理</li>
-<li>违反了end-to-end 原则
-<ul>
-<li>端到端原则：复杂性放到网络边缘
-<ul>
-<li>无需借助中转和变换，就可以直接传送到目标主机</li>
-</ul>
-</li>
-<li>NAT可能要被一些应用设计者考虑, eg, P2P applications</li>
-<li>外网的机器无法主动连接到内网的机器上</li>
-</ul>
-</li>
-<li>问题，NAT穿越： 如果客户端需要连接在NAT后面的服务器，如何操作</li>
-</ul>
-<p>地址短缺问题可以被IPv6 解决（因为NAT一开始解决的就是地址短缺的问题）</p>
-<h3 id="nat-穿越问题">NAT 穿越问题</h3>
-<p><img src="/images/wl_25_19.png" alt=""></p>
-<p>客户端需要连接地址为 10.0.0.1的服务器</p>
-<ul>
-<li>服务器地址10.0.0.1 LAN本地地址 (客户端不能够使用其作为目标地址)</li>
-<li>整网只有一个外部可见地址: 138.76.29.7</li>
-</ul>
-<p><strong>静态配置NAT</strong><br>
-方案1: 静态配置NAT：转发 进来的对服务器特定端口连接 请求</p>
-<ul>
-<li>(123.76.29.7, port 2500) 总是转发到10.0.0.1 port 25000</li>
-</ul>
-<p><strong>IGD/UPnP</strong><br>
-方案2: Universal Plug and Play (UPnP) Internet Gateway Device (IGD) 协议. 允许 NATted主机可以: 动态分配端口</p>
-<ul>
-<li>获知网络的公共 IP地址 (138.76.29.7)</li>
-<li>列举存在的端口映射</li>
-<li>增/删端口映射 (在租用时间内)</li>
-</ul>
-<p><img src="/images/wl_25_20.png" alt=""></p>
-<p><strong>中继</strong><br>
-方案3：中继(used in Skype)</p>
-<p><img src="/images/wl_25_21.png" alt=""></p>
-<h2 id="ipv6协议">IPV6协议</h2>
-<h3 id="目的">目的</h3>
-<ul>
-<li>初始动机: 32-bit地址空间将会被很快用完，为了增加地址数量</li>
-<li>另外的动机:
-<ul>
-<li>改变头部格式，帮助加速处理和转发
-<ul>
-<li>TTL-1（之前的ICPM协议每次都要TTL-2）</li>
-<li>头部checksum （之前都会校验头部）</li>
-<li>分片 （当MTU小于分组的时候，要分片）</li>
-</ul>
-</li>
-<li>头部格式改变帮助QoS</li>
-</ul>
-</li>
-</ul>
-<h3 id="ipv6数据报">IPV6数据报</h3>
-<p>IPv6 数据报格式:</p>
-<ul>
-<li>固定的40字节头部</li>
-<li>IP地址由原先的32位改成了128位（16个字节）</li>
-<li>数据报传输过程中，不允许分片</li>
-</ul>
-<p><strong>IPV6头部</strong></p>
-<p><img src="/images/wl_25_22.png" alt=""></p>
-<ul>
-<li>Priority: 标示流中数据报的优先级（优先级是与非技术方面结合的，比如收费等）</li>
-<li>Flow Label: 标示多个数据报在一个“flow” ( “flow”的概念没有被严格的定义)</li>
-<li>Next header: 标示上层协议（就是网络层以上传给哪个协议，TCP/UDP）</li>
-</ul>
-<p><strong>和IPv4的其它变化</strong></p>
-<ul>
-<li><font color=red>Checksum</font>: 被移除掉，降低在每一段中的处理 速度</li>
-<li><font color=red>Options</font>: 允许，但是在头部之外, 被 “Next Header” 字段标示 (Next Header的格式是TLV type-length-value)</li>
-<li><font color=red>ICMPv6</font>: ICMP的新版本
-<ul>
-<li>附加了报文类型, e.g. “Packet Too Big”</li>
-<li>多播组管理功能</li>
-</ul>
-</li>
-</ul>
-<h3 id="从ipv4到ipv6的过渡：隧道">从IPv4到IPv6的过渡：隧道</h3>
-<p><img src="/images/wl_25_23.png" alt=""></p>
-<p>隧道: 在IPv4路由器之间传输的IPv4数据报中携带IPv6数据报</p>
-<p><img src="/images/wl_25_24.png" alt=""></p>
-<p><img src="/images/wl_25_25.png" alt=""></p>
-<h3 id="ipv6的应用">IPv6的应用</h3>
-<ul>
-<li>Google: 8% 的客户通过IPv6访问谷歌服务（当然现在还在增加）</li>
-<li>NIST: 全美国1/3的政府域支持IPv6</li>
-<li>估计还需要很长时间进行部署 （20年）</li>
-</ul>
+<p>目前几乎所有的设备都可以在这个匹配 + 行动模式框架进行描述，具体化为各种网络设备包括未来的网络设备</p>
+<h3 id="openflow例子">OpenFlow例子</h3>
+<p><img src="/images/wl_26_15.png" alt=""></p>
  
       <!-- reward -->
       
@@ -585,7 +380,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/03/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9425Internet-Protocol/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9426%E9%80%9A%E7%94%A8%E8%BD%AC%E5%8F%91%E5%92%8CSDN/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -598,19 +393,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9426%E9%80%9A%E7%94%A8%E8%BD%AC%E5%8F%91%E5%92%8CSDN/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            计算机网络——26通用转发和SDN
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9424%E8%B7%AF%E7%94%B1%E5%99%A8%E7%BB%84%E6%88%90/" class="article-nav-link">
+      <a href="/2024/03/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9425Internet-Protocol/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">计算机网络——24路由器组成</div>
+        <div class="article-nav-title">计算机网络——25Internet Protocol</div>
       </a>
     
   </nav>

@@ -10772,4 +10772,232 @@ z\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" ar
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——26通用转发和SDN</title>
+    <url>/2024/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9426%E9%80%9A%E7%94%A8%E8%BD%AC%E5%8F%91%E5%92%8CSDN/</url>
+    <content><![CDATA[<h1>通用转发和SDN</h1>
+<p><em><font color=red>网络层功能</font></em>：</p>
+<ul>
+<li><em>转发</em>： 对于从某个端口 到来的分组转发到合适的 输出端口</li>
+<li><em>路由</em>： 决定分组从源端 到目标端的路径</li>
+</ul>
+<h2 id="网络层">网络层</h2>
+<h3 id="传统路由器的功能">传统路由器的功能</h3>
+<p>每个路由器(Per Route)的控制平面 （传统）</p>
+<ul>
+<li>每个路由器上都有实现路由算法元件（它们之间需要相互交互），形成传统IP实现方式的控制平面</li>
+<li>控制平面式分布式的，由各个路由器的各自完成，难于管理</li>
+</ul>
+<p><img src="/images/wl_26_1.png" alt=""></p>
+<p>路由器的网络层功能：</p>
+<ul>
+<li>IP转发：对于到来的分组按照路由表决定如何转发，数据平面</li>
+<li>路由：决定路径，计算路由表；处在控制平面</li>
+</ul>
+<h3 id="传统的网络设备">传统的网络设备</h3>
+<p>还有其他种类繁多网络设备（中间盒）：</p>
+<ul>
+<li>交换机；防火墙；NAT；IDS；负载均衡设备</li>
+<li>未来：不断增加的需求和相应的网络设备</li>
+<li>需要不同的设备去实现不同的网络功能
+<ul>
+<li>每台设备集成了控制平面和数据平面的功能</li>
+<li>控制平面分布式地实现了各种控制平面功能</li>
+<li>升级和部署网络设备非常困难</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络设备控制平面的实现方式特点">网络设备控制平面的实现方式特点</h3>
+<p>互联网网络设备：传统方式都是通过分布式，每台设备的方法来实现数据平面和控制平面功能</p>
+<ul>
+<li>垂直集成：每台路由器或其他网络设备，包括：
+<ul>
+<li>硬件、在私有的操作系统；</li>
+<li>互联网标准协议(IP, RIP, IS-IS, OSPF, BGP)的私有实现</li>
+<li>从上到下都由一个厂商提供（代价大、被设备上“绑架”“）</li>
+</ul>
+</li>
+<li>每个设备都实现了数据平面和控制平面的事情
+<ul>
+<li>控制平面的功能是分布式实现的</li>
+</ul>
+</li>
+<li>设备基本上只能（分布式升级困难）按照固定方式工作， 控制逻辑固化。</li>
+<li>不同的网络功能需要不同的 “middleboxes”：防火墙、负载均衡设备、NAT boxes, .</li>
+<li>（数据+控制平面）集成&gt;（控制逻辑）分布-&gt;固化
+<ul>
+<li>代价大；升级困难；管理困难等</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题">问题</h3>
+<ul>
+<li>垂直集成造成价格昂贵</li>
+<li>不便于创新的生态（垄断）</li>
+<li>分布式、固化设备功能造成网络设备种类繁多
+<ul>
+<li>无法改变路由等工作逻辑，无法实现流量工程等高级 特性</li>
+<li>配置错误影响全网运行；升级和维护会涉及到全网设 备：管理困难</li>
+<li>要增加新的网络功能，需要设计、实现以及部署新的 特定设备，设备种类繁多</li>
+</ul>
+</li>
+<li>~2005：开始重新思考网络控制平面的处理方式
+<ul>
+<li>集中：远程的控制器集中实现控制逻辑</li>
+<li>远程：数据平面和控制平面的分离</li>
+</ul>
+</li>
+</ul>
+<h2 id="sdn：逻辑上集中的控制平面">SDN：逻辑上集中的控制平面</h2>
+<p>一个不同的（通常是远程）控制器和CA交互，控制器决定分组转发的逻辑（可编程），CA所在设备执行逻辑</p>
+<p><img src="/images/wl_26_2.png" alt=""></p>
+<h3 id="sdn的主要思路">SDN的主要思路</h3>
+<ul>
+<li>网络设备数据平面和控制平面分离</li>
+<li>数据平面 - 分组交换机
+<ul>
+<li>将路由器、交换机和目前大多数网络设备的功能进一步抽象成：<strong>按照流表（由控制平面设置的控制逻辑）进行PDU（帧、分组）的动作（包括转发、丢弃、拷贝、泛洪、阻塞）</strong></li>
+<li>统一化设备功能：SDN交换机（分组交换机），执行控制逻辑</li>
+</ul>
+</li>
+<li>控制平面 - 控制器 + 网络应用
+<ul>
+<li>分离、集中</li>
+<li>计算和下发控制逻辑：流表</li>
+</ul>
+</li>
+</ul>
+<h3 id="sdn控制平面和数据平面分离的优势">SDN控制平面和数据平面分离的优势</h3>
+<ul>
+<li><font color=red>水平集成</font>控制平面的<font color=red>开放实现</font>（而非私有实现），创造出好的产业状态，促进发展
+<ul>
+<li>分组交换机、控制器和各种控制逻辑网络应用APP可由不同厂商生产，专业化，引入竞争形成良好生态</li>
+</ul>
+</li>
+<li><font color=red><strong>集中</strong></font>式实现控制逻辑，网络<font color=red>管理容易</font>
+<ul>
+<li>集中式控制器了解网络状况，编程简单，传统方式困难</li>
+<li>避免路由器的误配置</li>
+</ul>
+</li>
+<li>基于流表的<strong>匹配 + 行动</strong>的工作方式允许“<font color=red>可编程的</font>”分组交换机
+<ul>
+<li>实现流量工程等高级特性</li>
+<li>在此框架下实现各种新型（未来）的网络设备</li>
+</ul>
+</li>
+</ul>
+<h3 id="类比：主框架到pc的演变">类比：主框架到PC的演变</h3>
+<p><img src="/images/wl_26_3.png" alt=""></p>
+<h3 id="流量工程：传统路由比较困难">流量工程：传统路由比较困难</h3>
+<p><img src="/images/wl_26_4.png" alt=""></p>
+<p>Q: 网管如果需要u到z的流量走uvwz,x到z的流量走xwyz，怎么办？<br>
+A: 需要定义链路的代价，流量路由算法以此运算（ IP路由面向目标，无法操作） (或者需要新的路由算法)!</p>
+<p><img src="/images/wl_26_5.png" alt=""></p>
+<p>Q: 如果网管需要将u到z的流量分成2路：uvwz 和uxyz ( 负载均衡)，怎么办?（IP路由面向目标）<br>
+A: 无法完成(在原有体系下只有使用新的路由选择算法 ，而在全网部署新的路由算法是个大的事情)</p>
+<p><img src="/images/wl_26_6.png" alt=""></p>
+<p>Q:如果需要w对蓝色的和红色的流量采用不同的路由，怎么办？<br>
+A: 无法操作 (基于目标的转发，采用LS, DV 路由)</p>
+<h3 id="sdn特点">SDN特点</h3>
+<p><img src="/images/wl_26_7.png" alt=""></p>
+<h2 id="sdn架构">SDN架构</h2>
+<h3 id="数据平面交换机">数据平面交换机</h3>
+<ul>
+<li>快速、简单、商业化交换设备，采用硬件实现通用转发功能</li>
+<li>流表被控制器计算和安装</li>
+<li>基于南向API，SDN控制器访问基于流的交换机
+<ul>
+<li>定义了哪些可以被控制哪些不能</li>
+<li>定义了和控制器的协议</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_26_8.png" alt=""></p>
+<h3 id="sdn控制器">SDN控制器</h3>
+<ul>
+<li>维护网络状态信息</li>
+<li>通过上面的北向API和网络应用交互</li>
+<li>通过下面的南向API和网络交换机交互</li>
+<li>逻辑上集中，但是在实现上通常由于性能、可拓展性、容错性以及鲁棒性采用分布式方法</li>
+</ul>
+<p><img src="/images/wl_26_9.png" alt=""></p>
+<h3 id="控制应用">控制应用</h3>
+<ul>
+<li>控制的大脑：采用下层提供的服务（SDN控制器提供的API），实现网络功能
+<ul>
+<li>路由器交换机</li>
+<li>接入控制防火墙</li>
+<li>负载均衡</li>
+<li>其他功能</li>
+</ul>
+</li>
+<li><em>非绑定</em>：可以被第三方提供，与控制器厂商以通常上不同，与分组交换机厂商也可以不同</li>
+</ul>
+<p><img src="/images/wl_26_10.png" alt=""></p>
+<h3 id="流表">流表</h3>
+<p>每个路由器包含一个<font color=red>流表</font>（被逻辑上集中的控制器计算和分发）</p>
+<p><img src="/images/wl_26_11.png" alt=""></p>
+<h2 id="openflow">OpenFlow</h2>
+<h3 id="openflow数据平面抽象">OpenFlow数据平面抽象</h3>
+<ul>
+<li>流：由分组（帧）头部字段所定义</li>
+<li>通用转发：简单的分组处理规则
+<ul>
+<li><font color=red><em>模式</em></font>：将分组头部字段和流表进行匹配</li>
+<li><font color=red><em>行动</em></font>：<em>对于匹配上的分组，可以是<font color=red>丢弃、转发、修改、将匹配的分组发送给控制器</font></em></li>
+<li><font color=red><em>优先权Priority</em></font>：几个模式匹配了，优先采用哪个，消除歧义</li>
+<li><font color=red><em>计数器Counters</em></font>：#bytes 以及 #packets</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_26_12.png" alt=""></p>
+<h3 id="流表的表项结构">流表的表项结构</h3>
+<p><img src="/images/wl_26_13.png" alt=""></p>
+<p>例子：</p>
+<p><img src="/images/wl_26_14.png" alt=""></p>
+<h3 id="openflow抽象">OpenFlow抽象</h3>
+<p><font color=red>match + action</font>：统一化各种网络设备提供的功能</p>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>match</th>
+<th>action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路由器</td>
+<td>最长前缀匹配</td>
+<td>通过一条链路转发</td>
+</tr>
+<tr>
+<td>防火墙</td>
+<td>IP地址和TCP/UDP端口号</td>
+<td>允许或者禁止</td>
+</tr>
+<tr>
+<td>交换机</td>
+<td>目标MAC地址</td>
+<td>转发或者泛洪</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>IP地址和端口号</td>
+<td>重写地址和端口号</td>
+</tr>
+</tbody>
+</table>
+<p>目前几乎所有的设备都可以在这个匹配 + 行动模式框架进行描述，具体化为各种网络设备包括未来的网络设备</p>
+<h3 id="openflow例子">OpenFlow例子</h3>
+<p><img src="/images/wl_26_15.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
