@@ -11524,4 +11524,114 @@ E = 链路集合 = ((u,v),(u,x),(v,x),(v,w),(x,w),(x,y),(w,y),(w,z),(y,z)) 边�
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——28自治系统内部的路由选择</title>
+    <url>/2024/03/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9428%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9/</url>
+    <content><![CDATA[<h1>自治系统内部的路由选择</h1>
+<h2 id="rip">RIP</h2>
+<ul>
+<li>在1982年发布的BSD-UNIX中实现</li>
+<li>Distance vector算法
+<ul>
+<li>距离矢量：每条链路cost = 1，# of hops(max = 15 hops)跳数</li>
+<li>DV每隔30秒和邻居交换DV，通告</li>
+<li>每个通告包括：最多25个目标子网</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_28_1.png" alt=""></p>
+<h3 id="rip通告">RIP通告</h3>
+<ul>
+<li>DV：在邻居之间每30秒交换通告报文
+<ul>
+<li>定期：而且在改变路由的时候发送通告报文</li>
+<li>在对方的请求下可以发送通告报文</li>
+</ul>
+</li>
+<li>每一个通告：至多AS内部的25个目标网络的DV
+<ul>
+<li>目标网络 + 跳数</li>
+<li>一次公告最多25个子网，最大跳数为16</li>
+</ul>
+</li>
+</ul>
+<h3 id="例子">例子</h3>
+<p><img src="/images/wl_28_2.png" alt=""></p>
+<p><img src="/images/wl_28_3.png" alt=""></p>
+<h3 id="rip链路失效和恢复">RIP链路失效和恢复</h3>
+<p>如果180秒没有收到通告信息 → 邻居或者链路失效</p>
+<ul>
+<li>发现经过这个邻居的路由已失效</li>
+<li>新的通告报文会传递给邻居</li>
+<li>邻居因此发出新的通告（如果路由变化的话）</li>
+<li>链路失效快速（？）地在整网中传输</li>
+<li>使用毒性逆转，阻止ping-pong回路（不可达的距离：跳数无限 = 16段）</li>
+</ul>
+<h3 id="rip进程处理">RIP进程处理</h3>
+<ul>
+<li>RIP以应用进程的方式实现：route-d</li>
+<li>通告报文通过UDP报文传送，周期性重复</li>
+<li>网络层的协议使用了传输层的服务，以应用层实体的方式实现</li>
+</ul>
+<p><img src="/images/wl_28_4.png" alt=""></p>
+<h2 id="ospf">OSPF</h2>
+<ul>
+<li>open：标准可公开获得</li>
+<li>使用LS算法
+<ul>
+<li>LS分组在网络中（一个AS内部）分发</li>
+<li>全局网络拓扑，代价在每一个节点中都保持</li>
+<li>路由计算采用Dijkstra算法</li>
+</ul>
+</li>
+<li>OSPF通告信息中携带：每一个邻居路由器一个表项</li>
+<li>通告信息会传遍AS全部（通过泛洪）
+<ul>
+<li>在IP数据报上直接传送OSPF报文（而不是通过UDP和TCP）</li>
+</ul>
+</li>
+<li><font color=red>IS-IS路由协议</font>：几乎和OSPF一样</li>
+</ul>
+<h3 id="ospf-高级-特性-在rip中没有的">OSPF“高级”特性（在RIP中没有的）</h3>
+<ul>
+<li><font color=red>安全</font>：所有的OSPF报文都是经过认证的（防止恶意的攻击）</li>
+<li>允许有<font color=red>多个代价相同</font>的路径存在（在RIP中只能有一个）</li>
+<li>对于每一条链路，对于不同的TOS有<font color=red>多重代价矩阵</font>
+<ul>
+<li>例如：卫星链路代价对于尽力而为的服务代价设置比较低，对实时服务代价设置比较高</li>
+<li>支持按照不同的代价计算最优路径，如：按照时间和延迟分别计算最优路径</li>
+</ul>
+</li>
+<li>对单播和多播的集成支持：
+<ul>
+<li>Multicast OSPF(MOSPF)使用相同的拓扑数据库，就像在OSPF中一样</li>
+</ul>
+</li>
+<li>在大型网络中支持层次性OSPF</li>
+</ul>
+<h3 id="层次化的ospf">层次化的OSPF</h3>
+<p><img src="/images/wl_28_5.png" alt=""></p>
+<ul>
+<li><font color=red>2个级别的层次性</font>：本地，骨干
+<ul>
+<li>链路状态通告仅仅在本地区域Area范围内进行</li>
+<li>每一个节点拥有本地区域的拓扑信息：
+<ul>
+<li>关于其他区域，知道去他的方向，通过区域边界路由器（最短路径）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><font color=red>区域边界路由器</font>：“汇总（汇集）”到自己区域内网络的距离，向其他区域边界路由器通告</li>
+<li><font color=red>骨干路由器</font>：仅仅在骨干区域内，运行OSPF路由</li>
+<li><font color=red>边界路由器</font>：连接其他的AS’s</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
