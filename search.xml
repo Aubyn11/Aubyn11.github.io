@@ -11634,4 +11634,214 @@ E = 链路集合 = ((u,v),(u,x),(v,x),(v,w),(x,w),(x,y),(w,y),(w,z),(y,z)) 边�
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——29ISP之间的路由选择：BGP</title>
+    <url>/2024/03/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9429ISP%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%EF%BC%9ABGP/</url>
+    <content><![CDATA[<h1>ISP之间的路由选择：BGP</h1>
+<h2 id="层次路由">层次路由</h2>
+<p>一个<font color=red>平面</font>的路由</p>
+<ul>
+<li>一个网络中的所有路由器的地位一样</li>
+<li>通过LS，DV，或者其他路由算法，所有路由器都要知道其他所有路由器（子网）如何走</li>
+<li>所有路由器在一个平面</li>
+</ul>
+<p>平面路由的问题</p>
+<ul>
+<li><font color=red>规模</font>巨大的网络中，路由信息的存储、传输和计算代价巨大
+<ul>
+<li>DV：距离矢量很大，而且不能收敛</li>
+<li>LS：几百万个节点的LS分组的泛洪传输，存储以及最短路径算法的计算</li>
+</ul>
+</li>
+<li><font color=red>管理</font>问题：
+<ul>
+<li>不同的网络所有者希望按照自己的方式管理网络</li>
+<li>希望对外隐藏自己网格的细节</li>
+<li>希望和其他网络互联</li>
+</ul>
+</li>
+</ul>
+<p>层次路由：将互联网分成一个个AS（路由器区域）</p>
+<ul>
+<li>某个区域内的路由器集合，自治系统“<font color=red>autonomounts systems(AS)</font>”</li>
+<li>一个AS用AS Number（ASN）唯一标识</li>
+<li>一个ISP可能包括1个或者多个AS</li>
+</ul>
+<p>路由变成了：2个层次路由</p>
+<ul>
+<li>AS内部路由：在同一个AS内路由器运行相同的路由协议
+<ul>
+<li><font color=red>“intra-AS” routing protocol</font>：内部网关协议</li>
+<li>不同的AS可能运行着不同的内部网关协议</li>
+<li>能够解决规模和管理问题</li>
+<li><font color=red>网管路由器</font>：AS边缘路由器，可以连接到其他AS</li>
+</ul>
+</li>
+<li>AS间运行AS间路由协议
+<ul>
+<li><font color=red>“inter-AS” routing protocol</font>：外部网关协议</li>
+<li>解决AS之间的路由问题，完成AS之间的互联互通</li>
+</ul>
+</li>
+</ul>
+<h3 id="层次路由的优点">层次路由的优点</h3>
+<p>解决了规模问题</p>
+<ul>
+<li>内部网关协议解决：AS内部<font color=red>数量有限</font>的路由器相互到达的问题，AS内部规模可控
+<ul>
+<li>如AS节点太多，可分割AS，使得AS内部的节点数量有限</li>
+</ul>
+</li>
+<li>AS之间的路由的规模问题
+<ul>
+<li>增加一个AS，对AS之间的路由从<font color=red>总体上</font>来说，只是增加了一个节点=子网（每个AS可以用一个点表示）</li>
+<li>对于其他AS来说只是增加了一个表项，就是这个新增的AS如何走的问题</li>
+<li>拓展性强：规模增大，性能不会减的太多</li>
+</ul>
+</li>
+</ul>
+<p>解决了管理问题</p>
+<ul>
+<li>各个AS可以运行不同的内部网关协议</li>
+<li>可以使自己网络的细节不向外透露</li>
+</ul>
+<h2 id="互联网as路由：bgp">互联网AS路由：BGP</h2>
+<p><font color=red>BGP</font>：自治区域间路由协议“事实上的”标准</p>
+<ul>
+<li>“将互联网各个AS粘在一起的胶水”</li>
+</ul>
+<p>BGP提供给每个AS以以下方法：</p>
+<ul>
+<li><font color=red>eBGP</font>：从相邻的ASes那里获得子网可达信息</li>
+<li><font color=red>iBGP</font>：将从获得的子网可达信息传播到AS内部所有的路由器</li>
+<li>根据子网可达信息和<font color=blue>策略</font>来决定子网的“好”路径</li>
+</ul>
+<p>允许子网向互联网其他网络通告“<font color=blue>我在这里</font>”</p>
+<p>基于距离矢量算法（路径矢量）</p>
+<ul>
+<li>不仅仅是距离矢量，还包括到达各个目标网络的详细路径（AS序号的列表）能够避免简单DV算法的路由环路问题</li>
+</ul>
+<h3 id="ebgp-ibgp连接">eBGP，iBGP连接</h3>
+<p><img src="/images/wl_29_1.png" alt=""></p>
+<h3 id="bgp基础">BGP基础</h3>
+<p><font color=red>BGP会话</font>：2个BGP路由器在一个半永久的TCP连接上交换BGP报文：</p>
+<ul>
+<li>通告向不同目标子网前缀的“路径”（BGP是一个“路径矢量”协议）</li>
+</ul>
+<p><img src="/images/wl_29_2.png" alt=""></p>
+<p>当AS3网管路由器3a向AS2的网管路由器2c通告路径：<font color=red>AS3,X</font></p>
+<ul>
+<li>3a参与AS内路由运算，知道本AS所有子网X信息</li>
+<li>语义上：AS3向AS2<font color=red>承诺</font>，它可以向子网X转发数据报</li>
+<li>3a是2c关于X的下一跳(next hop)</li>
+</ul>
+<h3 id="路径的属性-路由">路径的属性 &amp; 路由</h3>
+<p>当通告一个子网前缀时，通告包括BGP属性</p>
+<ul>
+<li>prefix + attributes = “route”</li>
+</ul>
+<p>两个重要的属性</p>
+<ul>
+<li><font color=red>AS-PATH</font>：前缀的通告所经过的AS列表：AS 67 AS 17
+<ul>
+<li>检测环路：多路径选择</li>
+<li>在向其他AS转发时，需要将自己的AS号加载路径上</li>
+</ul>
+</li>
+<li><font color=red>NEXT-HOP</font>：从当前AS到下一跳AS有多个链路，在NEXT-HOP属性中，告诉对方通过那个I转发</li>
+<li>其他属性：路由偏好指标，如何被插入的属性</li>
+</ul>
+<p>基于<font color=red>策略</font>的路由</p>
+<ul>
+<li>当一个网关路由器接收到了一个路由器通告，使用<font color=red>输入策略</font>来接受或过滤
+<ul>
+<li>过滤原因例子
+<ul>
+<li>不想经过某个AS，转发某些前缀的分组</li>
+<li>已经有了一条往某前缀的偏好分组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>策略也决定了是否向它别的邻居<font color=red>通告</font>接收到的这个路由信息</li>
+</ul>
+<h3 id="bgp路径通告">BGP路径通告</h3>
+<p><img src="/images/wl_29_3.png" alt=""></p>
+<ul>
+<li>路由器AS2.2c从AS3.3a接收到的<font color=red>AS3,X</font>路径通告（通过eBGP）</li>
+<li>基于AS2的输入策略，AS2.2c决定接收AS3,X的通告，而且（通过iBGP）向AS2的所有路由器进行通告</li>
+<li>基于AS2的策略，AS2路由器2a通过eBGP向AS1.1c路由器通告<font color=red>AS2,AS3,X</font>路由信息
+<ul>
+<li>路径上加上了AS2自己作为AS序列的一跳</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_29_4.png" alt=""></p>
+<p>网关路由器可能获取有关一个子网X的多条路径，从多个eBGP会话上：</p>
+<ul>
+<li>AS1网关路由器1c从2a学习到路径：<font color=red>AS2,AS3,X</font></li>
+<li>AS1网关路由器1c从3a学习到路径：AS3,X</li>
+<li>基于策略：AS1路由器1c选择了路径：<font color=red>AS3,X，而且通过iBGP告诉所有AS1内部的路由器</font></li>
+</ul>
+<h3 id="bgp报文">BGP报文</h3>
+<p>使用TCP协议交换BGP报文<br>
+BGP报文：</p>
+<ul>
+<li><font color=red>OPEN</font>：打开TCP连接，认证发送方</li>
+<li><font color=red>UPDATE</font>：通告新路径（或者撤销原路径）</li>
+<li><font color=red>KEEPALIVE</font>：在没有更新的时候保持连接，也用于对OPEN请求确认</li>
+<li><font color=red>NOTIFICATION</font>：报告以前消息的错误，也用来关闭连接</li>
+</ul>
+<h3 id="bgp-ospf-转发表表项">BGP、OSPF，转发表表项</h3>
+<p>路由器是如何设置到这些远程子网前缀的转发表表项的？</p>
+<p><img src="/images/wl_29_5.png" alt=""></p>
+<p>回顾：1a,1b,1c从1c那里通过iBGP学习到了子网X，“到往子网X的要通过1c”<br>
+1d：通过OSPF内部网关协议，为了到达1c，必须通过本地接口1</p>
+<h3 id="bgp路径选择">BGP路径选择</h3>
+<p>路由器可能获得一个网络前缀的多个路径，路由器必须进行路径的选择，路由选择可以基于：</p>
+<ol>
+<li>本地偏好值属性：偏好策略决定</li>
+<li>最短AS-PATH：AS的跳数</li>
+<li>最近的NEXT-HOP路由器：热土豆路由</li>
+<li>附加的判据：使用BGP标识</li>
+</ol>
+<p>一个前缀对应着多种路径，采用消除规则直到留下一条路径</p>
+<h4 id="热土豆路由">热土豆路由</h4>
+<p><img src="/images/wl_29_6.png" alt=""></p>
+<p>2d通过iBGP获知，它可以通过2a或者2c到达X<br>
+热土豆策略：选择具备最小内部区域的代价的网关作为往X的出口（如：2d选择2a，即使X可能有比较多的AS跳数），不要操心域间的代价</p>
+<h2 id="为什么内部网关协议和外部网关协议如此不同">为什么内部网关协议和外部网关协议如此不同</h2>
+<p><font color=red>策略</font></p>
+<ul>
+<li>Inter-AS：管理员需要控制通信路径，谁在使用它的网络进行数据传输</li>
+<li>Intra-AS：一个管理者，所以无需策略
+<ul>
+<li>AS内部的各子网的主机尽可能的利用资源进行快速路由</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>规模</font></p>
+<ul>
+<li>AS间路由必须考虑规模问题，以便支持全网的数据转发</li>
+<li>AS内部路由规模不是一个大的问题
+<ul>
+<li>如果AS太大，可将AS分成小的AS：规模可控</li>
+<li>AS之间只不过多了一个点而已</li>
+<li>或者AS内部路由支持层次性，层次性路由节约了表空间降低了更新的数据流量</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>性能</font></p>
+<ul>
+<li>Inter-AS：策略可能比性能更重要</li>
+<li>Intra-AS：关注性能</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
