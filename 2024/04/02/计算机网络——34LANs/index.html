@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>计算机网络——34LANs |  Aubyn</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-计算机网络——34LANs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络——34LANs
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/04/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9434LANs/" class="article-date">
+  <time datetime="2024-04-01T21:01:55.000Z" itemprop="datePublished">2024-04-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>LANs</h1>
+<h2 id="mac地址和arp">MAC地址和ARP</h2>
+<ul>
+<li>32bit IP地址
+<ul>
+<li>网络层地址</li>
+<li>用于使数据到达目标IP子网：前n - 1跳</li>
+<li>从而到达子网中的目标节点：最后一跳</li>
+</ul>
+</li>
+<li>LAN（MAC/物理/以太网）地址：
+<ul>
+<li>用于使帧从一个网卡传递到与其物理连接的另一个网卡（在同一个物理网络中）</li>
+<li>48bit MAC地址固化在适配器的ROM，有时也可以通过软件设定</li>
+<li>理论上全球任何2个网卡的MAC地址都不相同</li>
+<li>e.g：1A-2F-BB-76-09-AD</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络地址和mac地址分离">网络地址和mac地址分离</h3>
+<p>IP地址和MAC地址的作用不同</p>
+<ol>
+<li>IP地址是分层的
+<ol>
+<li>一个子网所有站点网络号一致，路由聚集，减少路由表
+<ol>
+<li>需要一个网络中的站点网络号一致，如果捆绑需要定制网卡非常麻烦</li>
+</ol>
+</li>
+<li>希望网络层地址是配置的：IP地址完成网络到网络的交付</li>
+</ol>
+</li>
+<li>mac地址是一个<font color=red>平面</font>的
+<ol>
+<li>网卡在生产时不知道被用于哪个网络，因此给网卡一个唯一的标示，用于区分一个网络内部不同的网卡即可</li>
+<li>可以完成一个物理网络内部的节点到节点的数据交付</li>
+</ol>
+</li>
+</ol>
+<p>分离好处</p>
+<ul>
+<li>网卡坏了，ip不变，可以捆绑到另外一个网卡的mac上</li>
+<li>物理网络还可以除IP之外支持其他网络层协议，链路协议为上层网络协议，如IPX等</li>
+</ul>
+<p>捆绑的问题</p>
+<ul>
+<li>如果仅仅使用IP地址，不是mac地址，那么它仅支持IP协议</li>
+<li>每次上电都要重新写入网卡IP地址</li>
+<li>另外一个选择就是不使用任何地址：不用MAC地址，则每到来一个帧都要上传到IP层次，由它判断是不是需要接受，干扰一次</li>
+</ul>
+<h2 id="lan地址和arp">LAN地址和ARP</h2>
+<ul>
+<li>
+<p>局域网上每个适配器都有一个唯一的<font color=red>LAN</font>地址<br>
+<img src="/images/wl_34_1.png" alt=""></p>
+</li>
+<li>
+<p>MAC地址由IEEE管理和分配</p>
+</li>
+<li>
+<p>制造商购入MAC地址空间（保证唯一性）</p>
+</li>
+<li>
+<p>类比：</p>
+<ul>
+<li>MAC地址：社会安全号</li>
+<li>IP地址：通讯地址</li>
+</ul>
+</li>
+<li>
+<p>MAC平面地址 -&gt; 支持移动</p>
+<ul>
+<li>可以将网卡接到其他网络</li>
+</ul>
+</li>
+<li>
+<p>IP地址有层次 - 不能移动</p>
+<ul>
+<li>依赖于节点连接的IP子网，与子网的网络号相同（有与其相连的子网相同的网络前缀）</li>
+</ul>
+</li>
+</ul>
+<h3 id="arp">ARP</h3>
+<p>问题：已知B的IP地址，如何确定B的MAC地址</p>
+<ul>
+<li>在LAN上的每个IP节点都有一个<font color=red>ARP</font>表</li>
+<li>ARP表：包括一些LAN节点IP/MAC地址的映射<br>
+<font color=red>&lt;TP address MAC address TTL&gt;</font>
+<ul>
+<li>TTL时间是指地址映射失效的时间</li>
+<li>典型是20min</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由到其他lan">路由到其他LAN</h3>
+<p>Walkthrough：发送数据报：由A通过R到B，假设A知道B的IP地址</p>
+<ul>
+<li>在R上有两个ARP表，分别对应两个LAN</li>
+<li>在源主机的路由表中，发现到目标主机的下一跳时111.111.111.110</li>
+<li>在源主机的ARP表中，发现其MAC地址是E6-E9-00-17-BB-4B,etc</li>
+</ul>
+<p><img src="/images/wl_34_2.png" alt=""></p>
+<h4 id="编址：路由到其他lan">编址：路由到其他LAN</h4>
+<p><img src="/images/wl_34_3.png" alt=""></p>
+<p><img src="/images/wl_34_4.png" alt=""></p>
+<p><img src="/images/wl_34_5.png" alt=""></p>
+<p><img src="/images/wl_34_6.png" alt=""></p>
+<h2 id="以太网">以太网</h2>
+<ul>
+<li>目前最流行的LAN技术：98%占有率</li>
+<li>廉价：30元RMB 100Mbps</li>
+<li>最早广泛应用的LAN技术</li>
+<li>比令牌网和ATM网络简单、廉价</li>
+<li>带宽不断提升：10M、100M、1G、10G</li>
+</ul>
+<p><img src="/images/wl_34_7.png" alt=""></p>
+<h3 id="以太网：物理拓扑">以太网：物理拓扑</h3>
+<ul>
+<li><font color=red>总线</font>：在上个世纪90年代中期很流行
+<ul>
+<li>所有节点在一个碰撞域内，依次只允许一个节点发送</li>
+<li>可靠性差，如果介质破损，截面形成信号的反射，发送节点认为是冲突，总是冲突</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_8.png" alt=""></p>
+<ul>
+<li>
+<ul>
+<li><font color=red>星型</font>：目前最主流
+<ul>
+<li>连接选择：hub或者switch</li>
+<li>现在一般是交换机在中心</li>
+<li>每个节点以及相连的交换机端口使用（独立的）以太网协议（不会和其他节点的发送产生碰撞）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_9.png" alt=""></p>
+<h3 id="以太帧结构">以太帧结构</h3>
+<p>发送方适配器在<font color=red>以太网帧</font>中封装IP数据报，或其他网络层协议数据单元</p>
+<p><img src="/images/wl_34_10.png" alt=""></p>
+<p><font color=red>前导码</font></p>
+<ul>
+<li>7B 10101010 + 1B 10101011</li>
+<li>用来同步接收方和发送方的时钟速率
+<ul>
+<li>使得接收方将自己的时钟调到发送端的时钟</li>
+<li>从而可以按照发送端的时钟来接收所发送的帧</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>地址</font>：6字节源MAC地址，目标MAC地址</p>
+<ul>
+<li>如：帧目标地址 = 本站MAC地址，或是广播地址，接收，递交帧中的数据到网络层</li>
+<li>否则，适配器忽略该帧</li>
+</ul>
+<p><font color=red>类型</font>：指出高层协议（大多情况下是IP，但也支持其他网络层协议Novell IPX和Apple Talk）</p>
+<p><font color=red>CRC</font>：在接收方校检</p>
+<ul>
+<li>如果没有通过校检，丢弃错误帧</li>
+</ul>
+<h3 id="以太网：无连接-不可靠的服务">以太网：无连接、不可靠的服务</h3>
+<ul>
+<li><font color=red>无连接</font>：帧传输前，发送方和接收方之间没有握手</li>
+<li><font color=red>不可靠</font>：接收方适配器不发送ACKs或NAKs给发送方
+<ul>
+<li>递交给网络层的数据报流可能有gap</li>
+<li>如上层使用像传输层TCP协议这样的rdt，gap会被补上（源主机，TCP实体）</li>
+<li>否则，应用层会看到gap</li>
+</ul>
+</li>
+<li>以太网的MAC协议：采用<font color=red>二进制退避的CSMA/CD</font>介质访问控制形式</li>
+</ul>
+<h3 id="以太网标准：链路层和物理层">以太网标准：链路层和物理层</h3>
+<ul>
+<li><font color=red>很多</font>不同的以太网标准
+<ul>
+<li>相同的MAC协议（介质访问控制）和帧结构</li>
+<li>不同的速率：2 Mbps、10 Mbps、100 Mbps、1Gbps、10Gbps</li>
+<li>不同的物理层标准</li>
+<li>不同的物理层媒介：光纤，同轴电缆和双绞线</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_11.png" alt=""></p>
+<h3 id="以太网使用csma-cd">以太网使用CSMA/CD</h3>
+<ul>
+<li>没有时隙</li>
+<li>NIC如果侦听到其他NIC在发送就不发送：载波侦听(<font color=red>carrier sence</font>)</li>
+<li>发送时，适配器当侦听到其他适配器在发送就放弃对当前帧的发送：冲突检测(<font color=red>collision detection</font>)</li>
+<li>冲突后尝试重传，重传前适配器等待一个随机时间：随机访问(<font color=red>random access</font>)</li>
+</ul>
+<h3 id="10baset-and-100baset">10BaseT and 100BaseT</h3>
+<ul>
+<li>100Mbps速率也被称之为&quot;fast ethernet&quot;</li>
+<li>T代表双绞线</li>
+<li>节点连接到HUB上：&quot;star topology&quot;物理上是星型
+<ul>
+<li>逻辑上总线型，盒中总线</li>
+</ul>
+</li>
+<li>节点和HUB间的最大距离是100m</li>
+</ul>
+<h3 id="hubs">Hubs</h3>
+<p>Hubs本质上是物理层的中继器</p>
+<ul>
+<li>从一个端口收，转发到所有其他端口</li>
+<li>速率一致</li>
+<li>没有帧的缓存</li>
+<li>在hub接口端没有CSMA/CD机制：适配器检测冲突</li>
+<li>提供网络管理服务</li>
+</ul>
+<h3 id="manchester编码">Manchester编码</h3>
+<p><img src="/images/wl_34_12.png" alt=""></p>
+<ul>
+<li>在10BaseT中使用</li>
+<li>每一个bit的位时中间有一个信号跳变</li>
+<li>允许在接收方和发送方节点之间进行时钟同步
+<ul>
+<li>节点间不需要集中的和全局的时钟</li>
+</ul>
+</li>
+<li>10Mbps，使用20M带宽，效率50%</li>
+</ul>
+<h3 id="千兆以太网">千兆以太网</h3>
+<ul>
+<li>采用标准的以太帧格式</li>
+<li>允许点对点链路和共享广播信道</li>
+<li>物理编码：8b10b编码</li>
+<li>在共享模式，继续使用CSMA/CA MAC技术，节点间需要较短距离以提高利用率</li>
+<li>交换模式：全双工千兆可用与点对点链路
+<ul>
+<li>站点使用专用信道，基本不会冲突，效率高</li>
+<li>除非发往同一个目标点</li>
+</ul>
+</li>
+</ul>
+<h2 id="hub：集线器">Hub：集线器</h2>
+<ul>
+<li>网段(LAN segments)：可以允许一个站点发送的网络范围
+<ul>
+<li>在一个碰撞域，同时只允许一个站点在发送</li>
+<li>如果有2个节点同时发送，则会碰撞</li>
+<li>通常有相同的词缀，比IP子网更详细的前缀</li>
+</ul>
+</li>
+<li>所有以hub连到一起的站点处在一个网段，处在一个碰撞域
+<ul>
+<li>骨干hub将所有网段连接到了一起</li>
+</ul>
+</li>
+<li>通过hub可拓展节点之间的最大距离</li>
+<li>通过HUB，不能将10BaseT和100BaseT的网络连接到一起</li>
+</ul>
+<p><img src="/images/wl_34_13.png" alt=""></p>
+<h2 id="交换机">交换机</h2>
+<ul>
+<li><font color=red>链路层设备：扮演主动角色（端口执行以太网协议）</font>
+<ul>
+<li>对帧进行存储和转发</li>
+<li>对于到来的帧，检查帧头，根据目标MAC地址进行<fong color=red>选择性转发</font></li>
+<li>当帧需要向某个（些）网段进行转发，需要使用CSMA/CD进行接入控制</li>
+<li>通常一个交换机端口一个独立网段</li>
+</ul>
+</li>
+<li><font color=red>透明</font>：主机对交换机的存在可以不关心
+<ul>
+<li>通过交换机相连的各节点好像这些站点是直接相连的一样</li>
+<li>有MAC地址：无IP地址</li>
+</ul>
+</li>
+<li><font color=red>即插即用、自学习</font>
+<ul>
+<li>交换机无需配置</li>
+</ul>
+</li>
+</ul>
+<h3 id="交换机：多路同时传输">交换机：多路同时传输</h3>
+<ul>
+<li>主机有一个<font color=red>专用</font>和<font color=red>直接</font>到交换机的连接</li>
+<li>交换机缓存到来的帧</li>
+<li>对每个帧进入链路使用以太网协议，没有碰撞：全双工
+<ul>
+<li>每条链路都是一个独立的碰撞域</li>
+<li>MAC协议在其中的作用弱化了</li>
+</ul>
+</li>
+<li><font color=red>交换</font>：A - to - A’ 和 B - to - B’可以同时传输，没有碰撞</li>
+</ul>
+<p><img src="/images/wl_34_14.png" alt=""></p>
+<h3 id="交换机转发表">交换机转发表</h3>
+<p>Q：交换机如何知道通过接口1到达A，通过接口5到达B’？</p>
+<p>A：每个交换机都有一个交换表(<font color=red>switch table</font>)，每个表项：</p>
+<ul>
+<li>主机的MAC地址，到达该MAC经过的接口、时戳）</li>
+<li>比较像路由表</li>
+</ul>
+<h3 id="交换机：自学习">交换机：自学习</h3>
+<p>交换机通过<font color=red>学习</font>得到哪些主机（mac地址）可以通过哪些端口到达</p>
+<ul>
+<li>当接收到帧，交换机学习到发送站点所在的端口（网段）</li>
+<li>记录发送方MAC地址/进入端口映射关系在交换表中</li>
+</ul>
+<p><img src="/images/wl_34_15.png" alt=""></p>
+<h3 id="交换机：过滤-转发">交换机：过滤/转发</h3>
+<p>当交换机接收到一个帧：</p>
+<ul>
+<li>记录进入链路，发送主机的MAC地址</li>
+<li>使用目标MAC地址对交换表进行索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//如果在转发表中找到了目标项</span><br><span class="line">if entry found for destination</span><br><span class="line">then&#123;</span><br><span class="line">    //如果目标MAC就是对应着进来的端口</span><br><span class="line">    if dest on segment from which frame arrived //过滤</span><br><span class="line">        //抛弃掉该帧</span><br><span class="line">        then drop the frame</span><br><span class="line">    //转发</span><br><span class="line">    else forward the frame on interface indicated</span><br><span class="line">    &#125;</span><br><span class="line">//泛洪</span><br><span class="line">else found</span><br></pre></td></tr></table></figure>
+<h3 id="交换机-vs-路由器">交换机 vs. 路由器</h3>
+<p><img src="/images/wl_34_16.png" alt=""></p>
+<ul>
+<li>都是存储转发设备，但层次不同
+<ul>
+<li>交换机：链路层设备（检查链路层头部）</li>
+<li>路由器：网络层设备（检查网络层的头部）</li>
+</ul>
+</li>
+<li>都有转发表
+<ul>
+<li><font color=red>交换机</font>：维护交换表，按照MAC地址转发
+<ul>
+<li>执行过滤、自学习和生成树算法</li>
+<li>即插即用：二层设备，速率高</li>
+<li>执行生成树算法，限制广播帧的转发</li>
+<li>ARP表项随着站点数量增多而增多</li>
+</ul>
+</li>
+<li><font color=red>路由器</font>：维护路由表，执行路由算法
+<ul>
+<li>路由算法能够避免环路，无需执行生成树算法，可以以各种拓扑构建网络</li>
+<li>对广播分组做限制</li>
+<li>不是即插即用的，配置网络地址（子网前缀）</li>
+<li>三层设备，速率低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_17.png" alt=""></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/04/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9434LANs/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9433%E5%A4%9A%E7%82%B9%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络——33多点访问协议</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> Aubyn
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Aubyn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+ 
+    
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.css">
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.js"></script>
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/contrib/auto-render.min.js"></script>
+        
+    
+ 
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

@@ -12683,4 +12683,359 @@ P(其他节点在<span class="katex"><span class="katex-mathml"><math xmlns="htt
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——34LANs</title>
+    <url>/2024/04/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9434LANs/</url>
+    <content><![CDATA[<h1>LANs</h1>
+<h2 id="mac地址和arp">MAC地址和ARP</h2>
+<ul>
+<li>32bit IP地址
+<ul>
+<li>网络层地址</li>
+<li>用于使数据到达目标IP子网：前n - 1跳</li>
+<li>从而到达子网中的目标节点：最后一跳</li>
+</ul>
+</li>
+<li>LAN（MAC/物理/以太网）地址：
+<ul>
+<li>用于使帧从一个网卡传递到与其物理连接的另一个网卡（在同一个物理网络中）</li>
+<li>48bit MAC地址固化在适配器的ROM，有时也可以通过软件设定</li>
+<li>理论上全球任何2个网卡的MAC地址都不相同</li>
+<li>e.g：1A-2F-BB-76-09-AD</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络地址和mac地址分离">网络地址和mac地址分离</h3>
+<p>IP地址和MAC地址的作用不同</p>
+<ol>
+<li>IP地址是分层的
+<ol>
+<li>一个子网所有站点网络号一致，路由聚集，减少路由表
+<ol>
+<li>需要一个网络中的站点网络号一致，如果捆绑需要定制网卡非常麻烦</li>
+</ol>
+</li>
+<li>希望网络层地址是配置的：IP地址完成网络到网络的交付</li>
+</ol>
+</li>
+<li>mac地址是一个<font color=red>平面</font>的
+<ol>
+<li>网卡在生产时不知道被用于哪个网络，因此给网卡一个唯一的标示，用于区分一个网络内部不同的网卡即可</li>
+<li>可以完成一个物理网络内部的节点到节点的数据交付</li>
+</ol>
+</li>
+</ol>
+<p>分离好处</p>
+<ul>
+<li>网卡坏了，ip不变，可以捆绑到另外一个网卡的mac上</li>
+<li>物理网络还可以除IP之外支持其他网络层协议，链路协议为上层网络协议，如IPX等</li>
+</ul>
+<p>捆绑的问题</p>
+<ul>
+<li>如果仅仅使用IP地址，不是mac地址，那么它仅支持IP协议</li>
+<li>每次上电都要重新写入网卡IP地址</li>
+<li>另外一个选择就是不使用任何地址：不用MAC地址，则每到来一个帧都要上传到IP层次，由它判断是不是需要接受，干扰一次</li>
+</ul>
+<h2 id="lan地址和arp">LAN地址和ARP</h2>
+<ul>
+<li>
+<p>局域网上每个适配器都有一个唯一的<font color=red>LAN</font>地址<br>
+<img src="/images/wl_34_1.png" alt=""></p>
+</li>
+<li>
+<p>MAC地址由IEEE管理和分配</p>
+</li>
+<li>
+<p>制造商购入MAC地址空间（保证唯一性）</p>
+</li>
+<li>
+<p>类比：</p>
+<ul>
+<li>MAC地址：社会安全号</li>
+<li>IP地址：通讯地址</li>
+</ul>
+</li>
+<li>
+<p>MAC平面地址 -&gt; 支持移动</p>
+<ul>
+<li>可以将网卡接到其他网络</li>
+</ul>
+</li>
+<li>
+<p>IP地址有层次 - 不能移动</p>
+<ul>
+<li>依赖于节点连接的IP子网，与子网的网络号相同（有与其相连的子网相同的网络前缀）</li>
+</ul>
+</li>
+</ul>
+<h3 id="arp">ARP</h3>
+<p>问题：已知B的IP地址，如何确定B的MAC地址</p>
+<ul>
+<li>在LAN上的每个IP节点都有一个<font color=red>ARP</font>表</li>
+<li>ARP表：包括一些LAN节点IP/MAC地址的映射<br>
+<font color=red>&lt;TP address MAC address TTL&gt;</font>
+<ul>
+<li>TTL时间是指地址映射失效的时间</li>
+<li>典型是20min</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由到其他lan">路由到其他LAN</h3>
+<p>Walkthrough：发送数据报：由A通过R到B，假设A知道B的IP地址</p>
+<ul>
+<li>在R上有两个ARP表，分别对应两个LAN</li>
+<li>在源主机的路由表中，发现到目标主机的下一跳时111.111.111.110</li>
+<li>在源主机的ARP表中，发现其MAC地址是E6-E9-00-17-BB-4B,etc</li>
+</ul>
+<p><img src="/images/wl_34_2.png" alt=""></p>
+<h4 id="编址：路由到其他lan">编址：路由到其他LAN</h4>
+<p><img src="/images/wl_34_3.png" alt=""></p>
+<p><img src="/images/wl_34_4.png" alt=""></p>
+<p><img src="/images/wl_34_5.png" alt=""></p>
+<p><img src="/images/wl_34_6.png" alt=""></p>
+<h2 id="以太网">以太网</h2>
+<ul>
+<li>目前最流行的LAN技术：98%占有率</li>
+<li>廉价：30元RMB 100Mbps</li>
+<li>最早广泛应用的LAN技术</li>
+<li>比令牌网和ATM网络简单、廉价</li>
+<li>带宽不断提升：10M、100M、1G、10G</li>
+</ul>
+<p><img src="/images/wl_34_7.png" alt=""></p>
+<h3 id="以太网：物理拓扑">以太网：物理拓扑</h3>
+<ul>
+<li><font color=red>总线</font>：在上个世纪90年代中期很流行
+<ul>
+<li>所有节点在一个碰撞域内，依次只允许一个节点发送</li>
+<li>可靠性差，如果介质破损，截面形成信号的反射，发送节点认为是冲突，总是冲突</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_8.png" alt=""></p>
+<ul>
+<li>
+<ul>
+<li><font color=red>星型</font>：目前最主流
+<ul>
+<li>连接选择：hub或者switch</li>
+<li>现在一般是交换机在中心</li>
+<li>每个节点以及相连的交换机端口使用（独立的）以太网协议（不会和其他节点的发送产生碰撞）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_9.png" alt=""></p>
+<h3 id="以太帧结构">以太帧结构</h3>
+<p>发送方适配器在<font color=red>以太网帧</font>中封装IP数据报，或其他网络层协议数据单元</p>
+<p><img src="/images/wl_34_10.png" alt=""></p>
+<p><font color=red>前导码</font></p>
+<ul>
+<li>7B 10101010 + 1B 10101011</li>
+<li>用来同步接收方和发送方的时钟速率
+<ul>
+<li>使得接收方将自己的时钟调到发送端的时钟</li>
+<li>从而可以按照发送端的时钟来接收所发送的帧</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>地址</font>：6字节源MAC地址，目标MAC地址</p>
+<ul>
+<li>如：帧目标地址 = 本站MAC地址，或是广播地址，接收，递交帧中的数据到网络层</li>
+<li>否则，适配器忽略该帧</li>
+</ul>
+<p><font color=red>类型</font>：指出高层协议（大多情况下是IP，但也支持其他网络层协议Novell IPX和Apple Talk）</p>
+<p><font color=red>CRC</font>：在接收方校检</p>
+<ul>
+<li>如果没有通过校检，丢弃错误帧</li>
+</ul>
+<h3 id="以太网：无连接-不可靠的服务">以太网：无连接、不可靠的服务</h3>
+<ul>
+<li><font color=red>无连接</font>：帧传输前，发送方和接收方之间没有握手</li>
+<li><font color=red>不可靠</font>：接收方适配器不发送ACKs或NAKs给发送方
+<ul>
+<li>递交给网络层的数据报流可能有gap</li>
+<li>如上层使用像传输层TCP协议这样的rdt，gap会被补上（源主机，TCP实体）</li>
+<li>否则，应用层会看到gap</li>
+</ul>
+</li>
+<li>以太网的MAC协议：采用<font color=red>二进制退避的CSMA/CD</font>介质访问控制形式</li>
+</ul>
+<h3 id="以太网标准：链路层和物理层">以太网标准：链路层和物理层</h3>
+<ul>
+<li><font color=red>很多</font>不同的以太网标准
+<ul>
+<li>相同的MAC协议（介质访问控制）和帧结构</li>
+<li>不同的速率：2 Mbps、10 Mbps、100 Mbps、1Gbps、10Gbps</li>
+<li>不同的物理层标准</li>
+<li>不同的物理层媒介：光纤，同轴电缆和双绞线</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_11.png" alt=""></p>
+<h3 id="以太网使用csma-cd">以太网使用CSMA/CD</h3>
+<ul>
+<li>没有时隙</li>
+<li>NIC如果侦听到其他NIC在发送就不发送：载波侦听(<font color=red>carrier sence</font>)</li>
+<li>发送时，适配器当侦听到其他适配器在发送就放弃对当前帧的发送：冲突检测(<font color=red>collision detection</font>)</li>
+<li>冲突后尝试重传，重传前适配器等待一个随机时间：随机访问(<font color=red>random access</font>)</li>
+</ul>
+<h3 id="10baset-and-100baset">10BaseT and 100BaseT</h3>
+<ul>
+<li>100Mbps速率也被称之为&quot;fast ethernet&quot;</li>
+<li>T代表双绞线</li>
+<li>节点连接到HUB上：&quot;star topology&quot;物理上是星型
+<ul>
+<li>逻辑上总线型，盒中总线</li>
+</ul>
+</li>
+<li>节点和HUB间的最大距离是100m</li>
+</ul>
+<h3 id="hubs">Hubs</h3>
+<p>Hubs本质上是物理层的中继器</p>
+<ul>
+<li>从一个端口收，转发到所有其他端口</li>
+<li>速率一致</li>
+<li>没有帧的缓存</li>
+<li>在hub接口端没有CSMA/CD机制：适配器检测冲突</li>
+<li>提供网络管理服务</li>
+</ul>
+<h3 id="manchester编码">Manchester编码</h3>
+<p><img src="/images/wl_34_12.png" alt=""></p>
+<ul>
+<li>在10BaseT中使用</li>
+<li>每一个bit的位时中间有一个信号跳变</li>
+<li>允许在接收方和发送方节点之间进行时钟同步
+<ul>
+<li>节点间不需要集中的和全局的时钟</li>
+</ul>
+</li>
+<li>10Mbps，使用20M带宽，效率50%</li>
+</ul>
+<h3 id="千兆以太网">千兆以太网</h3>
+<ul>
+<li>采用标准的以太帧格式</li>
+<li>允许点对点链路和共享广播信道</li>
+<li>物理编码：8b10b编码</li>
+<li>在共享模式，继续使用CSMA/CA MAC技术，节点间需要较短距离以提高利用率</li>
+<li>交换模式：全双工千兆可用与点对点链路
+<ul>
+<li>站点使用专用信道，基本不会冲突，效率高</li>
+<li>除非发往同一个目标点</li>
+</ul>
+</li>
+</ul>
+<h2 id="hub：集线器">Hub：集线器</h2>
+<ul>
+<li>网段(LAN segments)：可以允许一个站点发送的网络范围
+<ul>
+<li>在一个碰撞域，同时只允许一个站点在发送</li>
+<li>如果有2个节点同时发送，则会碰撞</li>
+<li>通常有相同的词缀，比IP子网更详细的前缀</li>
+</ul>
+</li>
+<li>所有以hub连到一起的站点处在一个网段，处在一个碰撞域
+<ul>
+<li>骨干hub将所有网段连接到了一起</li>
+</ul>
+</li>
+<li>通过hub可拓展节点之间的最大距离</li>
+<li>通过HUB，不能将10BaseT和100BaseT的网络连接到一起</li>
+</ul>
+<p><img src="/images/wl_34_13.png" alt=""></p>
+<h2 id="交换机">交换机</h2>
+<ul>
+<li><font color=red>链路层设备：扮演主动角色（端口执行以太网协议）</font>
+<ul>
+<li>对帧进行存储和转发</li>
+<li>对于到来的帧，检查帧头，根据目标MAC地址进行<fong color=red>选择性转发</font></li>
+<li>当帧需要向某个（些）网段进行转发，需要使用CSMA/CD进行接入控制</li>
+<li>通常一个交换机端口一个独立网段</li>
+</ul>
+</li>
+<li><font color=red>透明</font>：主机对交换机的存在可以不关心
+<ul>
+<li>通过交换机相连的各节点好像这些站点是直接相连的一样</li>
+<li>有MAC地址：无IP地址</li>
+</ul>
+</li>
+<li><font color=red>即插即用、自学习</font>
+<ul>
+<li>交换机无需配置</li>
+</ul>
+</li>
+</ul>
+<h3 id="交换机：多路同时传输">交换机：多路同时传输</h3>
+<ul>
+<li>主机有一个<font color=red>专用</font>和<font color=red>直接</font>到交换机的连接</li>
+<li>交换机缓存到来的帧</li>
+<li>对每个帧进入链路使用以太网协议，没有碰撞：全双工
+<ul>
+<li>每条链路都是一个独立的碰撞域</li>
+<li>MAC协议在其中的作用弱化了</li>
+</ul>
+</li>
+<li><font color=red>交换</font>：A - to - A’ 和 B - to - B’可以同时传输，没有碰撞</li>
+</ul>
+<p><img src="/images/wl_34_14.png" alt=""></p>
+<h3 id="交换机转发表">交换机转发表</h3>
+<p>Q：交换机如何知道通过接口1到达A，通过接口5到达B’？</p>
+<p>A：每个交换机都有一个交换表(<font color=red>switch table</font>)，每个表项：</p>
+<ul>
+<li>主机的MAC地址，到达该MAC经过的接口、时戳）</li>
+<li>比较像路由表</li>
+</ul>
+<h3 id="交换机：自学习">交换机：自学习</h3>
+<p>交换机通过<font color=red>学习</font>得到哪些主机（mac地址）可以通过哪些端口到达</p>
+<ul>
+<li>当接收到帧，交换机学习到发送站点所在的端口（网段）</li>
+<li>记录发送方MAC地址/进入端口映射关系在交换表中</li>
+</ul>
+<p><img src="/images/wl_34_15.png" alt=""></p>
+<h3 id="交换机：过滤-转发">交换机：过滤/转发</h3>
+<p>当交换机接收到一个帧：</p>
+<ul>
+<li>记录进入链路，发送主机的MAC地址</li>
+<li>使用目标MAC地址对交换表进行索引</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//如果在转发表中找到了目标项</span><br><span class="line">if entry found for destination</span><br><span class="line">then&#123;</span><br><span class="line">    //如果目标MAC就是对应着进来的端口</span><br><span class="line">    if dest on segment from which frame arrived //过滤</span><br><span class="line">        //抛弃掉该帧</span><br><span class="line">        then drop the frame</span><br><span class="line">    //转发</span><br><span class="line">    else forward the frame on interface indicated</span><br><span class="line">    &#125;</span><br><span class="line">//泛洪</span><br><span class="line">else found</span><br></pre></td></tr></table></figure>
+<h3 id="交换机-vs-路由器">交换机 vs. 路由器</h3>
+<p><img src="/images/wl_34_16.png" alt=""></p>
+<ul>
+<li>都是存储转发设备，但层次不同
+<ul>
+<li>交换机：链路层设备（检查链路层头部）</li>
+<li>路由器：网络层设备（检查网络层的头部）</li>
+</ul>
+</li>
+<li>都有转发表
+<ul>
+<li><font color=red>交换机</font>：维护交换表，按照MAC地址转发
+<ul>
+<li>执行过滤、自学习和生成树算法</li>
+<li>即插即用：二层设备，速率高</li>
+<li>执行生成树算法，限制广播帧的转发</li>
+<li>ARP表项随着站点数量增多而增多</li>
+</ul>
+</li>
+<li><font color=red>路由器</font>：维护路由表，执行路由算法
+<ul>
+<li>路由算法能够避免环路，无需执行生成树算法，可以以各种拓扑构建网络</li>
+<li>对广播分组做限制</li>
+<li>不是即插即用的，配置网络地址（子网前缀）</li>
+<li>三层设备，速率低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_34_17.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
