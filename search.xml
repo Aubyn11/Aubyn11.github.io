@@ -13261,4 +13261,67 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——37认证</title>
+    <url>/2024/04/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9437%E8%AE%A4%E8%AF%81/</url>
+    <content><![CDATA[<h1>认证</h1>
+<p><font color=red>目标</font>：Bob需要Alice证明他的身份</p>
+<p><font color=red>Protocol ap1.0</font>：Alice说&quot;A am Alice&quot;</p>
+<p><img src="/images/wl_37_1.png" alt=""></p>
+<p>可能出现的问题：</p>
+<ul>
+<li>在网络上Bob看不到Alice，因此Trudy可以简单的声称他是Alice</li>
+</ul>
+<p><img src="/images/wl_37_2.png" alt=""></p>
+<h2 id="认证：重新尝试">认证：重新尝试</h2>
+<p><font color=red>Protocol ap2.0</font>：Alice说&quot;I am Alice&quot;，在她发送的IP数据包中包括了他的IP地址</p>
+<p><img src="/images/wl_37_3.png" alt=""></p>
+<p>可能出现的问题：</p>
+<ul>
+<li>Trudy可以生成一个分组，包括伪造的Alice地址</li>
+</ul>
+<p><img src="/images/wl_37_4.png" alt=""></p>
+<p><font color=red>Protocol ap3.0</font>：Alice说&quot;I am Alice&quot;，而且传送他的密码来证明</p>
+<p><img src="/images/wl_37_5.png" alt=""></p>
+<p>可能出现的问题：</p>
+<ul>
+<li><strong>重放攻击</strong>
+<ul>
+<li>Trudy记录Alice的分组，事后向Bob重放</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_37_6.png" alt=""></p>
+<p><font color=red>Protocol ap3.1</font>：Alice说&quot;I am Alice&quot;而且传输她的加密之后的密码来证明</p>
+<p><img src="/images/wl_37_7.png" alt=""></p>
+<p>可能出现的问题：</p>
+<ul>
+<li>记录，重放仍然有效</li>
+</ul>
+<p><img src="/images/wl_37_8.png" alt=""></p>
+<h3 id="对称式秘钥">对称式秘钥</h3>
+<p><font color=red>目标</font>：避免重放攻击</p>
+<p><font color=red>Nonce</font>：一生只用一次的整数（R）</p>
+<p><font color=red>ap4.0</font>：为了证明Alice的活跃性，Bob发送给Alice一个<font color=red>nonce</font>，R，Alice必须返回加密之后的R，使用双方约定好的key</p>
+<p><img src="/images/wl_37_9.png" alt=""></p>
+<p>因为Alice是活跃的，只有Alice知道这个加密的Nonce，因此一定是Alice</p>
+<h3 id="公开式秘钥">公开式秘钥</h3>
+<p><font color=red>ap5.0</font>：使用nonce，公开密钥加密技术</p>
+<p><img src="/images/wl_37_10.png" alt=""></p>
+<h4 id="安全漏洞">安全漏洞</h4>
+<p><font color=red>中间攻击</font>：Trudy在Alice(to Bob)和Bob(to Alice)之间</p>
+<p><img src="/images/wl_37_11.png" alt=""></p>
+<p>难以检测：</p>
+<ul>
+<li>Bob接收到了Alice发送的所有报文，反之亦然</li>
+<li>问题是Trudy也接收到了所有的报文</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
