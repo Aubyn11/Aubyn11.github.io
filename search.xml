@@ -13485,4 +13485,159 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——40各个层次的安全性</title>
+    <url>/2024/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9440%E5%90%84%E4%B8%AA%E5%B1%82%E6%AC%A1%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7/</url>
+    <content><![CDATA[<h1>各个层次的安全性</h1>
+<h2 id="安全电子邮件">安全电子邮件</h2>
+<p>Alice需要发送机密的报文m给Bob</p>
+<p><img src="/images/wl_40_1.png" alt=""></p>
+<p><font color=red>Alice</font></p>
+<ul>
+<li>产生随机的对称秘钥，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">K_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>使用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">K_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>对报文进行加密（为了效率）</li>
+<li>对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">K_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>使用Bob的公钥进行加密</li>
+<li>发送<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>s</mi></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K_s(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>B</mi></msub><mo stretchy="false">(</mo><msub><mi>K</mi><mi>S</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K_B(K_S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>给Bob</li>
+</ul>
+<p><font color=red>Bob</font></p>
+<ul>
+<li>使用自己的私钥解密<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">K_S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>使用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">K_S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>解密<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>S</mi></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K_S(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>得到报文</li>
+</ul>
+<p>Alice数字签署文件<br>
+发送报文（明文）和数字签名</p>
+<p>Alice 需要提供源端的报文完整性和可认证性</p>
+<p><img src="/images/wl_40_2.png" alt=""></p>
+<p>Alice加密：</p>
+<ul>
+<li>Alice 数字签署文件(采用自己的私钥签署报文的散列)</li>
+<li>发送报文（明文）和数字签名<br>
+Bob解密：</li>
+<li>Bob使用散列函数计算报文的散列 H(m)</li>
+<li>使用Alice的公钥解密报文的散列 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>K</mi><mi>A</mi><mo>+</mo></msubsup><mo stretchy="false">(</mo><msubsup><mi>K</mi><mi>A</mi><mo>−</mo></msubsup><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K_A^+(K_A^-(m))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.104993em;vertical-align:-0.293531em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.811462em;"><span style="top:-2.4064690000000004em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.293531em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.811462em;"><span style="top:-2.4064690000000004em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">−</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.293531em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li>
+<li>比较 H(m) = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>A</mi></msub><mo>+</mo><mo stretchy="false">(</mo><msubsup><mi>K</mi><mi>A</mi><mo>−</mo></msubsup><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K_A+(K_A^-(m))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.104993em;vertical-align:-0.293531em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.811462em;"><span style="top:-2.4064690000000004em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">−</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.293531em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>？</li>
+<li>如果相等，说明m就是正确的</li>
+<li>能采用Alice的公钥解密，说明是用Alice的私钥加密的，保证了源端可认证性</li>
+<li>采用散列比较，保证了报文完整性（如果报文被修改，得到的散列也会被修改）</li>
+</ul>
+<p>Alice 需要提供机密性，源端可认证性和报文的完整性</p>
+<p><img src="/images/wl_40_3.png" alt=""></p>
+<p>Alice使用了3个keys：自己的私钥，Bob的公钥，新产生出的对称式密钥</p>
+<h3 id="pretty-good-privacy-pgp">Pretty good privacy(PGP)</h3>
+<ul>
+<li>Internet e-mail加密方案，事实上的标准.</li>
+<li>使用前面讲述的：对称密钥加密，公开密钥加密，散列函数和数字签名.</li>
+<li>能够提供机密性，源端的可认证性和报文完整性.</li>
+<li>发明者, Phil Zimmerman, 是３年的犯罪调查的目标</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/*A PGP signed message: */</span><br><span class="line">---BEGIN PGP SIGNED MESSAGE---</span><br><span class="line">Hash: SHA1</span><br><span class="line">Bob:My husband is out of town tonight.Passionately yours, Alice</span><br><span class="line">---BEGIN PGP SIGNATURE---</span><br><span class="line">Version: PGP 5.0</span><br><span class="line">Charset: noconv</span><br><span class="line">yhHJRHhGJGhgg/12EpJ+lo8gE4vB3</span><br><span class="line">mqJhFEvZP9t6n7G6m5Gw2</span><br><span class="line">---END PGP SIGNATURE---</span><br></pre></td></tr></table></figure>
+<h2 id="secure-sockets-layer-ssl">Secure sockets layer(SSL)</h2>
+<ul>
+<li><font color=red>为使用SSL服务的、基于TCP的应用提供传输层次的安全性</font>
+<ul>
+<li>e.g.在Web的浏览器和服务器之间进行电子商务的交易(shttp)</li>
+</ul>
+</li>
+<li>所提供的安全服务：
+<ul>
+<li>服务器的可认证性，数据加密，客户端的可认证性（可选）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_40_4.png" alt=""></p>
+<h3 id="ssl三个阶段">SSL三个阶段</h3>
+<p><font color=red>握手</font></p>
+<ul>
+<li>Bob和Alice建立TCP连接</li>
+<li>通过AC签署的证书认证Alice的身份</li>
+<li>创建、加密（采用Alice的公钥），传输主密钥给Alice
+<ul>
+<li>不重数交换没有显示</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_40_5.png" alt=""></p>
+<p><font color=red>密钥导出</font></p>
+<ul>
+<li>Alice,Bob采用共享的MS产生4个keys
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">E_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：Bob -&gt; Alice 数据加密key</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">E_A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：Alice -&gt; Bob 数据加密key</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">M_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：Bob -&gt; Alice MAC(报文鉴别编码) key</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">M_A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：Alice -&gt; Bob MAC key</li>
+</ul>
+</li>
+<li>加密和MAC算法在Bob,Alice之间协商</li>
+<li>为什么要4个keys？
+<ul>
+<li>更安全</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>数据传输</font></p>
+<p><img src="/images/wl_40_6.png" alt=""></p>
+<h2 id="ipsec：网络层次的安全性">IPsec：网络层次的安全性</h2>
+<ul>
+<li><font color=red>网络层次的机密性</font>
+<ul>
+<li>发送端主机IP数据报中的数据进行加密</li>
+<li>数据：TCP或者UDP的段；ICMP和SNMP报文</li>
+</ul>
+</li>
+<li><font color=red>网络层次的可认可性</font>
+<ul>
+<li>目标主机可以认证源主机的IP地址</li>
+</ul>
+</li>
+<li><font color=red>2个主要协议</font>
+<ul>
+<li>认证头部（AH）协议</li>
+<li>封装安全载荷 encapsulation security payload(ESP) 协议</li>
+</ul>
+</li>
+<li><font color=red>不管AH还是ESP，源和目标在通信之前要握手</font>
+<ul>
+<li>创建一个网络层次的逻辑通道：安全关联 security assocication(SA)</li>
+</ul>
+</li>
+<li><font color=red>每一个SA都是单向</font></li>
+<li><font color=red>由以下元组唯一确定</font>
+<ul>
+<li>安全协议（AH 或 ESP）</li>
+<li>源IP地址</li>
+<li>32bit连接ID</li>
+</ul>
+</li>
+</ul>
+<h2 id="authentication-header-ah-协议">Authentication Header(AH)协议</h2>
+<ul>
+<li>提供源端的可认证性，数据完整性，但是不提供机密性</li>
+<li>在IP头部和数据字段之间插入AH的头部</li>
+<li>协议字段：51</li>
+<li>中间的路由器按照常规处理这个数据报</li>
+</ul>
+<p><font color=red>AH头部包括</font></p>
+<ul>
+<li>连接ID</li>
+<li>认证数据：对原始数据计算报文摘要，使用源端的私钥进行数字签名</li>
+<li>下一个字段定义了数据的类型（e.g. TCP,UDP,ICMP）</li>
+</ul>
+<p><img src="/images/wl_40_7.png" alt=""></p>
+<h2 id="esp协议">ESP协议</h2>
+<ul>
+<li>提供机密性，主机的可认证性，数据的完整性</li>
+<li>数据和ESP尾部部分被加密</li>
+<li>next header字段在ESP尾部</li>
+<li>ESP认证的头部与AH类似</li>
+<li>协议号 = 50</li>
+</ul>
+<p><img src="/images/wl_40_8.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
