@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>计算机网络 |  Aubyn</title>
+      <title>计算机网络——39密钥分发和证书 |  Aubyn</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -55,316 +55,226 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-计算机网络——39密钥分发和证书"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  计算机网络——39密钥分发和证书
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/04/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9439%E5%AF%86%E9%92%A5%E5%88%86%E5%8F%91%E5%92%8C%E8%AF%81%E4%B9%A6/" class="article-date">
+  <time datetime="2024-04-06T21:03:13.000Z" itemprop="datePublished">2024-04-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
   
-  <ul class="ads">
-    
-        <li>
-            <a href="">
-                <img src="" width="" alt="">
-            </a>
-        </li>
-    
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">549</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">2 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>密钥分发和证书</h1>
+<h2 id="可信赖中介">可信赖中介</h2>
+<p><font color=red>对称密钥问题</font></p>
+<ul>
+<li>相互通信的实体如何分享对称密式的密钥？</li>
 </ul>
-  
-  
-  <article class="articles">
-    
-    
-    <h1 class="page-type-title">计算机网络</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2024" class="archive-year">2024</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9419%E5%8F%AF%E9%9D%A0%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9A%84%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  <time datetime="2024-02-19T00:10:31.000Z" itemprop="datePublished">02/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9419%E5%8F%AF%E9%9D%A0%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9A%84%E5%8E%9F%E7%90%86/"
-    >计算机网络——19可靠数据传输的原理</a> 
-</h2>
+<p><font color=red>解决办法</font></p>
+<ul>
+<li>trusted key distribution center(KDC) 在实体之间扮演可信赖中介的角色</li>
+</ul>
+<p><font color=red>公共密钥问题</font></p>
+<ul>
+<li>当Alice获得Bob的公钥(from web site,e-mail,diskette)，她如何知道就是Bob的public key，而不是Trudy的？</li>
+</ul>
+<p><font color=red>解决方法</font></p>
+<ul>
+<li>可信赖的certification authority(CA)</li>
+</ul>
+<h2 id="kdc">KDC</h2>
+<ul>
+<li>Alice,Bob需要分享对称式密钥</li>
+<li><font color=red>KDC</font>：服务器和每一个注册用户都分享一个对称式的密钥(many users)</li>
+<li>Alice，Bob在和KDC通信的时候，知道他们自己的对称式秘钥<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mrow><mi>A</mi><mo>−</mo><mi>K</mi><mi>D</mi><mi>C</mi></mrow></msub><mtext> </mtext><msub><mi>K</mi><mrow><mi>B</mi><mo>−</mo><mi>K</mi><mi>D</mi><mi>C</mi></mrow></msub></mrow><annotation encoding="application/x-tex">K_{A-KDC}\ K_{B-KDC}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+<p>Q：KDC如何使得Bob和Alice在和对方通信前，就对称式会话密钥达成一致？</p>
+<p><img src="/images/wl_39_1.png" alt=""></p>
+<p>Alice和Bob通信：使用R1作为对称式的<font color=red>会话</font>密钥</p>
+<h2 id="ca">CA</h2>
+<ul>
+<li><font color=red>CA</font>：将每一个注册实体E和他的公钥捆绑</li>
+<li>E（person,router）到CA那里注册他的公钥
+<ul>
+<li>E提供给CA，自己的身份证据&quot;proof of identity&quot;</li>
+<li>CA创建一个证书，捆绑了实体信息和他的公钥</li>
+<li>Certificate包括了E的公钥，而且是被CA签署的（被CA用自己的私钥加了密的）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_39_2.png" alt=""></p>
+<ul>
+<li>当Alice需要拿到Bob公钥
+<ul>
+<li><font color=red>获得Bob的证书certificate(从Bob或者其他地方)</li>
+<li>对Bob的证书，使用CA的公钥来验证</font></li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/wl_39_3.png" alt=""></p>
+<h3 id="证书">证书</h3>
+<p>证书包括</p>
+<ul>
+<li>串号(证书发行者唯一)</li>
+<li>证书拥有者信息，包括算法和密钥值本身(不显示出来)</li>
+<li>证书发行者信息</li>
+<li>有效日期</li>
+<li>颁发者签名</li>
+</ul>
+<h3 id="信任树">信任树</h3>
+<ul>
+<li>根证书：根证书是未被签名的公钥证书或自签名的证书
+<ul>
+<li>拿到一些CA的公钥</li>
+<li>渠道：安装OS自带的数字证书：从网上下载你信任的数字证书</li>
+</ul>
+</li>
+<li>信任树
+<ul>
+<li>信任根证书CA颁发的证书，拿到了根CA的公钥
+<ul>
+<li>信任了根</li>
+</ul>
+</li>
+<li>由根CA签署的给一些机构的数字证书，包含了这些机构的数字证书</li>
+<li>由于你信任了根，从而能够可靠的拿到根CA签发的证书，可靠的拿到这些机构的公钥</li>
+</ul>
+</li>
+</ul>
  
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9418%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93UDP/" class="archive-article-date">
-  <time datetime="2024-02-18T00:47:00.000Z" itemprop="datePublished">02/18</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9418%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93UDP/"
-    >计算机网络——18无连接传输UDP</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9417%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%92%8C%E8%A7%A3%E5%A4%8D%E7%94%A8/" class="archive-article-date">
-  <time datetime="2024-02-18T00:19:26.000Z" itemprop="datePublished">02/18</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9417%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%92%8C%E8%A7%A3%E5%A4%8D%E7%94%A8/"
-    >计算机网络——17多路复用和解复用</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9416%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BC%A0%E8%BE%93%E5%B1%82%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-  <time datetime="2024-02-17T23:55:52.000Z" itemprop="datePublished">02/18</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9416%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BC%A0%E8%BE%93%E5%B1%82%E6%9C%8D%E5%8A%A1/"
-    >计算机网络——16概述和传输层服务</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9415%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  <time datetime="2024-02-17T02:34:43.000Z" itemprop="datePublished">02/17</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9415%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/"
-    >计算机网络——15套接字编程</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/" class="archive-article-date">
-  <time datetime="2024-02-17T00:00:32.000Z" itemprop="datePublished">02/17</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9414CDN/"
-    >计算机网络——14CDN</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9413P2P%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  <time datetime="2024-02-15T23:30:40.000Z" itemprop="datePublished">02/16</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9413P2P%E5%BA%94%E7%94%A8/"
-    >计算机网络——13P2P应用</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9412DNS/" class="archive-article-date">
-  <time datetime="2024-02-14T23:39:17.000Z" itemprop="datePublished">02/15</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9412DNS/"
-    >计算机网络——12DNS</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/" class="archive-article-date">
-  <time datetime="2024-02-14T00:45:31.000Z" itemprop="datePublished">02/14</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9411EMail/"
-    >计算机网络——11EMail</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/" class="archive-article-date">
-  <time datetime="2024-02-13T10:49:41.000Z" itemprop="datePublished">02/13</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2024/02/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9410FTP/"
-    >计算机网络——10FTP</a> 
-</h2>
- 
-
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-  </div>
-
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/page/2/">上一页</a><a class="page-number" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">1</a><a class="page-number" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/page/4/">4</a><a class="extend next" rel="next" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/page/4/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/04/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9439%E5%AF%86%E9%92%A5%E5%88%86%E5%8F%91%E5%92%8C%E8%AF%81%E4%B9%A6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/04/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9438%E6%8A%A5%E6%96%87%E5%AE%8C%E6%95%B4%E6%80%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络——38报文完整性</div>
+      </a>
+    
   </nav>
+
   
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -491,6 +401,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
