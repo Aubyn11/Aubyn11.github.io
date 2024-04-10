@@ -13890,4 +13890,83 @@ Bob解密：</li>
         <tag>计算机网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>计算机网络——42攻击和对策</title>
+    <url>/2024/04/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9442%E6%94%BB%E5%87%BB%E5%92%8C%E5%AF%B9%E7%AD%96/</url>
+    <content><![CDATA[<h1>攻击和对策</h1>
+<h2 id="ids：入侵检测系统">IDS：入侵检测系统</h2>
+<ul>
+<li>分组过滤
+<ul>
+<li>对TCP/IP头部进行检查</li>
+<li>不检查会话间的相关性</li>
+</ul>
+</li>
+<li><font color=red>IDS:intrusion detection system</font>
+<ul>
+<li>深入分组检查：检查分组的内容（e.g. 检查分组中的特征串，已知攻击数据库的病毒和攻击串）</li>
+<li>检查分组间的相关性，判断是否是有害的分组
+<ul>
+<li>端口扫描</li>
+<li>网络映射</li>
+<li>Dos攻击</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>multiple IDSs：在不同的地点进行不同类型的检查</li>
+</ul>
+<p><img src="/images/wl_42_1.png" alt=""></p>
+<h2 id="internet-安全威胁">Internet 安全威胁</h2>
+<p><font color=red>映射</font></p>
+<ul>
+<li>在攻击之前：“踩点” - 发现在网络上实现了哪些服务</li>
+<li>使用ping来判断哪些主机在网络上有地址</li>
+<li>端口扫描：试图顺序地在每一个端口上建立TCP连接（看看发生了什么）</li>
+<li>nmap(<a href="http://www.insecure.org/nmap/">http://www.insecure.org/nmap/</a>)mapper:“network exploration and security auditing”</li>
+</ul>
+<p><font color=red>对策</font></p>
+<ul>
+<li>记录进入到网络中的流量通信</li>
+<li>发现可疑的行为(IP address，端口被依次扫描)</li>
+</ul>
+<p><font color=red>分组嗅探</font></p>
+<ul>
+<li>广播式介质</li>
+<li>混杂模式的NIC获取所有的信道上的分组</li>
+<li>可获取所有未加密的数据(e.g. password)</li>
+<li>e.g. C嗅探B的分组</li>
+</ul>
+<p><img src="/images/wl_42_2.png" alt=""></p>
+<p><font color=red>对策</font></p>
+<ul>
+<li>机构中的所有主机都运行能够监测软件，周期性的检查是否有网卡运行于混杂模式</li>
+<li>每一个主机一个独立的网段(交换式以太网而不是使用集线器)</li>
+</ul>
+<p><font color=red>IP Spoofing欺骗</font></p>
+<ul>
+<li>可以由应用进程直接产生&quot;raw&quot;IP分组，而且可以在IP源地址部分直接放置任何地址</li>
+<li>接收端无法判断源地址是不是具有欺骗性的</li>
+<li>e.g. C伪装成B</li>
+</ul>
+<p><img src="/images/wl_42_3.png" alt=""></p>
+<p><font color=red>对策：IP Spoofing 入口过滤</font></p>
+<ul>
+<li>路由器对那些具有非法源地址的分组不进行转发(e.g. 数据报的源地址不是路由器所在的网络地址)</li>
+<li>很好，但是入口过滤不能够在全网范围内安装</li>
+</ul>
+<p><font color=red>Denial of server(DOS)对策</font></p>
+<ul>
+<li>在到达主机之前过滤掉这些泛洪的分组(e.g. SYN)：throw out good with bad</li>
+<li>回溯到源主机(most likely an innocent, compromised machine)</li>
+</ul>
+<p><img src="/images/wl_42_4.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
 </search>
