@@ -5679,55 +5679,6 @@ TTL的原理：</p>
       </tags>
   </entry>
   <entry>
-    <title>UnityShader——01Shader和渲染管线</title>
-    <url>/2024/02/11/UnityShader%E2%80%94%E2%80%9401Shader%E5%92%8C%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/</url>
-    <content><![CDATA[<h1>Shader和渲染管线</h1>
-<h2 id="什么是shader">什么是Shader</h2>
-<p><strong>Shader</strong>中文翻译为着色器，是一种较为短小的程序片段，用于告诉图形硬件如何计算和输出图像，过去由汇编语言编写，现在也可以使用高级语言进行编写。<br>
-即，<strong>Shader</strong>是一种可编程图形管线的算法片段<br>
-主要分为两类，<strong>Vertex Shader</strong>和<strong>Fragment Shader</strong></p>
-<h2 id="什么是渲染管线">什么是渲染管线</h2>
-<p>渲染管线也称为渲染流水线，是显示芯片内部处理图形信号相互独立的并行处理单元。一个流水线是一序列可以并行和按照固定顺序进行的阶段。每个阶段都从它的前一阶段接收输入，然后把输出发给随后的阶段。就像一个在同一时间内，不同阶段不同的汽车一起制造的装配线，传统的图形硬件流水线以流水的方式处理大量的顶点、几何图元和片段</p>
-<p><img src="/images/Shader/Shader_01/Shader_01_1.png" alt="示例"></p>
-<p><img src="/images/Shader/Shader_01/Shader_01_2.png" alt="示例"></p>
-<p><img src="/images/Shader/Shader_01/Shader_01_3.png" alt="示例"></p>
-<h2 id="shader和材质-贴图的关系">Shader和材质、贴图的关系</h2>
-<p><strong>Shader</strong>（着色器）实际上就是一小段程序，它负责将输入的顶点数据以指定的形式和输入的贴图或者颜色等组合起来，然后输出。绘图单元可以依据这个输出来将图像绘制到屏幕上。输入的贴图或者颜色等，加上对应的Shader，以及对Shader特定的参数设置，将这些内容打包存储在一起，得到的就是一个<strong>Material</strong>（材质）。之后，我们便可以将材质赋予三维物体来进行渲染（输出）了<br>
-举个例子：材质就像引擎最终使用的商品，Shader就像生产这种商品的加工方法，而贴图就像是原材料</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UnityShader——02三大主流编程语言</title>
-    <url>/2024/02/11/UnityShader%E2%80%94%E2%80%9402%E4%B8%89%E5%A4%A7%E4%B8%BB%E6%B5%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[<h1>三大主流编程语言</h1>
-<h2 id="shader-language">Shader Language</h2>
-<p>Shader language的发展方向是设计出在便携性方面可以与C++/JAVA相比的高级语言，“赋予程序员灵活而方便的编程方式”，并“利用图形硬件的并行性，提高算法的效率”</p>
-<p>Shader language目前主要有 3 种语言，基于OpenGL的OpenGL Shading Language，简称GLSL，基于DirectX的High Level Shading Language，简称HLSL，还有NVIDA公司的C for Graphic简称Cg语言</p>
-<h2 id="opengl简介">OpenGL简介</h2>
-<p>OpenGL(全写Open Graphics Library)是一个定义了跨编程语言、跨平台的编程接口规格的专业的图形程序接口。它用于三维图像（二维的亦可)，是一个功能强大，调用方便的底层图形库。OpenGL是行业领域中最为广泛接纳的2D/3D图形APl,其自诞生至今已催生了各种计算机平台及设备上的数千优秀应用程序。它独立于视窗操作系统或其它操作系统的，亦是网络透明的。在包含CAD、内容创作、能源、娱乐、游戏开发、制造业、制药业及虚拟现实等行业领域中。OpenGL是个与硬件无关的软件接口，可以在不同的平台如Windows 95、Windows NT、Unix、Linux、MacOS、oS/2之间进行移植。因此。支持OpenGL的软件具有很好的移植性，可以获得非常广泛的应用。</p>
-<p>OpenGL的发展一直处于一种较为迟缓的态势，每次版本的提高新增的技术很少，大多只是对其中部分做出修改和完善。1992年7月，SGI公司发布了0penGL的1.0版本，随后又与微软公司共同开发了Windows NT版本的OpenGL，从而使一些原来必须在高档图形工作站上运行的大型3D图形处理软件也可以在微机上运用。1995年OpenGL的1.1版本面市，该版本比1.o的性能有许多提高，并加入了一些新的功能。其中包括改进打印机支持，在增强元文件中包含OpenGL的调用，顶点数组的新特性，提高顶点位置、法线、颜色、色彩指数、纹理坐标、多边形边缘标识的传输速度，引入了新的纹理特性等等。OpenGL 1.5又新增了“OpenGL Shading Language&quot;，该语言是“OpenGL2.0&quot;的底核，用于着色对象、顶点着色以及片断着色技术的扩展功能。</p>
-<h2 id="directx简介">DirectX简介</h2>
-<p>DirectX，(Direct eXtension，简称DX）是由微软公司创建的多媒体编程接口。由C++编程语言实现，遵循COM。被广泛使用于Microsoft Windows、Microsoft XBOX、Microsoft XBOX 360和Microsoft XBOX ONE电子游戏开发，并且只能支持这些平台。最新版本为DirectX 12，创建在最新的Windows10。DirectX是这样一组技术:它们旨在使基于Windows的计算机成为运行和显示具有丰富多媒体元素（例如全色图形、视频、3D动画和丰富音频）的应用程序的理想平台。DirectX包括安全和性能更新程序，以及许多涵盖所有技术的新功能。应用程序可以通过使用DirectXAPI来访问这些新功能。</p>
-<p>DirectX加强3D图形和声音效果，并提供设计人员一个共同的硬件驱动标准，让游戏开发者不必为每一品牌的硬件来写不同的驱动程序，也降低了用户安装及设置硬件的复杂度。从字面意义上说，Direct就是直接的意思，而后边的X则代表了很多的意思，从这一点上可以看出Directx的出现就是为了为众多软件提供直接服务的。</p>
-<p>举例来说，以前在DOS下玩家玩游戏时，并不是安装上就可以玩了，他们往往首先要设置声卡的品牌和型号，然后还要设置IRQ(中断)、y/o(输入与输出）、DMA(存取模式），如果哪项设置的不对，那么游戏声音就发不出来。这部分的设置不仅让玩家伤透脑筋，对游戏开发者来说就更为头痛。为了让游戏能够正确运行，开发者必须在游戏制作之初，把市面上所有声卡硬件数据都收集过来，然后根据不同的APIl（应用编程接口）来写不同的驱动程序。这对于游戏制作公司来说，是很难完成的，所以在当时多媒体游戏很少。微软正是看到了这个问题，为众厂家推出了一个共同的应用程序接口―—DirectX。只要游戏是依照DirectX来开发的，不管显卡、声卡型号如何，统统都能玩，而且还能发挥最佳的效果。当然，前提是使用的显卡、声卡的驱动程序必须支持DirectX才行。</p>
-<h2 id="cg">Cg</h2>
-<p>GLSL与HLSL分别基于OpenGL和Direct3D 的接口，两者不能混用，事实上OpenGL和Direct3D一直都是冤家对头，争斗良久。OpenGL在其长期发展中积累下的用户群庞大，这些用户会选择GLSL学习。GLSL继承了0penGL的良好移植性，一度在unix等操作系统上独领风骚。但GLSL的语法体系自成一家。微软的HLSL移植性较差，在windows平台上可谓一家独大，这一点在很大程度上限制了HLSL的推广和发展。但是HLSL用于DX游戏领域却是深入人心。</p>
-<p>Cg语言(C for Graphic）是为GPU编程设计的高级着色器语言，Cg极力保留c语言的大部分语义，并让开发者从硬件细节中解脱出来，Cg同时也有一个高级语言的其他好处，如代码的易重用性，可读性得到提高，编译器代码优化。cg是一个可以被OpenGL和Direct3D广泛支持的图形处理器编程语言。Cg语言和OpenGL、Directx并不是同一层次的语言，而是OpenGL和DirectX的上层，即，Cg程序是运行在OpenGL和DirectX标准顶点和像素着色的基础上的。Cg由NVIDIA公司和微软公司相互协作在标准硬件光照语言的语法和语义上达成了一致开发。所以，HLSL和Cg其实是同一种语言。</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机网络——08应用层原理</title>
     <url>/2024/02/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9408%E5%BA%94%E7%94%A8%E5%B1%82%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h1>应用层原理</h1>
@@ -6949,37 +6900,6 @@ RFC 822：文本交换的标准</p>
       </tags>
   </entry>
   <entry>
-    <title>UnityShader——03图形硬件简史与可编程管线</title>
-    <url>/2024/02/14/UnityShader%E2%80%94%E2%80%9403%E5%9B%BE%E5%BD%A2%E7%A1%AC%E4%BB%B6%E7%AE%80%E5%8F%B2%E4%B8%8E%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%AE%A1%E7%BA%BF/</url>
-    <content><![CDATA[<h1>图形硬件简史与可编程管线</h1>
-<h2 id="gpu发展简史">GPU发展简史</h2>
-<p>GPU英文全称Graphic Processing Unit，中文翻译为“图形处理器”，在现代计算机系统中的作用变得越来越重要</p>
-<p>20世纪六七十年代，受硬件条件的限制，图形显示器只是计算机输出的一种工具，限于硬件发展水平。人们只是纯粹从软件实现的角度来考虑图形用户界面的规范问题，此时还没有GPU的概念</p>
-<p>GPU概念在20世纪70年代末和80年代初被提出，使用单片集成电路作为图形芯片，此时的GPU被用于视频游戏和动画方面，它能够很快的进行几张图片的合成（仅限于此）。在20世纪80年代末到90年代初这段时间内，基于数字信号处理芯片的GPU被研发出来，与前代相比速度更快，功能更强，当然价格是非常的昂贵。在1991年，S3 Graphics公司研制出第一个单芯片2D加速器，到了1995年，主流的PC图形芯片厂商都在自己的芯片上增加了对2D加速器的支持</p>
-<p>1998年NVIDA公司宣布modern GPU研发成功，标志着GPU研发的历史性突破成为现实，通常将20世纪70年代末到1998年的这一段时间，称为pre-GPU时期，而自1998年往后的GPU称为modern GPU，在pre-GPU时期，一些图形厂商如SGI、Evans &amp; Sutherland，都研发了各自的GPu，这些GPU在现在并没有被淘汰，依然在持续改进和被广泛的使用，当然价格也是非常的高昂。modern GPU使用晶体管( transistors）进行计算，在微芯片( microchip）中，GPU所使用的晶体管已经远远超过CPU。例如，Intel在2.4GHz 的Pentium lV上使用5千5百万(55million）个晶体管;而NVIDIA在GeForce FX GPU上使用超过1亿2千5百万( 125 million）个晶体管，在NVIDDIA 7800 GXT上的晶14体管达到3亿2百万( 302 million)个。</p>
-<p>回顾GPU的发展历史，自1998年后可以分为4个阶段。NVIDIA于1998年宣布Modern GPU研发成功，这标志着第一代Modern GPU的诞生，第一代GPU包括NVIDIA TNT2，ATI 的Rage和3Dfx的Voodoo。这些GPU可以独立于CPU进行像素缓存区的更新，并可以光栅化三角面片以及进行纹理操作，但是缺乏三维顶点的空间坐标变换能力，这意味着“必须依赖于CPU执行顶点坐标变换的计算”。这一时期的GPU功能非常有限，只能用于纹理组合的数学计算或者像素颜色值的计算。</p>
-<p>1999年，nvidia推出了一款可以用“惊变”来形容的显示核心代号NV10的geforce 256。nVidia率先将硬体T&amp;L整合到显示核中。T&amp;L原先由CPU负责,或者由另一个独立处理机处理。T&amp;L是一大进步,原因是显视核心从CPU接管了大量工作。硬件T&amp;L引擎带来的效果是，3D模型可以用更多的多边形来描绘，这样就拥有了更加细腻的效果。而对于Lighting来说，CPU不必冉计算大重的光照数据，直接通过显卡就能获得更好的效能。同时，这一阶段的GPU对于纹理的操作也扩展到了立方体纹理(cube map） 。NVIDIA的GeForce MAX，ATI的Radeon 7500等都是在这一阶段研发的。</p>
-<p>2001年是第三代modern GPU的发展时期，这一时期研发的GPU提供vertex programmability (顶点编程能力），如GeForce 3，GeForce 4Ti，ATI的8500等。这些GPU允许应用程序指定一个序列的指令进行顶点操作控制(GPU编程的本质! )，这同样是一个具有开创意义的时期，这一时期确立的GPU编程思想一直延续到今天，不但深入到工程领域帮助改善人类日常生活（医疗、地质勘探、游戏、电影等），而且开创或延伸了计算机科学的诸多研究领域（体绘制、光照模拟、人群动画、通用计算等）。同时，Direct8和OpenGL都本着与时俱进的精神，提供了支持vertexprogrammability 的扩展。不过，这一时期的GPU还不支持像素级的编程能力，即fragment programmability （片段编程能力）。</p>
-<p>所谓Vertex，就是我们熟悉的组成3D图形的顶点，由于设计3D模型是基于坐标空间内部设计的，所以Vertex信息包含了3D模型在空间内的坐标等信息。Vertex Shader则是对于Vertex信息的运算编程器，可以通过赋予特定的算法而在工作中改变3D模型的外形，Vertex Shader顶点运算单元可以直接检索显存中的材质数据。现在的游戏场景越来越复杂了。所涉及到的材质和多边形数量都非常惊人。顶点材质技术可以极大的提高GPU在处理复杂的游戏场景时的效率。并且游戏开发人员还可以利用Vertex Shader的这一新的特性，充分发挥想象，实现很多非常漂亮的特效。例如在星际争霸2demo片中展示的神族母舰黑洞的技能效果。</p>
-<p>第四代GPU的发展时期从2002年末到2003年。NVIDIA的GeForceFX和ATI Radeon 9700同时在市场的舞台上闪亮登场，这两种GPU都支持vertex programmability和fragmentProgrammability。同时DirectX和OpenGL也扩展了自身的API，用以支持vertex programmability和fragment programmability。自2003年起，可编程图形处理器正式诞生，并且由于DirectX和OpenGL锲而不舍的追赶潮流，导致基于图形硬件的编程技术简称GPU编程，也宣告诞生。</p>
-<h2 id="gpu的优越性">GPU的优越性</h2>
-<p>由于GPU具有高并行结构，所以GPU在处理图形数据和复杂算法方面拥有比CPU更高的效率。CPU大部分面积为控制器和寄存器，与之相比，GPU拥有更多的ALU (Arithmetic Logic Unit,逻辑运算单元）用于数据处理，这样的结构适合对密集型数据进行并行处理。</p>
-<p><img src="/images/Shader/Shader_02/Shader_02_1.png" alt=""></p>
-<p>GPU采用流式并行计算模式，可对每个数据进行独立的并行计算，所谓“对数据进行独立计算”，即，流内任意元素的计算不依赖于其它同类型数据，例如，计算一个顶点的世界位置坐标，不依赖于其他顶点的位置，所谓“并行计算”是指“多个数据可以同时被使用，多个数据并行运算的时间和1个数据单独执行的时间是一样的”。所以，在顶点处理程序中，可以同时处理N个顶点数据。</p>
-<h2 id="gpu的缺陷">GPU的缺陷</h2>
-<p>由于“任意一个元素的计算不依赖于其它同类型数据”，导致“需要知道数据之间相关性的”算法，在GPU上难以得到实现，一个典型的例子是射线与物体的求交运算。GPU中的控制器少于cPU，致使控制能力有限。另外，进行GPU编程必须掌握计算机图形学相关知识，以及图形处理APl，入门门槛较高，学习周期较长，尤其国内关于GPU编程的资料较为匮乏，这些都导致了学习的难度。在早期，GPU编程只能使用汇编语言，开发难度高、效率低，不过，随着高级Shader language的兴起，在GPU上编程已经容易多了。</p>
-<h2 id="gpu的更多应用">GPU的更多应用</h2>
-<p><font color=green><strong>科学可视化计算</strong></font>:由于人体CT、地质勘探、气象数据、流体力学等科学可视化计算处理的数据量极大，仅仅基于CPU进行计算完全不能满足实时性要求，而在GPU上进行计算则可以任双率上运到质的突破，许多在CPU上非常耗时的算法，如体绘制中的光线投射算法，都可以成功移植到GPu上，所以基于GPU的科学可视化研究目前已经成为主流。</p>
-<p><font color=green><strong>通用算法</strong></font>:基于GPU进行通用计算的研究逐渐成为热点，被称之为GPGPU ( General-Purpose Computing on Graphics ProcessingUnits,也被称为GPGP，或GP2)，很多数值计算等通用算法都已经在GPU上得到了实现，并有不俗的性能农现，日E，线t八效，物理仿真和光线跟踪算法都已经成功的移植到GPu上。在国内，中国科学院计算技术研究所进行了基于GPU的串匹配算法的实现。</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机网络——12DNS</title>
     <url>/2024/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9412DNS/</url>
     <content><![CDATA[<h1>DNS</h1>
@@ -7331,31 +7251,6 @@ RFC 822：文本交换的标准</p>
       </tags>
   </entry>
   <entry>
-    <title>UnityShader——04渲染流水</title>
-    <url>/2024/02/15/UnityShader%E2%80%94%E2%80%9404%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4/</url>
-    <content><![CDATA[<h1>渲染流水</h1>
-<p><img src="/images/Shader/Shader_04/Shader_04_1.png" alt=""></p>
-<h2 id="gpu应用阶段">GPU应用阶段</h2>
-<ul>
-<li>把数据加载到显存中</li>
-<li>设置渲染状态</li>
-<li>调用DrawCall</li>
-</ul>
-<p><img src="/images/Shader/Shader_04/Shader_04_2.png" alt="数据加载到显存中"></p>
-<p>将渲染所需数据从硬盘加载到内存中，网格纹理等数据又被加载到显存中（一般加载到显存后内存中的数据就会被移除）</p>
-<p><img src="/images/Shader/Shader_04/Shader_04_3.png" alt="设置渲染状态"></p>
-<p>这些状态定义了场景中的网格是怎样被渲染的。例如：使用哪个顶点着色器，片原着色点，光源属性，材质等</p>
-<p><img src="/images/Shader/Shader_04/Shader_04_4.png" alt="调用DrawCall"></p>
-<p>DrawCall就是一个命令，它的发起方是Cpu，接收方是Gpu，这个命令仅仅会指向一个需要被渲染的图元列表，而不会包含任何材质信息</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机网络——13P2P应用</title>
     <url>/2024/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9413P2P%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h1>P2P应用</h1>
@@ -7579,103 +7474,6 @@ RFC 822：文本交换的标准</p>
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UnityShader——05几何阶段和光栅化阶段</title>
-    <url>/2024/02/16/UnityShader%E2%80%94%E2%80%9405%E5%87%A0%E4%BD%95%E9%98%B6%E6%AE%B5%E5%92%8C%E5%85%89%E6%A0%85%E5%8C%96%E9%98%B6%E6%AE%B5/</url>
-    <content><![CDATA[<h1>几何阶段和光栅化阶段</h1>
-<h2 id="gpu流水线">GPU流水线</h2>
-<p>几何阶段和光栅化阶段，开发者无法拥有绝对的控制权，其实现的载体是GPU，GPU通过实现流水线化，大大加快了渲染进度。虽然无法完全控制着两个阶段的实现细节，但GPU向开发者开放了很多控制权</p>
-<p><img src="/images/Shader/Shader_05/Shader_05_1.png" alt=""></p>
-<ul>
-<li><strong>顶点数据</strong>为输入，顶点数据是由应用阶段加载到显存中，再由<strong>Draw Call</strong>指定的。这些数据随后被传递给顶点着色器。</li>
-<li><strong>顶点着色器</strong>是完全可编程的，它通常用于实现顶点的空间变换，顶点着色器等功能。<strong>曲面细分着色器</strong>是一个可选着色器，用于细分图元。<strong>几何着色器</strong>同样是可选着色器，可以被用于执行逐图元的着色操作，或者被产生于更多的图元。<strong>裁剪</strong>，这一阶段的目的是将那些不在摄像机视野内的顶点裁剪掉，剔除某些三角图元的面片。这个阶段可配置。<strong>屏幕映射</strong>，这一阶段不可配置和编程，负责把每个图元的坐标转换到屏幕坐标系中。</li>
-<li>光栅化概念阶段中的<strong>三角形设置</strong>和<strong>三角形遍历</strong>都是固定函数的阶段。<strong>片元着色器</strong>则是完全可编程的，用于实现逐片元的着色操作。<strong>逐片元操作</strong>阶段负责很多重要操作，如修改颜色，深度缓冲，进行混合等，不可编程，但是可配置。</li>
-</ul>
-<h2 id="几何阶段详解">几何阶段详解</h2>
-<h3 id="顶点着色器">顶点着色器</h3>
-<ul>
-<li><strong>顶点着色器</strong>的处理单位是顶点，也就是说，输入进来的每个顶点都会调用一次顶点着色器。顶点着色器本身不可以创建或者销毁任何顶点，而且无法得到顶点与顶点直接的关系。<strong>GPU</strong>可以利用本身的特性快速处理每一个顶点。</li>
-<li>顶点着色器主要完成的工作：坐标变换及逐顶点光照。当然，除此之外还可以输出后续阶段所需的数据等。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_2.png" alt=""></p>
-<h3 id="裁剪">裁剪</h3>
-<ul>
-<li>一个图元与摄像机的关系有3种：完全在视野内，部分在视野内，完全在视野外。完全在视野内的图元就继续传递给下一个流水线阶段，完全在视野外的图元不会继续向下传递。那些部分在视野内的需要进行<strong>裁剪</strong>。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_3.png" alt=""></p>
-<h3 id="屏幕映射">屏幕映射</h3>
-<ul>
-<li><strong>屏幕映射</strong>的任务是将裁剪后的齐次坐标（<strong>NDC</strong>）转换到屏幕坐标系，屏幕坐标系是一个二维坐标系，和用于显示画面的分辨率有很大关系。</li>
-<li><strong>屏幕映射</strong>如下图示例，将齐次坐标下**-1，1<strong>的坐标范围转换到（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">y_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>）,(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_2,y_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)。可以看到这个过程实际上就是一个缩放的过程。在这个处理中</strong>z<strong>轴不做处理。屏幕坐标系和</strong>z**轴构成了窗口坐标系。这些值会被传到光栅化阶段。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_4.png" alt=""></p>
-<h2 id="光栅化阶段详解">光栅化阶段详解</h2>
-<h3 id="三角形设置">三角形设置</h3>
-<p>这个阶段会计算光栅化一个三角网格所需要的信息。上一个阶段输出的都是三角网格的顶点，即我们得到的是三角网格每条边的两个端点。如果要得到正规三角网格对像素的覆盖情况，就必须计算每条边上的像素坐标。为了能够计算边界像素的坐标信息，就需要得到三角形边界的表示方式</p>
-<h3 id="三角形遍历">三角形遍历</h3>
-<ul>
-<li><strong>三角形遍历</strong>阶段将会检查每个像素是否被一个三角网格所覆盖。如果被覆盖的情况下，就会产生一个<strong>片元</strong>。而这样一个找到那些像素被三角网格覆盖的过程就叫做三角形遍历，也被称作<strong>扫描变换</strong>。</li>
-<li>三角形遍历阶段会根据上一个阶段的计算结果来判断一个三角网格覆盖了哪些像素，并使用三角网格3个顶点的顶点信息对整个覆盖区域的像素进行插值。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_5.png" alt=""></p>
-<h3 id="片元着色器">片元着色器</h3>
-<p><strong>片元着色器</strong>的输入是上一个阶段对顶点信息插值得到的结果，具体来说是根据那些从顶点着色器中输出的数据插值得到的。而其输出是一个或者多个颜色值。</p>
-<p><img src="/images/Shader/Shader_05/Shader_05_6.png" alt=""></p>
-<p>这一阶段可以完成很多重要的渲染技术，其中最重要的技术之一就是纹理采样。为了在片元着色器中进行纹理采样，我们通常会在顶点着色器阶段输出每个顶点对应的纹理坐标，然后经过光栅化阶段对三角网格的3个顶点对应的纹理坐标进行插值后，就可以得到起覆盖的片元的纹理坐标</p>
-<h3 id="逐片元操作">逐片元操作</h3>
-<p><em><strong>逐片元操作</strong>是</em><em>OpenGL</em><em>中的说法，在</em><em>DX</em><em>中这个阶段被称作</em><em>输出合并阶段</em>*。</p>
-<ul>
-<li>决定每个片元的可见性，涉及很多测试工作，例如深度测试，模板测试。</li>
-<li>如果一个片元通过了所有测试后，就需要把这个片元的颜色值和已经储存在颜色缓冲区的色彩进行合并，或者说混合。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_7.png" alt=""></p>
-<p>测试的过程实际上是个比较复杂的过程，而且不同的图形接口（OpenGL和DX）的实现细节也不尽相同。</p>
-<h4 id="模板测试">模板测试</h4>
-<p><strong>模板测试</strong>，与之相关的是模板缓冲（Stencil Buffer）。模板缓冲和颜色缓冲，深度缓冲几乎是一类东西。如果开启了模板测试，Gpu首先读取（使用读取掩码）模板缓冲区中该片元位置的模板值，然后将该值和读取（使用读取掩码）到的参考值进行比较，这个比较函数可以由开发者指定的，例如小于等于舍弃该片元，或者大于等于舍弃该片元。如果这个片元没有通过测试，该片元就会被舍弃。不管一个片元有没有通过模板测试，我们都可以根据模板测试和之后的深度测试结果来修改模板缓冲区，这个操作也是由开发者指定的。模板测试通常用于限制渲染区域，或者渲染阴影，轮廓渲染等。</p>
-<p><img src="/images/Shader/Shader_05/Shader_05_8.png" alt=""></p>
-<h3 id="深度测试">深度测试</h3>
-<p>如果开启了<strong>深度测试</strong>，<strong>Gpu</strong>会把该片元的深度值和已经存在于深度缓冲中的深度值进行比较。这个比较函数也是可由开发者设置的，例如小于时舍弃该片元，或者大于时舍弃该片元。通常这个比较函数是小于等于，即如果这个片元的深度大于等于当前深度缓冲区中的值，那么就舍弃它。这是因为我们总想只显示出离摄像机最近的物体，而那些被其他物体遮挡的就不需要出现在屏幕上。和模板测试不同的是，如果一个片元没有通过深度测试，它就没有权利更改深度缓冲区的值。如果一个片元通过了测试，那么开发者可以指定是否要用这个片元的深度值覆盖所有的深度值。</p>
-<p><img src="/images/Shader/Shader_05/Shader_05_9.png" alt=""></p>
-<h3 id="合并混合">合并混合</h3>
-<ul>
-<li><strong>合并</strong> ，渲染过程是一个物体接着一个物体画到屏幕上，而每个像素的颜色信息被储存在一个名为颜色缓冲的地方。因此，当我们执行这次渲染时，颜色缓冲中往往已经有了上次渲染之后的颜色结果，那么，我们使用这次渲染得到的颜色完全覆盖掉之前的结果还是进行其他处理，就是合并需要解决的。</li>
-<li>对于不透明物体，开发者可以关闭混合（Blend）操作。这样片元着色器计算得到的颜色值就会之间覆盖掉颜色缓冲区中的像素值。但对于半透明物体，就需要混合操作来让这个物体看起来是透明的。</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_10.png" alt=""></p>
-<h3 id="各种测试总结">各种测试总结</h3>
-<ul>
-<li><strong>各种测试</strong>的顺序并不是唯一的，虽然从逻辑上来说这些测试是在片元着色器之后进行的，但对于大多数GPU来说，会尽可能在执行片元着色器之前进行这些测试。因为当你在片元着色器进行了大量的计算及设置，最后测试没通过，可以说是计算成本全都浪费了。作为一个想充分提高速度的GPU，肯定是希望尽可能早的指定哪些片元会被舍弃，对这些片元就不再需要在使用片元着色器来计算他们的颜色。Unity的渲染流水中，深度测试就是在片元着色器之前。</li>
-<li>但是，如果将这些测试提前的话，其检验结果可能会与片元着色器中的一些操作冲突。例如片元着色器在进行透明度测试，而这个片元没有通过透明度测试，我们会在着色器中调用API(clip)函数来手动将其舍弃。这就导致GPU无法提前执行各种测试。因此，如果片元着色器中的操作和提前测试发生冲突就会禁用提前测试。这样性能上就会下降，也是透明度测试导致性能下降的原因。</li>
-<li>当模型图元经过层层计算及测试后，就会显示到屏幕上。我们的屏幕显示的就是颜色缓冲区中的颜色值。但是，为了避免我们看到正在光栅化的图元，GPU会使用双重缓冲策略。对场景的渲染是发生在幕后的，即在后置缓冲中，一旦场景已经被渲染到后置缓冲中，GPU就会交换后置缓冲区和前置缓冲的内容，前置缓冲区就是显示在屏幕上的图像。由此，保证我们看到的图像是连续的。</li>
-</ul>
-<p><font color=red>注意：这里的流水线名，顺序，在不同资料上看到可能是不一样的。一个原因是由于图像编程接口的实现不尽相同，另一个是GPU底层可能做一些优化等等。</font></p>
-<h2 id="附加知识">附加知识</h2>
-<h3 id="cpu与gpu如何并行工作？">CPU与GPU如何并行工作？</h3>
-<ul>
-<li>之前看到的是一个流水线式的模式，如果需要CPU和GPU并行工作，就需要使用<strong>命令缓冲区</strong>（Command Buffer）。</li>
-<li>命令缓冲区包含了一个缓冲队列，由Cpu向其中添加命令，而由Gpu从中读取命令，添加和读取过程是相互独立的。命令缓冲区使得Cpu和Gpu可以相互独立工作。当Gpu需要渲染一些对象时，它就可以从命令队列中取出一个命令并执行。</li>
-<li>命令缓冲区有很多种类，Draw Call就是一种。其他命令还有改变渲染状态等</li>
-</ul>
-<p><img src="/images/Shader/Shader_05/Shader_05_11.png" alt=""></p>
-<h3 id="什么是固定管线渲染">什么是固定管线渲染</h3>
-<ul>
-<li><strong>固定函数的流水线</strong>（Fixed-Function Pipeline）,简称固定管线，通常是指在较旧的Gpu上实现的渲染流水线。这种流水线只给开发者提供一些配置操作，但开发者没有对流水线阶段的完全控制权。</li>
-<li>在Unity中目前的固定管线shader都会自动编译顶点片元shader。</li>
-</ul>
-<h3 id="什么是shader">什么是Shader</h3>
-<ul>
-<li>Gpu流水线上一些可高度编程的阶段，而由着色器编译出来的最终代码是会在Gpu上运行的；</li>
-<li>有一些特定类型的着色器，如顶点着色器，片元着色器等。</li>
-<li>依靠着色器我们可以控制流水线中的渲染细节，例如用顶点着色器来进行顶点变换及传递数据，用片元着色器来进行逐像素渲染。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
       </tags>
   </entry>
   <entry>
@@ -7977,33 +7775,6 @@ UDP为客户端和服务器提供不可靠的字节组的传送服务</p>
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UnityShader——06UnityShader介绍</title>
-    <url>/2024/02/17/UnityShader%E2%80%94%E2%80%9406UnityShader%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<h1>UnityShader介绍</h1>
-<p>UnityShader的基础ShaderLab<br>
-<img src="/images/Shader/Shader_06/Shader_06_1.png" alt=""></p>
-<h2 id="unityshader属性块介绍">UnityShader属性块介绍</h2>
-<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">Properties</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//和public变量一样会显示在Unity的inspector面板上</span></span><br><span class="line">    <span class="comment">//_MainTex为变量名，在属性里的变量一般会加下划线，来区分参数变量和临时变量</span></span><br><span class="line">    <span class="comment">//Texture为变量命名</span></span><br><span class="line">    <span class="comment">//2D为类型，为2D图片</span></span><br><span class="line">    <span class="comment">//&quot;white&quot;为默认值，默认为白色</span></span><br><span class="line">    _MainTex (<span class="string">&quot;Texture&quot;</span>, <span class="number">2</span>D) = <span class="string">&quot;white&quot;</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//除了_MainTex以外，还有一些基本类型，比如：</span></span><br><span class="line">    _Int(<span class="string">&quot;Int&quot;</span>,<span class="built_in">int</span>) = <span class="number">2</span></span><br><span class="line">    _Float(<span class="string">&quot;Float&quot;</span>,<span class="built_in">float</span>) = <span class="number">1.5</span></span><br><span class="line">    _Range(<span class="string">&quot;Range&quot;</span>,range(<span class="number">0.0</span>,<span class="number">2.0</span>) = <span class="number">1.0</span></span><br><span class="line">    _Color(<span class="string">&quot;Color&quot;</span>,Color) = (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">    _Vector(<span class="string">&quot;Vector&quot;</span>,Vector) = (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">    _Cube(<span class="string">&quot;Cube&quot;</span>,Cube) = <span class="string">&quot;white&quot;</span>&#123;&#125;</span><br><span class="line">    _3D(<span class="string">&quot;3D&quot;</span>,<span class="number">3</span>D) = <span class="string">&quot;black&quot;</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="unityshader-subshader块介绍">UnityShader SubShader块介绍</h2>
-<p>一个Unity Shader文件可以包含很多个SubShader块，当Unity加载Shader的时候，它会扫描所有的SubShader块，选择第一个能在目标平台运行的SubShader</p>
-<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">SubShader</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//标签可选写或不写 key = value</span></span><br><span class="line">    Tags </span><br><span class="line">    &#123; </span><br><span class="line">        <span class="comment">//渲染顺序</span></span><br><span class="line">        <span class="string">&quot;Queue&quot;</span> = <span class="string">&quot;Transparent&quot;</span></span><br><span class="line">        <span class="comment">//渲染类型 着色器替换功能</span></span><br><span class="line">        <span class="string">&quot;RenderType&quot;</span>=<span class="string">&quot;Opaque&quot;</span></span><br><span class="line">        <span class="comment">//是否进行合批</span></span><br><span class="line">        <span class="string">&quot;DisableBatching&quot;</span> = <span class="string">&quot;True&quot;</span></span><br><span class="line">        <span class="comment">//是否投射阴影</span></span><br><span class="line">        <span class="string">&quot;forceNoShadowCasting&quot;</span> = <span class="string">&quot;True&quot;</span></span><br><span class="line">        <span class="comment">//是否收Projector的影响，通常用于透明物体</span></span><br><span class="line">        <span class="string">&quot;IgnoreProjector&quot;</span> = <span class="string">&quot;True&quot;</span></span><br><span class="line">        <span class="comment">//是否用于图片的Shader,通常用于UI</span></span><br><span class="line">        <span class="string">&quot;CanUseSpriteAltas&quot;</span> = <span class="string">&quot;False&quot;</span></span><br><span class="line">        <span class="comment">//用作Shader面板预览的类型</span></span><br><span class="line">        <span class="string">&quot;PreviewType&quot;</span> = <span class="string">&quot;Plane&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Render渲染设置 可选写或不写</span></span><br><span class="line">    <span class="comment">//Cull 裁剪，选择渲染哪个面，默认值为只渲染正面</span></span><br><span class="line">    <span class="comment">//Cull off的话就是正反两面都进行渲染</span></span><br><span class="line">    <span class="comment">//Cull back的话就是只渲染正面</span></span><br><span class="line">    <span class="comment">//Cull front的话就是只渲染背面</span></span><br><span class="line">    Cull off<span class="comment">//back/front</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//ZTest 深度测试, 默认小于等于</span></span><br><span class="line">    ZTest Always<span class="comment">//Less Greater/Lequal/GEqual/Equal/NotEqual</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Zwrite 深度写入，默认为打开</span></span><br><span class="line">    Zwrite off<span class="comment">//on</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Blend 混合 格式如下</span></span><br><span class="line">    <span class="comment">//Blend SrcFactor DstFactor</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//不同情况下使用不同的LOD达到性能提升</span></span><br><span class="line">    LOD <span class="number">100</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//必须要写</span></span><br><span class="line">    <span class="comment">//SubShader里面可以有多个Pass通道，多个Pass通道是按顺序进行渲染的</span></span><br><span class="line">    <span class="comment">//不建议写多个通道，每多一个Pass通道，渲染的DrawCall就多一个，会降低性能</span></span><br><span class="line">    Pass</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//Pass通道名称，在外部可以直接Use这个通道，相当于函数，但是Use的时候Name必须全部大写</span></span><br><span class="line">        Name <span class="string">&quot;Default&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//可以在通道里面书写标签，当通道内外都存在标签，执行的是外面的标签</span></span><br><span class="line">        Tags</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//定义该Pass通道在Unity渲染流水中的角色</span></span><br><span class="line">            <span class="string">&quot;LightMode&quot;</span> = <span class="string">&quot;ForwardBase&quot;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//满足某些条件时才渲染该Pass通道</span></span><br><span class="line">            <span class="string">&quot;RequireOptions&quot;</span> = <span class="string">&quot;SoftVegetation&quot;</span></span><br><span class="line">        &#125; </span><br><span class="line">            </span><br><span class="line">        <span class="comment">//Render渲染设置 可以在通道里面书写渲染设置，当通道内外都存在渲染设置，执行的是外面的渲染设置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//CG语言所写的代码，主要是顶点，片源，着色器</span></span><br><span class="line">        CGPROGRAM</span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> vertex vert</span></span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> fragment frag</span></span><br><span class="line">        <span class="comment">// make fog work</span></span><br><span class="line">        <span class="meta">#<span class="keyword">pragma</span> multi_compile_fog</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">#include &quot;UnityCG.cginc&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">struct</span> appdata</span><br><span class="line">        &#123;</span><br><span class="line">            float4 vertex : POSITION;</span><br><span class="line">            float2 uv : TEXCOORD0;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">struct</span> v2f</span><br><span class="line">        &#123;</span><br><span class="line">            float2 uv : TEXCOORD0;</span><br><span class="line">            UNITY_FOG_COORDS(<span class="number">1</span>)</span><br><span class="line">            float4 vertex : SV_POSITION;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        sampler2D _MainTex;</span><br><span class="line">        float4 _MainTex_ST;</span><br><span class="line"></span><br><span class="line">        <span class="function">v2f <span class="title">vert</span> (<span class="params">appdata v</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            v2f o;</span><br><span class="line">            o.vertex = UnityObjectToClipPos(v.vertex);</span><br><span class="line">            o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">            UNITY_TRANSFER_FOG(o,o.vertex);</span><br><span class="line">            <span class="keyword">return</span> o;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">fixed4 <span class="title">frag</span> (<span class="params">v2f i</span>) : SV_Target</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// sample the texture</span></span><br><span class="line">            fixed4 col = tex2D(_MainTex, i.uv);</span><br><span class="line">            <span class="comment">// apply fog</span></span><br><span class="line">            UNITY_APPLY_FOG(i.fogCoord, col);</span><br><span class="line">            <span class="keyword">return</span> col;</span><br><span class="line">        &#125;</span><br><span class="line">        ENDCG</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="注意">注意</h2>
-<p>Unity Shader <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo></mrow><annotation encoding="application/x-tex">\neq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> 真正的Shader</p>
-<ul>
-<li>Unity Shader实际上指的就是一个ShaderLab文件。以.shader作为后缀的一种文件。在Unity shader里面，我们可以做的事情远多于一个传统意义上的Shader。</li>
-<li>在传统的shader中，我们仅可以编写特定类型的Shader，例如顶点着色器，片元着色器等。在Unity Shader中，我们可以在同一个文件里面同时包含需要的顶点着色器和片元着色器代码。</li>
-<li>在传统shader中，我们无法设置一些渲染设置，例如是否开启混合，深度测试等，这些是开发者在另外的代码中自行设置的。而Unity shader中，我们通过一行特定的指令就可以完成这些设置。</li>
-<li>在传统shader中，我们需要编写冗长的代码设置着色器的输入和输出，要小心的处理这些输入输出的位置对应关系等。而在Unity shader中，我们只需要在特定语句块中声明一些属性，就可以依靠材质来方便的改变这些属性。而对于模型自带的数据（如顶点，纹理坐标，法线等），Unity Shader也提供了直接访问的方法，不需要开发者自行编码来传给着色器。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
       </tags>
   </entry>
   <entry>
@@ -8339,6 +8110,305 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
 </table>
 <p>示例：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;\n&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;\\&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;\tHello&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="字符串型">字符串型</h2>
+<p><strong>作用</strong>：用于表示一串字符<br>
+<strong>两种风格</strong>：</p>
+<ol>
+<li><strong>C风格字符串</strong>：<code>char 变量名[] = &quot;字符串值&quot;</code></li>
+</ol>
+<p>示例：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="type">char</span> str1[] = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; str1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：C风格的字符串要用双引号括起来</p>
+</blockquote>
+<ol start="2">
+<li><strong>C++风格字符串</strong>：<code>string 变量名 = &quot;字符串值&quot;</code></li>
+</ol>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//需要引用命名空间string，即</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	string str1 = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">	cout &lt;&lt; str1 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：C++风格字符串，需要加入头文件<code>#include &lt;string&gt;</code></p>
+</blockquote>
+<h2 id="布尔类型-bool">布尔类型 bool</h2>
+<p><strong>作用</strong>：布尔数据类型代表真或假的值<br>
+bool类型只有两个值：</p>
+<ul>
+<li>ture - 真（本质为1）</li>
+<li>false - 假（本质为0）</li>
+</ul>
+<p><strong>bool</strong>类型占一个字节大小</p>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	cout &lt;&lt; flag &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	flag = flase;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;size of bool = &quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(<span class="type">bool</span>) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：布尔类型非0的值都代表为true</p>
+</blockquote>
+<h2 id="数据的输入">数据的输入</h2>
+<p><strong>作用</strong>：用于从键盘获取数据<br>
+<strong>关键字</strong>：cin<br>
+<strong>语法</strong>：<code>cin &gt;&gt; 变量</code></p>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入整型变量&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; a;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> b = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入浮点型变量&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; b;</span><br><span class="line">	cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">char</span> ch = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入字符型变量&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; ch;</span><br><span class="line">	cout &lt;&lt; ch &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	string str = <span class="string">&quot; &quot;</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入字符串变量&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; str;</span><br><span class="line">	cout &lt;&lt; str &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入布尔变量&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; flag;</span><br><span class="line">	cout &lt;&lt; flag &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<h1>运算符</h1>
+<h2 id="算术运算符">算术运算符</h2>
+<p><strong>作用</strong>：用于处理四则运算</p>
+<p>算术运算符包括以下符号：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>正号</td>
+<td>+3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>-</td>
+<td>负号</td>
+<td>-3</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>+</td>
+<td>加</td>
+<td>10 + 5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+<td>10 - 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+<td>10 * 5</td>
+<td>50</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除</td>
+<td>10 / 5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模(取余)</td>
+<td>10 % 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>++</td>
+<td>前置递增</td>
+<td>a = 2,b = ++a;</td>
+<td>a = 3,b = 3</td>
+</tr>
+<tr>
+<td>++</td>
+<td>后置递增</td>
+<td>a = 2,b = a++;</td>
+<td>a = 3,b = 2</td>
+</tr>
+<tr>
+<td>–</td>
+<td>前置递减</td>
+<td>a = 2,b = --a;</td>
+<td>a = 1,b = 1</td>
+</tr>
+<tr>
+<td>–</td>
+<td>后置递减</td>
+<td>a = 2,b = a–;</td>
+<td>a = 1,b = 2</td>
+</tr>
+</tbody>
+</table>
+<p>示例1：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 加减乘除</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; a + b &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; a - b &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; a * b &lt;&lt; endl;</span><br><span class="line">	<span class="comment">//结果向下取整</span></span><br><span class="line">	cout &lt;&lt; a / b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> m = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; m / n &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> y = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//会报错，除数为0</span></span><br><span class="line">	cout &lt;&lt; x / y &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">double</span> c = <span class="number">0.5</span>;</span><br><span class="line">	<span class="type">double</span> d = <span class="number">0.25</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; c / d &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例2：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//取模</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; a % b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> y = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; x % y &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> m = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//因为基于除法运算，所以依旧会报错</span></span><br><span class="line">	cout &lt;&lt; m % n &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">double</span> c = <span class="number">3.14</span>;</span><br><span class="line">	<span class="type">double</span> d = <span class="number">1.1</span>;</span><br><span class="line">	<span class="comment">//两个小数不可以进行取模运算</span></span><br><span class="line">	cout &lt;&lt; c % d &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	reutrn <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例3：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//递增递减</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	a++;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">	++b;</span><br><span class="line">	cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> c = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> d = c++ * <span class="number">10</span>;</span><br><span class="line">	cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; d &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> e = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> f = ++e * <span class="number">10</span>;</span><br><span class="line">	cout &lt;&lt; e &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; f &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赋值运算符">赋值运算符</h2>
+<p><strong>作用</strong>：用于将表达式的值赋值给变量</p>
+<p>赋值运算符包括以下几个符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>赋值</td>
+<td>a = 2,b = 3</td>
+<td>a = 2,b = 3</td>
+</tr>
+<tr>
+<td>+=</td>
+<td>加等于</td>
+<td>a = 0,a += 2</td>
+<td>a = 2</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减等于</td>
+<td>a = 5,a -= 3</td>
+<td>a = 2</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘等于</td>
+<td>a = 2,a *= 2</td>
+<td>a = 4</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除等于</td>
+<td>a = 4,a /= 2</td>
+<td>a = 2</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>模等于</td>
+<td>a = 3,a %= 2</td>
+<td>a = 1</td>
+</tr>
+</tbody>
+</table>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	a += <span class="number">2</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">10</span>;</span><br><span class="line">	a -= <span class="number">2</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">10</span>;</span><br><span class="line">	a *= <span class="number">2</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">10</span>;</span><br><span class="line">	a /= <span class="number">2</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">10</span>;</span><br><span class="line">	a %= <span class="number">2</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="比较运算符">比较运算符</h2>
+<p><strong>作用</strong>：用于表达式的比较，并返回一个真值或假值</p>
+<p>比较运算符有以下符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>==</td>
+<td>相等于</td>
+<td>4 == 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+<td>4 != 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+<td>4 &lt; 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+<td>4 &gt; 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+<td>4 &lt;= 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+<td>4 &gt;= 3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a == b) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; (a != b) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; (a &gt; b) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; (a &lt; b) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; (a &gt;= b) &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; (a &lt;= b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<p><strong>作用</strong>：用于根据表达式的值返回真值或假值</p>
+<p>逻辑运算符有以下符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>非</td>
+<td>!a</td>
+<td>如果a为假，则!a为真，反之同理</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>与</td>
+<td>a &amp;&amp; b</td>
+<td>如果a,b都为真，则结果才为真</td>
+</tr>
+<tr>
+<td>||</td>
+<td>或</td>
+<td>a || b</td>
+<td>如果a或b至少有一个为真，则结果为真</td>
+</tr>
+</tbody>
+</table>
+<p>示例1：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//逻辑非</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; !a &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; !!a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例2：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//逻辑与</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>示例3</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//逻辑或</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a || b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a || b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	a = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; (a || b) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>程序流程结构</h1>
+<h2 id="选择结构">选择结构</h2>
+<h3 id="if语句">if语句</h3>
+<p><strong>作用</strong>：执行满足条件的语句</p>
+<p>if语句的三种形式</p>
+<ul>
+<li>单行格式if语句</li>
+<li>多行格式if语句</li>
+<li>多条件的if语句</li>
+</ul>
+<ol>
+<li>单行格式if语句：<code>if(条件)(条件满足执行的语句)</code></li>
+</ol>
+<p><img src="/images/c++/c++_1/c++_1_1.png" alt=""></p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> score = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入一个分数&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; score;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;您输入的分数为：&quot;</span> &lt;&lt; score &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(score &gt; <span class="number">600</span>)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;恭喜你考上了一本&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>多行格式if语句：<code>if(条件)&#123;条件满足执行的语句&#125;else&#123;条件不满足执行的语句&#125;</code></li>
+</ol>
+<p><img src="/images/c++/c++_1/c++_1_2.png" alt=""></p>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> score = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入考试分数&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; score;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(score &gt; <span class="number">600</span>)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;恭喜考上了一本大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;未考上一本大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>多条件的if语句：<code>if(条件1)&#123;条件1满足执行的语句&#125;else if(条件2)&#123;条件2满足执行的语句&#125;...else&#123;都不满足执行的语句&#125;</code></li>
+</ol>
+<p><img src="/images/c++/c++_1/c++_1_3.png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> score = <span class="number">0</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;请输入考试分数&quot;</span> &lt;&lt; endl;</span><br><span class="line">	cin &gt;&gt; score;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(score &gt; <span class="number">600</span>)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;考上了一本大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(score &gt; <span class="number">500</span>)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;考上了二本大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(score &gt; <span class="number">400</span>)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;考上了三本大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;未考上大学&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1</p>
 ]]></content>
       <categories>
         <category>C++</category>
@@ -8576,53 +8646,6 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UnityShader——07数学知识：向量</title>
-    <url>/2024/02/18/UnityShader%E2%80%94%E2%80%9407%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%90%91%E9%87%8F/</url>
-    <content><![CDATA[<h1>数学知识：向量</h1>
-<h2 id="二维-笛卡尔-坐标系">二维（笛卡尔）坐标系</h2>
-<p><img src="/images/Shader/Shader_07/Shader_07_1.png" alt=""></p>
-<h2 id="二维向量-矢量">二维向量（矢量）</h2>
-<p>具有方向的线段叫做有向线段，以<strong>A</strong>为起点、<strong>B</strong>为终点的有向线段作为向量，可以记作 <strong>v = B - A</strong>。区别于有向线段，在一般的数学研究中，向量是可以平移的。</p>
-<p><img src="/images/Shader/Shader_07/Shader_07_2.png" alt=""></p>
-<p>一个向量的坐标等于表示此向量的有向线段的终点坐标减去始点的坐标。</p>
-<p><img src="/images/Shader/Shader_07/Shader_07_3.png" alt=""></p>
-<h3 id="二维向量加法">二维向量加法</h3>
-<p><img src="/images/Shader/Shader_07/Shader_07_4.png" alt=""></p>
-<p><img src="/images/Shader/Shader_07/Shader_07_5.png" alt=""></p>
-<h3 id="二维向量减法">二维向量减法</h3>
-<p><img src="/images/Shader/Shader_07/Shader_07_6.png" alt=""></p>
-<h3 id="二维向量点乘">二维向量点乘</h3>
-<p><img src="/images/Shader/Shader_07/Shader_07_7.png" alt=""></p>
-<p><img src="/images/Shader/Shader_07/Shader_07_8.png" alt=""></p>
-<p>根据这个公式就可以计算向量a和向量b之间的夹角。从而就可以进一步判断这两个向量是否是同一方向，是否正交(也就是垂直)等方向关系，具体对应关系为：</p>
-<ul>
-<li>a·b&gt;0    方向基本相同，夹角在0°到90°之间</li>
-<li>a·b=0    正交，相互垂直</li>
-<li>a·b&lt;0    方向基本相反，夹角在90°到180°之间</li>
-</ul>
-<h3 id="二维向量叉乘">二维向量叉乘</h3>
-<ul>
-<li>两个向量的叉乘，又叫向量积、外积、叉积，叉乘的运算结果是一个向量而不是一个标量。并且两个向量的叉积与这两个向量组成的坐标平面垂直。</li>
-<li>向量的叉乘公式为：<strong>a ^ b = |a| * |b| * sinθ</strong>,叉乘的结果是一个新的向量，所以也称为向量积，它垂直于相乘的<strong>a、b</strong>两向量所构成的平面。</li>
-</ul>
-<p>向量积被定义为：</p>
-<ul>
-<li>模长：（在这里θ表示两向量之间的夹角(共起点的前提下)（0° ≤ θ ≤ 180°），它位于这两个矢量所定义的平面上。）</li>
-<li>方向：a向量与b向量的向量积的方向与这两个向量所在平面垂直，且遵守右手定则。（一个简单的确定满足“右手定则”的结果向量的方向的方法是这样的：若坐标系是满足右手定则的，当右手的四指从a以不超过180度的转角转向b时，竖起的大拇指指向是c的方向。c = a ∧ b）</li>
-</ul>
-<p><img src="/images/Shader/Shader_07/Shader_07_9.png" alt=""></p>
-<p><img src="/images/Shader/Shader_07/Shader_07_10.png" alt=""></p>
-<h3 id="二维单位向量">二维单位向量</h3>
-<p><img src="/images/Shader/Shader_07/Shader_07_11.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
       </tags>
   </entry>
   <entry>
@@ -9430,30 +9453,6 @@ C++中能够表示整型的数据类型有以下几种方式，<strong>区别在
       </tags>
   </entry>
   <entry>
-    <title>UnityShader——08数学知识_2</title>
-    <url>/2024/02/20/UnityShader%E2%80%94%E2%80%9408%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86-2/</url>
-    <content><![CDATA[<h1>数学知识_2</h1>
-<h2 id="二维坐标系旋转">二维坐标系旋转</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_1.png" alt=""></p>
-<h2 id="二维坐标系平移">二维坐标系平移</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_2.png" alt=""></p>
-<h2 id="二维坐标系旋转和平移">二维坐标系旋转和平移</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_3.png" alt=""></p>
-<h2 id="三维坐标系">三维坐标系</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_4.png" alt=""></p>
-<h2 id="三维坐标基本运算">三维坐标基本运算</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_5.png" alt=""></p>
-<h2 id="矩阵">矩阵</h2>
-<p><img src="/images/Shader/Shader_08/Shader_08_6.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机网络——21拥塞控制原理</title>
     <url>/2024/02/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9421%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h1>拥塞控制原理</h1>
@@ -9870,63 +9869,6 @@ RM (资源管理) 信元:</p>
       </tags>
   </entry>
   <entry>
-    <title>UnityShader——09数学知识3</title>
-    <url>/2024/03/01/UnityShader%E2%80%94%E2%80%9409%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%863/</url>
-    <content><![CDATA[<h1>方阵</h1>
-<p>行与列数量相等的矩阵,n*n阶矩阵</p>
-<h1>对角矩阵</h1>
-<p>当对角线以外的矩阵内元素全为0，则称之为对角矩阵，对角矩阵的前提是必须是方阵</p>
-<h1>单位矩阵</h1>
-<p>对角线元素全为1，其余元素全为0，属于对角矩阵的一部分</p>
-<h1>矩阵和向量</h1>
-<p>把1 * n阶矩阵称为行向量，n * 1阶矩阵称为列向量<br>
-当向量与矩阵进行运算的时候需要确定是行向量还是列向量</p>
-<h1>矩阵的转置</h1>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>5</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>6</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>7</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>8</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>9</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mi>T</mi></msup></mrow><annotation encoding="application/x-tex">
-\begin{bmatrix}
-1 &amp; 2 &amp; 3\\
-4 &amp; 5 &amp; 6\\
-7 &amp; 8 &amp; 9
-\end{bmatrix}
-^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.832261em;vertical-align:-1.55002em;"></span><span class="minner"><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:2.282241em;"><span style="top:-4.50391em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>7</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>5</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>8</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>6</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>9</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">
-\begin{bmatrix}
-1 &amp; 4 &amp; 7\\
-2 &amp; 5 &amp; 8\\
-3 &amp; 6 &amp; 9
-\end{bmatrix}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">7</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span><br>
-即行变为列，列变为行</p>
-<p>矩阵转置的转置是其本身<br>
-对角矩阵的转置是其本身</p>
-<h1>标量与矩阵的乘法</h1>
-<p>以三阶矩阵为例：</p>
-<p>kM = k<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>11</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>12</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>13</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>21</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>22</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>23</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>31</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>32</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>m</mi><mn>33</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-m_{11} &amp; m_{12} &amp; m_{13}\\
-m_{21} &amp; m_{22} &amp; m_{23}\\
-m_{31} &amp; m_{32} &amp; m_{33}
-\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>11</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>12</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>13</mn></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>21</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>22</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>23</mn></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>31</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>32</mn></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>k</mi><msub><mi>m</mi><mn>33</mn></msub></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-km_{11} &amp; km_{12} &amp; km_{13}\\
-km_{21} &amp; km_{22} &amp; km_{23}\\
-km_{31} &amp; km_{32} &amp; km_{33}
-\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<h1>矩阵的乘法</h1>
-<p>相乘的条件：前一个矩阵的列等于下一个矩阵的行</p>
-<p><img src="/images/Shader/Shader_09/Shader_09_1.png" alt=""></p>
-<h1>矩阵乘法特点</h1>
-<p><img src="/images/Shader/Shader_09/Shader_09_2.png" alt=""></p>
-<h1>向量矩阵相乘</h1>
-<p><img src="/images/Shader/Shader_09/Shader_09_3.png" alt=""></p>
-<p>DX中是行向量<br>
-OpenGL中是列向量</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机网络——23网络层导论</title>
     <url>/2024/03/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9423%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AF%BC%E8%AE%BA/</url>
     <content><![CDATA[<h1>网络层导论</h1>
@@ -10078,125 +10020,6 @@ OpenGL中是列向量</p>
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UnityShader——10数学知识4</title>
-    <url>/2024/03/02/UnityShader%E2%80%94%E2%80%9410%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%864/</url>
-    <content><![CDATA[<h1>矩阵转换向量</h1>
-<p>假设 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span> = (1,3,-4)</p>
-<p>可写为：</p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>4</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-1\\
-3\\
--4\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-1\\
-0\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-3\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>4</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-0\\
--4\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> = 1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-1\\
-0\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + 3 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-1\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + (-4) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-0\\
-1\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>所以可得出结论：</p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span> = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>x</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>y</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>z</mi></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-x\\
-y\\
-z\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> = x <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-1\\
-0\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + y <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-1\\
-0\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span> + z <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">[</mo><mtable rowspacing="0.15999999999999992em" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
-0\\
-0\\
-1\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6010299999999997em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎢</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.0510099999999998em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-2.8099900000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎥</span></span></span><span style="top:-4.05101em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>所以可得公式：</p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo stretchy="true">→</mo></mover><mo>=</mo><mi>x</mi><mover accent="true"><mi>p</mi><mo stretchy="true">→</mo></mover><mo>+</mo><mi>y</mi><mover accent="true"><mi>q</mi><mo stretchy="true">→</mo></mover><mo>+</mo><mi>z</mi><mover accent="true"><mi>r</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{v} = x\overrightarrow{p} + y\overrightarrow{q} + z\overrightarrow{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.147em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.147em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span></p>
-<p>其中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span> 被表示成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo stretchy="true">→</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>q</mi><mo stretchy="true">→</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>r</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{p},\overrightarrow{q},\overrightarrow{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.147em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span> 三个基向量的线性变换</p>
-]]></content>
-      <categories>
-        <category>UnityShader</category>
-      </categories>
-      <tags>
-        <tag>UnityShader</tag>
       </tags>
   </entry>
   <entry>
