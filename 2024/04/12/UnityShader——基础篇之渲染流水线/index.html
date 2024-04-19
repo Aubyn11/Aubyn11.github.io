@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">6.7k</span>
+            <span class="post-count">7.9k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">23 min</span>
+            <span class="post-count">27 min</span>
         </span>
     </span>
 </div>
@@ -333,7 +333,70 @@
 <p>  好处在于：GLSL完全依赖硬件，而非操作系统层级的。</p>
 <p>  但这也意味着GLSL的编译结果将取决于硬件供应商，但是不同的硬件对GLSL的编译实现不尽相同，这可能会造成编译结果不一致的情况，因为这完全取决于供应商的做法</p>
 <br/>
-<p>1</p>
+<p>  HLSL，是由微软控制的着色器的编译，就算使用了不同的硬件，同一个着色器的编译结果也是一样的（前提是版本相同）</p>
+<p>  但是，支持HLSL的平台相对比较有限，几乎完全是微软自己的产品，如Windows、Xbox 360等</p>
+<p>  原因就是在其他平台上没有可以编译HLSL的编译器</p>
+<br/>
+<p>  Cg是真正意义的跨平台，他会根据平台的不同，编译成相应的中间语言。</p>
+<p>  Cg语言的跨平台性很大原因取决于与微软的合作，这也导致Cg语言的语法和HLSL非常相像，Cg语言可以无缝移植成HLSL代码</p>
+<p>  缺点是可能无法发挥出OpenGL的最新特性</p>
+<h3 id="什么是draw-call">什么是Draw Call</h3>
+<p>  Draw Call本身的含义很简单，就是CPU调用图像编程接口，以命令GPU进行渲染的操作</p>
+<p>  一个误区是：Draw Call中造成性能问题的是GPU，认为GPU上的状态切换是耗时的，其实不是，真正造成这个原因的是CPU</p>
+<h4 id="cpu和gpu是如何实现并行工作的？">CPU和GPU是如何实现并行工作的？</h4>
+<p>  如果没有流水线化，那么CPU需要等到GPU完成上一个渲染任务才能再次发送渲染命令，但这种方法会造成效率低下</p>
+<p>  因此，需要让CPU和GPU可以并行工作，而解决方法就是使用一个<strong>命令缓冲区</strong>（<strong>Command Buffer</strong>）</p>
+<p>  命令缓冲区包含了一个命令队列，向CPU向其中添加命令，而由GPU从中读取命令，添加和读取的过程是相互独立的。</p>
+<p>  命令缓冲区使得CPU和GPU可以像话独立工作，当CPU需要渲染一些对象，她可以向命令缓冲区中添加命令，而当GPU完成了上一次的渲染任务后，它就可以从命令队列中再取出一个命令并执行</p>
+<p>  命令缓冲区中的命令有很多种，Draw Call只是其中一种，其他命令还有改变渲染状态等（例如改变使用的着色器，使用不同的纹理等）。如图</p>
+<p><img src="/images/Shader/Shader_01/Shader_01_18.png" alt=""></p>
+<h4 id="为什么draw-call多了会影响速率">为什么Draw Call多了会影响速率</h4>
+<p>  在每次调用Draw Call之前，CPU需要向GPU发送很多内容，包括数据、状态和命令等</p>
+<p>  在这一阶段，CPU需要完成很多工作，例如检查渲染状态等，而一旦完成了这些工作，GPU就可以开始本次的渲染，而GPU的渲染能力是很强的，因此渲染速度往往快鱼CPU提交命令的速度</p>
+<p>  如果Draw Call数量太多，CPU就会把大量的时间花费在提交DrawCall上，造成CPU的过载，如图</p>
+<p><img src="/images/Shader/Shader_01/Shader_01_19.png" alt=""></p>
+<h4 id="如何减少draw-call">如何减少Draw Call</h4>
+<p>  <strong>批处理</strong>（<strong>Batching</strong>），把很多小的Draw Call合并成一个大的Draw Call，这就是批处理的思想，如图</p>
+<p><img src="/images/Shader/Shader_01/Shader_01_20.png" alt=""></p>
+<p>  需要注意的是，由于需要在CPU的内存中合并网格，合并的过程是需要消耗时间的</p>
+<p>  批处理技术更加适合于那些静态的物体，例如大地、石头等，对于这些静态物体只需要合并后一次即可</p>
+<p>  批处理也可以对动态物体进行处理，但是这些物体是不断运动的，每一帧都需要重新合并然后发送给GPU，这对空间和时间都会造成一定的影响</p>
+<p>  游戏开发过程中，为了减少Draw Call的开销，有两点需要注意</p>
+<ol>
+<li>避免使用大量很小的网格，当不可避免的需要使用很小的网格结构时，考虑是否可以合并他们</li>
+<li>避免使用过多的材质，尽量在不同的网格之间共用同一个材质</li>
+</ol>
+<h3 id="什么是固定管线渲染">什么是固定管线渲染</h3>
+<p>  <strong>固定函数的流水线</strong>（<strong>Fixed-Function Pipeline</strong>），也简称为固定管线，通常是指在较旧的GPU上实现的渲染流水线</p>
+<p>  这种流水线只给开发者提供一些配置操作，但开发者没有对流水线阶段的完全控制权</p>
+<p>  固定管线通常提供了一系列接口，这些接口包含了一个函数入口点（Function Entry Points）集合，这些函数入口点会匹配GPU上的一个特定的逻辑功能。开发者通过这些接口来控制渲染流水线，也就是说，固定渲染管线是只可配置的管线</p>
+<p>  3中最常见的图像接口从固定管线向可编程管线进化的版本</p>
+<table>
+<thead>
+<tr>
+<th>3D API</th>
+<th>最后支持固定管线的版本</th>
+<th>第一个支持可编程管线的版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenGL</td>
+<td>1.5</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>OpenGL ES</td>
+<td>1.1</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>DirectX</td>
+<td>7.0</td>
+<td>8.0</td>
+</tr>
+</tbody>
+</table>
  
       <!-- reward -->
       
