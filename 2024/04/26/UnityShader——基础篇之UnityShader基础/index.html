@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">5.6k</span>
+            <span class="post-count">6.6k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">21 min</span>
+            <span class="post-count">24 min</span>
         </span>
     </span>
 </div>
@@ -417,7 +417,24 @@
 <p>  如果需要使用的光照数目非常少，那么使用顶点/片元着色器使一个更好的选择</p>
 <p>  如果有很多自定义的渲染效果，使用顶点/片元着色器</p>
 <h2 id="其他的一些问题">其他的一些问题</h2>
-<p>1</p>
+<h3 id="unityshader-真正的shader">UnityShader != 真正的Shader</h3>
+<p>  尽管UnityShader翻译过来就是Unity着色器，在Unity里，UnityShader实际上指的就是一个ShaderLab文件——硬盘上以.shader作为文件后缀的一种文件</p>
+<p>  在UnityShader里，可以做的事情远多于一个传统意义上的Shader</p>
+<p>    传统的Shader中，仅可以编写特定类型的Shader,例如顶点着色器、片元着色器等，在UnityShader中，可以在同一个文件里同时包含需要的顶点着色器和片元着色器代码</p>
+<p>    在传统的Shader中，无法设置一些渲染设置，例如是否开启混合、深度测试等，这些是开发者在另外的代码中自行设置的。而在UnityShader中，通过一行特定的指令就可以完成这些设置</p>
+<p>    在传统的Shader中，我们需要编写荣昌的代码来设置着色器的输入和输出，要小心的处理这些输入输出的位置对应关系等。而在UnityShader中，只需要在特定的语句块中生命一些属性，就可以依靠材质来方便的改变这些属性。而且对于模型自带的数据（如定点位置、纹理坐标、法线等），UnityShader也提供了直接访问的方法，不需要开发者自行编码来传给着色器</p>
+<p>  UnityShader出了上述这些优点外，也有一些缺点。</p>
+<p>    由于UnityShader的高度封装性，可以编写的Shader类型和语法都被限制了。对于一些类型的Shader，例如曲面细分着色器（Tessellation Shader）、几何着色器（Geometry Shader）等，Unity的支持就相对差一些。例如：Unity 4.x 仅在 DirectX 11平台下提供曲面细分着色器、几何着色器的相关功能，而对于OpenGL平台则没有这些支持。除此之外，一些高级的Shader语法UnityShader也不支持</p>
+<p>  可以说，UnityShader提供了一种让开发者同时控制渲染流水线中多个阶段的一种方式，不仅仅是提供Shader代码。作为开发者而言，绝大部分时候只需要和UnityShader打交道，而不需要关心渲染引擎底层的实现细节</p>
+<h3 id="unityshader和cg-hlsl之间的关系">UnityShader和Cg/HLSL之间的关系</h3>
+<p>  UnityShader是用ShaderLab语言编写的，但对于表面着色器和顶点/片元着色器，可以在ShaderLab内部嵌套Cg/HLSL语言来编写这些着色器代码。这些Cg/HLSL代码是嵌套在 CGPROGRAM 和 ENDCG 之间的。由于Cg和DX9风格的HLSL从写法上来说几乎是同一种语言，因此在Unity里Cg和HLSL是等价的。可以说，Cg/HLSL代码是区别于ShaderLab的另一个世界</p>
+<p>  通常，Cg的代码片段是位于Pass语义块内部的，如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Pass&#123;</span><br><span class="line">    //Pass的标签和状态设置</span><br><span class="line"></span><br><span class="line">    CGPROGRAM</span><br><span class="line">    //编译指令，例如：</span><br><span class="line">    #pragma vertex vert</span><br><span class="line">    #pragma fragment frag</span><br><span class="line"></span><br><span class="line">    //Cg代码</span><br><span class="line"></span><br><span class="line">    ENDCG</span><br><span class="line">    //其他一些设置</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  在提供给编程人员这些便利的背后，Unity编辑器会把这些Cg片段编译成低级语言，如汇编语言等。同城，Unity会自动把这些诶Cg片段编译到所有相关平台（这里的平台是指不同的渲染平台，如Dirext3D 9、OpenGL、Direct3D 11、OpenGL ES等）上。这些编译过程比较复杂，Unity会使用不同的编译器来吧Cg转换成对应平台的代码。这样就不会在切换平台时再重新编译，而且如果代码在某些平台上发生错误就可以立刻得到错误信息。</p>
+<p>  可以在UnityShader的导入设置面板上查看这些编译后的代码，查看这些代码有助于进行Debug或优化等</p>
+<p>  如图：</p>
+<p><img src="/images/Shader/Shader_02/Shader_02_09.png" alt="在UnityShader的导入设置面板中可以通过Compile and show code按钮来查看Unity对Cg片段编译后的代码，通过单击Compile and show按钮右侧的倒三角可以打开下拉菜单，在这个下拉菜单中可以选择变异的平台种类，如职位当前的显卡设备编译特定的汇编代码，或为所有的平台编译汇编代码，也可以自定义选择编译到哪些平台上"></p>
+<p>  但当发布游戏的时候，游戏数据文件中质保函目标平台需要的编译代码，而那些在目标平台上不需要的代码部分就会被移除。例如，当发布到Mac OS X平台上时，DirectX对应的代码部分就会被移除。</p>
  
       <!-- reward -->
       
