@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>游戏热更新——AssetBundle |  Aubyn</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-游戏热更新——AssetBundle"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  游戏热更新——AssetBundle
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/13/%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0%E2%80%94%E2%80%94AssetBundle/" class="article-date">
+  <time datetime="2024-07-13T01:08:19.000Z" itemprop="datePublished">2024-07-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0/">游戏热更新</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>AssetBundle</h1>
+<h2 id="assetbundle的定义与使用">AssetBundle的定义与使用</h2>
+<p>  AssetBundle是一个压缩包包含模型、贴图、预制体、声音、甚至是整个场景，可以在游戏运行的时候被加载</p>
+<p>  AssetBundle自身保存着相互的依赖关系</p>
+<p>  压缩包可以使用LZMA和LZ4压缩算法，减少包大小，更快的进行网络传输</p>
+<p>  把一些可以下载内容AssetBundle里面，可以减少安装包的大小</p>
+<h2 id="什么是assetbundle">什么是AssetBundle</h2>
+<p>  是一个存在硬盘上的文件，可以称之为压缩包，这个压缩包可以认为是一个文件夹，里面包含了多个文件。这些文件分为两类：serialized file 和 resource files（序列化文件和源文件）</p>
+<p>    serialized file：资源被打碎放在一个对象中，最后统一被写进一个单独的文件（只有一个）</p>
+<p>    resource file：某些二进制资源（图片、声音）被单独保存，方便快速加载</p>
+<p>  是一个AssetBundle对象，可以通过代码从一个特定的压缩包加载出来的对象。这个对象包含了所有当初添加到这个压缩包里面的内容，可以通过这个对象加载出来使用</p>
+<h2 id="assetbundle使用流程图">AssetBundle使用流程图</h2>
+<p><img src="/images/AssetBundle/AssetBundle_1.png" alt=""></p>
+<p><img src="/images/AssetBundle/AssetBundle_2.png" alt=""></p>
+<h2 id="assetbundle使用流程-ab">AssetBundle使用流程（AB）</h2>
+<p>  指定资源的AssetBundle属性（xxxa/xxx）这里xxxa会生成目录，名字为xxx</p>
+<p>  构建AssetBundle包</p>
+<p>  上传AB包</p>
+<p>  加载AB包和包里面的资源</p>
+<h2 id="利用代码打包示例">利用代码打包示例</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> UnityEditor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CreateAssetBundles</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">MenuItem(<span class="string">&quot;Assets/Build AssetBundles&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BuildAllAssetBundles</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> dir = <span class="string">&quot;AssetBundles&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (!Directory.Exists(dir))</span><br><span class="line">        &#123;</span><br><span class="line">            Directory.CreateDirectory(dir);</span><br><span class="line">        &#125;</span><br><span class="line">        BuildPipeline.BuildAssetBundles(dir, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="利用代码加载本地ab包示例">利用代码加载本地AB包示例</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LoadFromFileExp</span> : <span class="title">MonoBehaviour</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundle ab = AssetBundle.LoadFromFile(<span class="string">&quot;AssetBundles/wall.unity3d&quot;</span>);</span><br><span class="line"></span><br><span class="line">        GameObject obj = ab.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall&quot;</span>);</span><br><span class="line">    </span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="assetbundle-分组策略-仅供参考">AssetBundle 分组策略（仅供参考）</h2>
+<p>  逻辑实体分组</p>
+<p>    一个UI界面或者所有UI界面一个包（这个界面里面的贴图和布局信息一个包）</p>
+<p>    一个角色或者所有角色一个包（这个角色里面的模型和动画一个包）</p>
+<p>    所有的场景所共享的部分一个包（包括贴图和模型）</p>
+<p>  按照类型分组</p>
+<p>    所有声音资源打成一个包，所有Shader打成一个包，所有模型打成一个包，所有材质打成一个包</p>
+<p>  按照使用分组</p>
+<p>    把在某一时间内使用的所有资源打成一个包。可以按照关卡分，一个关卡所需要的所有资源包括角色、贴图、声音等打成一个包。也可以按照场景分，一个场景所需要的资源一个包</p>
+<h2 id="assetbundle-分组策略-总结">AssetBundle 分组策略——总结</h2>
+<p>  把经常更新的资源放在一个单独的包里面，跟不经常更新的包分离</p>
+<p>  把需要同时加载的资源放在一个包里面</p>
+<p>  可以把其他包共享的资源放在一个单独的包里面</p>
+<p>  把一些需要同时加载的小资源打包成一个包</p>
+<p>  如果对于同一个资源有两个版本，可以考虑通过后缀来区分：比如 <code>unity3dv1</code>、<code>unity3dv2</code></p>
+<h2 id="依赖打包">依赖打包</h2>
+<p><img src="/images/AssetBundle/AssetBundle_3.png" alt=""></p>
+<h2 id="打包选项-assetbundle压缩方式">打包选项（AssetBundle压缩方式）</h2>
+<p>  Build的路径（随意只要是在硬盘上都可以的）</p>
+<p>  BuildAssetBundleOptions</p>
+<p>    BuildAssetBundleOptions.None：使用LZMA算法压缩，压缩的包更小，但是加载的时间更长。使用之前需要整体解压。一旦被解压，这个包会使用LZ4重新压缩。使用资源的时候不需要整体解压。在下载的时候可以使用LZMA算法，一旦他被下载了之后，它会使用LZ4算法保存到本地上</p>
+<p>    BuildAssetBundleOptions.UncompressedAssetBundle：不压缩，包大，加载快</p>
+<p>    BuildAssetBundleOptions.ChunkBasedCompression：使用LZ4压缩，压缩率没有LZMA高，但是可以加载指定资源而不用解压全部</p>
+<p>    使用LZ4压缩，可以获得可以跟不压缩相媲美的加载速度，而且比不压缩文件更小</p>
+<p>  BuildTarget</p>
+<p>    选择build出来的AB包要使用的平台</p>
+<p><img src="/images/AssetBundle/AssetBundle_4.png" alt=""></p>
+<h2 id="从内存中加载-assetbundle">从内存中加载 AssetBundle</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundleCreateRequest ab = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(<span class="string">&quot;AssetBundles/wall1.unity3d&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> ab;</span><br><span class="line"></span><br><span class="line">        AssetBundle asb = ab.assetBundle;</span><br><span class="line"></span><br><span class="line">        GameObject obj = asb.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="从本地加载-assetbundle">从本地加载 AssetBundle</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundleCreateRequest ab = AssetBundle.LoadFromFileAsync(<span class="string">&quot;AssetBundles/wall1.unity3d&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> ab;</span><br><span class="line"></span><br><span class="line">        AssetBundle asb = ab.assetBundle;</span><br><span class="line"></span><br><span class="line">        GameObject obj = asb.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用-www-loadfromcacheordownload-下载并加载-assetbundle">使用 WWW.LoadFromCacheOrDownload 下载并加载 AssetBundle</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (!Caching.ready)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        WWW www = WWW.LoadFromCacheOrDownload(<span class="string">@&quot;E:\Work\Work2\AssetBundleTest\\AssetBundles\wall1.unity3d&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> www;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">string</span>.IsNullOrEmpty(www.error))</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(www.error);</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        AssetBundle asb = www.assetBundle;</span><br><span class="line"></span><br><span class="line">        GameObject obj = asb.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="从服务器端下载-assetbundle">从服务器端下载 AssetBundle</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (!Caching.ready)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        WWW www = WWW.LoadFromCacheOrDownload(<span class="string">@&quot;http://localhost/AssetBundles/wall1.unity3d&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> www;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">string</span>.IsNullOrEmpty(www.error))</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(www.error);</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        AssetBundle asb = www.assetBundle;</span><br><span class="line"></span><br><span class="line">        GameObject obj = asb.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用-unitywebrequest-来加载-assetbundle">使用 UnityWebRequest 来加载 AssetBundle</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> uri = <span class="string">@&quot;file:///E:\Work\Work2\AssetBundleTest\\AssetBundles\wall1.unity3d&quot;</span>;</span><br><span class="line">        UnityWebRequest uwr = UnityWebRequestAssetBundle.GetAssetBundle(uri);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> uwr.SendWebRequest();</span><br><span class="line"></span><br><span class="line">        AssetBundle ab = DownloadHandlerAssetBundle.GetContent(uwr);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        GameObject obj = ab.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加载-manifest">加载 Manifest</h2>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IEnumerator <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> uri = <span class="string">@&quot;file:///E:\Work\Work2\AssetBundleTest\\AssetBundles\wall1.unity3d&quot;</span>;</span><br><span class="line">        UnityWebRequest uwr = UnityWebRequestAssetBundle.GetAssetBundle(uri);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> uwr.SendWebRequest();</span><br><span class="line"></span><br><span class="line">        AssetBundle ab = DownloadHandlerAssetBundle.GetContent(uwr);</span><br><span class="line"></span><br><span class="line">        GameObject obj = ab.LoadAsset&lt;GameObject&gt;(<span class="string">&quot;wall1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Instantiate(obj);</span><br><span class="line"></span><br><span class="line">        AssetBundle manifestAb = AssetBundle.LoadFromFile(<span class="string">&quot;AssetBundles/AssetBundles&quot;</span>);</span><br><span class="line">        AssetBundleManifest manifest = manifestAb.LoadAsset&lt;AssetBundleManifest&gt;(<span class="string">&quot;AssetBundleManifest&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">var</span> a <span class="keyword">in</span> manifest.GetAllAssetBundles())</span><br><span class="line">        &#123;</span><br><span class="line">            print(a);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>[] strs = manifest.GetAllDependencies(<span class="string">&quot;wall1.unity3d&quot;</span>);</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">var</span> a <span class="keyword">in</span> strs)</span><br><span class="line">        &#123;</span><br><span class="line">            print(a);</span><br><span class="line">            AssetBundle.LoadFromFile(<span class="string">@&quot;AssetBundles/&quot;</span> + a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="assetbundle-的卸载">AssetBundle 的卸载</h2>
+<p>  卸载有两个方面：</p>
+<p>    减少内存使用</p>
+<p>    有可能导致丢失</p>
+<p>  AssetBundle.Unload(true)：卸载所有资源，即使有资源被使用着</p>
+<p>    1.在关卡切换、场景切换</p>
+<p>    2.资源没被用的时候调用</p>
+<p>  AssetBundle.Unload(false)：卸载所有没有被使用的资源</p>
+<p>    个别资源的卸载：</p>
+<p>      1.通过Resource.UnloadUnusedAssets</p>
+<p>      2.场景切换的时候自动卸载</p>
+<p>1</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aubyn11.github.io/2024/07/13/%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0%E2%80%94%E2%80%94AssetBundle/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E7%83%AD%E6%9B%B4%E6%96%B0/" rel="tag">游戏热更新</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/06/24/UnityShader%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8B%E5%AD%A6%E4%B9%A0Shader%E6%89%80%E9%9C%80%E7%9A%84%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">UnityShader——基础篇之学习Shader所需的数学基础</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> Aubyn
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Aubyn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+ 
+    
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.css">
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.js"></script>
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/contrib/auto-render.min.js"></script>
+        
+    
+ 
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
