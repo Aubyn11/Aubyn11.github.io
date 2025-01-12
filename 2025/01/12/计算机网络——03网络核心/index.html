@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——03网络核心 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——03网络核心</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #03a9f4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>网络核心</p>
+<span id="more"></span>
+
+<h1 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h1><h2 id="网络核心-1"><a href="#网络核心-1" class="headerlink" title="网络核心"></a>网络核心</h2><ul>
+<li>网络核心：路由器的网络状态</li>
+<li><font color=red>基本问题</font>：数据怎样通过网络进行传输<ul>
+<li><font color=red>电路交换</font>：为每个呼叫预留一条专有电路</li>
+<li><font color=red>分组交换</font><ul>
+<li>将要传送的数据分成一个个单位：分组</li>
+<li>将分组从一个路由器传到相邻路由器（<strong>hop</strong>），一段段最终从源端传到目标端</li>
+<li>每段：采用链路的最大传输能力（带宽）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络核心：电路交换"><a href="#网络核心：电路交换" class="headerlink" title="网络核心：电路交换"></a>网络核心：电路交换</h2><p><font color=red>端到端的资源被分配给从源端到目标端的呼叫“call”</font></p>
+<ul>
+<li><p>图中，每段链路有4条线路：<br><img src="/images/2.png"></p>
+<ul>
+<li>该呼叫采用了上面链路的第二个线路，右边链路的第一个链路（piece）</li>
+</ul>
+</li>
+<li><p>独享资源：不同享</p>
+<ul>
+<li>每个呼叫一旦建立起来就能够保证性能</li>
+</ul>
+</li>
+<li><p>如果呼叫没有数据发送，被分配的资源就会被浪费（<em>no sharing</em>)</p>
+</li>
+<li><p>通常被传统电话网络采用</p>
+</li>
+</ul>
+<p><font color=red>为呼叫预留端-端资源</font></p>
+<ul>
+<li>链路带宽、交换能力</li>
+<li>专用资源：不共享</li>
+<li>保证性能</li>
+<li>要求简历呼叫连接</li>
+</ul>
+<p>网络资源（如带宽）被分成<font color=red>片</font></p>
+<ul>
+<li>为呼叫分配片</li>
+<li>如果某个呼叫没有数据，则其资源片处于<font color=red>空闲状态</font>（不共享）</li>
+<li>将带宽分成片<ul>
+<li>频分（FDM）</li>
+<li>时分（TDM）</li>
+<li>波分（WDM）</li>
+</ul>
+</li>
+</ul>
+<p>电路交换不适合计算机之间的通信</p>
+<ul>
+<li>建立连接时间长</li>
+<li>计算机之间的通信有突发性，如果使用线路交换，则浪费的片段多<ul>
+<li>即使这个呼叫没有数据传递，其所占据的片也不能够被别的呼叫使用</li>
+</ul>
+</li>
+<li>可靠性不高？</li>
+</ul>
+<h2 id="网络核心：分组交换"><a href="#网络核心：分组交换" class="headerlink" title="网络核心：分组交换"></a>网络核心：分组交换</h2><p><font color=red>以分组为单位存储-转发方式</font></p>
+<ul>
+<li>网络带宽资源不再被分为一个个片，传输时使用全部带宽</li>
+<li>主机之间传输的数据被分为一个个分组</li>
+</ul>
+<p><font color=red>资源共享，按需使用</font></p>
+<ul>
+<li>存储、转发：分组每次移动一跳（hop）<ul>
+<li>在转发之前，节点必须收到整个分组</li>
+<li>延迟比线路交换要大</li>
+<li>排队时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="分组交换：存储-转发"><a href="#分组交换：存储-转发" class="headerlink" title="分组交换：存储-转发"></a>分组交换：存储-转发</h2><ul>
+<li>被运输到下一个链路之前，整个分组必须到达路由器：<font color=red>存储-转发</font></li>
+<li>在一个速率为<strong>R bps</strong>的链路，一个长度为<strong>L bps</strong>的分组存储转发延时：<strong>L&#x2F;R s</strong></li>
+</ul>
+<h2 id="分组交换：排队延迟和丢失"><a href="#分组交换：排队延迟和丢失" class="headerlink" title="分组交换：排队延迟和丢失"></a>分组交换：排队延迟和丢失</h2><ul>
+<li>如果到达速率 &gt; 链路的输出速率<ul>
+<li>分组将会排队，等待传输</li>
+<li>如果路由器的缓存用完了，分组将会被抛弃</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络核心的关键功能"><a href="#网络核心的关键功能" class="headerlink" title="网络核心的关键功能"></a>网络核心的关键功能</h2><ul>
+<li><font color=red><em>路由</em></font>：决定分组采用的源到目标的路径</li>
+<li><font color=red><em>转发</em></font>：将分组从路由器的输入链路转移到输出链路</li>
+</ul>
+<h2 id="分组交换：统计多路复用"><a href="#分组交换：统计多路复用" class="headerlink" title="分组交换：统计多路复用"></a>分组交换：统计多路复用</h2><p><img src="/images/3.png"></p>
+<p><strong>A &amp; B</strong>时分复用链路资源<br><strong>A &amp; B</strong>分组没有固定的模式 → <font color=red>统计多路复用</font></p>
+<h2 id="分组交换-vs-电路交换"><a href="#分组交换-vs-电路交换" class="headerlink" title="分组交换 vs. 电路交换"></a>分组交换 vs. 电路交换</h2><p><font color=red>分组交换允许更多用户使用网络</font><br><font color=red>分组交换是“突发数据的胜利者”</font></p>
+<ul>
+<li>适用于对突发式数据传输<ul>
+<li>资源共享</li>
+<li>简单，不必建立呼叫</li>
+</ul>
+</li>
+<li><font color=red>过度使用会造成网络拥塞</font>，分组延时和丢失<ul>
+<li>对可靠的数据传输需要协议来约束：拥塞控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="分组交换网络：存储-转发"><a href="#分组交换网络：存储-转发" class="headerlink" title="分组交换网络：存储-转发"></a>分组交换网络：存储-转发</h2><p><font color=red>分组交换</font>：分组的存储转发一段一段从源端到目标端，按照有无网络层的连接，分成：</p>
+<ul>
+<li><font color=red>数据报网络</font><ul>
+<li>分组的目标地址表示下一跳</li>
+<li>在不同的阶段，路由可以改变</li>
+<li>类似于问路</li>
+<li><strong>Internet</strong></li>
+</ul>
+</li>
+<li><font color=red>虚电路网络</font><ul>
+<li>每个分组都带有标签，虚电路标识<strong>VC ID</strong>，标签决定下一跳</li>
+<li>在<font color=red>呼叫建立时</font>决定路径，在整个呼叫中路径保持不变</li>
+<li><font color=red>路由器维持每个呼叫的状态信息</font></li>
+<li><strong>X.25</strong> 和 <strong>ATM</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据报的工作原理"><a href="#数据报的工作原理" class="headerlink" title="数据报的工作原理"></a>数据报的工作原理</h2><ul>
+<li>在通信之前，无须建立起一个连接，有数据就传输</li>
+<li>每一个分组都独立路由（路径不一样，可能会失序）</li>
+<li>路由器根据分组的目标地址进行路由</li>
+</ul>
+<h2 id="虚电路的工作原理"><a href="#虚电路的工作原理" class="headerlink" title="虚电路的工作原理"></a>虚电路的工作原理</h2><p><img src="/images/4.png"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
