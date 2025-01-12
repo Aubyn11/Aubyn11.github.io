@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法33~34 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法33~34</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
                     算法
                 </a>
             </span>
@@ -203,135 +203,166 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>搜索旋转排序数列\在排序数组中查找元素的第一个和最后一个位置</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="33-搜索旋转排序数列"><a href="#33-搜索旋转排序数列" class="headerlink" title="33. 搜索旋转排序数列"></a>33. 搜索旋转排序数列</h2><p>难度：<strong>中等</strong><br>题目要求：<br>整数数组<code>nums</code>按升序排列，数组中的值<strong>互不相同</strong><br>在传递给函数之前，<code>nums</code>在预先未知的某个下标$k(0\leq k &lt; nums.length)$上进行了<strong>旋转</strong>，例如，$[0,1,2,4,5,6,7]$在下标<code>3</code>处经旋转后可能变为$[4,5,6,7,0,1,2]$<br>给定<strong>旋转后</strong>的数组<code>nums</code>和一个整数<code>target</code>，如果<code>nums</code>中存在这个目标值<code>target</code>，则返回它的下标，否则返回<code>-1</code></p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：nums &#x3D; [4,5,6,7,0,1,2], target &#x3D; 0<br>输出：4</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：nums &#x3D; [4,5,6,7,0,1,2], target &#x3D; 3<br>输出：-1</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：nums &#x3D; [1], target &#x3D; 0<br>输出：-1</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>采用二分法可以解决这道题，如果数组经过旋转，那么旋转之后的数组首元素一定大于数组最后一个元素，所以，对于任意一个元素来说，都可以根据其与首元素或尾元素的大小比较来确定它在哪一个子序列中</p>
+</blockquote>
+<blockquote>
+<p>用<code>low</code>和<code>high</code>分别表示二分查找的下标范围的上界和下界，初始时<code>low</code>和<code>high</code>分别为数组的最小和最大下标，每次查找的时候，$[low,high]$可能是一个有序子数组或者两个有序子数组，取<code>mid</code>为<code>low</code>和<code>high</code>的平均数向下取整，判断该数是否等于目标值以及位于哪个子数组中，调整查找范围</p>
+</blockquote>
+<blockquote>
+<p>具体步骤为：</p>
+<ul>
+<li>如果 $nums[mid]&#x3D;target$，则找到目标值，返回下标<code>mid</code></li>
+<li>如果 $nums[low]\leq nums[mid]$，则下标范围$[low,high]$中有一个或者有两个有序子数组，下标<code>mid</code>位于以下标<code>low</code>开始的有序子数组中，此时将目标值与<code>nums[low]</code>和<code>nums[mid]</code>比较，调整查找的下标范围<ul>
+<li>如果$nums[low] \leq target &lt; nums[mid]$，则如果目标值存在，一定位于下标范围$[low,mid-1]$中，因此在下标范围$[low,mid-1]$中继续查找</li>
+<li>如果不在上述范围内，那么一定位于下标范围$[mid+1,high]$中，因此在下标范围$[mid+1,high]$中继续查找</li>
+</ul>
+</li>
+<li>如果$nums[low]&gt;nums[mid]$，则下标范围$[low,high]$中有两个有序子数列，下标<code>mid</code>位于以下标<code>high</code>结束的有序子数组中，此时将目标值与<code>nums[high]</code>和<code>nums[mid]</code>进行比较，调整查找的下标范围<ul>
+<li>如果$nums[mid]&lt;target\leq nums[high]$，则如果目标值存在，一定位于下标范围$[mid+1,high]$中，因此在下标范围$[mid+1,high]$中继续查找</li>
+<li>如果不在上述范围内，那么一定位于下标范围$[low,mid-1]$中，因此在下标范围$[low,mid-1]$中继续查找</li>
+</ul>
+</li>
+<li>如果查找的过程中出现$low&gt;high$，那么目标值不存在，返回-1</li>
+</ul>
 </blockquote>
 <p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
+<pre><code class="language-Csharp">public static int Search(int[] nums, int target)
 &#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
+    int low = 0, high = nums.Length - 1;
+    while (low &lt;= high)
     &#123;
-        return list;
+        int mid = low + (high - low) / 2;
+        if (nums[mid] == target)
+        &#123;
+            return mid;
+        &#125;
+        if (nums[low] &lt;= nums[mid])
+        &#123;
+            if (target &gt;= nums[low] &amp;&amp; target &lt; nums[mid])
+            &#123;
+                high = mid - 1;
+            &#125;
+            else
+            &#123;
+                low = mid + 1;
+            &#125;
+        &#125;
+        else
+        &#123;
+            if (target &lt;= nums[high] &amp;&amp; target &gt; nums[mid])
+            &#123;
+                low = mid + 1;
+            &#125;
+            else
+            &#123;
+                high = mid - 1;
+            &#125;
+        &#125;
     &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
-
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
-&#123;
-    if (str.Length == digits.Length)
-    &#123;
-        list.Add(str);
-        return;
-    &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
-    &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
-    &#125;
+    return -1;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
-<ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
-</ul>
+<h2 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给你一个按照非递减顺序排列的整数数组<code>nums</code>，和一个目标值<code>target</code>。请你找出给定目标值在数组中的开始位置和结束位置。<br>如果数组中不存在目标值<code>target</code>，返回<code>[-1,-1]</code>。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：nums &#x3D; [5,7,7,8,8,10], target &#x3D; 8<br>输出：[3,4]</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：nums &#x3D; [5,7,7,8,8,10], target &#x3D; 6<br>输出：[-1,-1]</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [], target &#x3D; 0<br>输出：[-1,-1]</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>利用二分查找，分别找到开始位置和结束位置</p>
+</blockquote>
+<blockquote>
+<p>用<code>low</code>和<code>high</code>分别表示二分查找的下标范围的上界和下界，初始时<code>low</code>和<code>high</code>分别为数组的最小下标和最大下标。每次查找时，取<code>mid</code>为<code>low</code>和<code>high</code>的平均数，判断下标<code>mid</code>处的数和目标值的大小关系，调整查找的下标范围</p>
+</blockquote>
+<blockquote>
+<p>查找目标值<code>target</code>的开始位置时，每次查找取<code>mid</code>为<code>low</code>和<code>high</code>的平均数<strong>向下</strong>取整，执行如下操作：</p>
+<ul>
+<li>如果$nums[mid] \geq target$，则如果目标值存在，其开始位置小于等于<code>mid</code>，因此在下标范围$[low,mid]$中继续查找</li>
+<li>如果$nums[mid]&lt;target$，则如果目标值存在，其开始位置大于mid，因此在下标范围$[mid+1,high]$中继续查找</li>
+<li>当$low&#x3D;high$时，查找结束，查找结束之后，如果下标<code>low</code>在数组下标范围中且$nums[low]&#x3D;target$，则<code>low</code>时目标值的开始位置，返回<code>low</code>，否则数组中不存在目标值，返回<code>-1</code></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>查找目标值<code>target</code>的结束位置时，每次查找取<code>mid</code>为<code>low</code>和<code>high</code>的平均数<strong>向上</strong>取整，执行如下操作：</p>
+<ul>
+<li>如果$nums[mid]\leq target$，则如果目标值存在，其开始位置大于等于<code>mid</code>，因此在下标范围$[mid,high]$中继续查找</li>
+<li>如果$nums[mid]&gt;target$，则如果目标值存在，其开始位置小于<code>mid</code>因此在下标范围$[low,mid-1]$中继续查找<br>当$low&#x3D;high$时，查找结束。查找结束之后，如果下标<code>low</code>时目标值的结束位置，返回<code>low</code>，否则数组中不存在目标值，返回<code>-1</code></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>得到目标值的开始位置结束位置之后（如果目标值不存在则开始位置和结束位置都是−1），返回目标值的开始位置和结束位置。</p>
 </blockquote>
 <p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
+<pre><code class="language-Csharp">public static int[] SearchRange(int[] nums, int target)
 &#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
+    int start = SearchStart(nums, target);
+    if (start &lt; 0)
     &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
-        &#123;
-            continue;
-        &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
-            &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
+        return new int[] &#123; -1, -1 &#125;;
+    &#125;
+    int end = SearchEnd(nums, target);
+    return new int[] &#123; start, end &#125;;
+&#125;
 
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
-                &#125;
-            &#125;
+public static int SearchStart(int[] nums, int target)
+&#123;
+    int low = 0, high = nums.Length - 1;
+    while (low &lt; high)
+    &#123;
+        int mid = low + (high - low) / 2;
+        if (nums[mid] &gt;= target)
+        &#123;
+            high = mid;
+        &#125;
+        else
+        &#123;
+            low = mid + 1;
         &#125;
     &#125;
-    return res;
+    return low &lt; nums.Length &amp;&amp; nums[low] == target ? low : -1;
+&#125;
+
+public static int SearchEnd(int[] nums, int target)
+&#123;
+    int low = 0, high = nums.Length - 1;
+    while (low &lt; high)
+    &#123;
+        int mid = low + (high - low + 1) / 2;
+        if (nums[mid] &lt;= target)
+        &#123;
+            low = mid;
+        &#125;
+        else
+        &#123;
+            high = mid - 1;
+        &#125;
+    &#125;
+    return low &lt; nums.Length &amp;&amp; nums[low] == target ? low : -1;
 &#125;
 </code></pre>
 

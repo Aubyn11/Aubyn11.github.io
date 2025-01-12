@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法35~36 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法35~36</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,123 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>搜索插入位置\有效的数独</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35. 搜索插入位置"></a>35. 搜索插入位置</h2><p>难度：<strong>简单</strong><br>题目要求：<br>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：nums &#x3D; [1,3,5,6], target &#x3D; 5<br>输出：2</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：nums &#x3D; [1,3,5,6], target &#x3D; 2<br>输出：1</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：nums &#x3D; [1,3,5,6], target &#x3D; 7<br>输出：4</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>由题所要求的必须使用时间复杂度为<code>O(log n)</code>的算法，所以要采用二分查找<br>用<code>low</code>和<code>high</code>分别表示二分查找的下标范围的上界和下界，初始时<code>low</code>和<code>high</code>分别为数组的最小下标和最大下标。每次查找时，取<code>mid</code>为<code>low</code>和<code>high</code>的平均数，判断下标<code>mid</code>处的数和目标值的大小关系，调整查找的下标范围</p>
 </blockquote>
-<p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
+<blockquote>
+<p>查找目标值<code>target</code>的时，执行如下操作：</p>
+<ul>
+<li>如果$nums[mid]&gt;target$，则如果目标值存在，其位置小于等于<code>mid</code>，因此在下标范围$[low,mid-1]$中继续查找</li>
+<li>如果$nums[mid]&lt;target$，则如果目标值存在，其位置大于<code>mid</code>，因此在下标范围$[mid+1,high]$中继续查找</li>
+<li>如果$nums[mid]&#x3D;&#x3D;target$，直接返回<code>mid</code></li>
+<li>当$low&#x3D;high$时，查找结束，查找结束之后，如果数组中存在目标值，返回<code>mid</code>，否则数组中不存在目标值，返回<code>mid + 1</code></li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-Csharp">public static int SearchInsert(int[] nums, int target)
 &#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
+    int low = 0, high = nums.Length - 1;
+    int mid = 0;
+    while (low &lt;= high)
     &#123;
-        return list;
+        mid = (high - low) / 2 + low;
+        if (nums[mid] == target)
+        &#123;
+            return mid;
+        &#125;
+        else if (nums[mid] &lt; target)
+        &#123;
+            low = mid + 1;
+        &#125;
+        else
+        &#123;
+            high = mid - 1;
+        &#125;
     &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
-
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
-&#123;
-    if (str.Length == digits.Length)
+    if (target &gt; nums[mid])
     &#123;
-        list.Add(str);
-        return;
+        return mid + 1;
     &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
+    else
     &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
+        return mid;
     &#125;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
+<h2 id="36-有效的数独"><a href="#36-有效的数独" class="headerlink" title="36. 有效的数独"></a>36. 有效的数独</h2><p>难度：<strong>中等</strong><br>题目要求：<br>判断一个<code>9 x 9</code>的数独是否有效，只需要<strong>根据以下规则</strong>，验证填入的数字是否有效</p>
 <ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
+<li>数字<code>1-9</code>在每一行只能出现一次</li>
+<li>数字<code>1-9</code>在每一列只能出现一次</li>
+<li>数字<code>1-9</code>在每一组（<code>3x3</code>宫格）内只能出现一次</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>一个有效的数独（部分已被填充）不一定是可解的</li>
+<li>只需要根据以上规则，验证已经填入的数字是否有效即可</li>
+<li>空白格用 <code>&#39;.&#39;</code> 表示</li>
 </ul>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：board &#x3D;<br>[[“5”,”3”,”.”,”.”,”7”,”.”,”.”,”.”,”.”]<br>,[“6”,”.”,”.”,”1”,”9”,”5”,”.”,”.”,”.”]<br>,[“.”,”9”,”8”,”.”,”.”,”.”,”.”,”6”,”.”]<br>,[“8”,”.”,”.”,”.”,”6”,”.”,”.”,”.”,”3”]<br>,[“4”,”.”,”.”,”8”,”.”,”3”,”.”,”.”,”1”]<br>,[“7”,”.”,”.”,”.”,”2”,”.”,”.”,”.”,”6”]<br>,[“.”,”6”,”.”,”.”,”.”,”.”,”2”,”8”,”.”]<br>,[“.”,”.”,”.”,”4”,”1”,”9”,”.”,”.”,”5”]<br>,[“.”,”.”,”.”,”.”,”8”,”.”,”.”,”7”,”9”]]<br>输出：true</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：board &#x3D;<br>[[“8”,”3”,”.”,”.”,”7”,”.”,”.”,”.”,”.”]<br>,[“6”,”.”,”.”,”1”,”9”,”5”,”.”,”.”,”.”]<br>,[“.”,”9”,”8”,”.”,”.”,”.”,”.”,”6”,”.”]<br>,[“8”,”.”,”.”,”.”,”6”,”.”,”.”,”.”,”3”]<br>,[“4”,”.”,”.”,”8”,”.”,”3”,”.”,”.”,”1”]<br>,[“7”,”.”,”.”,”.”,”2”,”.”,”.”,”.”,”6”]<br>,[“.”,”6”,”.”,”.”,”.”,”.”,”2”,”8”,”.”]<br>,[“.”,”.”,”.”,”4”,”1”,”9”,”.”,”.”,”5”]<br>,[“.”,”.”,”.”,”.”,”8”,”.”,”.”,”7”,”9”]]<br>输出：false</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>可以直接使用二位数组来进行一次遍历</p>
+</blockquote>
+<blockquote>
+<p>创建二维数组$row$和$col$分别记录数独的每一行和每一列中的数字的出现次数，创建三维数组$subbox$记录数度中每一个小宫格的数字的出现次数，其中$row[i][index]，col[j][index],subbox[[\dfrac{i}{3}],[\dfrac{j}{3}],index]$分别表示数独的第$i$行第$j$列的单元格所在的行、列和小九宫格中，数字$index + 1$出现的次数，其中$0\leq index&lt;9$，对应的数字$index+1$满足$1\leq index+1 \leq 9$</p>
+</blockquote>
+<blockquote>
+<p>如果$board[i][j]$填入了数字$n$，则将$row[i][n-1]、col[j][n-1]$和$subbox[[\dfrac{i}{3}],[\dfrac{j}{3}],index]$各加一，则不符合有效的数独条件，返回false</p>
+</blockquote>
+<blockquote>
+<p>如果遍历结束之后没有出现计数大于一的情况，则符合有效的数独的条件，返回true</p>
 </blockquote>
 <p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
+<pre><code class="language-Csharp">public static bool IsValidSudoku(char[][] board)
 &#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
+    int[,] row = new int[9,9];
+    int[,] col = new int[9,9];
+    int[,,] subbox = new int[3, 3, 9];
+    for (int i = 0; i &lt; 9; i++)
     &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
+        for (int j = 0; j &lt; 9; j++)
         &#123;
-            continue;
-        &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
+            char c = board[i][j];
+            if (c != &#39;.&#39;)
             &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
+                int index = c - &#39;0&#39; - 1;
+                row[i, index]++;
+                col[j, index]++;
+                subbox[i / 3, j / 3, index]++;
+                if (row[i, index] &gt; 1 || col[j, index] &gt; 1 || subbox[i / 3, j / 3, index] &gt; 1)
                 &#123;
-                    return res;
-                &#125;
-
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
+                    return false;
                 &#125;
             &#125;
         &#125;
     &#125;
-    return res;
+    return true;
 &#125;
 </code></pre>
 

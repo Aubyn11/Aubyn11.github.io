@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法37~38 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法37~38</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>解数独\外观数列</p>
+<span id="more"></span>
+<h2 id="解数独"><a href="#解数独" class="headerlink" title="解数独"></a>解数独</h2><p>难度：<strong>困难</strong><br>题目要求：<br>编写一个程序，通过填充空格来解决数独问题。<br>数独的解法需 <strong>遵循如下规则</strong>：</p>
+<ol>
+<li>数字 <code>1-9</code> 在每一行只能出现一次。</li>
+<li>数字 <code>1-9</code> 在每一列只能出现一次。</li>
+<li>数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。（请参考示例图）<br>数独部分空格内已填入了数字，空白格用 <code>&#39;.&#39;</code> 表示。</li>
+</ol>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：board &#x3D; [[“5”,”3”,”.”,”.”,”7”,”.”,”.”,”.”,”.”],[“6”,”.”,”.”,”1”,”9”,”5”,”.”,”.”,”.”],[“.”,”9”,”8”,”.”,”.”,”.”,”.”,”6”,”.”],[“8”,”.”,”.”,”.”,”6”,”.”,”.”,”.”,”3”],[“4”,”.”,”.”,”8”,”.”,”3”,”.”,”.”,”1”],[“7”,”.”,”.”,”.”,”2”,”.”,”.”,”.”,”6”],[“.”,”6”,”.”,”.”,”.”,”.”,”2”,”8”,”.”],[“.”,”.”,”.”,”4”,”1”,”9”,”.”,”.”,”5”],[“.”,”.”,”.”,”.”,”8”,”.”,”.”,”7”,”9”]]<br>输出：[[“5”,”3”,”4”,”6”,”7”,”8”,”9”,”1”,”2”],[“6”,”7”,”2”,”1”,”9”,”5”,”3”,”4”,”8”],[“1”,”9”,”8”,”3”,”4”,”2”,”5”,”6”,”7”],[“8”,”5”,”9”,”7”,”6”,”1”,”4”,”2”,”3”],[“4”,”2”,”6”,”8”,”5”,”3”,”7”,”9”,”1”],[“7”,”1”,”3”,”9”,”2”,”4”,”8”,”5”,”6”],[“9”,”6”,”1”,”5”,”3”,”7”,”2”,”8”,”4”],[“2”,”8”,”7”,”4”,”1”,”9”,”6”,”3”,”5”],[“3”,”4”,”5”,”2”,”8”,”6”,”1”,”7”,”9”]]</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>使用递归算法，创建三个字典列表，分别为<code>liRow</code>，<code>liCol</code>，<code>liBox</code>，分别表示九行，九列和九个格子，再定义一个用来临时存储结果的二维数组<code>boardAllres</code></p>
+</blockquote>
+<blockquote>
+<p>主要步骤如下：</p>
+<ul>
+<li>先判断一开始总共由多少个数字：<ul>
+<li>创建一个字典<code>dicAllTemp</code>来存储数字是否出现过</li>
+<li>先对<code>dicAllTemp</code>赋初始值为false，然后将对应的字典索引值添加到<code>liRow</code>，<code>liCol</code>，<code>liBox</code>中</li>
+<li>对整个集合进行遍历，如果当前元素的值不为<code>&#39;.&#39;</code>，那么就将当前单元格所对应的三个字典列表全部设置为<code>True</code>，并让计数<code>hasNumCount</code>自增</li>
+</ul>
+</li>
+<li>之后就要完成回溯函数<ul>
+<li>先进行判断，如果计数$hasNumCount &#x3D;&#x3D; 81$，那么直接将结果存储到<code>boardAllres</code>中并返回</li>
+<li>遍历当前集合，如果当前元素为<code>&#39;.&#39;</code>，那么就查出该行还未使用过的数字，判断它位于哪一个格子，将<code>hasNumCount</code>自增，并将此单元格再三个字典列表对应的值设置为<code>True</code>并将结果存储到传入的二维数组<code>board</code>中</li>
+<li>对回溯函数本身进行递归，如果符合要求就返回<code>True</code>，不符合要求就撤回当前操作</li>
+</ul>
+</li>
+<li>当函数遍历完成，就可以将<code>boardAllres</code>的结果赋值给最终结果</li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    List&lt;Dictionary&lt;int, bool&gt;&gt; liRow = new List&lt;Dictionary&lt;int, bool&gt;&gt;();
+    List&lt;Dictionary&lt;int, bool&gt;&gt; liCol = new List&lt;Dictionary&lt;int, bool&gt;&gt;();
+    List&lt;Dictionary&lt;int, bool&gt;&gt; liBox = new List&lt;Dictionary&lt;int, bool&gt;&gt;();
+    char[][] boardAllres = null;
+
+    public static void Main(String[] args)
+    &#123;
+        char[][] board = new char[9][]
+        &#123;
+            new char[] &#123; &#39;5&#39;, &#39;3&#39;, &#39;.&#39;, &#39;.&#39;, &#39;7&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39; &#125;,
+            new char[] &#123; &#39;6&#39;, &#39;.&#39;, &#39;.&#39;, &#39;1&#39;, &#39;9&#39;, &#39;5&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39; &#125;,
+            new char[] &#123; &#39;.&#39;, &#39;9&#39;, &#39;8&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;6&#39;, &#39;.&#39; &#125;,
+            new char[] &#123; &#39;8&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;6&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;3&#39; &#125;,
+            new char[] &#123; &#39;4&#39;, &#39;.&#39;, &#39;.&#39;, &#39;8&#39;, &#39;.&#39;, &#39;3&#39;, &#39;.&#39;, &#39;.&#39;, &#39;1&#39; &#125;,
+            new char[] &#123; &#39;7&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;2&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;6&#39; &#125;,
+            new char[] &#123; &#39;.&#39;, &#39;6&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;2&#39;, &#39;8&#39;, &#39;.&#39; &#125;,
+            new char[] &#123; &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;4&#39;, &#39;1&#39;, &#39;9&#39;, &#39;.&#39;, &#39;.&#39;, &#39;5&#39; &#125;,
+            new char[] &#123; &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;.&#39;, &#39;8&#39;, &#39;.&#39;, &#39;.&#39;, &#39;7&#39;, &#39;9&#39; &#125;
+        &#125;;
+        Solution solution = new Solution();
+        solution.SolveSudoku(board);
+        foreach (var a in board)
+        &#123;
+            foreach (var b in a)
+            &#123;
+                Console.Write(b + &quot; , &quot;);
+            &#125;
+            Console.WriteLine();
+        &#125;
+    &#125;
+
+    public void SolveSudoku(char[][] board)
+    &#123;
+        int count = 0;
+        Dictionary&lt;int, bool&gt; dic = new Dictionary&lt;int, bool&gt;();
+        for (int i = 1; i &lt;= 9; i++)
+        &#123;
+            dic.Add(i, false);
+        &#125;
+        for (int i = 0; i &lt; 9; i++)
+        &#123;
+            liRow.Add(new Dictionary&lt;int, bool&gt;(dic));
+            liCol.Add(new Dictionary&lt;int, bool&gt;(dic));
+            liBox.Add(new Dictionary&lt;int, bool&gt;(dic));
+        &#125;
+        for (int i = 0; i &lt; board.Length; i++)
+        &#123;
+            for (int j = 0; j &lt; board[0].Length; j++)
+            &#123;
+                if (board[i][j] != &#39;.&#39;)
+                &#123;
+                    int temp = board[i][j] - 48;
+                    liRow[i][temp] = true;
+                    liCol[j][temp] = true;
+                    int acount = (i / 3) * 3 + j / 3;
+                    liBox[acount][temp] = true;
+                    count++;
+                &#125;
+            &#125;
+        &#125;
+        ReCursive(board, count, 0, 0);
+        board = boardAllres;
+    &#125;
+    public bool ReCursive(char[][] board, int acount, int i, int j)
+    &#123;
+        if (acount == 81)
+        &#123;
+            boardAllres = board;
+            return true;
+        &#125;
+        for (; i &lt; board.Length; i++)
+        &#123;
+            for (j = 0; j &lt; board[0].Length; j++)
+            &#123;
+                if (board[i][j] == &#39;.&#39;)
+                &#123;
+                    List&lt;int&gt; liRes = liRow[i].Where(e =&gt; e.Value == false).Select(e =&gt; e.Key).ToList();
+                    foreach (var item in liRes)
+                    &#123;
+                        int count = (i / 3) * 3 + j / 3;
+                        if (liCol[j][item] == false &amp;&amp; liBox[count][item] == false &amp;&amp; liRow[i][item] == false)
+                        &#123;
+                            acount++;
+                            liRow[i][item] = true;
+                            liCol[j][item] = true;
+                            liBox[count][item] = true;
+                            board[i][j] = (char)(item + 48);
+                            if (ReCursive(board, acount, i, 0))
+                            &#123;
+                                return true;
+                            &#125;
+                            acount--;
+                            board[i][j] = &#39;.&#39;;
+                            liRow[i][item] = false;
+                            liCol[j][item] = false;
+                            liBox[count][item] = false;
+                        &#125;
+                    &#125;
+                    return false;
+                &#125;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="38-外观数列"><a href="#38-外观数列" class="headerlink" title="38. 外观数列"></a>38. 外观数列</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个正整数 <code>n</code> ，输出外观数列的第 <code>n</code> 项。</p>
+<p>「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。</p>
+<p>你可以将其视作是由递归公式定义的数字字符串序列：</p>
+<ul>
+<li><code>countAndSay(1) = &quot;1&quot;</code></li>
+<li><code>countAndSay(n)</code> 是对 <code>countAndSay(n-1)</code> 的描述，然后转换成另一个数字字符串。</li>
+</ul>
+<p>前五项如下：</p>
+<ol>
+<li><pre><code>1
+</code></pre>
+</li>
+<li><pre><code>11
+</code></pre>
+</li>
+<li><pre><code>21
+</code></pre>
+</li>
+<li><pre><code>1211
+</code></pre>
+</li>
+<li><pre><code>111221
+</code></pre>
+</li>
+</ol>
+<p>第一项是数字 1<br>描述前一项，这个数是 <code>1</code> 即 “ 一 个 1 ”，记作 <code>&quot;11&quot;</code><br>描述前一项，这个数是 <code>11</code> 即 “ 二 个 1 ” ，记作 <code>&quot;21&quot;</code><br>描述前一项，这个数是 <code>21</code> 即 “ 一 个 2 + 一 个 1 ” ，记作 “<code>1211&quot;</code><br>描述前一项，这个数是 <code>1211</code> 即 “ 一 个 1 + 一 个 2 + 二 个 1 ” ，记作 “<code>111221&quot;</code></p>
+<p>要 <strong>描述</strong> 一个数字字符串，首先要将字符串分割为 <strong>最小</strong> 数量的组，每个组都由连续的最多 <strong>相同字符</strong> 组成。然后对于每个组，先描述字符的数量，然后描述字符，形成一个描述组。要将描述转换为数字字符串，先将每组中的字符数量用数字替换，再将所有描述组连接起来。</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：n &#x3D; 1<br>输出：“1”</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：n &#x3D; 4<br>输出：“1211”</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>直接进行遍历，定义字符串$S_i$表示<em>countAndSay(i)</em>，如果要求得到$S_n$，则需要求出$S_{n-1}$，然后按照上述的方法生成，即从左到右依次扫描字符串$S_{n-1}$中连续相同的字符的最大数目，然后将字符的统计数目转化为数字字符再连接上对应的字符，已知$S_1$为<code>&quot;1&quot;</code>，就可以依次生成其他</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">using System.Text;
+
+class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        int n = 4;
+        string res = CountAndSay(n);
+        Console.WriteLine(res);
+    &#125;
+
+    public static string CountAndSay(int n)
+    &#123;
+        string str = &quot;1&quot;;
+        for (int i = 2; i &lt;= n; ++i)
+        &#123;
+            StringBuilder sb = new StringBuilder();
+            int start = 0;
+            int pos = 0;
+
+            while (pos &lt; str.Length)
+            &#123;
+                while (pos &lt; str.Length &amp;&amp; str[pos] == str[start])
+                &#123;
+                    pos++;
+                &#125;
+                sb.Append(pos - start).Append(str[start]);
+                start = pos;
+            &#125;
+            str = sb.ToString();
+        &#125;
+
+        return str;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

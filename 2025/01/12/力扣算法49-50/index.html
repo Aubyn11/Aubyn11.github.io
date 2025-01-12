@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法49~50 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法49~50</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,71 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>字母异位词分组\Pow(x,n)</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="49-字母异位词分组"><a href="#49-字母异位词分组" class="headerlink" title="49. 字母异位词分组"></a>49. 字母异位词分组</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给你一个字符串数组，请你将 <strong>字母异位词</strong> 组合在一起。可以按任意顺序返回结果列表。</p>
+<p><strong>字母异位词</strong> 是由重新排列源单词的所有字母得到的一个新单词。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：strs &#x3D; [“eat”, “tea”, “tan”, “ate”, “nat”, “bat”]<br>输出：[[“bat”],[“nat”,”tan”],[“ate”,”eat”,”tea”]]</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：strs &#x3D; [“”]<br>输出：[[“”]]</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：strs &#x3D; [“a”]<br>输出：[[“a”]]</p>
 </blockquote>
-<p><strong>题解</strong>：</p>
+<p><strong>题解</strong></p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>将字符串排序之后的有序字符串作为同一组字母异位词的标志，使用哈希表存储每个标志对应的所有字符串，则哈希表中的每个键值对表示一组字母异位词，其中关键字表示该组字母异位词的标志，值表示属于该组字母异位词的所有字符串组成的列表。<br>遍历字符串数组，对于每个字符串，得到其所在的一组字母异位词的标志，将该字符串添加到该组中。遍历结束之后，返回哈希表的所有键值对中的值组成的列表。</p>
 </blockquote>
 <p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
-&#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
-    &#123;
-        return list;
-    &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
-
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
-&#123;
-    if (str.Length == digits.Length)
-    &#123;
-        list.Add(str);
-        return;
-    &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
-    &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
+<pre><code class="language-Csharp">public class Solution &#123;
+    public IList&lt;IList&lt;string&gt;&gt; GroupAnagrams(string[] strs) &#123;
+        IDictionary&lt;string, IList&lt;string&gt;&gt; dictionary = new Dictionary&lt;string, IList&lt;string&gt;&gt;();
+        foreach (string str in strs) &#123;
+            char[] array = str.ToCharArray();
+            Array.Sort(array);
+            string key = new string(array);
+            dictionary.TryAdd(key, new List&lt;string&gt;());
+            dictionary[key].Add(str);
+        &#125;
+        return new List&lt;IList&lt;string&gt;&gt;(dictionary.Values);
     &#125;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
-<ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
-</ul>
-<p><strong>示例1</strong>：</p>
+<h2 id="50-Pow-x-n"><a href="#50-Pow-x-n" class="headerlink" title="50. Pow(x,n)"></a>50. Pow(x,n)</h2><p>难度：<strong>中等</strong><br>题目要求：<br>实现pow(x,n)，即计算<code>x</code>整数<code>n</code>次幂函数（即，$x^n$）。</p>
+<p><strong>示例1</strong></p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：x &#x3D; 2.00000, n &#x3D; 10<br>输出：1024.00000</p>
 </blockquote>
-<p><strong>示例2</strong>：</p>
+<p><strong>示例2</strong></p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：x &#x3D; 2.10000, n &#x3D; 3<br>输出：9.26100</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：x &#x3D; 2.00000, n &#x3D; -2<br>输出：0.25000</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>将一个数 x 的 n 次方拆分成多个数的乘积，其中这些数可以通过对 x 的平方递归得到。</p>
 </blockquote>
-<p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
-&#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
-    &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">public class Solution &#123;
+    public double MyPow(double x, int n) &#123;
+        if(n==0) return 1;
+        double s = 1;
+        for (int i = n; i != 0; i /= 2)
         &#123;
-            continue;
+            if (i % 2 != 0) s *= x;
+            x *= x;
         &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
-            &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
-
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
-                &#125;
-            &#125;
-        &#125;
+        if (n &lt; 0) s = 1 / s;
+        return s;
     &#125;
-    return res;
 &#125;
 </code></pre>
 

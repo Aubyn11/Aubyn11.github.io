@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法39~40 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法39~40</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,159 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>组合总数\组合总数 II</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="39-组合总数"><a href="#39-组合总数" class="headerlink" title="39. 组合总数"></a>39. 组合总数</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个<strong>无重复元素</strong>的整数数组<code>candidates</code>和一个目标整数<code>target</code>，找出<code>candidates</code>中可以使数字和为目标数<code>target</code>所有<strong>不同组合</strong>，并以列表形式返回。你可以按<strong>任意顺序</strong>返回这些组合。</p>
+<p><code>candidates</code>的<strong>同一个</strong>可以<strong>无限制重复被选取</strong>。如果至少一个数字的被选数量不同，则两种组合是不同的。</p>
+<p>对于给定的输入，保证和为<code>target</code>的不同组合数少于<code>150</code>个。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：candidates &#x3D; [2,3,6,7], target &#x3D; 7<br>输出：[[2,2,3],[7]]</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：candidates &#x3D; [2,3,5], target &#x3D; 8<br>输出：[[2,2,2,2],[2,3,3],[3,5]]</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：candidates &#x3D; [2], target &#x3D; 1<br>输出：[]</p>
 </blockquote>
-<p><strong>题解</strong>：</p>
+<p><strong>题解</strong></p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>直接利用回溯法，先用一个数取尽，再取下一个数，如果下一个数无法取得，就取出一个数继续尝试，直到最后的值减到0</p>
 </blockquote>
-<p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-Csharp">class Solution
 &#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
-    &#123;
-        return list;
-    &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
+    public List&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
+    public List&lt;int&gt; list = new List&lt;int&gt;();
 
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
-&#123;
-    if (str.Length == digits.Length)
+    public static void Main(String[] args)
     &#123;
-        list.Add(str);
-        return;
+        int[] candidates = &#123; 2, 3, 6, 7 &#125;;
+        int target = 7;
+        Solution solution = new Solution();
+        IList&lt;IList&lt;int&gt;&gt; result = solution.CombinationSum(candidates, target);
+        foreach (var a in result)
+        &#123;
+            foreach (var b in a)
+            &#123;
+                Console.Write(b + &quot; &quot;);
+            &#125;
+            Console.WriteLine();
+        &#125;
     &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
+
+    public IList&lt;IList&lt;int&gt;&gt; CombinationSum(int[] candidates, int target)
     &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
+        Recall(candidates, target, 0);
+        return res;
+    &#125;
+
+    public void Recall(int[] cadidates, int target, int start)
+    &#123;
+        if (target &lt; 0)
+        &#123;
+            return;
+        &#125;
+
+        if (target == 0)
+        &#123;
+            res.Add(new List&lt;int&gt;(list));
+            return;
+        &#125;
+
+        for (int i = start; i &lt; cadidates.Length; i++)
+        &#123;
+            list.Add(cadidates[i]);
+            Recall(cadidates,target - cadidates[i], start);
+            list.RemoveAt(list.Count - 1);
+            start++;
+        &#125;
     &#125;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
-<ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
-</ul>
+<h2 id="40-组合总数-II"><a href="#40-组合总数-II" class="headerlink" title="40. 组合总数 II"></a>40. 组合总数 II</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个候选人编号的集合<code>candidates</code>和一个目标数<code>target</code>，找出<code>candidates</code>中所有可以使数字和为<code>target</code>的组合。</p>
+<p><code>candidates</code>中的每个数字在每个组合中只能使用<strong>一次</strong>。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：candidates &#x3D; [10,1,2,7,6,1,5], target &#x3D; 8<br>输出：<br>[<br>[1,1,6],<br>[1,2,5],<br>[1,7],<br>[2,6]<br>]</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：candidates &#x3D; [2,5,2,1,2], target &#x3D; 5<br>输出：<br>[<br>[1,2,2],<br>[5]<br>]</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>使用回溯法，先声名一个<code>List</code>数组存放<code>dandidates</code>中的不同数字的val和出现的次数，当$target&gt;0$时，用<code>target</code>除以当前<code>pos</code>位置的<code>curList[pos][0]</code>的<code>val</code>，比较获取应该减去的次数，开始循环，$pos+1，target-curList[pos][0]，reList.Add(curList[pos][0]$，通过这个<code>list</code>数组记录<code>val</code>和出现次数</p>
 </blockquote>
 <p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
+<pre><code class="language-Csharp">class Solution
 &#123;
     IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
-    &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
-        &#123;
-            continue;
-        &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
-            &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
+    IList&lt;int&gt; list = new List&lt;int&gt;();
+    IList&lt;int[]&gt; curList = new List&lt;int[]&gt;();
 
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
-                &#125;
+    public static void Main(String[] args)
+    &#123;
+        int[] candidates = &#123; 2, 5, 2, 1, 2 &#125;;
+        int target = 5;
+        Solution solution = new Solution();
+        IList&lt;IList&lt;int&gt;&gt; result = solution.CombinationSum2(candidates, target);
+        foreach (var a in result)
+        &#123;
+            foreach (var b in a)
+            &#123;
+                Console.Write(b + &quot; &quot;);
             &#125;
+            Console.WriteLine();
         &#125;
     &#125;
-    return res;
+
+    public IList&lt;IList&lt;int&gt;&gt; CombinationSum2(int[] candidates, int target)
+    &#123;
+        Array.Sort(candidates);
+        int len = candidates.Length;
+        for (int i = 0; i &lt; len; i++)
+        &#123;
+            if (curList.Count == 0 || curList[curList.Count - 1][0] != candidates[i])
+            &#123;
+                curList.Add(new int[] &#123; candidates[i], 1 &#125;);
+            &#125;
+            else
+            &#123;
+                ++curList[curList.Count - 1][1];
+            &#125;
+        &#125;
+
+        Recall(target, 0);
+        return res;
+    &#125;
+
+    public void Recall(int target, int pos)
+    &#123;
+        if (target == 0)
+        &#123;
+            res.Add(new List&lt;int&gt;(list));
+            return;
+        &#125;
+        if (pos &gt;= curList.Count || target &lt; curList[pos][0])
+        &#123;
+            return;
+        &#125;
+        Recall(target, pos + 1);
+        int min = Math.Min(target / curList[pos][0], curList[pos][1]);
+        for (int i = 1; i &lt;= min; i++)
+        &#123;
+            list.Add(curList[pos][0]);
+            Recall(target - i * curList[pos][0], pos + 1);
+        &#125;
+
+        for (int i = 1; i &lt;= min; i++)
+        &#123;
+            list.RemoveAt(list.Count - 1);
+        &#125;
+    &#125;
 &#125;
 </code></pre>
 

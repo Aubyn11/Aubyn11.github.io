@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法43~44 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法43~44</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,157 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>字符串相乘\通配符匹配</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="43-字符串相乘"><a href="#43-字符串相乘" class="headerlink" title="43. 字符串相乘"></a>43. 字符串相乘</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定两个以字符串形式表示的非负整数<code>num1</code>和<code>num2</code>，返回<code>num1</code>和<code>num2</code>的乘积，它们的乘积也表示为字符串形式</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：num1 &#x3D; “2”， num2 &#x3D; “3”<br>输出：“6”</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
-</blockquote>
-<p><strong>示例3</strong>：</p>
-<blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：num1 &#x3D; “123”， num2 &#x3D; “456”<br>输出：“56088”</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>创建一个字符串构造器 $sum$，内部初始值为<code>&#39;0&#39;</code>，长度为 $num1$ 和 $num2$的和，对两个字符串从右到左遍历。</p>
+</blockquote>
+<blockquote>
+<p>对 $sum$的第 $i+j+1$ 的位置赋值：</p>
+<ul>
+<li>定义一个 $next&#x3D;sum[i+j+1]-‘0’+(num1[i]-‘0’)*(num2[j]-‘0’)$，以为两个字符串内的单个元素为 $char$，所以需要减去一个<code>&#39;0&#39;</code>来讲他转换为 $int$类型</li>
+<li>将 $next%10+’0’$ 的值转换为 $char$ 类型之后将结果存入到 $sum[i+j+1]$</li>
+</ul>
+<p>对 $sum$的第 $i+j$的位置进行赋值</p>
+<ul>
+<li>将 $next&#x2F;10$的值转换为 $char$ 类型之后将结果存入到 $sum[i+j]$ 中</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>最后定义一个字符串<code>res</code>，将sum从头删除为<code>&#39;0&#39;</code>的元素之后转换为字符串<br>如果<code>res</code>的长度为0，那么直接返回<code>&quot;0&quot;</code>，否则直接返回<code>res</code></p>
 </blockquote>
 <p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
-&#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
-    &#123;
-        return list;
-    &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
+<pre><code class="language-Csharp">using System.Text;
 
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
+class Solution
 &#123;
-    if (str.Length == digits.Length)
+    public static void Main(String[] args)
     &#123;
-        list.Add(str);
-        return;
+        string num1 = &quot;123456789&quot;;
+        string num2 = &quot;987654321&quot;;
+        Solution solution = new Solution();
+        string res = solution.Multiply(num1, num2);
+        Console.WriteLine(res);
     &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
+
+    public string Multiply(string num1, string num2)
     &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
+        StringBuilder sum = new StringBuilder(new string(&#39;0&#39;, num1.Length + num2.Length));
+        for (int i = num1.Length - 1; i &gt;= 0; i--)
+        &#123;
+            for (int j = num2.Length - 1; j &gt;= 0; j--)
+            &#123;
+                int next = sum[i + j + 1] - &#39;0&#39; + (num1[i] - &#39;0&#39;) * (num2[j] - &#39;0&#39;);
+                sum[i + j + 1] = (char)(next % 10 + &#39;0&#39;);
+                sum[i + j] += (char)(next / 10);
+            &#125;
+        &#125;
+        string res = sum.ToString().TrimStart(&#39;0&#39;);
+        return res.Length == 0 ? &quot;0&quot; : res;
     &#125;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
+<h2 id="44-通配符匹配"><a href="#44-通配符匹配" class="headerlink" title="44. 通配符匹配"></a>44. 通配符匹配</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给你一个输入字符串 (<code>s</code>) 和一个字符模式 (<code>p</code>) ，请你实现一个支持 <code>&#39;?&#39;</code> 和 <code>&#39;*&#39;</code> 匹配规则的通配符匹配：</p>
 <ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
+<li><code>&#39;?&#39;</code> 可以匹配任何单个字符。</li>
+<li><code>‘*&#39;</code>可以匹配任意字符序列（包括空字符序列）。</li>
 </ul>
+<p>判定匹配成功的充要条件是：字符模式必须能够<strong>完全匹配</strong>输入字符串（而不是部分匹配）。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：s &#x3D; “aa”, p &#x3D; “a”<br>输出：false</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：s &#x3D; “aa”, p &#x3D; “*”<br>输出：true</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “cb”, p &#x3D; “?a”<br>输出：false</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>判断 $s$ 和 $p$ 是否匹配，需要分别考虑 $s$ 和 $p$ 的每个前缀，用 $m$ 和 $n$ 分别表示 $s$ 和 $p$ 的长度。对于满足 $1\leq j\leq n$ 和 $1\leq i\leq m$ 的每个下标对 $(i,j)$，需要分别计算 $s$ 的前 $i$个字符和 $p$ 的前 $j$ 个字符是否匹配</p>
 </blockquote>
-<p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
+<blockquote>
+<p>创建 $(m+1)*(n+1)$ 的二维数组 $dp$，其中 $dp[i][j]$ 为 $s$ 的前 $i$ 个字符和 $p$ 的前 $j$ 个字符是否匹配</p>
+</blockquote>
+<blockquote>
+<p>当 $j&#x3D;0$ 时，模式为空，只有空字符串可以匹配，因此动态规划的结果：当 $i&#x3D;0$ 时，$dp[i][j]&#x3D;true$；当 $i&gt;0$ 时，$dp[i][0]&#x3D;false$</p>
+</blockquote>
+<blockquote>
+<p>当 $j&gt;0$ 时，动态规划的状态转移方程如下：</p>
+<ul>
+<li>当 $i&#x3D;0$ 且 $j&gt;0$ 时，如果 $p[j-1]&#x3D;’*’$ 且 $dp[i][j-1]&#x3D;true$ 则 $dp[i][j]&#x3D;true$，否则 $dp[i][j]&#x3D;false$</li>
+<li>当 $i&gt;0$ 且 $j&gt;0$ 时，考虑以下情况<ul>
+<li>如果 $p[j-1]\neq ‘*’$ ，则当 $dp[i-1][j-1]&#x3D;true$ 且 $s[i-1]，p[j-1]$ 满足字符匹配时 $dp[i][j]&#x3D;true$，否则$dp[i][j]&#x3D;false$</li>
+<li>如果 $p[j-1]&#x3D;’*’$ ，则当 $dp[i][j-1]&#x3D;true$ 或 $dp[i-1][j]&#x3D;true$ 时 $dp[i][j]&#x3D;true$，否则 $dp[i][j]&#x3D;false$</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>根据动态规划的状态转移方程，计算 $dp[i][j]$ 的顺序为从小到大遍历每一个 $i$，对于每个 $i$ 从小到大遍历每一个 $j$。计算得到 $dp[i][j]$</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">public class Solution
 &#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
+    public static void Main(string[] args)
     &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
-        &#123;
-            continue;
-        &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
-            &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
+        string s = &quot;aa&quot;;
+        string p = &quot;a&quot;;
+        Solution solution = new Solution();
+        bool res = solution.IsMatch(s,p);
+        Console.WriteLine(res);
+    &#125;
 
-                if (sum &lt; target)
+    public bool IsMatch(string s, string p)
+    &#123;
+        int m = s.Length, n = p.Length;
+        bool[] dp = new bool[n + 1];
+        dp[0] = true;
+        for (int j = 1; j &lt;= n; j++)
+        &#123;
+            if (p[j - 1] == &#39;*&#39;)
+            &#123;
+                dp[j] = dp[j - 1];
+            &#125;
+        &#125;
+        for (int i = 1; i &lt;= m; i++)
+        &#123;
+            bool[] dpNew = new bool[n + 1];
+            char c1 = s[i - 1];
+            for (int j = 1; j &lt;= n; j++)
+            &#123;
+                char c2 = p[j - 1];
+                if (c2 != &#39;*&#39;)
                 &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
+                    dpNew[j] = dp[j - 1] &amp;&amp; IsCharacterMatch(c1, c2);
                 &#125;
                 else
                 &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
+                    dpNew[j] = dpNew[j - 1] || dp[j];
                 &#125;
             &#125;
+            dp = dpNew;
         &#125;
+        return dp[n];
     &#125;
-    return res;
+
+    public bool IsCharacterMatch(char c1, char c2)
+    &#123;
+        return c1 == c2 || c2 == &#39;?&#39;;
+    &#125;
 &#125;
 </code></pre>
 

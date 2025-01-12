@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法29~30 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法29~30</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,175 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>两数相除\串联所有单词的子串</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="29-两数相除"><a href="#29-两数相除" class="headerlink" title="29. 两数相除"></a>29. 两数相除</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定两个整数，被除数<code>dividend</code>除数<code>divisor</code>。将两数相除，要求<strong>不使用</strong>乘法、除法和取余运算。<br>整数除法应该向零截断，也就是截去（<code>truncate</code>）其小数部分。例如，<code>8.345</code>将被截断为<code>8</code>，<code>-2.7335</code>将被截断至<code>-2</code>。<br>返回被除数<code>dividend</code>除以除数<code>divisor</code>的<strong>商</strong>。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：dividend &#x3D; 10, divisor &#x3D; 3<br>输出：3</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：dividend &#x3D; 7, divisor &#x3D; -3<br>输出：-2</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>一开始想不到怎么做，看了别人的代码才了解到需要用到位运算：</p>
+</blockquote>
+<blockquote>
+<p>首先，判断以下三种情况：</p>
+<ul>
+<li>如果 dividend &#x3D; 0，那么直接返回0</li>
+<li>如果 divisor &#x3D; 1，那么直接返回被除数本身</li>
+<li>如果 dividend &#x3D; $-2^{31}$ 并且 divisor &#x3D; -1，那么商是 $2^{31}$，超出有符号整数范围，所以返回$2^{31} - 1$。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>其余的情况，首先判断符号的正负，之后将被除数和除数都变成负数，计算商的绝对值。因为不能够使用乘除，所以要用位运算代替<br>首先将除数左移，使得在除数的绝对值不超过被除数的绝对值的情况下，将除数的绝对值最大化。假设除数左移了 k 位之后变成<code>currDivisor</code>，则<code>currDivisor</code> &#x3D; divisor x $2^{k}$，<code>currDivisor</code>除以<code>divisor</code>的商是$2^k$，将<code>dividend</code>的值减去<code>currDivisor</code>，然后对剩余的<code>dividend</code>继续计算商</p>
+</blockquote>
+<blockquote>
+<p>当<code>dividend</code>的值减去<code>currDivisor</code>之后，如果<code>dividend</code>的绝对值小于<code>currDivisor</code>的绝对值，就需要将<code>currDivisor</code>右移，直到<code>dividend</code>的绝对值大于<code>currDivisor</code>的绝对值</p>
+</blockquote>
+<blockquote>
+<p>重复计算商的操作，计算两数相除的结果，当<code>dividend</code>的绝对值小于<code>divisor</code>的绝对值时，商的剩余部分是<code>0</code>，到这里，计算结束，得到两数相除的结果的绝对值，之后根据商的正负来的到最终结果并返回</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static int Divide(int dividend, int divisor)
+&#123;
+    if (dividend == 0)
+    &#123;
+        return 0;
+    &#125;
+    if (divisor == 1)
+    &#123;
+        return dividend;
+    &#125;
+    if (dividend == int.MinValue &amp;&amp; divisor == -1)
+    &#123;
+        return int.MaxValue;
+    &#125;
+    bool negative = dividend &lt; 0 ^ divisor &lt; 0;
+    dividend = dividend != int.MinValue ? -Math.Abs(dividend) : dividend;
+    divisor = divisor != int.MinValue ? -Math.Abs(divisor) : divisor;
+    int quotient = 0;
+    int currDiviser = divisor, factor = 1;
+    while (dividend &gt;&gt; 1 &lt; currDiviser)
+    &#123;
+        currDiviser &lt;&lt;= 1;
+        factor &lt;&lt;= 1;
+    &#125;
+    while (dividend &lt;= divisor)
+    &#123;
+        while (dividend &gt; currDiviser)
+        &#123;
+            currDiviser &gt;&gt;= 1;
+            factor &gt;&gt;= 1;
+        &#125;
+
+        quotient += factor;
+        dividend -= currDiviser;
+    &#125;
+    if (negative)
+    &#123;
+        quotient = -quotient;
+    &#125;
+    return quotient;
+&#125;
+</code></pre>
+<h2 id="30-串联所有单词的子串"><a href="#30-串联所有单词的子串" class="headerlink" title="30. 串联所有单词的子串"></a>30. 串联所有单词的子串</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给定一个字符串<code>s</code>和一个字符串数组<code>words</code>。 <code>words</code>中所有字符串<strong>长度相同</strong>。<br><code>s</code>的<strong>串联子串</strong>是指一个包含<code>words</code>中所有字符串以任意顺序排列连接起来的子串。<br>返回所有串联子串在<code>s</code>中的开始索引。可以以<strong>任意顺序</strong>返回答案。</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “barfoothefoobarman”, words &#x3D; [“foo”,”bar”]<br>输出：[0,9]</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “wordgoodgoodgoodbestword”, words &#x3D; [“word”,”good”,”best”,”word”]<br>输出：[]</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：s &#x3D; “barfoofoobarthefoobarman”, words &#x3D; [“bar”,”foo”,”the”]<br>输出：[6,9,12]</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>采用滑动窗口法，用<code>sLength</code>表示字符串<code>s</code>的长度，用<code>wordLength</code>表示数组<code>words</code>中的每个单词的长度，用<code>wordCount</code>表示数组<code>words</code>的长度即数组中的单词个数，对于由数组<code>words</code>中的单词串联形成的子串，其长度为wordLenth X wordCount，因此可以使用定长滑动窗口寻找串联所有单词的子串，滑动窗口的大小为$widows &#x3D; wordLength * wordCount$</p>
+</blockquote>
+<blockquote>
+<p>对于降低时间复杂度，应将滑动窗口看成<code>wordCount</code>个单词，每个单词的长度是<code>wordLength</code>。每次将滑动窗口向右移动<code>wordLength</code>位，则有一个单词移出滑动窗口，有一个单词移入滑动窗口，滑动窗口中的其余单词出现的次数不变</p>
+</blockquote>
+<blockquote>
+<p>当$i &gt;&#x3D; wordLength$时，以下标<code>i</code>作为开始的滑动窗口都可以通过以下标$i - wordLength$作为开始的窗口滑动依次得到，所以，只需要考虑首个滑动窗口的开始下标位于范围$[0,wordLength - 1]$中的情况。由于范围$[0,wordLength - 1]$中的每个下标都可能做为首个滑动窗口的下标，因此需要分别考虑<code>wordLength</code>个开始下标</p>
+</blockquote>
+<blockquote>
+<p>当$0 &lt;&#x3D; i &lt; wordLength$时，以下标<code>i</code>作为开始的滑动窗口，其下标范围是$[i,i + window - 1]$，如果$i + window - 1 &gt; sLength$那么就不存在以下标<code>i</code>作为开始的滑动窗口</p>
+</blockquote>
+<blockquote>
+<p>一个滑动窗口中的子串是串联所有单词的子串，等价于每个单词在滑动窗口中的出现次数和在数组words中的出现次数相等，因此需要使用哈希表记录每个单词在滑动窗口中的出现次数和在数组<code>words</code>中的出现次数之差，出现次数之差等于<code>0</code>表示出现次数相等</p>
+</blockquote>
+<blockquote>
+<p>对于$0 &lt;&#x3D; i &lt; wordLength$的每个下标<code>i</code>，执行以下操作：</p>
+<ul>
+<li>创建哈希表记录每个单词在滑动窗口中的出现次数和在数组<code>words</code>中的出现次数之差。将数组<code>words</code>中的每个单词在哈希表中的出现次数减<code>1</code></li>
+<li>用$[start,end]$表示滑动窗口的下标范围，初始时<em>start &#x3D; i</em>，<em>end &#x3D; i + window - 1</em>。对于下标$[i,i + window - 1]$的滑动窗口，将其中的每个单词的出现次数加<code>1</code>，如果哈希表中的每个单词的出现次数之差都是<code>0</code>，则将下标<code>i</code>添加到答案中</li>
+<li>当$end + wordLength + 1 &lt; sLength$时，将<code>start</code>和<code>end</code>各向右移动<code>wordLength</code>位，使用移出滑动窗口的单词和移入滑动窗口的单词更新哈希表。如果哈希表中的每个单词出现次数之差都是<code>0</code>，则将下标<code>start</code>添加到答案中</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>遍历所有下标<code>i</code>之后，就可以得到每个串联子串的开始下标</p>
 </blockquote>
 <p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
+<pre><code class="language-C#">public static IList&lt;int&gt; FindSubstring(string s, string[] words)
 &#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
+    IList&lt;int&gt; substrings = new List&lt;int&gt;();
+    int sLength = s.Length, wordLength = words[0].Length, wordCount = words.Length;
+    int window = wordLength * wordCount;
+    for (int i = 0; i &lt; wordLength &amp;&amp; i + window &lt;= sLength; i++)
     &#123;
-        return list;
-    &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
-
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
-&#125;
-
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
-&#123;
-    if (str.Length == digits.Length)
-    &#123;
-        list.Add(str);
-        return;
-    &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
-    &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
-    &#125;
-&#125;
-</code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
-<ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
-</ul>
-<p><strong>示例1</strong>：</p>
-<blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
-</blockquote>
-<p><strong>示例2</strong>：</p>
-<blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
-</blockquote>
-<p><strong>题解</strong>：</p>
-<blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
-</blockquote>
-<p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
-&#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
-    &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
+        IDictionary&lt;string, int&gt; counts = new Dictionary&lt;string, int&gt;();
+        foreach (string word in words)
         &#123;
-            continue;
+            counts.TryAdd(word, 0);
+            counts[word]--;
         &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
+        int start = i, end = i + window - 1;
+        for (int j = start; j &lt;= end; j += wordLength)
         &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
+            string word = s.Substring(j, wordLength);
+            counts.TryAdd(word, 0);
+            counts[word]++;
+            if (counts[word] == 0)
             &#123;
-                continue;
+                counts.Remove(word);
             &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
+        &#125;
+        if (counts.Count == 0)
+        &#123;
+            substrings.Add(start);
+        &#125;
+        while (end + wordLength + 1 &lt;= sLength)
+        &#123;
+            start += wordLength;
+            end += wordLength;
+            string prev = s.Substring(start - wordLength, wordLength);
+            string next = s.Substring(end - wordLength + 1, wordLength);
+            counts.TryAdd(prev, 0);
+            counts[prev]--;
+            if (counts[prev] == 0)
             &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
-
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
-                &#125;
+                counts.Remove(prev);
+            &#125;
+            counts.TryAdd(next, 0);
+            counts[next]++;
+            if (counts[next] == 0)
+            &#123;
+                counts.Remove(next);
+            &#125;
+            if (counts.Count == 0)
+            &#123;
+                substrings.Add(start);
             &#125;
         &#125;
     &#125;
-    return res;
+    return substrings;
 &#125;
 </code></pre>
 

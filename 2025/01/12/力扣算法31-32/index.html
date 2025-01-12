@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>力扣算法17~18 | Aubyn的学习小屋</title>
+    <title>力扣算法31~32 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>力扣算法17~18</h1>
+        <h1>力扣算法31~32</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -193,7 +193,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
                     算法
                 </a>
             </span>
@@ -203,135 +203,145 @@
     </div>
     
     <div class="content" v-pre>
-        <p>电话号码的字母组合\四数之和</p>
+        <p>下一个排列\最长有效括号</p>
 <span id="more"></span>
-<h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个仅包含数字<em>2-9</em>的字符串，返回所有它能表示的字母组合。答案可以按<strong>任意顺序</strong>返回<br>数字到字母的映射如下：<br><img src="/images/1.png"></p>
+<h2 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a>下一个排列</h2><p>难度：<strong>中等</strong><br>题目要求：<br>整数数组的一个<strong>排列</strong>就是将其所有成员以序列或线性顺序排列。<br>整数数组的<strong>下一个排列</strong>是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的<strong>下一个排列</strong>就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。<br>给定一个整数数组<code>nums</code>，找出<code>nums</code>的下一个排列。<br>必须<strong>原地</strong>修改，只允许使用额外常数空间。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “23”<br>输出：[“ad”,”ae”,”af”,”bd”,”be”,”bf”,”cd”,”ce”,”cf”]</p>
+<p>输入：nums &#x3D; [1,2,3]<br>输出：[1,3,2]</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “”<br>输出：[]</p>
+<p>输入：nums &#x3D; [3,2,1]<br>输出：[1,2,3]</p>
 </blockquote>
 <p><strong>示例3</strong>：</p>
 <blockquote>
-<p>输入：digits &#x3D; “2”<br>输出：[“a”,”b”,”c”]</p>
+<p>输入：nums &#x3D; [1,1,5]<br>输出：[1,5,1]</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：利用回溯法，将每一个数字字符对应的字符串添加到字典当中，之后设定回溯，定义一个空的字符串，定义一个中间元素Temp使其与每一次回溯的字典中索引的值相同，如果字符串的长度和给定的字符长度相同，将字符串加入到一个List中并直接return，如果不满足，进行循环，每一次让空字符串加上temp的一个字符，然后进行回溯，退出回溯之后去除字符串中的最后一个元素</p>
+<p>如果数组存在更大的排列，那么一定存在一个下标<code>i</code>和<code>j</code>满足$i&lt;j$且$nums[i]&lt;nums[j]$，为了找到下一个更大的排列，应该选取符合要求的最大下标<code>i</code>，在<code>nums[i]</code>右侧寻找大于<code>nums[i]</code>的最小元素并将该元素与<code>nums[i]</code>交换，之后将<code>nums[i]</code>右侧的全部元素按照升序排列，就可以得到下一个排列</p>
+</blockquote>
+<blockquote>
+<p>如果数组<code>nums</code>不存在更大的排列，就将整个数组反转得到单调递增的数组。就可以得到下一个排列</p>
+</blockquote>
+<blockquote>
+<p>做法如下：</p>
+<ul>
+<li>反向遍历数组<code>nums</code>，找到符合$nums[index_1]&lt;nums[index_1+1]$的最大下标 $index_1$。如果没有找到符合条件的下标 $index_1$，则 $index_1&#x3D;1$</li>
+<li>如果 $index_1\geq0$，则找到符合 $nums[index_1]&lt;nums[index_2]$ 的最大下标 $index_2$，那么一定有 $index_1&lt;index_2$，将 $nums[index_1]$ 和 $nums[index_2]$ 交换，如果 $index_1&lt;0$ 则不执行</li>
+<li>将数组<code>nums</code>从下标 $index_1+1$ 到末尾的子数组反转（如果 $index_1&#x3D;-1$ 就将整个数组反转），最后就可以得到下一个排列</li>
+</ul>
 </blockquote>
 <p><strong>想法代码</strong></p>
-<pre><code class="language-C#">public static IList&lt;string&gt; LetterCombinations(string digits)
+<pre><code class="language-Csharp">public static void NextPermutation(int[] nums)
 &#123;
-    List&lt;string&gt; list = new List&lt;string&gt;();
-    if (digits.Length == 0)
+    int length = nums.Length;
+    int index1 = length - 2;
+    while (index1 &gt;= 0 &amp;&amp; nums[index1] &gt;= nums[index1 + 1])
     &#123;
-        return list;
+        index1--;
     &#125;
-    Dictionary&lt;char,string&gt; dic = new Dictionary&lt;char,string&gt;();
-    dic.Add(&#39;2&#39;, &quot;abc&quot;);
-    dic.Add(&#39;3&#39;, &quot;def&quot;);
-    dic.Add(&#39;4&#39;, &quot;ghi&quot;);
-    dic.Add(&#39;5&#39;, &quot;jkl&quot;);
-    dic.Add(&#39;6&#39;, &quot;mno&quot;);
-    dic.Add(&#39;7&#39;, &quot;pqrs&quot;);
-    dic.Add(&#39;8&#39;, &quot;tuv&quot;);
-    dic.Add(&#39;9&#39;, &quot;wxyz&quot;);
-
-    Recall(0,&quot;&quot;,digits,dic,list);
-    return list;
+    if (index1 &gt;= 0)
+    &#123;
+        int index2 = length - 1;
+        while (nums[index1] &gt;= nums[index2])
+        &#123;
+            index2--;
+        &#125;
+        Swap(nums, index1, index2);
+    &#125;
+    Reverse(nums, index1 + 1);
 &#125;
 
-public static void Recall(int index, string str, string digits, Dictionary&lt;char, string&gt; dic, List&lt;string&gt; list)
+public static void Swap(int[] nums, int index1, int index2)
 &#123;
-    if (str.Length == digits.Length)
+    int temp = nums[index1];
+    nums[index1] = nums[index2];
+    nums[index2] = temp;
+&#125;
+
+public static void Reverse(int[] nums, int start)
+&#123;
+    for (int i = start, j = nums.Length - 1; i &lt; j; i++, j--)
     &#123;
-        list.Add(str);
-        return;
-    &#125;
-    string temp = dic[digits[index]];
-    for (int i = 0; i &lt; temp.Length; i++)
-    &#123;
-        str += temp[i];
-        Recall(index + 1, str, digits, dic, list);
-        str = str.Remove(str.Length - 1);
+        Swap(nums, i, j);
     &#125;
 &#125;
 </code></pre>
-<h2 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个由 <em>n</em> 个整数组成的整数数组 <em>nums</em>，和一个目标值 <em>target</em> ，找出并返回满足下述全部条件且不重复的四元组，<em>nums[a]</em>，<em>nums[b]</em>，<em>nums[c]</em>，<em>nums[d]</em></p>
-<ul>
-<li>0 &lt;&#x3D; a，b，c，d &lt; n</li>
-<li>a、b、c 和 d 互不相同</li>
-<li><em>nums[a]</em> + <em>nums[b]</em> + <em>nums[c]</em> + <em>nums[d]</em> &#x3D;&#x3D; target</li>
-</ul>
+<h2 id="32-最长有效括号"><a href="#32-最长有效括号" class="headerlink" title="32. 最长有效括号"></a>32. 最长有效括号</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给你一个只包含 <code>&#39;(&#39;</code> 和 <code>&#39;)&#39;</code> 的字符串，找出最长有效（格式正确且连续）括号子串的长度。</p>
 <p><strong>示例1</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [1,0,-1,0,-2,2], target &#x3D; 0<br>输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]</p>
+<p>输入：s &#x3D; “(()”<br>输出：2</p>
 </blockquote>
 <p><strong>示例2</strong>：</p>
 <blockquote>
-<p>输入：nums &#x3D; [2,2,2,2,2], target &#x3D; 8<br>输出：[[2,2,2,2]]</p>
+<p>输入：s &#x3D; “)()())”<br>输出：4</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：””<br>输出：0</p>
 </blockquote>
 <p><strong>题解</strong>：</p>
 <blockquote>
-<p>最开始的想法：根据三数之和演变而来，可以在三数之和外面再次嵌套一个循环，内部的基本逻辑不变，依然是左右两个指针进行移动</p>
+<p>任意的有效括号字符串满足以下条件：</p>
+<ul>
+<li>有效括号字符串中的左括号个数与右括号个数相等</li>
+<li>从左到右遍历有效括号字符串的过程中，任何时候遍历到左括号的个数都不会大于右括号的个数</li>
+<li>从右到左遍历有效括号字符串的过程中，任何时候遍历到右括号的个数倒不会大于左括号的个数</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>所以，可以从两个方向来遍历字符串并计算出最长有效括号</p>
+</blockquote>
+<blockquote>
+<p>从左到右遍历的时候，维护左括号和右括号的计数：</p>
+<ul>
+<li>如果左括号与右括号的个数相等，则使用左右括号的计数之和来更新最大值</li>
+<li>如果右括号的个数大于左括号的个数，那么不可能是有效括号字符串，需要将左右括号的计数全部清零</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>从右到左遍历的时候，维护左括号和右括号的计数：</p>
+<ul>
+<li>如果右括号和左括号的个数相等，则使用左右括号的计数之和来更新最大值</li>
+<li>如果左括号的个数大于右括号的个数，那么不可能是有效括号字符串，需要将左右括号的计数全部清零</li>
+</ul>
 </blockquote>
 <p><strong>想法代码</strong>：</p>
-<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; FourSum(int[] nums, int target)
+<pre><code class="language-Csharp">public int LongestValidParentheses(string s)
 &#123;
-    IList&lt;IList&lt;int&gt;&gt; res = new List&lt;IList&lt;int&gt;&gt;();
-    Array.Sort(nums);
-    int sum = 0;
-    for (int i = 0; i &lt;= nums.Length - 4; i++)
-    &#123;
-        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
-        &#123;
-            continue;
-        &#125;
-        for (int j = i + 1; j &lt;= nums.Length - 4 + 1; j++)
-        &#123;
-            if (j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1])
-            &#123;
-                continue;
-            &#125;
-            int left = j + 1;
-            int right = nums.Length - 1;
-            while (left &lt; right)
-            &#123;
-                sum = nums[i] + nums[j] + nums[left] + nums[right];
-                if (nums[i] &gt; 0 &amp;&amp; nums[j] &gt; 0 &amp;&amp; nums[left] &gt; 0 &amp;&amp; nums[right] &gt; 0 &amp;&amp; sum &lt; 0)
-                &#123;
-                    return res;
-                &#125;
+    int maxLength1 = GetMaxLength(s, 0, 1, &#39;(&#39;);
+    int maxLength2 = GetMaxLength(s, s.Length - 1, -1, &#39;)&#39;);
+    return Math.Max(maxLength1, maxLength2);
+&#125;
 
-                if (sum &lt; target)
-                &#123;
-                    left++;
-                &#125;
-                else if (sum &gt; target)
-                &#123;
-                    right--;
-                &#125;
-                else
-                &#123;
-                    res.Add(new List&lt;int&gt;() &#123; nums[i], nums[j], nums[left], nums[right] &#125;);
-                    while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
-                    &#123;
-                        left++;
-                    &#125;
-                    while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
-                    &#123;
-                        right--;
-                    &#125;
-                    left++;
-                    right--;
-                &#125;
-            &#125;
+public int GetMaxLength(String s, int start, int direction, char ch)
+&#123;
+    int maxLength = 0;
+    int count1 = 0, count2 = 0;
+    int n = s.Length;
+    for (int i = start, j = 0; j &lt; n; i += direction, j++)
+    &#123;
+        if (s[i] == ch)
+        &#123;
+            count1++;
+        &#125;
+        else
+        &#123;
+            count2++;
+        &#125;
+        if (count1 == count2)
+        &#123;
+            maxLength = Math.Max(maxLength, count1 + count2);
+        &#125;
+        else if (count1 &lt; count2)
+        &#123;
+            count1 = 0;
+            count2 = 0;
         &#125;
     &#125;
-    return res;
+    return maxLength;
 &#125;
 </code></pre>
 
