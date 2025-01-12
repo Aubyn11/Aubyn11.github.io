@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>About | Aubyn的学习小屋</title>
+    <title>力扣算法7~8 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,45 +165,159 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>About</h1>
+        <h1>力扣算法7~8</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2022/4/11
+            2025/1/12
         </span>
         
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        <h1 id="Hi-there！"><a href="#Hi-there！" class="headerlink" title="Hi there！"></a>Hi there！</h1><hr>
+        <p>整数反转、字符串转换整数</p>
+<span id="more"></span>
+<h2 id="7-整数反转"><a href="#7-整数反转" class="headerlink" title="7. 整数反转"></a>7. 整数反转</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个32位的有符号整数<em>x</em>，返回将<em>x</em>中的数字部分反转后的结果<br>如果反转后整数超过32位的有符号整数的范围[$-2^{31}$,$2^{31}$ - 1],就返回<em>0</em></p>
+<p><strong>示例1</strong>：</p>
 <blockquote>
-<p>Tell me… Does <strong>Argvchs the God</strong> bleed?<br>No. But <strong>you</strong> will.</p>
+<p>输入：x &#x3D; 123<br>输出：321</p>
 </blockquote>
-<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><ul>
-<li>C&#x2F;C++</li>
-<li>C#</li>
-</ul>
-<h2 id="帐号"><a href="#帐号" class="headerlink" title="帐号"></a>帐号</h2><table>
-<thead>
-<tr>
-<th align="center">网站</th>
-<th align="left">帐号</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">QQ</td>
-<td align="left"><a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=2028036856&site=qq&menu=yes">2028036856</a></td>
-</tr>
-<tr>
-<td align="center">GitHub</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://github.com/Aubyn11">Aubyn11</a></td>
-</tr>
-</tbody></table>
-<p><img src="https://static-argvchs.netlify.app/images/avatar.jpg" alt="avatar"></p>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; -123<br>输出：-321</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; 120<br>输出：21</p>
+</blockquote>
+<p><strong>示例4</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; 0<br>输出：0</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：先定义两个常量，一个最大<em>MAX</em>，一个最小<em>MIN</em>，因为要反转，所以要判断是否会越界，最大值为2147483647，最小值为-2147483648，所以当反转的时候要注意不要越界</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public int Reverse(int x)
+&#123;
+    int reversed = 0;
+    while (x != 0)
+    &#123;
+        int lastDigit = x % 10;
+        if (reversed &gt; MAX || reversed &lt; MIN)
+        &#123;
+            return 0;
+        &#125;
+        else if (reversed == MAX &amp;&amp; lastDigit &gt; 7 || reversed == MIN &amp;&amp; lastDigit &lt; -8)
+        &#123;
+            return 0;
+        &#125;
+        reversed = reversed * 10 + lastDigit;
+        x /= 10;
+    &#125;
+    return reversed;
+&#125;
+</code></pre>
+<h2 id="8-字符串转换整数"><a href="#8-字符串转换整数" class="headerlink" title="8. 字符串转换整数"></a>8. 字符串转换整数</h2><p>难度：<strong>中等</strong><br>题目要求：<br>实现一个<em>myAtoi(string s)</em> 函数，使其能够将字符串转换成一个<em>32</em>位有符号整数，函数算法如下：<br><em>1.</em> 读入字符串并丢弃无用的前导空格<br><em>2.</em> 检查下一个字符（假设还未找到字符末尾）为正还是负号，读取该字符（如果有），确定最终结果是负数还是正数，如果两者都不存在，则假定结果为正<br><em>3.</em> 读入下一个字符，直到到达下一个非数字字符或到达输入的结尾。字符串的剩余部分将被忽略<br><em>4.</em> 将前面步骤读入的这些数字转换为整数（即，“123” -&gt; 123，“0032” -&gt; “32”），如果没有读入数字，则整数为<em>0</em> ，必要时更改符号（从步骤2开始）<br><em>5.</em> 如果整数超过<em>32</em>位有符号整数范围[$-2^{31}$，$2^{31} - 1$]，需要截断这个整数，使其保持在这个范围内，具体来说，小于$-2^{31}$的整数应该被固定为$2^{31}-1$<br><em>6.</em> 返回整数作为最终结果</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “42”<br>输出：42<br>解释：加粗的字符串为已经读入的字符，插入符号是当前读取的字符。<br>第 1 步：”42”（当前没有读入字符，因为没有前导空格）<br>第 2 步：”42”（当前没有读入字符，因为这里不存在 ‘-‘ 或者 ‘+’）<br>第 3 步：”42”（读入 “42”）<br>解析得到整数 42 。<br>由于 “42” 在范围 [-231, 231 - 1] 内，最终结果为 42 。 </p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “   -42”<br>输出：-42<br>解释：<br>第 1 步：”   -42”（读入前导空格，但忽视掉）<br>第 2 步：”  <strong>-</strong> 42”（读入 ‘-‘ 字符，所以结果应该是负数）<br>第 3 步：” -42”（读入 “42”）<br>解析得到整数 -42 。<br>由于 “-42” 在范围 [-231, 231 - 1] 内，最终结果为 -42 。</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “4193 with words”<br>输出：4193<br>解释：<br>第 1 步：”4193 with words”（当前没有读入字符，因为没有前导空格）<br>第 2 步：”4193 with words”（当前没有读入字符，因为这里不存在 ‘-‘ 或者 ‘+’）<br>第 3 步：”4193 with words”（读入 “4193”；由于下一个字符不是一个数字，所以读入停止）<br>解析得到整数 4193 。<br>由于 “4193” 在范围 [-231, 231 - 1] 内，最终结果为 4193 。</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：先遍历字符，将空格过滤，之后判断是否将字符串遍历完，如果遍历到最后一位，则返回0。如果没有遍历完，就继续像下面比对，若没有数字，则返回0。如果有数字，则对它进行进位运算，如果之后有最大值上越界，则返回$2^{31}-1$，若下越界，则返回$-2^{31}$，如果没有，则可以直接计算后返回</p>
+</blockquote>
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-C#">public static int MyAtoi(string s)
+&#123;
+    int length = s.Length;
+    int index = 0;
+    //去除空格
+    while (index &lt; length &amp;&amp; s[index] == &#39; &#39;)
+    &#123;
+        index++;
+    &#125;
+    //如果遍历之后下标等于字符串长度相等，返回0
+    if (index == length)
+    &#123;
+        return 0;
+    &#125;
+    int sign = 1;
+    //判断符号
+    if (s[index] == &#39;+&#39;)
+    &#123;
+        index++;
+    &#125;
+    else if (s[index] == &#39;-&#39;)
+    &#123;
+        sign = -1;
+        index++;
+    &#125;
+    const int MAX = int.MaxValue / 10;
+    int num = 0;
+    while (index &lt; length &amp;&amp; char.IsDigit(s[index]))
+    &#123;
+        //将字符类型转换为int类型
+        int digit = s[index] - &#39;0&#39;;
+        //判断是上越界还是下越界
+        if (num &gt; MAX || num &lt; -MAX)
+        &#123;
+            return sign &gt; 0 ? int.MaxValue : int.MinValue;
+        &#125;
+        if (num == MAX)
+        &#123;
+            if (sign &gt; 0 &amp;&amp; digit &gt; 7)
+            &#123;
+                return int.MaxValue;
+            &#125;
+            if (sign &lt; 0 &amp;&amp; digit &gt; 8)
+            &#123;
+                return int.MinValue;
+            &#125;
+        &#125;
+        num = num * 10 + digit;
+        index++;
+    &#125;
+    return num * sign;
+&#125;
+</code></pre>
 
     </div>
     

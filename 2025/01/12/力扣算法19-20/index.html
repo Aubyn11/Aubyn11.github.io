@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title> | Aubyn的学习小屋</title>
+    <title>力扣算法19~20 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -43,6 +43,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -155,14 +163,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>力扣算法19~20</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E7%AE%97%E6%B3%95/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,7 +185,165 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
     </div>
+    
+    <div class="content" v-pre>
+        <p>删除链表的倒数第N个结点\有效的括号</p>
+<span id="more"></span>
+<h2 id="19-删除链表的倒数第N个结点"><a href="#19-删除链表的倒数第N个结点" class="headerlink" title="19.删除链表的倒数第N个结点"></a>19.删除链表的倒数第N个结点</h2><p>题目难度：<strong>中等</strong><br>题目要求：<br>给定一个链表，删除链表中的倒数第<em>n</em>个结点，并且返回链表的头节点</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：head &#x3D; [1,2,3,4,5], n &#x3D; 2<br>输出：[1,2,3,5]</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：head &#x3D; [1], n &#x3D; 1<br>输出：[]</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：head &#x3D; [1,2], n &#x3D; 1<br>输出：[1]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法：采用快慢指针，让快指针先走<em>n</em>步，然后快慢指针一起走，直到快指针为空，那么这个时候慢指针对应的元素就是要删除的元素</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static ListNode RemoveNthFromEnd(ListNode head, int n)
+&#123;
+    if (head == null)
+    &#123;
+        return null;
+    &#125;
+
+    if (head.next == null)
+    &#123;
+        head = null;
+        return head;
+    &#125;
+
+    ListNode fast = head;
+    ListNode slow = head;
+    ListNode temp = null;
+
+    while (fast != null)
+    &#123;
+        if (n &gt; 0)
+        &#123;
+            fast = fast.next;
+            n--;
+        &#125;
+        else
+        &#123;
+            temp = slow;
+            slow = slow.next;
+            fast = fast.next;
+        &#125;
+    &#125;
+
+    if (temp == null)
+    &#123;
+        head = slow.next;
+    &#125;
+    else
+    &#123;
+        temp.next = slow.next;
+    &#125;
+    return head;
+&#125;
+</code></pre>
+<h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20.有效的括号"></a>20.有效的括号</h2><p>题目难度：<strong>简单</strong><br>题目要求：<br>给定一个只包含<code>&#39;(&#39;</code>，<code>&#39;)&#39;</code>，<code>&#39;[&#39;</code>，<code>&#39;]&#39;</code>，<code>&#39;&#123;&#39;</code>，<code>&#39;&#125;&#39;</code>的字符串<em>s</em>，判断是否有效<br>有效字符串满足</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合</li>
+<li>左括号必须以正确的顺序闭合</li>
+<li>每个右括号都对应一个相同类型的左括号</li>
+</ul>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “()”<br>输出：true</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “()[]{}”<br>输出：true</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “(]”<br>输出：false</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：利用栈可以轻松的做出这道题，当遍历到左括号的时候，入栈相对应的右括号，当遍历到右括号的时候，如果栈内没有元素或者出栈的元素不是对应的右括号，直接返回false；如果最后栈内仍有元素，那么也返回false</p>
+</blockquote>
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-C#">public static bool IsValid(string s)
+&#123;
+    var len = s.Length;
+    if (len % 2 != 0)
+    &#123;
+        return false;
+    &#125;
+    var stack = new Stack&lt;char&gt;();
+    for (int i = 0; i &lt; len; i++)
+    &#123;
+        if (s[i] == &#39;(&#39;)
+        &#123;
+            stack.Push(&#39;)&#39;);
+        &#125;
+        else if (s[i] == &#39;[&#39;)
+        &#123;
+            stack.Push(&#39;]&#39;);
+        &#125;
+        else if (s[i] == &#39;&#123;&#39;)
+        &#123;
+            stack.Push(&#39;&#125;&#39;);
+        &#125;
+        else if (stack.Count == 0 || stack.Pop() != s[i])
+        &#123;
+            return false;
+        &#125;
+    &#125;
+
+    if (stack.Count &gt; 0)
+    &#123;
+        return false;
+    &#125;
+    else
+    &#123;
+        return true;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
     
 </div>
 
@@ -210,6 +382,46 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
     
 </body>
 </html>

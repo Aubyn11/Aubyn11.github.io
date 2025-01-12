@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title> | Aubyn的学习小屋</title>
+    <title>力扣算法13~14 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -43,6 +43,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -155,14 +163,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>力扣算法13~14</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E7%AE%97%E6%B3%95/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,7 +185,123 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
     </div>
+    
+    <div class="content" v-pre>
+        <p>罗马数字转整数、最长公共词缀</p>
+<span id="more"></span>
+<h2 id="13-罗马数字转整数"><a href="#13-罗马数字转整数" class="headerlink" title="13.罗马数字转整数"></a>13.罗马数字转整数</h2><p>题目难度：<strong>简单</strong><br>题目要求：<br>罗马数字包含七种字符：<em>I</em>，<em>V</em>，<em>X</em>，<em>L</em>，<em>C</em>，<em>D</em>，<em>M</em>，分别代表了数值<em>1000</em>，<em>500</em>，<em>100</em>，<em>50</em>，<em>10</em>，<em>5</em>，<em>1</em><br>通常情况下，罗马数字中小的数字在大的数字的右边，但也也存在特例，例如<em>4</em>不写做<em>IIII</em>，而是<em>IV</em>。数字<em>1</em>数字<em>5</em>的左边，所表示的数等于大数<em>5</em>减小数<em>1</em>得到的数值<em>4</em>。同样地，数字<em>9</em>表示为<em>IX</em>。这个特殊的规则只适用于以下六种情况：</p>
+<ul>
+<li><em>I</em>可以放在<em>V</em>（5）和<em>X</em>（10）的左边，来表示<em>4</em>和<em>9</em>。</li>
+<li><em>X</em>可以放在<em>L</em>（50）和<em>C</em>（100）的左边，来表示<em>40</em>和<em>90</em>。</li>
+<li><em>C</em>可以放在<em>D</em>（500）和<em>M</em>（1000）的左边，来表示<em>400</em>和<em>900</em>。<br>给定一个罗马数字，将它转换为整数</li>
+</ul>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “III”<br>输出：3</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “IV”<br>输出：4</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “IX”<br>输出：9</p>
+</blockquote>
+<p><strong>示例4</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “LVIII”<br>输出：58</p>
+</blockquote>
+<p><strong>示例5</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “MCMXCIV”<br>输出：1994</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法：将各种情况存入字典之中，对当前字符串进行遍历，如果当前字符代表的数字比后面一个字符代表的数字小，那么就直接减去当前数字，否则就加上当前数字，同时，因为要防止越界，要在循环结束之后加上最后一个元素的值</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static int RomanToInt(string s)
+&#123;
+    Dictionary&lt;string, int&gt; dic = new Dictionary&lt;string, int&gt; &#123; &#123;&quot;I&quot;, 1&#125; , &#123; &quot;V&quot;, 5 &#125;, &#123; &quot;X&quot;, 10 &#125;, &#123; &quot;L&quot;, 50 &#125;, &#123; &quot;C&quot;, 100 &#125;, &#123; &quot;D&quot;, 500 &#125;, &#123; &quot;M&quot;, 1000 &#125; &#125;;
+    int result = 0;
+    for (int i = 0; i &lt; s.Length - 1; i++)
+    &#123;
+        if (dic[s[i].ToString()] &lt; dic[s[i + 1].ToString()])
+        &#123;
+            result -= dic[s[i].ToString()];
+        &#125;
+        else
+        &#123;
+            result += dic[s[i].ToString()];
+        &#125;
+    &#125;
+    return result += dic[s[s.Length - 1].ToString()];
+&#125;
+</code></pre>
+<h2 id="14-最长公共词缀"><a href="#14-最长公共词缀" class="headerlink" title="14.最长公共词缀"></a>14.最长公共词缀</h2><p>难度：<strong>简单</strong><br>题目要求：<br>编写函数查找字符串数组中的最长公共前缀，如果不存在公共前缀，返回空字符串 “”</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：strs &#x3D; [“flower”,”flow”,”flight”]<br>输出：“fl”</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：strs &#x3D; [“dog”,”racecar”,”car”]<br>输出：””</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：对第一个字符串进行遍历，作为第一层遍历，之后对每一个字符串对应的位置进行对比作为第二层遍历，如果不相同直接返回，如果相同则将当前字符加入结果中并继续循环</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static string LongestCommonPrefix(string[] strs)
+&#123;
+    string count = &quot;&quot;;
+    for (int i = 0; i &lt; strs[0].Length; i++)
+    &#123;
+        for (int j = 1; j &lt; strs.Length; j++)
+        &#123;
+            if (i &gt; (strs[j].Length - 1) || strs[j][i] != strs[0][i])
+            &#123;
+                return count;
+            &#125;
+        &#125;
+        count += strs[0][i];
+    &#125;
+    return count;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
     
 </div>
 
@@ -210,6 +340,46 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
     
 </body>
 </html>

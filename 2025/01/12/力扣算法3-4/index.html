@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: shade | Hexo</title>
+    <title>力扣算法3~4 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -30,7 +30,7 @@
 <script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
 <link
     rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
 />
 <script src="/js/lib/highlight.js"></script>
 
@@ -43,6 +43,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -64,7 +72,7 @@
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
         <a class="title" href="/">
-            <span>HEXO</span>
+            <span>AUBYN的学习小屋</span>
         </a>
         
         <a href="/">
@@ -96,7 +104,7 @@
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;HEXO</span>
+            <span>&emsp;AUBYN的学习小屋</span>
         </div>
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
@@ -155,63 +163,141 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>力扣算法3~4</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/shade/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                shade
+                算法
             </a>
         </span>
         
         
-        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                    算法
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/1/12</div>
-            <a href="/2025/01/12/111/">
-                <h3>111</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/shade/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        shade
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/name/" style="color: #03a9f4">
-                            name
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>无重复字符的最长字串、寻找两个正序中位数的中位数</p>
+<span id="more"></span>
+<h2 id="3-无重复字符的最长字串"><a href="#3-无重复字符的最长字串" class="headerlink" title="3. 无重复字符的最长字串"></a>3. 无重复字符的最长字串</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个字符串<em>s</em>，请你找出其中不含有重复字符的<em>最长字串</em>的长度</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “abcabcbb”<br>输出：3<br>解释：因为无重复字符的最长字串是“abc”，所以其长度为 3</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “bbbbb”<br>输出：1<br>解释：因为无重复字符的最长子串是“b“，所以其长度为 1</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “pwwkew”<br>输出：3<br>解释：因为无重复字符的最长子串是”wke”，所以其长度为3<br>注意：答案必须是<strong>子串</strong>的长度，“pwke”是一个子序列，不是子串</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法：将字符串<em>s</em>转换成char的字符组，然后对数组进行遍历，利用for循环来达到校验的目的<br>犯的错误：时间复杂度过高，导致编译不通过<br>修改过后的方法：定义哈希集合，记录每一个字符是否出现过，然后根据两个指针<em>left</em>，<em>right</em>的移动来对整个字符串来进行窗口移动</p>
+</blockquote>
+<p><strong>修改后的代码</strong></p>
+<pre><code class="language-C#">public static int LengthOfLongestSubstring(string s)
+&#123;
+    HashSet&lt;char&gt; letter = new HashSet&lt;char&gt;();
+    int left = 0, right = 0;
+    int length = s.Length;
+    int count = 0, max = 0;
+    while (right &lt; length)
+    &#123;
+        if (!letter.Contains(s[right]))
+        &#123;
+            letter.Add(s[right]);
+            right++;
+            count++;
+        &#125;
+        else
+        &#123;
+            letter.Remove(s[left]);
+            left++;
+            count--;
+        &#125;
+        max = Math.Max(max, count);
+    &#125;
+    return max;
+&#125;
+</code></pre>
+<h2 id="4-寻找两个正序中位数的中位数"><a href="#4-寻找两个正序中位数的中位数" class="headerlink" title="4. 寻找两个正序中位数的中位数"></a>4. 寻找两个正序中位数的中位数</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给定两个大小分别为<em>m</em>和<em>n</em>的正序（从小到大）数组<em>nums1</em>和<em>nums2</em>找出并返回这两个正序数组的<strong>中位数</strong></p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：nums1 &#x3D; [1,3]，nums2 &#x3D; [2]<br>输出：2.00000<br>解释：合并数据 &#x3D; [1,2,3]，中位数 2</p>
+</blockquote>
+<p><strong>示例</strong>2：</p>
+<blockquote>
+<p>输入：nums1 &#x3D; [1,2]，nums2 &#x3D; [3,4]<br>输出：2.50000<br>解释：合并数据 &#x3D; [1,2,3,4]，中位数 2.5</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法为将两个数组合并到一个<em>List</em>表中，通过Sort来对它进行排序，并获得两个数组的长度的和<em>len</em>，如果和为奇数就可以直接返回<em>List</em>中的<em>len &#x2F; 2</em>的值，如果为偶数，就返回<em>List</em>中<em>len &#x2F; 2</em>和<em>len &#x2F; 2 + 1</em>的和的平均值</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+&#123;
+    int m = nums1.Length;
+    int n = nums2.Length;
+    int len = m + n;
+    var resultIndex = len / 2;
+    List&lt;int&gt; list = new List&lt;int&gt;(nums1);
+    list.AddRange(nums2);
+    list.Sort();
+    if (len % 2 == 0)
+    &#123;
+        return (list[resultIndex - 1] + list[resultIndex]) / 2.0;
+    &#125;
+    else
+    &#123;
+        return list[resultIndex];
+    &#125;
+&#125;
+</code></pre>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
     
 </div>
 
@@ -219,7 +305,7 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2025 Hexo
+            2022 - 2025 Aubyn的学习小屋
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
@@ -250,6 +336,46 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
     
 </body>
 </html>

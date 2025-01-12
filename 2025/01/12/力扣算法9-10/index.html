@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title> | Aubyn的学习小屋</title>
+    <title>力扣算法9~10 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -43,6 +43,14 @@
 
 <script src="/js/lib/preview.js"></script>
 
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
 
 
 
@@ -155,14 +163,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>力扣算法9~10</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E7%AE%97%E6%B3%95/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,7 +185,117 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
     </div>
+    
+    <div class="content" v-pre>
+        <p>回文数、正则表达式匹配</p>
+<span id="more"></span>
+
+<h2 id="9-回文数"><a href="#9-回文数" class="headerlink" title="9. 回文数"></a>9. 回文数</h2><p>难度：<strong>简单</strong><br>题目要求：<br>给一个整数<em>x</em>，如果<em>x</em>是一个回文整数，返回<em>true</em>；否则，返回<em>false</em><br>回文是指正序和倒序读都是一样的数</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; 121<br>输出：true</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; -121<br>输出：false<br>从左往右读位“-121”，从右往左读为“121-”</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：x &#x3D; 10<br>输出：false<br>从右往左读为“01”</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法为对这个数先进行判断，如果这个数是小于0或者末尾为零（不包括0）的数，那么直接返回false，如果为其他的数，就可以正常按照倒序，然后比对是否为回文</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static bool IsPalindrome(int x)
+&#123;
+    if (x &lt; 0 || (x % 10) == 0 &amp;&amp; x !=0)
+    &#123;
+        return false;
+    &#125;
+    int num = 0;
+    while (x &gt; num)
+    &#123;
+        num = num * 10 + x % 10;
+        x /= 10;
+    &#125;
+    return x == num || x == num / 10;
+&#125;
+</code></pre>
+<h2 id="10-正则表达式匹配"><a href="#10-正则表达式匹配" class="headerlink" title="10. 正则表达式匹配"></a>10. 正则表达式匹配</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给定一个字符串<em>s</em>和一个字符规律<em>p</em>，来实现一个 <em>’ . ‘</em> 和 ‘ * ‘ 的正则表达式匹配<br>’ . ‘ 匹配任意单个字符<br>‘ * ‘ 匹配零个或多个前面的那一个元素</p>
+<p><strong>示例1</strong>;</p>
+<blockquote>
+<p>输入：s &#x3D; “aa”, p &#x3D; “a”<br>输出：false<br>解释：”a” 无法匹配 “aa” 整个字符串</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “aa”, p &#x3D; “a*”<br>输出：true<br>因为 ‘ * ’ 代表可以匹配零个或多个前面的那一个元素，在这里前面的元素就是’a’。因此，字符串”aa”可被视为’a’重复了一次</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：s &#x3D; “ab”, p &#x3D; “.<em>“<br>输出：true<br>解释：”.</em>“表示可匹配零个或多个（’ * ‘）任意字符（’ . ‘）</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>这道题没想到解法，观看了别人的题解之后发现了一个很好的方法<br>s &#x3D; “abbbc” , p &#x3D; “abbc.”<br>采用自底向上的方法，找到一个可以走的通路（忽略*行）</p>
+</blockquote>
+<p><strong>题解代码</strong></p>
+<pre><code class="language-C#">public static bool IsMatch(string s, string p)
+&#123;
+    bool[,] dp = new bool[s.Length + 1, p.Length + 1];
+    dp[s.Length, p.Length] = true;
+    for (int i = s.Length; i &gt;= 0; i--)
+    &#123;
+        for (int j = p.Length - 1; j &gt;= 0; j--)
+        &#123;
+            bool first_macth = (i &lt; s.Length &amp;&amp; (p[j] == s[i] || p[j] == &#39;.&#39;));
+            if (j + 1 &lt; p.Length &amp;&amp; p[j + 1] == &#39;*&#39;)
+            &#123;
+                dp[i, j] = dp[i, j + 2] || first_macth &amp;&amp; dp[i + 1, j];
+            &#125;
+            else
+            &#123;
+                dp[i, j] = first_macth &amp;&amp; dp[i + 1, j + 1];
+            &#125;
+        &#125;
+    &#125;
+    return dp[0, 0];
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
     
 </div>
 
@@ -210,6 +334,46 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
     
 </body>
 </html>

@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>111 | Hexo</title>
+    <title>力扣算法15~16 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -30,7 +30,7 @@
 <script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
 <link
     rel="stylesheet"
-    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
 />
 <script src="/js/lib/highlight.js"></script>
 
@@ -72,7 +72,7 @@
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
         <a class="title" href="/">
-            <span>HEXO</span>
+            <span>AUBYN的学习小屋</span>
         </a>
         
         <a href="/">
@@ -104,7 +104,7 @@
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;HEXO</span>
+            <span>&emsp;AUBYN的学习小屋</span>
         </div>
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
@@ -165,7 +165,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>111</h1>
+        <h1>力扣算法15~16</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -176,11 +176,11 @@
         </span>
         
         <span class="category">
-            <a href="/categories/shade/">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                shade
+                算法
             </a>
         </span>
         
@@ -193,8 +193,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/name/" style="color: #03a9f4">
-                    name
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
                 </a>
             </span>
             
@@ -203,7 +203,118 @@
     </div>
     
     <div class="content" v-pre>
-        
+        <p>三数之和、最接近的三数之和</p>
+<span id="more"></span>
+<h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a>15. 三数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个整数数组<em>nums</em>，判断是否存在三元组 <em>[nums[i]，nums[j]，nums[k]]</em> 满足 <em>i !&#x3D; j !&#x3D; k</em>，同时还满足 <em>nums[i] + nums[j] + nums[k] &#x3D;&#x3D; 0</em><br>返回所有和为0且不重复的三元组</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [-1，0，1，2，-1，-4]<br>输出：[[-1，-1，2]，[-1，0，1]</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [0，1，1]<br>输出：[]</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [0，0，0]<br>输出：[[0，0，0]]</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：先排序，从数组第一个元素开始遍历，遍历到倒数第三个元素，定义一个左指针和一个右指针，左指针为第一层循环值 + 1，右指针为最后一个元素下标，定义三数之和为当前循环数组元素，左指针下标代表元素，右指针代表元素，当左指针小于右指针时，如果和为零，那么就将结果添加到列表中，如果和小于零，左指针自增，如果大于零，右指针自减。</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static IList&lt;IList&lt;int&gt;&gt; ThreeSum(int[] nums)
+&#123;
+    IList&lt;IList&lt;int&gt;&gt; result = new List&lt;IList&lt;int&gt;&gt;();
+    int len = nums.Length;
+    if (len &lt; 3)
+    &#123;
+        return result;
+    &#125;
+    Array.Sort(nums);
+    for (int i = 0; i &lt; len - 2; i++)
+    &#123;
+        if (nums[i] &gt; 0)
+        &#123;
+            break;
+        &#125;
+        if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1])
+        &#123;
+            continue;
+        &#125;
+        int left = i + 1;
+        int right = len - 1;
+        while (left &lt; right)
+        &#123;
+            int sum = nums[i] + nums[left] + nums[right];
+            if (sum == 0)
+            &#123;
+                result.Add(new List&lt;int&gt;() &#123; nums[i], nums[left], nums[right] &#125;);
+                while (left &lt; right &amp;&amp; nums[left] == nums[left + 1])
+                &#123;
+                    left++;
+                &#125;
+                while (left &lt; right &amp;&amp; nums[right] == nums[right - 1])
+                &#123;
+                    right--;
+                &#125;
+                left++;
+                right--;
+            &#125;
+            else if (sum &lt; 0) left++;
+            else if (sum &gt; 0) right--;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h2 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a>最接近的三数之和</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个长度为<em>n</em>的整数数组<em>nums</em>和一个目标值<em>target</em>，从<em>nums</em>中选出三个整数，使他们的和与<em>target</em>最接近<br>返回这三个数的和</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [-1，2，1，-4]，target &#x3D; 1<br>输出：2</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：nums &#x3D; [0，0，0]，target &#x3D; 1<br>输出：0</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>最开始的想法：先对数组进行排序，从数组第一个元素开始遍历，遍历到倒数第三个元素，定义一个左指针和一个右指针，左指针为第一层循环值 + 1，右指针为最后一个元素下标，定义三数之和为当前循环数组元素，左指针下标代表元素，右指针代表元素，当左指针小于右指针时，如果和与目标值相等，直接返回目标值，如果比目标值大，右指针自减，如果比目标值小，左指针自增</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static int ThreeSumClosest(int[] nums, int target)
+&#123;
+    Array.Sort(nums);
+    int res = int.MaxValue;
+    for (int i = 0; i &lt; nums.Length - 2; i++)
+    &#123;
+        int left = i + 1;
+        int right = nums.Length - 1;
+        while (left &lt; right)
+        &#123;
+            int sum = nums[left] + nums[right] + nums[i];
+            if (sum == target)
+            &#123;
+                return target;
+            &#125;
+            else if (sum &gt; target)
+            &#123;
+                right--;
+            &#125;
+            else
+            &#123;
+                left++;
+            &#125;
+            if (Math.Abs(sum - target) &lt; Math.Abs(res - target))
+            &#123;
+                res = sum;
+            &#125;
+        &#125;
+    &#125;
+    return res;
+&#125;
+</code></pre>
+
     </div>
     
     
@@ -227,7 +338,7 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2025 Hexo
+            2022 - 2025 Aubyn的学习小屋
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>

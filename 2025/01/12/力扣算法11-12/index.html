@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>About | Aubyn的学习小屋</title>
+    <title>力扣算法11~12 | Aubyn的学习小屋</title>
     <meta name="author" content="Aubyn11" />
     <meta name="description" content="Hello World" />
     <meta name="keywords" content="" />
@@ -165,45 +165,137 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>About</h1>
+        <h1>力扣算法11~12</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2022/4/11
+            2025/1/12
         </span>
         
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
+                    算法
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        <h1 id="Hi-there！"><a href="#Hi-there！" class="headerlink" title="Hi there！"></a>Hi there！</h1><hr>
+        <p>盛最多水的容器、整数转罗马数字</p>
+<span id="more"></span>
+<h2 id="11-盛最多水的容器"><a href="#11-盛最多水的容器" class="headerlink" title="11. 盛最多水的容器"></a>11. 盛最多水的容器</h2><p>题目难度：<strong>中等</strong><br>题目要求：<br>给定一个长度为<em>n</em>的整数数组<em>height</em>，有<em>n</em>条垂线，第<em>i</em>条线的两个端点是(i , 0) 和(i , height[i[)，找出其中的两条线，使得它们与<em>x</em>轴共同构成的容器可以容纳最多的水</p>
+<p><strong>示例1</strong>：</p>
 <blockquote>
-<p>Tell me… Does <strong>Argvchs the God</strong> bleed?<br>No. But <strong>you</strong> will.</p>
+<p>输入：height &#x3D; [1,1]<br>输出：1</p>
 </blockquote>
-<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><ul>
-<li>C&#x2F;C++</li>
-<li>C#</li>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：height &#x3D; [1,8,6,2,5,4,8,3,7]<br>输出：49</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法：用两个指针直接指向两个边界，循环，进行两个边界的对比，取最小值然后乘以长度，得出面积，如果右边高度比左边高度要高，那么左边的下标加一，反之则是右边下标减一</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-C#">public static int MaxArea(int[] height)
+&#123;
+    int max = 0, i = 0, j = height.Length - 1;
+    while (i &lt; j)
+    &#123;
+        max = Math.Max((j - i) * Math.Min(height[j], height[i]), max);
+        if (height[j] &gt; height[i])
+            i++;
+        else
+            j--;
+    &#125;
+    return max;
+&#125;
+</code></pre>
+<h2 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12. 整数转罗马数字"></a>12. 整数转罗马数字</h2><p>难度：<strong>中等</strong><br>题目要求：<br>罗马数字包含七种字符：<em>I</em>，<em>V</em>，<em>X</em>，<em>L</em>，<em>C</em>，<em>D</em>，<em>M</em>，分别代表了数值<em>1000</em>，<em>500</em>，<em>100</em>，<em>50</em>，<em>10</em>，<em>5</em>，<em>1</em><br>通常情况下，罗马数字中小的数字在大的数字的右边，但也也存在特例，例如<em>4</em>不写做<em>IIII</em>，而是<em>IV</em>。数字<em>1</em>数字<em>5</em>的左边，所表示的数等于大数<em>5</em>减小数<em>1</em>得到的数值<em>4</em>。同样地，数字<em>9</em>表示为<em>IX</em>。这个特殊的规则只适用于以下六种情况：</p>
+<ul>
+<li><em>I</em>可以放在<em>V</em>（5）和<em>X</em>（10）的左边，来表示<em>4</em>和<em>9</em>。</li>
+<li><em>X</em>可以放在<em>L</em>（50）和<em>C</em>（100）的左边，来表示<em>40</em>和<em>90</em>。</li>
+<li><em>C</em>可以放在<em>D</em>（500）和<em>M</em>（1000）的左边，来表示<em>400</em>和<em>900</em>。<br>给定一个整数，将它转换为罗马数字</li>
 </ul>
-<h2 id="帐号"><a href="#帐号" class="headerlink" title="帐号"></a>帐号</h2><table>
-<thead>
-<tr>
-<th align="center">网站</th>
-<th align="left">帐号</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">QQ</td>
-<td align="left"><a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&uin=2028036856&site=qq&menu=yes">2028036856</a></td>
-</tr>
-<tr>
-<td align="center">GitHub</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://github.com/Aubyn11">Aubyn11</a></td>
-</tr>
-</tbody></table>
-<p><img src="https://static-argvchs.netlify.app/images/avatar.jpg" alt="avatar"></p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入: num &#x3D; 3<br>输出: “III”</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：num &#x3D; 4<br>输出：“IV”</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：num &#x3D; 9<br>输出：“IX”</p>
+</blockquote>
+<p><strong>示例4</strong>：</p>
+<blockquote>
+<p>输入：num &#x3D; 58<br>输出：“LVIII”</p>
+</blockquote>
+<p><strong>示例5</strong>：</p>
+<blockquote>
+<p>输入：num &#x3D; 1994<br>输出：“MCMXCIV”</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>最开始的想法是：使用贪心算法，将每种情况存入到字典中，然后对当前数字进行遍历，如果当前字典索引中的值小于所给的整数，那么就将这个字符添加到StringBuilder中去，并将整数减去当前字典索引中的值，如此循环，直到最后所给数字为0</p>
+</blockquote>
+<p><strong>想法代码</strong>：</p>
+<pre><code class="language-C#">public static string IntToRoman(int num)
+&#123;
+    StringBuilder sb = new StringBuilder();
+    Dictionary&lt;string,int&gt; dic = new Dictionary&lt;string,int&gt;();
+    dic.Add(&quot;M&quot;, 1000);
+    dic.Add(&quot;CM&quot;, 900);
+    dic.Add(&quot;D&quot;, 500);
+    dic.Add(&quot;CD&quot;, 400);
+    dic.Add(&quot;C&quot;, 100);
+    dic.Add(&quot;XC&quot;, 90);
+    dic.Add(&quot;L&quot;, 50);
+    dic.Add(&quot;XL&quot;, 40);
+    dic.Add(&quot;X&quot;, 10);
+    dic.Add(&quot;IX&quot;, 9);
+    dic.Add(&quot;V&quot;, 5);
+    dic.Add(&quot;IV&quot;, 4);
+    dic.Add(&quot;I&quot;, 1);
+    foreach (var i in dic)
+    &#123;
+        while (num &gt;= i.Value)
+        &#123;
+            sb.Append(i.Key);
+            num -= i.Value;
+        &#125;
+        if (num == 0)
+        &#123;
+            break;
+        &#125;
+    &#125;
+    return sb.ToString();
+&#125;
+</code></pre>
 
     </div>
     
