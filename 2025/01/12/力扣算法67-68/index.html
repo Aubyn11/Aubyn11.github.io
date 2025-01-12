@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法67~68 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法67~68</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>二进制求和\文本左右对齐</p>
+<span id="more"></span>
+<h2 id="二进制求和"><a href="#二进制求和" class="headerlink" title="二进制求和"></a>二进制求和</h2><p>难度：<strong>简单</strong><br>题目要求：<br>给你两个二进制字符串 <code>a</code> 和 <code>b</code> ，以二进制字符串的形式返回它们的和。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：a &#x3D; “11”, b &#x3D; “1”<br>输出：”100”</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：a &#x3D; “1010”, b &#x3D; “1011”<br>输出：”10101”</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>用 $index_1$ 和 $index_2$ 分别表示二进制整数 $a$ 和 $b$ 遍历到的下标，用 $carry$ 表示进位值，初始时 $index_1$ 和 $index_2$ 分别指向整数 $a$ 和 $b$ 的最大下标，$carry&#x3D;0$。使用字符串保存两个二进制整数之和的每一位，计算过程中依次将每一位结果拼接到字符串的末尾</p>
+<p>当 $index_1\geq 0,index_2\geq 0, carry\neq 0$ 三个条件中至少有一个成立，对于每一位，执行如下操作</p>
+<ul>
+<li>记 $digit_1$ 和 $digit_2$ 分别为 $a[index_1]$ 和 $b[index_2]$对应的数字，如果 $index_1&lt;0$，则 $digit_1&#x3D;0$，如果 $index_2&lt;0$ 则 $digit_2&#x3D;0$</li>
+<li>计算 $sum&#x3D;digit_1+digit_2+carry$，则两个二进制整数之和的当前位置的值为 $sum %2$，进位值 $\frac{sum}{2}$，将 $sum%2$ 拼接到字符串末尾，将 $carry$ 更新为 $\frac{sum}{2}$</li>
+<li>将 $index_1$ 和 $index_2$ 分别向左移动一位</li>
+</ul>
+<p>操作结束之后，将字符串翻转之后得到两个二进制整数之和</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">using System.Text;
+
+public class Solution
+&#123;
+    public static void Main(string[] args)
+    &#123;
+        Solution solution = new Solution();
+        string a = &quot;11&quot;;
+        string b = &quot;1&quot;;
+        string res = solution.AddBinary(a, b);
+        Console.WriteLine(res);
+    &#125;
+
+    public string AddBinary(string a, string b)
+    &#123;
+        StringBuilder sb = new StringBuilder();
+        int index1 = a.Length - 1, index2 = b.Length - 1;
+        int carry = 0;
+        while (index1 &gt;= 0 || index2 &gt;= 0 || carry != 0)
+        &#123;
+            int digit1 = index1 &gt;= 0 ? a[index1] - &#39;0&#39; : 0;
+            int digit2 = index2 &gt;= 0 ? b[index2] - &#39;0&#39; : 0;
+            int sum = digit1 + digit2 + carry;
+            sb.Append(sum % 2);
+            carry = sum / 2;
+            index1--;
+            index2--;
+        &#125;
+        StringBuilder sb2 = new StringBuilder();
+        for (int i = sb.Length - 1; i &gt;= 0; i--)
+        &#123;
+            sb2.Append(sb[i]);
+        &#125;
+        return sb2.ToString();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="68-文本左右对齐"><a href="#68-文本左右对齐" class="headerlink" title="68.文本左右对齐"></a>68.文本左右对齐</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给定一个单词数组 <code>words</code> 和一个长度 <code>maxWidth</code> ，重新排版单词，使其成为每行恰好有 <code>maxWidth</code> 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用 “<strong>贪心算法</strong>” 来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 <code>&#39; &#39;</code> 填充，使得每行恰好有 <em>maxWidth</em> 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入<strong>额外的</strong>空格。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：words &#x3D; [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”], maxWidth &#x3D; 16<br>输出：<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：words &#x3D; [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”], maxWidth &#x3D; 16<br>输出：<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：words &#x3D; [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,”to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]，maxWidth &#x3D; 20<br>输出：<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>遍历单词数组，对于每个单词 $word$，尝试将 $word$ 拼接到当前行的末尾，如果当前行已经有单词则需要添加一个空格将单词分隔，考虑将 $word$ 拼接到当前行的末尾之后，当前行的宽度。</p>
+<p>如果当前行的宽度不超过 $maxWidth$，则将 $word$拼接到当前行的末尾。</p>
+<p>如果当前行的宽度超过 $maxWidth$，则不能将 $word$ 拼接到当前行的末尾，当前行的单词添加完毕。此时需要将当前行的单词重新排版使得单词之间的空格均匀分配，将重新排版之后的当前行添加到结果中，然后将 $word$ 填入新的一行。重新排版当前行的做法如下。</p>
+<p>如果当前行只有一个单词，则将该单词左对齐，然后在右侧添加空格直到当前行有 $maxWidth$ 个字符。</p>
+<p>如果当前行有至少两个单词，则根据单词数量计算间隔数量，根据单词长度之和计算空格数量，将空格均匀分配在每个间隔中，满足左侧间隔的空格数大于等于右侧间隔的空格数。</p>
+<p>遍历单词数组结束之后，需要将剩余的单词填入末尾行。由于末尾行左对齐且相邻单词之间只有一个空格，因此将末尾行的单词使用一个空格分隔的方式依次拼接，然后在右侧添加空格直到末尾行有 $maxWidth$ 个字符。</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">using System.Text;
+
+public class Solution
+&#123;
+    public static void Main(string[] args)
+    &#123;
+        Solution solution = new Solution();
+        string[] words = &#123; &quot;This&quot;, &quot;is&quot;, &quot;an&quot;, &quot;example&quot;, &quot;of&quot;, &quot;text&quot;, &quot;justification.&quot; &#125;;
+        int maxWidth = 16;
+        IList&lt;string&gt; res = solution.FullJustify(words, maxWidth);
+        foreach (var word in res)
+        &#123;
+            Console.WriteLine(word);
+        &#125;
+    &#125;
+
+    public IList&lt;string&gt; FullJustify(string[] words, int maxWidth)
+    &#123;
+        IList&lt;string&gt; justification = new List&lt;string&gt;();
+        IList&lt;string&gt; line = new List&lt;string&gt;();
+        int lineWidth = 0;
+        int wordsCount = words.Length;
+        for (int i = 0; i &lt; wordsCount; i++)
+        &#123;
+            string word = words[i];
+            int newLength = lineWidth + (lineWidth &gt; 0 ? 1 : 0) + word.Length;
+            if (newLength &lt;= maxWidth)
+            &#123;
+                lineWidth = newLength;
+            &#125;
+            else
+            &#123;
+                string justifiedLine = JustifyLine(line, lineWidth, maxWidth);
+                justification.Add(justifiedLine);
+                line.Clear();
+                lineWidth = word.Length;
+            &#125;
+            line.Add(word);
+        &#125;
+        string justifiedLastLine = JustifyLastLine(line, maxWidth);
+        justification.Add(justifiedLastLine);
+        return justification;
+    &#125;
+
+    public string JustifyLine(IList&lt;string&gt; line, int lineWidth, int maxWidth)
+    &#123;
+        StringBuilder sb = new StringBuilder();
+        sb.Append(line[0]);
+        int lineWords = line.Count;
+        int splits = lineWords - 1;
+        if (splits == 0)
+        &#123;
+            while (sb.Length &lt; maxWidth)
+            &#123;
+                sb.Append(&quot; &quot;);
+            &#125;
+        &#125;
+        else
+        &#123;
+            int spaces = maxWidth - (lineWidth - splits);
+            int quotient = spaces / splits, remainder = spaces % splits;
+            for (int i = 1; i &lt; lineWords; i++)
+            &#123;
+                int currSpaces = quotient + (i &lt;= remainder ? 1 : 0);
+                for (int j = 0; j &lt; currSpaces; j++)
+                &#123;
+                    sb.Append(&quot; &quot;);
+                &#125;
+                sb.Append(line[i]);
+            &#125;
+        &#125;
+        return sb.ToString();
+    &#125;
+
+    public string JustifyLastLine(IList&lt;string&gt; line, int maxWidth)
+    &#123;
+        StringBuilder sb = new StringBuilder();
+        sb.Append(line[0]);
+        int lineWords = line.Count;
+        for (int i = 1; i &lt; lineWords; i++)
+        &#123;
+            sb.Append(&quot; &quot;);
+            sb.Append(line[i]);
+        &#125;
+        while (sb.Length &lt; maxWidth)
+        &#123;
+            sb.Append(&quot; &quot;);
+        &#125;
+        return sb.ToString();
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

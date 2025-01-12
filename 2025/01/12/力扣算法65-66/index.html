@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法65~66 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法65~66</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>有效数字\加一</p>
+<span id="more"></span>
+<h2 id="65-有效数字"><a href="#65-有效数字" class="headerlink" title="65. 有效数字"></a>65. 有效数字</h2><p>难度：<strong>困难</strong><br>题目要求<br><strong>有效数字</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>一个 <strong>小数</strong> 或者 <strong>整数</strong></li>
+<li>（可选）一个 <code>&#39;e&#39;</code> 或 <code>&#39;E&#39;</code> ，后面跟着一个 <strong>整数</strong></li>
+</ol>
+<p><strong>小数</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>（可选）一个符号字符（<code>&#39;+&#39;</code> 或 <code>&#39;-&#39;</code>）</li>
+<li>下述格式之一：<ol>
+<li>至少一位数字，后面跟着一个点 <code>&#39;.&#39;</code></li>
+<li>至少一位数字，后面跟着一个点 <code>&#39;.&#39;</code> ，后面再跟着至少一位数字</li>
+<li>一个点 <code>&#39;.&#39;</code> ，后面跟着至少一位数字</li>
+</ol>
+</li>
+</ol>
+<p><strong>整数</strong>（按顺序）可以分成以下几个部分：</p>
+<ol>
+<li>（可选）一个符号字符（<code>&#39;+&#39;</code> 或 <code>&#39;-&#39;</code>）</li>
+<li>至少一位数字</li>
+</ol>
+<p>部分有效数字列举如下：<code>[&quot;2&quot;, &quot;0089&quot;, &quot;-0.1&quot;, &quot;+3.14&quot;, &quot;4.&quot;, &quot;-.9&quot;, &quot;2e10&quot;, &quot;-90E3&quot;, &quot;3e+7&quot;, &quot;+6e-1&quot;, &quot;53.5e93&quot;, &quot;-123.456e789&quot;]</code></p>
+<p>部分无效数字列举如下：<code>[&quot;abc&quot;, &quot;1a&quot;, &quot;1e&quot;, &quot;e3&quot;, &quot;99e2.5&quot;, &quot;--6&quot;, &quot;-+3&quot;, &quot;95a54e53&quot;]</code></p>
+<p>给你一个字符串 <code>s</code> ，如果 <code>s</code> 是一个 <strong>有效数字</strong> ，请返回 <code>true</code> 。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “0”<br>输出：true</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “e”<br>输出：false</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “.”<br>输出：false</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>可以直接使用正则表达式进行匹配，<code>^\s*-?\d+(\.\d+)?([eE][-+]?\d+)?\s*$</code>为当前正确得正则表达式，解读如下：</p>
+<ul>
+<li><code>^\s*</code>表示以零个、一个或多个空格开头</li>
+<li><code>-?</code>表示一个可选的负号</li>
+<li><code>\d+</code>表示一个或多个的数字</li>
+<li><code>(\.\d+)?</code>表示一个可选的小数部分，包括一个小数点和至少一个数字</li>
+<li><code>([eE][-+]?\d+)?</code>表示科学计数法，包括<code>&quot;e&quot;</code>或<code>&quot;E&quot;</code>，可选的正负号和至少一个数字</li>
+<li><code>\s*</code>表示以零个、一个或多个空字符</li>
+<li><code>$</code>表示结尾</li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">using System.Text.RegularExpressions;
+
+class Solution
+&#123;
+    private static Regex compare = new Regex(@&quot;^\s*-?\d+(\.\d+)?([eE][-+]?\d+)?\s*$&quot;);
+    public static void Main(String[] args)
+    &#123;
+        string s = &quot;e&quot;;
+        Solution solution = new Solution();
+        Console.WriteLine(solution.IsNumber(s));
+    &#125;
+
+    public bool IsNumber(string s)
+    &#123;
+        return compare.IsMatch(s);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="66-加一"><a href="#66-加一" class="headerlink" title="66. 加一"></a>66. 加一</h2><p>难度：<strong>简单</strong><br>题目要求<br>给定一个由 <strong>整数</strong> 组成的 <strong>非空</strong> 数组所表示的非负整数，在该数的基础上加一。</p>
+<p>最高位数字存放在数组的首位， 数组中每个元素只存储<strong>单个</strong>数字。</p>
+<p>你可以假设除了整数 0 之外，这个整数不会以零开头。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：digits &#x3D; [1,2,3]<br>输出：[1,2,4]</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：digits &#x3D; [4,3,2,1]<br>输出：[4,3,2,2]</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：digits &#x3D; [0]<br>输出：[1]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>定义 $index&#x3D;digits.Length-1$，如果数组中 $index$ 位置为<code>9</code>，那么将 $index$ 前移<br>如果 $index&#x3D;&#x3D;0 &amp;&amp; digits[index]&#x3D;&#x3D;9$，那么对数组扩容，$index$ 位置的内容变为<code>1</code>且对之后的所有元素变为<code>0</code>，如果$index&#x3D;&#x3D;0&amp;&amp;digits[index]\neq9$ 那么将 $index+1$并对之后的元素变为<code>0</code><br>如果不满足上方条件，则将最后一个元素加一</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        int[] digits = &#123; 8,9 &#125;;
+        Solution solution = new Solution();
+        int[] res = solution.PlusOne(digits);
+        for (int i = 0; i &lt; res.Length; i++)
+        &#123;
+            Console.Write(res[i] + &quot; &quot;);
+        &#125;
+    &#125;
+
+    public int[] PlusOne(int[] digits)
+    &#123;
+        int index = digits.Length - 1;
+        if (digits[digits.Length - 1] == 9)
+        &#123;
+            if (digits.Length &gt; 1)
+            &#123;
+                while (true)
+                &#123;
+                    if (index == 0)
+                    &#123;
+                        break;
+                    &#125;
+                    if (digits[index] == 9)
+                    &#123;
+                        index--;
+                    &#125;
+                    else
+                    &#123;
+                        break;
+                    &#125;
+                &#125;
+            &#125;
+
+            if (index == 0 &amp;&amp; digits[index] == 9)
+            &#123;
+                Array.Resize(ref digits, digits.Length + 1);
+                digits[index] = 1;
+            &#125;
+            else
+            &#123;
+                digits[index] += 1;
+            &#125;
+            for (int i = digits.Length - 1; i &gt; index; i--)
+            &#123;
+                digits[i] = 0;
+            &#125;
+        &#125;
+        else
+        &#123;
+            digits[digits.Length - 1] += 1;
+        &#125;
+        return digits;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

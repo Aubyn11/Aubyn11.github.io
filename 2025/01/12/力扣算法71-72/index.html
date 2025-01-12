@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法71~72 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法71~72</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>简化路径\编辑距离</p>
+<span id="more"></span>
+<h2 id="71-简化路径"><a href="#71-简化路径" class="headerlink" title="71. 简化路径"></a>71. 简化路径</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给你一个字符串 <code>path</code> ，表示指向某一文件或目录的 Unix 风格 <strong>绝对路径</strong> （以 <code>&#39;/&#39;</code> 开头），请你将其转化为更加简洁的规范路径。</p>
+<p>在 Unix 风格的文件系统中，一个点（<code>.</code>）表示当前目录本身；此外，两个点 （<code>..</code>） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，<code>&#39;//&#39;</code>）都被视为单个斜杠 <code>&#39;/&#39;</code> 。 对于此问题，任何其他格式的点（例如，<code>&#39;...&#39;</code>）均被视为文件&#x2F;目录名称。</p>
+<p>请注意，返回的 <strong>规范路径</strong> 必须遵循下述格式：</p>
+<ul>
+<li>始终以斜杠 <code>&#39;/&#39;</code> 开头。</li>
+<li>两个目录名之间必须只有一个斜杠 <code>&#39;/&#39;</code> 。</li>
+<li>最后一个目录名（如果存在）<strong>不能</strong> 以 <code>&#39;/&#39;</code> 结尾。</li>
+<li>此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 <code>&#39;.&#39;</code> 或 <code>&#39;..&#39;</code>）。</li>
+</ul>
+<p>返回简化后得到的 <strong>规范路径</strong> 。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：path &#x3D; “&#x2F;home&#x2F;“<br>输出：”&#x2F;home”</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：path &#x3D; “&#x2F;..&#x2F;“<br>输出：”&#x2F;“</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：path &#x3D; “&#x2F;home&#x2F;&#x2F;foo&#x2F;“<br>输出：”&#x2F;home&#x2F;foo”</p>
+</blockquote>
+<p><strong>示例4</strong></p>
+<blockquote>
+<p>输入：path &#x3D; “&#x2F;a&#x2F;.&#x2F;b&#x2F;..&#x2F;..&#x2F;c&#x2F;“<br>输出：”&#x2F;c”</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>提供两条API内容解释：</p>
+<ul>
+<li>System.IO.Path.TrimEndingDirectorySeparator(String) <ul>
+<li>剪裁一个超出指定路径根目录的尾随目录分隔符。</li>
+</ul>
+</li>
+<li>System.IO.Path.GetFullPath(String)<ul>
+<li>返回指定路径字符串的绝对路径。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        string path = &quot;/../&quot;;
+        Solution solution = new Solution();
+        string res = solution.SimplifyPath(path);
+        Console.WriteLine(res);
+    &#125;
+
+    public string SimplifyPath(string path)
+    &#123;
+        return Path.TrimEndingDirectorySeparator(Path.GetFullPath(path));
+    &#125;
+&#125;
+</code></pre>
+<h2 id="72-编辑距离"><a href="#72-编辑距离" class="headerlink" title="72. 编辑距离"></a>72. 编辑距离</h2><p>难度：<strong>困难</strong><br>题目要求<br>给你两个单词 <code>word1</code> 和 <code>word2</code>， <em>请返回将 <code>word1</code> 转换成 <code>word2</code> 所使用的最少操作数</em> 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<ul>
+<li>插入一个字符</li>
+<li>删除一个字符</li>
+<li>替换一个字符</li>
+</ul>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：word1 &#x3D; “horse”, word2 &#x3D; “ros”<br>输出：3</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：word1 &#x3D; “intention”, word2 &#x3D; “execution”<br>输出：5</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>利用动态规划，用 $m$ 和 $n$ 分别表示字符串 $word_1$ 和 $word_2$ 的长度，对于满足 $1\leq i\leq m$ 和 $1\leq j\leq n$ 的每个下标对 $(i,j)$，需要分别计算将 $word_1$ 的前 $i$ 个字符转换成 $word_2$ 的前 $j$ 个字符的最小操作数</p>
+<p>创建 $(m+1)*(n+1)$ 的二维数组 $dp$，其中 $dp[i][j]$ 为将 $word_1$ 的前 $i$ 个字符转换成 $word_2$ 的前 $j$ 个字符的最小操作数</p>
+<p>如果 $i&#x3D;0$，则对于任意 $j$，需要将 $word_2$ 的前 $j$ 个字符全部删除，最少操作数是 $j$，如果 $j&#x3D;0$，则对于任意 $i$，需要将 $word_1$ 的前 $i$ 个字符全部删除，最少操作数是 $i$，因此动态规划边界为：对于任意 $0\leq j\leq n, dp[0][j]&#x3D;j$，对于任意 $0\leq i\leq m, dp[i][0]&#x3D;i$，当然，$dp[0][0]&#x3D;0$</p>
+<p>当 $1\leq i\leq m$ 且 $1\leq j\leq n$ 时，让 $c_1&#x3D;word_1[i-1], c_2&#x3D;word_2[j-1]$，总共分为两种情况</p>
+<ul>
+<li>当 $c_1&#x3D;c_2$，将 $c_1$ 和 $c_2$ 成为公共字符，将 $word_1$ 的前 $i-1$ 个字符的最小操作数是 $dp[i-1][j-1]$，所以 $dp[i][j]&#x3D;dp[i-1][j-1]$</li>
+<li>当 $c_1\neq c_2$ 时，计算将 $word_1$ 的前 $i$ 个字符串转换成 $word_2$ 的前 $j$ 个字符的最少操作数时需要考虑三种可能的操作，取其中的最小操作数作为 $dp[i][j]$<ul>
+<li>第一种操作是插入字符 $c_1$，操作之前的最少操作数是 $dp[i-1][j]$，操作之后的最少操作数是 $dp[i-1][j]+1$</li>
+<li>第二种操作是删除字符 $c_2$，操作之前的最少操作数是 $dp[i][j-1]$，操作之后的最少操作数是 $dp[i][j-1]+1$</li>
+<li>第三种操作是将字符 $c_1$ 替换为 $c_2$，操作之前的最少操作数是 $dp[i-1][j-1]$，操作之后的最少操作数是 $dp[i-1][j-1]+1$</li>
+</ul>
+</li>
+</ul>
+<p>动态规划转移方程如下<br>$dp[i][j]&#x3D;\begin{cases} dp[i-1][j-1],&amp;\text{word1[i-1]&#x3D;word2[j-1]}\min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])+1,&amp;\text{word1[i-1]!&#x3D;word2[j-1] } \end{cases}$</p>
+<p>根据动态规划转移方程，计算 $dp[i][j]$ 的顺序为从小到大遍历每个 $i$，对于每个 $i$ 从小到大遍历每个 $j$。最后 $dp[m][n]$ 即为最少操作数</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">public class Solution
+&#123;
+    public static void Main(string[] args)
+    &#123;
+        Solution solution = new Solution();
+        string word1 = &quot;horse&quot;;
+        string word2 = &quot;ros&quot;;
+        Console.WriteLine(solution.MinDistance(word1,word2));
+    &#125;
+
+    public int MinDistance(string word1, string word2)
+    &#123;
+        int m = word1.Length, n = word2.Length;
+        int[][] dp = new int[m + 1][];
+        for (int i = 0; i &lt;= m; i++)
+        &#123;
+            dp[i] = new int[n + 1];
+        &#125;
+        for (int j = 1; j &lt;= n; j++)
+        &#123;
+            dp[0][j] = j;
+        &#125;
+        for (int i = 1; i &lt;= m; i++)
+        &#123;
+            dp[i][0] = i;
+        &#125;
+        for (int i = 1; i &lt;= m; i++)
+        &#123;
+            char c1 = word1[i - 1];
+            for (int j = 1; j &lt;= n; j++)
+            &#123;
+                char c2 = word2[j - 1];
+                if (c1 == c2)
+                &#123;
+                    dp[i][j] = dp[i - 1][j - 1];
+                &#125;
+                else
+                &#123;
+                    dp[i][j] = Math.Min(Math.Min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+                &#125;
+            &#125;
+        &#125;
+        return dp[m][n];
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

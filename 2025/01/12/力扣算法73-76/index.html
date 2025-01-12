@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法73~76 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法73~76</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>矩阵置零\搜索二维数组\颜色分类\最小覆盖子串</p>
+<span id="more"></span>
+<h2 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73. 矩阵置零"></a>73. 矩阵置零</h2><p>难度：<strong>中等</strong><br>题目要求<br>给定一个 <code>_m_ x _n_</code> 的矩阵，如果一个元素为 <strong>0</strong> ，则将其所在行和列的所有元素都设为 <strong>0</strong> 。请使用 原地 <strong>算法</strong>。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：matrix &#x3D; [[1,1,1],[1,0,1],[1,1,1]]<br>输出：[[1,0,1],[0,0,0],[1,0,1]]</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：matrix &#x3D; [[0,1,2,0],[3,4,5,2],[1,3,1,5]]<br>输出：[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>利用两个数组 $row$ 和 $col$ 来存入数值为<code>0</code>的位置的行和列，之后对数组进行遍历，将所在单位设为<code>0</code></p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        int[][] matrix =
+        &#123;
+            new[] &#123; 0, 1, 2, 0 &#125;,
+            new[] &#123; 3, 4, 5, 2 &#125;,
+            new[] &#123; 1, 3, 1, 5 &#125;
+        &#125;;
+        Solution solution = new Solution();
+        solution.SetZeroes(matrix);
+        foreach (var i in matrix)
+        &#123;
+            foreach (var j in i)
+            &#123;
+                Console.Write(j+&quot; &quot;);
+            &#125;
+
+            Console.WriteLine();
+        &#125;
+    &#125;
+
+    public void SetZeroes(int[][] matrix)
+    &#123;
+        int index_x = 0;
+        int index_y = 0;
+        int count = 0;
+        int[] row = new int[matrix.Length * matrix[0].Length];
+        int[] col = new int[matrix.Length * matrix[0].Length];
+        for (int i = 0; i &lt; matrix.Length; i++)
+        &#123;
+            for (int j = 0; j &lt; matrix[i].Length; j++)
+            &#123;
+                if (matrix[i][j] == 0)
+                &#123;
+                    row[index_x] = i;
+                    col[index_y] = j;
+                    index_x++;
+                    index_y++;
+                &#125;
+            &#125;
+        &#125;
+
+        while (count &lt; index_x)
+        &#123;
+            for (int j = 0; j &lt; matrix[0].Length; j++)
+            &#123;
+                matrix[row[count]][j] = 0;
+            &#125;
+            count++;
+        &#125;
+        count = 0;
+
+        while (count &lt; index_y)
+        &#123;
+            for (int j = 0; j &lt; matrix.Length; j++)
+            &#123;
+                matrix[j][col[count]] = 0;
+            &#125;
+            count++;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="74-搜索二维数组"><a href="#74-搜索二维数组" class="headerlink" title="74.搜索二维数组"></a>74.搜索二维数组</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给你一个满足下述两条属性的 <code>m x n</code> 整数矩阵：</p>
+<ul>
+<li>每行中的整数从左到右按非严格递增顺序排列。</li>
+<li>每行的第一个整数大于前一行的最后一个整数。</li>
+</ul>
+<p>给你一个整数 <code>target</code> ，如果 <code>target</code> 在矩阵中，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：matrix &#x3D; [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target &#x3D; 3<br>输出：true</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：matrix &#x3D; [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target &#x3D; 13<br>输出：false</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>对当前数组的第一列进行遍历：</p>
+<ul>
+<li>如果 $matrix[i][0]&lt;target$ 那么，记录 $col_index&#x3D;i-1$</li>
+<li>如果 $matrix[i][0]&#x3D;&#x3D;target$ ，直接返回$true$</li>
+<li>如果 $matrix[matrix.Length-1][0]&lt;target$，让 $col_index&#x3D;matrix.Length-1$ </li>
+<li>如果 $col_index&lt;0$，直接返回 $false$</li>
+<li>如果 $matrix[col_index][i]&#x3D;&#x3D;target$，返回 $true$，否则返回 $false$</li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        Solution solution = new Solution();
+        int[][] matrix =
+        &#123;
+            new[] &#123; 1, 3, 5, 7 &#125;,
+            new[] &#123; 10, 11, 16, 20 &#125;,
+            new[] &#123; 23, 30, 34, 60 &#125;
+            //new[]&#123;1&#125;,
+            //new[]&#123;3&#125;
+        &#125;;
+        int target = 30;
+        Console.WriteLine(solution.SearchMatrix(matrix,target));
+    &#125;
+
+    public bool SearchMatrix(int[][] matrix, int target)
+    &#123;
+        int col_index = 0;
+        for (int i = 0; i &lt; matrix.Length; i++)
+        &#123;
+            if (matrix[i][0] &gt; target)
+            &#123;
+                col_index = i - 1;
+                break;
+            &#125;
+
+            if (matrix[i][0] == target)
+            &#123;
+                return true;
+            &#125;
+        &#125;
+
+        if (matrix[matrix.Length-1][0] &lt; target)
+        &#123;
+            col_index = matrix.Length - 1;
+        &#125;
+
+        if (col_index &lt; 0)
+        &#123;
+            return false;
+        &#125;
+
+        for (int i = 0; i &lt; matrix[0].Length; i++)
+        &#123;
+            if (matrix[col_index][i] == target)
+            &#123;
+                return true;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="75-颜色分类"><a href="#75-颜色分类" class="headerlink" title="75. 颜色分类"></a>75. 颜色分类</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给定一个包含红色、白色和蓝色、共 <code>n</code> 个元素的数组 <code>nums</code> ，<strong>原地</strong> 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>我们使用整数 <code>0</code>、 <code>1</code> 和 <code>2</code> 分别表示红色、白色和蓝色。</p>
+<p>必须在不使用库内置的 sort 函数的情况下解决这个问题。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：nums &#x3D; [2,0,2,1,1,0]<br>输出：[0,0,1,1,2,2]</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：nums &#x3D; [2,0,1]<br>输出：[0,1,2]</p>
+</blockquote>
+<p><strong>题解</strong>：</p>
+<blockquote>
+<p>直接利用双指针进行解题，步骤如下：</p>
+<ul>
+<li>定义 $index_left$ 和 $index_right$ 指针，分别置为<code>0</code>，对当前数组进行遍历</li>
+<li>如果 $nums[i]&#x3D;1$，交换当前位置和右指针的元素，右指针自增</li>
+<li>如果 $nums[i]&#x3D;0$，交换当前位置和左指针的元素，左指针自增<ul>
+<li>如果 $index_left&lt;index_right$，交换当前位置和右指针的元素（在父条件之后）</li>
+<li>左右指针自增</li>
+</ul>
+</li>
+<li>右指针到达数组末尾，遍历结束</li>
+</ul>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        Solution solution = new Solution();
+        int[] nums = &#123; 2, 0, 2, 1, 1, 0 &#125;;
+        solution.SortColors(nums);
+        foreach (int i in nums)
+        &#123;
+            Console.Write(i + &quot; &quot;);
+        &#125;
+    &#125;
+
+    public void SortColors(int[] nums)
+    &#123;
+        int index_left = 0;
+        int index_right = 0;
+        for (int i = 0; i &lt; nums.Length; i++)
+        &#123;
+            if (nums[i] == 1)
+            &#123;
+                Swap(nums, i, index_right);
+                index_right++;
+            &#125;
+            else if (nums[i] == 0)
+            &#123;
+                Swap(nums, i, index_left);
+                if (index_left &lt; index_right)
+                &#123;
+                    Swap(nums,i, index_right);
+                &#125;
+                index_left++;
+                index_right++;
+            &#125;
+        &#125;
+    &#125;
+
+    public void Swap(int[] nums, int index_left, int index_right)
+    &#123;
+        int temp = nums[index_left];
+        nums[index_left] = nums[index_right];
+        nums[index_right] = temp;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a>76. 最小覆盖子串</h2><p>难度：<strong>困难</strong><br>题目要求：<br>给你一个字符串 <code>s</code> 、一个字符串 <code>t</code> 。返回 <code>s</code> 中涵盖 <code>t</code> 所有字符的最小子串。如果 <code>s</code> 中不存在涵盖 <code>t</code> 所有字符的子串，则返回空字符串 <code>&quot;&quot;</code> 。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “ADOBECODEBANC”, t &#x3D; “ABC”<br>输出：”BANC”</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “a”, t &#x3D; “a”<br>输出：”a”</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “a”, t &#x3D; “aa”<br>输出：””</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>使用滑动窗口法，定义两个字典 $need$ 和 $window$，$need$ 内部存储 $t$ 的内容，$window$ 内部存储符合要求的内容<br>具体步骤如下：</p>
+<ul>
+<li>对当前字符串 $s$ 进行遍历，让 $right$ 右移，直到 $right$ 指针第一次找到 $window$ 包含 $need$ 里的全部内容</li>
+<li>将 $left$ 右移，直到找到下一个在 $need$ 内容里的元素，继续遍历重复上一步步骤</li>
+<li>将内容比较，长度短的内容保存</li>
+<li>当$right$ 遍历到字符串 $s$ 的最后一个内容的时候，遍历结束</li>
+</ul>
+<p>返回最短的内容</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">class Solution
+&#123;
+    public static void Main(String[] args)
+    &#123;
+        Solution solution = new Solution();
+        string s = &quot;ADOBECODEBANC&quot;;
+        string t = &quot;ABC&quot;;
+        Console.WriteLine(solution.MinWindow(s,t));
+    &#125;
+
+    public string MinWindow(string s, string t)
+    &#123;
+        Dictionary&lt;char,int&gt; need = new Dictionary&lt;char,int&gt;();
+        Dictionary&lt;char,int&gt; window = new Dictionary&lt;char,int&gt;();
+        foreach (var a in t)
+        &#123;
+            if (need.ContainsKey(a))
+            &#123;
+                need[a]++;
+            &#125;
+            else
+            &#123;
+                need.Add(a, 1);
+            &#125;
+        &#125;
+
+        int left = 0;
+        int right = 0;
+        int start = 0;
+        int count = 0;
+        int len = Int32.MaxValue;
+        while (right &lt; s.Length)
+        &#123;
+            char c = s[right];
+            right++;
+            if (need.ContainsKey(c))
+            &#123;
+                if (window.ContainsKey(c))
+                &#123;
+                    window[c]++;
+                &#125;
+                else
+                &#123;
+                    window.Add(c, 1);
+                &#125;
+
+                if (need[c] == window[c])
+                &#123;
+                    count++;
+                &#125;
+            &#125;
+            while(count == need.Count)
+            &#123;
+                if (right - left &lt; len)
+                &#123;
+                    start = left;
+                    len = right - left;
+                &#125;
+
+                char d = s[left];
+                left++;
+                if (need.ContainsKey(d))
+                &#123;
+                    if (window[d] == need[d])
+                    &#123;
+                        count--;
+                    &#125;
+
+                    window[d]--;
+                &#125;
+            &#125;
+        &#125;
+        return len == Int32.MaxValue ? &quot;&quot; : s.Substring(start, len);
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

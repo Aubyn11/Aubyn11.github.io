@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>力扣算法57~58 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>力扣算法57~58</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/12
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>插入区间\最后一个单词的长度</p>
+<span id="more"></span>
+<h2 id="57-插入区间"><a href="#57-插入区间" class="headerlink" title="57. 插入区间"></a>57. 插入区间</h2><p>难度：<strong>中等</strong><br>题目要求：<br>给你一个 <strong>无重叠的</strong>，按照区间起始端点排序的区间列表。</p>
+<p>在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。</p>
+<p><strong>示例1</strong>：</p>
+<blockquote>
+<p>输入：intervals &#x3D; [[1,3],[6,9]], newInterval &#x3D; [2,5]<br>输出：[[1,5],[6,9]]</p>
+</blockquote>
+<p><strong>示例2</strong>：</p>
+<blockquote>
+<p>输入：intervals &#x3D; [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval &#x3D; [4,8]<br>输出：[[1,2],[3,10],[12,16]]</p>
+</blockquote>
+<p><strong>示例3</strong>：</p>
+<blockquote>
+<p>输入：intervals &#x3D; [], newInterval &#x3D; [5,7]<br>输出：[[5,7]]</p>
+</blockquote>
+<p><strong>示例4</strong>：</p>
+<blockquote>
+<p>输入：intervals &#x3D; [[1,5]], newInterval &#x3D; [2,3]<br>输出：[[1,5]]</p>
+</blockquote>
+<p><strong>示例5</strong>：</p>
+<blockquote>
+<p>输入：intervals &#x3D; [[1,5]], newInterval &#x3D; [2,7]<br>输出：[[1,7]]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>直接遍历数组 $intervals$ 完成插入 $newInterval$ 的操作</p>
+<p>遍历数组 $interval$ 的过程中，使用列表存储插入操作后的结果区间，应确保遍历所有区间（包括已有的区间和新区间）的顺序是按照开始位置升序的顺序，依次将每个遍历到的区间添加到列表，用 $curr$ 表示当前遍历到的区间，如果 $newInterval$ 尚未插入且 $curr[0] \geq newInterval[0]$，则将 $curr$ 添加到列表之前，首先将 $newInterval$ 添加到列表</p>
+<p>每次将区间添加到列表的同时，判断新添加的区间是否和列表中已有的区间存在重叠，如果存在重叠则执行合并操作。由于遍历区间的顺序是按照开始位置升序的顺序，且列表中已有的区间互不重叠，因此当列表不为空时，只需要将新添加的区间和列表中的最后一个区间比较即可。具体操作如下。</p>
+<ul>
+<li>如果列表不为空且当前区间的开始位置小于等于列表中的最后一个区间的结束位置，则将当前区间与列表中的最后一个区间合并，将列表中的最后一个区间的结束位置更新为两个区间的结束位置中的最大值。</li>
+<li>如果列表为空或当前区间的开始位置大于列表中的最后一个区间的结束位置，则将当前区间添加到列表中。</li>
+</ul>
+<p>当遍历结束之后，如果 $newInterval$ 仍未插入，则将 $newInterval$ 添加到列表</p>
+<p>最后将列表转换为数组并返回</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">public class Solution
+&#123;
+    public static void Main(string[] args)
+    &#123;
+        int[][] intervals =
+        &#123;
+            new[] &#123; 1, 2 &#125;,
+            new[] &#123; 3, 5 &#125;,
+            new[] &#123; 6, 7 &#125;,
+            new[] &#123; 8, 10 &#125;,
+            new[] &#123; 12, 16 &#125;
+        &#125;;
+        int[] newInterval = &#123; 4, 8 &#125;;
+        Solution solution = new Solution();
+        int[][] res = solution.Insert(intervals, newInterval);
+        foreach (var a in res)
+        &#123;
+            foreach (var b in a)
+            &#123;
+                Console.Write(b + &quot; &quot;);
+            &#125;
+            Console.WriteLine();
+        &#125;
+    &#125;
+
+    public int[][] Insert(int[][] intervals, int[] newInterval)
+    &#123;
+        IList&lt;int[]&gt; intervalList = new List&lt;int[]&gt;();
+        bool inserted = false;
+        int length = intervals.Length;
+        for (int i = 0; i &lt; length; i++)
+        &#123;
+            int[] curr = intervals[i];
+            if (!inserted &amp;&amp; curr[0] &gt;= newInterval[0])
+            &#123;
+                InsertInterval(intervalList, newInterval);
+                inserted = true;
+            &#125;
+            InsertInterval(intervalList, curr);
+        &#125;
+        if (!inserted)
+        &#123;
+            InsertInterval(intervalList, newInterval);
+        &#125;
+        return intervalList.ToArray();
+    &#125;
+
+    public void InsertInterval(IList&lt;int[]&gt; intervalList, int[] interval)
+    &#123;
+        bool merged = false;
+        if (intervalList.Count &gt; 0)
+        &#123;
+            int[] prev = intervalList[intervalList.Count - 1];
+            if (interval[0] &lt;= prev[1])
+            &#123;
+                prev[1] = Math.Max(prev[1], interval[1]);
+                merged = true;
+            &#125;
+        &#125;
+        if (!merged)
+        &#123;
+            intervalList.Add(interval);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="58-最后一个单词的长度"><a href="#58-最后一个单词的长度" class="headerlink" title="58. 最后一个单词的长度"></a>58. 最后一个单词的长度</h2><p>难度：<strong>简单</strong><br>题目要求：<br>给你一个字符串 <code>s</code>，由若干单词组成，单词前后用一些空格字符隔开。返回字符串中 <strong>最后一个</strong> 单词的长度。</p>
+<p><strong>单词</strong> 是指仅由字母组成、不包含任何空格字符的最大子字符串。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “Hello World”<br>输出：5</p>
+</blockquote>
+<p><strong>示例2</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “   fly me   to   the moon  “<br>输出：4</p>
+</blockquote>
+<p><strong>示例3</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “luffy is still joyboy”<br>输出：6</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<blockquote>
+<p>题目要求得到字符串中最后一个单词的长度，可以反向遍历字符串，寻找最后一个单词并计算其长度。</p>
+<p>由于字符串中至少存在一个单词，因此字符串中一定有字母。首先找到字符串中的最后一个字母，该字母即为最后一个单词的最后一个字母。</p>
+<p>从最后一个字母开始继续反向遍历字符串，直到遇到空格或者到达字符串的起始位置。遍历到的每个字母都是最后一个单词中的字母，因此遍历到的字母数量即为最后一个单词的长度。</p>
+</blockquote>
+<p><strong>想法代码</strong></p>
+<pre><code class="language-Csharp">public class Solution
+&#123;
+    public static void Main(string[] args)
+    &#123;
+        string s = &quot;   fly me   to   the moon  &quot;;
+        Solution solution = new Solution();
+        int res = solution.LengthOfLastWord(s);
+        Console.WriteLine(res);
+    &#125;
+
+    public int LengthOfLastWord(string s)
+    &#123;
+        int index = s.Length - 1;
+        while (s[index] == &#39; &#39;)
+        &#123;
+            index--;
+        &#125;
+        int wordLength = 0;
+        while (index &gt;= 0 &amp;&amp; s[index] != &#39; &#39;)
+        &#123;
+            wordLength++;
+            index--;
+        &#125;
+        return wordLength;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
