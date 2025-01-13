@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——05Internet结构和ISP | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——05Internet结构和ISP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>接入网和物理媒体</p>
+<span id="more"></span>
+
+<h1 id="Internet结构和ISP"><a href="#Internet结构和ISP" class="headerlink" title="Internet结构和ISP"></a>Internet结构和ISP</h1><h2 id="互连网络结构：网络的网络"><a href="#互连网络结构：网络的网络" class="headerlink" title="互连网络结构：网络的网络"></a>互连网络结构：网络的网络</h2><ul>
+<li>端系统通过<font color=red>接入ISPs</font>连接到互连网<ul>
+<li>住宅、公司和大学的ISPs</li>
+</ul>
+</li>
+<li>接入ISPs相应的必须是互联的<ul>
+<li>因此任何2个端系统可相互发送分组到对方</li>
+</ul>
+</li>
+<li>导致的“网络的网络”非常复杂<ul>
+<li>发展和演化是通过<font color=red>经济的</font>和<font color=red>国家的</font>政策来驱动的</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>问题</strong></font>：给定数百万接入ISPs，如何将他们互联到一起?</p>
+<p><img src="/images/8.png" alt="在这里插入图片描述"></p>
+<p><font color=red><strong>选项</strong></font>：<em>将每个接入ISPs都连接到全局ISP（全局范围内覆盖）？</em></p>
+<p><font color=red><strong>客户</strong></font>ISPs和<font color=red><strong>提供者</strong></font>ISPs有经济合约</p>
+<p><img src="/images/9.png" alt="在这里插入图片描述"></p>
+<p><font color=red><strong>竞争</strong></font>：如果全局ISP是有利可为的业务，那会有竞争者</p>
+<p><img src="/images/10.png" alt="在这里插入图片描述"></p>
+<p><font color=red><strong>合作</strong></font>：通过ISP之间的合作可以完成业务的扩展，肯定会有互联，对等互联的结算关系</p>
+<p><img src="/images/11.png" alt="在这里插入图片描述"></p>
+<p><font color=red>接入方式</font>：</p>
+<ul>
+<li>对等连接（路由器之间的连接）</li>
+<li>IXP</li>
+</ul>
+<p>然后业务会细分（全球接入和区域接入），区域网络将出现，用于将ISPs连接到全局ISPs<br><img src="/images/12.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>除了ISP，客户端两个身份，还有ICP这个角色，比如百度，谷歌等提供内容的服务商</li>
+<li>ISP是提供基本连接的，ICP是提供业务的，早期ICP通过连入ISP来进行信息传输，会出现两个问题<ul>
+<li>成本过高：钱都要交给ISP</li>
+<li>ISP没办法向全球的用户提供高质量的服务</li>
+</ul>
+</li>
+<li>因此ICP就搭建自己的专网，即在全球范围内部署自己的数据中心机房，这些机房之间采用自己的专线，（或者是自己搭的，或者是租的，比如国内是不允许谷歌自己搭电缆的，要不然挖的乱七八糟的），而且机房的位置都靠近核心的ISP设备，用户通过ISP接进来，很快就能访问到谷歌的ISP，即使附近没有机房，也可以通过ISP连接到附近有机房的ISP</li>
+<li>这样降低了成本，也提高了服务质量</li>
+<li>国内也是类似，不过也可以向政府提案提速降费</li>
+</ul>
+<p>之后<font color=red>内容提供商网络</font>可能会构建他们的网络，将他们的服务、内容更加靠近端用户，向客户提供更好的服务，减少自己的运营支出<br><img src="/images/13.png" alt="在这里插入图片描述"></p>
+<p>ICP数据服务中心机房部署的位置需要考虑很多因素</p>
+<ul>
+<li>离ISP数据中心机房较近</li>
+<li>有的部署在温度较低的环境：北极、水底</li>
+<li>比如大山：战争、自然灾害影响较小</li>
+</ul>
+<p><img src="/images/14.png" alt="在这里插入图片描述"></p>
+<p>在网络的最中心，一些为数不多的充分连接的大范围网络（分布广、节点有限、但是之间有着多重连接）</p>
+<ul>
+<li><font color=red>“tier-1” commercial ISPs</font> (e.g., Level 3, Sprint, AT&amp;T, NTT), 国家或者国际 范围的覆盖</li>
+<li><font color=red>content provider network</font> (e.g., Google): 将它们的数据中心接入ISP，方便周边 用户的访问；通常私有网络之间用专网绕过第一层ISP和区域</li>
+</ul>
+<h2 id="Internet结构：network-of-networks"><a href="#Internet结构：network-of-networks" class="headerlink" title="Internet结构：network of networks"></a>Internet结构：network of networks</h2><ul>
+<li>松散的层次结构</li>
+<li><font color=red><strong>中心：第一层ISP</strong></font>国家&#x2F;国际覆盖，速率很高<ul>
+<li>直接与其他第一层ISP相连</li>
+<li>与大量的第二层ISP和其他客户网络相连</li>
+</ul>
+</li>
+<li><font color=red><strong>第二层ISP</strong></font>：更小些的（通常是局域性的）ISP<ul>
+<li>与一个或多个第一层ISPs，也可能与其他第二层ISP</li>
+</ul>
+</li>
+<li><font color=red><strong>第三层ISP与其他本地ISP</strong></font><ul>
+<li>接入网（与端系统最近）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/15.png" alt="第一层ISP"></p>
+<p><img src="/images/16.png" alt="美国骨干网BBN的覆盖情况"></p>
+<p><img src="/images/17.png" alt="Sprint的覆盖情况"></p>
+<ul>
+<li>POP是上级和下级的关系</li>
+<li>下级通过与上级连接，上级再与ISP连接</li>
+</ul>
+<p><img src="/images/18.png" alt="第二层ISP"></p>
+<p><img src="/images/19.png" alt="一个分组要经过许多网络"></p>
+<h2 id="ISP之间的连接"><a href="#ISP之间的连接" class="headerlink" title="ISP之间的连接"></a>ISP之间的连接</h2><ul>
+<li>POP：高层ISP面向客户网络的接入点，涉及费用结算<ul>
+<li>如一个低层ISP接入多个高层ISP，多宿（multi home）</li>
+</ul>
+</li>
+<li>对等接入：2个ISP对等互接，不涉及费用结算</li>
+<li>IXP：多个对等ISP互联互通之处，通常不涉及费用结算<br>多个高层ISP，多宿（multi home）</li>
+<li>对等接入：2个ISP对等互接，不涉及费用结算</li>
+<li>IXP：多个对等ISP互联互通之处，通常不涉及费用结算</li>
+<li>ICP自己部署专用网络，同时和各级ISP连接</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

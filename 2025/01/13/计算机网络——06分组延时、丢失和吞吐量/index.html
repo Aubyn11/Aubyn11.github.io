@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——06分组延时、丢失和吞吐量 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——06分组延时、丢失和吞吐量</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>接入网和物理媒体</p>
+<span id="more"></span>
+
+<h1 id="分组延时、丢失和吞吐量"><a href="#分组延时、丢失和吞吐量" class="headerlink" title="分组延时、丢失和吞吐量"></a>分组延时、丢失和吞吐量</h1><h2 id="分组丢失和延时是怎样发生的"><a href="#分组丢失和延时是怎样发生的" class="headerlink" title="分组丢失和延时是怎样发生的"></a>分组丢失和延时是怎样发生的</h2><p>在路由器缓冲区的分组队列</p>
+<ul>
+<li><font color=red>分组到达链路的速率超过了链路输出的能力</font></li>
+<li>分组等待排到队头、被传输</li>
+</ul>
+<p><img src="/images/20.png" alt="在这里插入图片描述"></p>
+<p>延时原因：</p>
+<ul>
+<li>当当前链路有别的分组进行传输，分组没有到达队首，就会进行排队，从而产生排队延迟</li>
+<li>丢失原因：分组到达的时候，队列满了，就会丢弃</li>
+<li>除了排队延时，还有传输延时</li>
+</ul>
+<h2 id="四种延时类型"><a href="#四种延时类型" class="headerlink" title="四种延时类型"></a>四种延时类型</h2><ul>
+<li><font color=red>节点处理延时</font><ul>
+<li>检查<strong>bit</strong>级差错</li>
+<li>检查分组首部和决定将分组导向何处</li>
+</ul>
+</li>
+<li><font color=red><strong>排队延时</strong></font><ul>
+<li>在输出链路上等待传输的时间</li>
+<li>依赖于路由器的拥塞程度</li>
+</ul>
+</li>
+<li><font color=red>传输延时</font><ul>
+<li><strong>R</strong> &#x3D; 链路带宽(<strong>bps</strong>)</li>
+<li><strong>L</strong> &#x3D; 分组长度(<strong>bits</strong>)</li>
+<li>将分组发送到链路上的时间 &#x3D; <strong>L &#x2F; R</strong></li>
+<li>存储转发延时</li>
+</ul>
+</li>
+<li><font color=red>传播延时</font><ul>
+<li><strong>d</strong> &#x3D; 物理链路的长度</li>
+<li><strong>s</strong> &#x3D; 在媒体上的传播速度(<strong>$2 * 10^{8}$ m&#x2F;sec</strong>)</li>
+<li>传播延时 &#x3D; <strong>d&#x2F;s</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="节点延时"><a href="#节点延时" class="headerlink" title="节点延时"></a>节点延时</h2><p> <img src="/images/21.png" alt="在这里插入图片描述"></p>
+<h2 id="排队延时"><a href="#排队延时" class="headerlink" title="排队延时"></a>排队延时</h2><ul>
+<li><strong>R</strong> &#x3D; 链路带宽（bps）</li>
+<li><strong>L</strong> &#x3D; 分组长度（bits）</li>
+<li><strong>a</strong> &#x3D; 分组到达队列的平均速率</li>
+</ul>
+<p> <font color=red><strong>流量强度 &#x3D; La &#x2F; R</strong></font></p>
+<ul>
+<li><strong>La &#x2F; R ~ 0</strong>：平均排队延时很小</li>
+<li><strong>La &#x2F; R -&gt; 1</strong>：排队延时变得很大</li>
+<li><strong>La &#x2F; R &gt; 1</strong>：比特到达队列的速率超过了从该队列输出的速率，平均排队时间将趋向无穷大</li>
+</ul>
+<p> <font color=red><em>系统设计时流量强度不能大于1</em></font></p>
+<p> <img src="/images/22.png" alt="在这里插入图片描述"></p>
+<h2 id="Internet的延时和路由"><a href="#Internet的延时和路由" class="headerlink" title="Internet的延时和路由"></a>Internet的延时和路由</h2><ul>
+<li>Internet 的延时和路由是怎样的？<ul>
+<li><font color=red><strong>Traceroute</strong> 诊断程序</font>：提供从源端，经过路由器，到目的的延时测量</li>
+<li><strong>For all i</strong>:<ul>
+<li>沿着目的的路径，向每个路由器发送<strong>3</strong>个探测分组</li>
+<li>路由器 <em>i</em> 将向发送方返回一个分组</li>
+<li>发送方对发送和回复之间间隔计时</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/23.png" alt="在这里插入图片描述"></p>
+<p>Traceroute 是 利用 <code>ICMP协议（互联网控制报文协议）</code> 运作的<br>TTL的原理：</p>
+<ul>
+<li>假设源客户端是A，目标客户端是B，中间的路由器标号一次为 1 2 3 4 5</li>
+<li>在分组的头部header中有一个字段叫TTL（Time to leave）是整数，每经过一个路由器时路由器将TTL-1，如果TTL&#x3D;0，则该路由器向原客户端发送消息，从而得到时间</li>
+<li>A设置TTL&#x3D;1，那么第一个路由器返回时间；设置TTL&#x3D;2，那么第二个路由器返回时间</li>
+</ul>
+<p>依次增大TTL，得到每个路由器返回的延时</p>
+<ul>
+<li><p>对于目标客户端B，设置TTL足够大能够达到B，但是设置端口号没有对应的服务，这样到达B之后找不到对应的端口号就又会向A返回时间，得到B的延时</p>
+</li>
+<li><p>在Windows系统下</p>
+<ul>
+<li>Tracert hostname</li>
+<li>如 Tracert <a target="_blank" rel="noopener" href="http://www.gucas.ac.cn/">www.gucas.ac.cn</a></li>
+</ul>
+</li>
+<li><p>更完整的例子</p>
+<ul>
+<li>tract [-d] [-h maximum_hops] [-j computer-list] [-w timeout] target_name</li>
+<li>请见帮助： <a target="_blank" rel="noopener" href="http://www.linkwan.com/gb/broadmeter/article/trace">http://www.linkwan.com/gb/broadmeter/article/trace</a> -help.htm</li>
+</ul>
+</li>
+<li><p>测试网址</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.traceroute.org/">www.traceroute.org</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.linkwan.com/">www.linkwan.com</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="分组丢失"><a href="#分组丢失" class="headerlink" title="分组丢失"></a>分组丢失</h2><ul>
+<li>链路的队列缓冲区容量有限</li>
+<li>当分组到达一个满的队列时，该分组将会丢失</li>
+<li>丢失的分组可能会被前一个节点或源端系统重传，或根本不重传</li>
+</ul>
+<p><img src="/images/24.png" alt="在这里插入图片描述"></p>
+<h2 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h2><ul>
+<li><font color=red><em>吞吐量</em></font>：在源端和目标端之间传输的速率（数据量 &#x2F; 单位时间）<ul>
+<li><font color=red><em>瞬间吞吐量</em></font>：在一个时间点的速率</li>
+<li><font color=red><em>平均吞吐量</em></font>：在一个长时间内平均值</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/25.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/26.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>吞吐量取决于吞吐量最小的路径</p>
+</blockquote>
+<p><img src="/images/27.png" alt="在这里插入图片描述"></p>
+<h2 id="吞吐量：互联网场景"><a href="#吞吐量：互联网场景" class="headerlink" title="吞吐量：互联网场景"></a>吞吐量：互联网场景</h2><p><img src="/images/28.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>如图，可以看到R链路同时由多个连接共享，这样的话不同的连接就要平分带宽</p>
+</li>
+<li><p>这样尽管R的带宽比$R_s$，$R_c$大，但是实际给AB的带宽是 1&#x2F;n，最终比较的是 1&#x2F;n 的大小</p>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
