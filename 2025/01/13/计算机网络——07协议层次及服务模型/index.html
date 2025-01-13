@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——07协议层次及服务模型 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——07协议层次及服务模型</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>协议层次及服务模型</p>
+<span id="more"></span>
+<h1 id="协议层次及服务模型"><a href="#协议层次及服务模型" class="headerlink" title="协议层次及服务模型"></a>协议层次及服务模型</h1><h2 id="协议层次"><a href="#协议层次" class="headerlink" title="协议层次"></a>协议层次</h2><p><font color=red>网络是一个复杂的系统</font></p>
+<ul>
+<li>网络功能复杂：数字信号的物理信号承载、点到点、路由、rdt、进程区分、应用等</li>
+<li>现实来看，网络的许多构成元素和设备：<ul>
+<li>主机</li>
+<li>路由器</li>
+<li>各种媒体的链路</li>
+<li>应用</li>
+<li>协议</li>
+<li>硬件，软件</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>问题是</font>，如何组织和实现这个复杂的网络功能</p>
+<p><code>模块化分解/分层</code></p>
+<blockquote>
+<p>分解和分层是不一样的</p>
+<ul>
+<li>分解:模块之间是可以相互调用的</li>
+<li>分层：只有相邻两层客户相互调用</li>
+</ul>
+</blockquote>
+<p><font color=red><strong>层次化方式</strong>实现复杂网络功能</font></p>
+<ul>
+<li>将网络复杂的功能分层功能明确的<font color=red>层次</font>，每一层实现了其中一个或一组<font color=red>功能</font>，功能中有其上层可以使用的功能：<font color=red>服务</font></li>
+<li>本层协议实体相互交互执行本层的<font color=red>协议动作</font>，目的是实现本层功能，通过接口为上层提供更好的服务</li>
+<li>在实现本层协议的时候，直接<font color=red>利用了下层所提供的服务</font></li>
+<li>本层的服务：借助下层服务实现的本层协议实体之间交互带来的新功能（上层可以利用的）更下层所提供的服务</li>
+</ul>
+<h2 id="服务与服务访问点"><a href="#服务与服务访问点" class="headerlink" title="服务与服务访问点"></a>服务与服务访问点</h2><ul>
+<li>服务：底层实体向上层实体提供他们之间通信的能力<ul>
+<li>服务用户</li>
+<li>服务提供者</li>
+</ul>
+</li>
+<li>原语：上层使用下层服务的形式，高层使用低层提供的服务，以及低层向高层提供服务都是通过服务访问原语来进行交互的形式</li>
+<li>服务访问点：上层使用下层提供的服务通过层间的接口——地点<ul>
+<li>例子：邮箱</li>
+<li>地址：下层的一个实体支撑着上层的多个实体，<strong>SAP</strong>有标志不同上层实体的作用</li>
+<li>可以有不同的实现，队列</li>
+<li>例子：传输层的SAP：端口</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务的类型"><a href="#服务的类型" class="headerlink" title="服务的类型"></a>服务的类型</h2><ul>
+<li>面向连接的服务和无连接的服务——方式<ul>
+<li>面向连接的服务<ul>
+<li><strong>连接</strong>：两个通信实体为进行通信而建立的一种结合</li>
+<li>面向连接的服务通信的过程：建立连接，通信，拆除连接</li>
+<li>面向连接的服务的例子：网络层的连接被称为虚电路</li>
+<li>适用范围：对于大的数据块要传输：不适合小的零星报文</li>
+<li>特点：保序</li>
+<li>服务类型：<ul>
+<li>可靠的信息流传送页面（可靠的获得，通过接收方的确认）</li>
+<li>可靠的字节流远程登陆</li>
+<li>不可靠的连接数字化声音</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无连接的服务<ul>
+<li>无连接服务：两个对等层实体在通信前不需要建立一个连接，不预留资源；不需要通信双方都是活跃</li>
+<li>特点：不可靠、可能重复、可能失序</li>
+<li><strong>IP</strong>分组：数据包</li>
+<li>适用范围：适合传送零星数据</li>
+<li>服务类型：<ul>
+<li>不可靠的数据报：电子方式的函件</li>
+<li>有确认的数据报：挂号信</li>
+<li>请求回答：信息查询</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务和协议"><a href="#服务和协议" class="headerlink" title="服务和协议"></a>服务和协议</h2><ul>
+<li>服务和协议的区别<ul>
+<li>服务：低层实体向上层实体提供它们之间的通信的能力，是通过原语来操作的，<font color=red>垂直</font></li>
+<li>协议：对等层实体之间在相互通信的过程中，需要遵循的规则的集合，<font color=red>水平</font></li>
+</ul>
+</li>
+<li>服务和协议的联系<ul>
+<li>本层<font color=red>协议的实现</font>要靠下层提供的服务来实现</li>
+<li>本层实体通过协议为上层<font color=red>提供更高级的服务</font></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据单元（DU）"><a href="#数据单元（DU）" class="headerlink" title="数据单元（DU）"></a>数据单元（DU）</h2><p><img src="/images/29.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/30.png" alt="协议和服务的关系"></p>
+<h2 id="分层处理和实现复杂系统的好处"><a href="#分层处理和实现复杂系统的好处" class="headerlink" title="分层处理和实现复杂系统的好处"></a>分层处理和实现复杂系统的好处</h2><p><font color=red>对付复杂的系统</font></p>
+<ul>
+<li>概念化：结构清晰，便于表示网络组件，以及描述其相互关系<ul>
+<li>分层参考模型</li>
+</ul>
+</li>
+<li>结构化：模块化更易于维护和系统升级<ul>
+<li>改变某一层服务的实现不影响系统中的其他层次<ul>
+<li>对于其他层次而言是透明的</li>
+</ul>
+</li>
+<li>如改变登机程序并不能影响系统的其他部分<ul>
+<li>改变 2 个程序使用的通信方式并不影响 2 个翻译的工作</li>
+<li>改变 2 个翻译使用的语言不影响上下 2 个层次的工作</li>
+</ul>
+</li>
+<li>分层思想被认为有海的地方：效率相对较低</li>
+</ul>
+</li>
+</ul>
+<h2 id="Internet协议栈"><a href="#Internet协议栈" class="headerlink" title="Internet协议栈"></a>Internet协议栈</h2><ul>
+<li><font color=red>应用层</font>：网络应用<ul>
+<li>为人类用户或者其他应用进程提供网络应用服务</li>
+<li>FTP、SMTP、HTTP、DNS</li>
+</ul>
+</li>
+<li><font color=red>传输层</font>：主机之间的数据传输<ul>
+<li>在网络层提供的端到端的通信基础上，细分为进程到进程，将不可靠的通信变成可靠的通信</li>
+</ul>
+</li>
+<li><font color=red>网络层</font>：为数据报从源到目的选择路由<ul>
+<li>主机与主机之间的通信，端到端的通信，不可靠</li>
+<li>IP、路由协议</li>
+</ul>
+</li>
+<li><font color=red>链路层</font>：相邻网络节点间的数据传输<ul>
+<li>2 个相邻 2 点的通信，点到点通信，可靠或不可靠</li>
+<li>点对点协议<strong>PPP、802.11(wifi)、Ethernet</strong></li>
+</ul>
+</li>
+<li><font color=red>物理层</font>：在线路上传送bit</li>
+</ul>
+<h2 id="ISO-OSI-参考模型"><a href="#ISO-OSI-参考模型" class="headerlink" title="ISO&#x2F;OSI 参考模型"></a>ISO&#x2F;OSI 参考模型</h2><p><img src="/images/31.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><font color=red><em>表示层</em></font>：允许应用解释传输的数据</li>
+<li><font color=red><em>会话层</em></font>：数据交换的同步，检查点，恢复</li>
+<li>互连网协议中没有这两层<ul>
+<li>这些服务如果需要的话必须被应用层实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="封装和解封装"><a href="#封装和解封装" class="headerlink" title="封装和解封装"></a>封装和解封装</h2><p><img src="/images/32.png" alt="在这里插入图片描述"></p>
+<h2 id="各层次的协议数据单元"><a href="#各层次的协议数据单元" class="headerlink" title="各层次的协议数据单元"></a>各层次的协议数据单元</h2><ul>
+<li>应用层：报文</li>
+<li>传输层：报文段：TCP段、UDP数据段</li>
+<li>网络层：分组pocket（如果无连接方式：数据报datagram）</li>
+<li>数据链路层：帧</li>
+<li>物理层：位</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

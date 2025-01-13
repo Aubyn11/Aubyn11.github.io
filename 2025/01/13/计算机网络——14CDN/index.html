@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——14CDN | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——14CDN</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #03a9f4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>CDN</p>
+<span id="more"></span>
+
+<h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><h2 id="视频流化服务和CDN：上下文"><a href="#视频流化服务和CDN：上下文" class="headerlink" title="视频流化服务和CDN：上下文"></a>视频流化服务和CDN：上下文</h2><ul>
+<li>视频流量：占据着互连网大部分的带宽<ul>
+<li>Netflix，YouTube：占据37%，16%的下行流量</li>
+</ul>
+</li>
+<li>挑战：规模性-如何服务~1B用户？<ul>
+<li>单个超级服务器无法提供服务（为什么）</li>
+</ul>
+</li>
+<li>挑战：异构性<ul>
+<li>不同用户拥有不同的能力</li>
+</ul>
+</li>
+<li><font color=red><em>解决方案</em></font>：分布式的，应用层面的基础设施</li>
+</ul>
+<h2 id="多媒体：视频"><a href="#多媒体：视频" class="headerlink" title="多媒体：视频"></a>多媒体：视频</h2><ul>
+<li>视频：固定速度显示的图像序列</li>
+<li>网络视频特点：<ul>
+<li>高码率：&gt;10x于音频,高的网络带宽需求</li>
+<li>可以被压缩</li>
+<li>90%%以上的网络流量是视频</li>
+</ul>
+</li>
+<li>数字化图像：像素的阵列<ul>
+<li>每个像素被若干bits表示</li>
+</ul>
+</li>
+<li>编码：使用图像内和图像间的冗余来降低编码的比特数<ul>
+<li>空间冗余（图像内）</li>
+<li>时间冗余（相邻的图像间）<br><img src="/images/66.png" alt="在这里插入图片描述"></li>
+</ul>
+</li>
+</ul>
+<p>编码方式：</p>
+<ul>
+<li><font color=red>CBR</font>：以固定速率编码</li>
+<li><font color=red>VBR</font>：视频编码速率随时间的变化而变化</li>
+</ul>
+<h2 id="多媒体流化服务：DASH"><a href="#多媒体流化服务：DASH" class="headerlink" title="多媒体流化服务：DASH"></a>多媒体流化服务：DASH</h2><ul>
+<li>服务器：<ul>
+<li>将视频文件分割成多个块</li>
+<li>每个块独立存储，编码于不同码率（8-10种）</li>
+<li>告示文件：提供不同块的URL</li>
+</ul>
+</li>
+<li>客户端<ul>
+<li>先获取告示文件</li>
+<li>周期性的测量服务器到客户端的带宽</li>
+<li>查询告示文件，在一个时刻请求一个块，HTTP头部指定字节范围<ul>
+<li>如果带宽足够，选择最大的码率的视频块</li>
+<li>会话中的不同时刻，可以切换请求不同的编码块（取决于当时的可用带宽）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>智能客户端：客户端自适应决定<ul>
+<li><font color=red>什么时候</font>请求块（不至于缓存挨饿或者溢出）</li>
+<li>请求<font color=red>什么编码速率</font>的视频块（当带宽足够用时，请求高质量的视频块）</li>
+<li><font color=red>哪里</font>去请求块（可以向离自己近的服务器发送URL，或者向高可用带宽的服务器请求）</li>
+</ul>
+</li>
+</ul>
+<h2 id="CDN-1"><a href="#CDN-1" class="headerlink" title="CDN"></a>CDN</h2><ul>
+<li><font color=red><em>挑战</em></font>：服务器如何通过网络向上百万用户同时流化视频内容</li>
+<li><font color=red><em>选择1</em></font>：单个的、大的超级服务中心”mega-server”<ul>
+<li>服务器到客户端路径上跳数越多，瓶颈链路的带宽小导致停顿</li>
+<li>“二八规律”决定了网络同时充斥着同一个视频的多个拷贝，效率低（付费高、贷款浪费、效果差）</li>
+<li>单点故障点，性能瓶颈</li>
+<li>周边网络的拥塞</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>评述：相当简单，但是这个方法<font color=red>不可拓展</font></p>
+</blockquote>
+<ul>
+<li><p><font color=red><em>选择2</em></font>：通过<font color=red>CDN</font>，全网部署缓存节点，存储服务内容，就近为用户提供服务，提高用户体验</p>
+<ul>
+<li><em>enter deep</em>：将CDN服务器深入到许多接入网<ul>
+<li>更接近用户、数量多、离用户近、管理困难</li>
+<li>Akamai，1700个位置</li>
+</ul>
+</li>
+<li><em>bring home</em>：部署在少数（10个左右）关键位置，如将服务器蔟安装于POP附近（离若干$1^{st}$ISP POP较近）<ul>
+<li>采用租用线路将服务器蔟连接起来</li>
+<li>Limelight</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CDN：在CDN节点中存储内容的多个拷贝</p>
+</li>
+<li><p>用户从CDN种请求内容：</p>
+<ul>
+<li>重定向到最近的拷贝，请求内容</li>
+</ul>
+</li>
+</ul>
+<p>Netflix的例子:<br><img src="/images/67.png" alt="在这里插入图片描述"></p>
+<h3 id="CDNs"><a href="#CDNs" class="headerlink" title="CDNs"></a>CDNs</h3><p><img src="/images/68.png" alt="在这里插入图片描述"></p>
+<p>OTT挑战：在拥塞的互联网上复制内容</p>
+<ul>
+<li>从哪个CDN节点中获取内容</li>
+<li>用户在网络拥塞时的行为</li>
+<li>在哪些CDN节点中存储什么内容</li>
+</ul>
+<h3 id="CDN：“简单”内容访问场景"><a href="#CDN：“简单”内容访问场景" class="headerlink" title="CDN：“简单”内容访问场景"></a>CDN：“简单”内容访问场景</h3><ul>
+<li>Bob(客户端)请求视频<a target="_blank" rel="noopener" href="http://netcinema.com/6Y7B23V-">http://netcinema.com/6Y7B23V-</a> </li>
+<li>视频存储在CDN，位于<a target="_blank" rel="noopener" href="http://kingcdn.com/NetC6y&B23V">http://KingCDN.com/NetC6y&amp;B23V</a></li>
+<li>下图中的authorative是权威服务器</li>
+</ul>
+<p><img src="/images/69.png" alt="在这里插入图片描述"></p>
+<h3 id="Netflix案例"><a href="#Netflix案例" class="headerlink" title="Netflix案例"></a>Netflix案例</h3><p><img src="/images/70.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——09Web-and-HTTP | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——09Web-and-HTTP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ff7d73">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Web-and-HTTP</p>
+<span id="more"></span>
+
+<h1 id="Web-and-HTTP"><a href="#Web-and-HTTP" class="headerlink" title="Web and HTTP"></a>Web and HTTP</h1><h2 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h2><ul>
+<li><font color=red><strong>Web页</strong></font>：由一些对象组成</li>
+<li>对象可以是<strong>HTML</strong>文件、<strong>JPEG</strong>图像，<strong>JAVA</strong>小程序，声音剪辑文件等</li>
+<li><strong>Web</strong>页含有一个<font color=red>基本的<strong>HTML</strong>文件</font>，该基本<strong>HTML</strong>文件又包含若干对象的引用（链接）</li>
+<li>通过<font color=red><strong>URL</strong></font>对每个对象进行引用<ul>
+<li><font color=red>访问协议：用户名、口令字、端口等</font></li>
+</ul>
+</li>
+<li><strong>URL</strong>格式：</li>
+</ul>
+<pre><code class="language-url">Port://user:psw@www.someSchool.edu/someDept/pic.gif:port
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>路径元素</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Port</td>
+<td>协议名</td>
+</tr>
+<tr>
+<td>user</td>
+<td>用户</td>
+</tr>
+<tr>
+<td>psw</td>
+<td>口令</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.somschool.edu/">www.somSchool.edu</a></td>
+<td>主机名</td>
+</tr>
+<tr>
+<td>someDept&#x2F;pic.gif</td>
+<td>路径名</td>
+</tr>
+<tr>
+<td>port</td>
+<td>端口</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>用户口令可以不提供，即匿名访问<br>端口不填可以是默认的：http-80，ftp-21</p>
+</blockquote>
+<h2 id="HTTP概况"><a href="#HTTP概况" class="headerlink" title="HTTP概况"></a>HTTP概况</h2><p><font color=red><strong>HTTP</strong>：超文本传输协议</font></p>
+<ul>
+<li><strong>Web</strong>的应用层协议</li>
+<li>用户&#x2F;服务器模式<ul>
+<li>客户：请求、接收和显示<strong>Web</strong>对象的浏览器</li>
+<li>服务器：对请求进行响应，发送对象的<strong>Web</strong>服务器</li>
+</ul>
+</li>
+<li><strong>HTTP 1.0: RFC 1945</strong></li>
+<li><strong>HTTP 1.1: RFC 2068</strong></li>
+</ul>
+<p><img src="/images/37.png" alt="在这里插入图片描述"></p>
+<p><font color=red>使用<strong>TCP</strong></font></p>
+<ul>
+<li>客户发起一个与服务器的<strong>TCP</strong>连接（建立套接字），端口号为<strong>80</strong></li>
+<li>服务器接受客户的<strong>TCP</strong>连接</li>
+<li>在浏览器（<strong>HTTP</strong>客户端）与<strong>Web</strong>服务器（<strong>HTTP</strong>服务器<strong>server</strong>）交换<strong>HTTP</strong>报文（应用层协议报文）</li>
+<li><strong>TCP</strong>连接关闭</li>
+</ul>
+<p><font color=red><strong>HTTP</strong>是无状态的</font></p>
+<ul>
+<li>服务器并不维护关于客户的任何信息</li>
+</ul>
+<p><font color=red>维护状态的协议很复杂</font></p>
+<ul>
+<li>必须维护历史信息（状态）</li>
+<li>如果服务器&#x2F;客户端死机，他们的状态可能不一致，二者的信息必须一致</li>
+<li>无状态的服务器能够支持更多的客户端</li>
+</ul>
+<h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p><font color=red>非持久<strong>HTTP</strong></font></p>
+<ul>
+<li>最多只有一个对象在<strong>TCP</strong>连接上发送</li>
+<li>下载多个对象需要多个<strong>TCP</strong>连接</li>
+<li><strong>HTTP&#x2F;1.0</strong>使用非持久连接</li>
+</ul>
+<p><font color=red>持久<strong>HTTP</strong></font></p>
+<ul>
+<li>多个对象可以在一个（在客户端和服务器之间的）<strong>TCP</strong>连接上传输</li>
+<li><strong>HTTP&#x2F;1.1</strong>默认使用持久连接</li>
+</ul>
+<h2 id="非持久HTTP连接"><a href="#非持久HTTP连接" class="headerlink" title="非持久HTTP连接"></a>非持久HTTP连接</h2><p><img src="/images/38.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/39.png" alt="在这里插入图片描述"></p>
+<h2 id="响应时间模型"><a href="#响应时间模型" class="headerlink" title="响应时间模型"></a>响应时间模型</h2><p><font color=red>往返时间<strong>RTT</strong></font>：一个小的分组从客户端到服务器，在回到客户端的时间（传输时间忽略）<br><font color=red>响应时间</font></p>
+<ul>
+<li>一个<strong>RTT</strong>用来发起<strong>TCP</strong>连接</li>
+<li>一个<strong>RTT</strong>用来<strong>HTTP</strong>请求并等待<strong>HTTP</strong>响应</li>
+<li>文件传输时间</li>
+</ul>
+<p><font color=red>共：<strong>2RTT</strong> + 传输时间</font><br><img src="/images/40.png" alt="在这里插入图片描述"></p>
+<h2 id="持久HTTP"><a href="#持久HTTP" class="headerlink" title="持久HTTP"></a>持久HTTP</h2><p><font color=red>非持久<strong>HTTP</strong>的缺点</font></p>
+<ul>
+<li>每个对象要 2 个<strong>RTT</strong></li>
+<li>操作系统必须为每个<strong>TCP</strong>连接分配资源</li>
+<li>但浏览器通常打开并行<strong>TCP</strong>连接，以获取引用对象</li>
+</ul>
+<p><font color=red>持久<strong>HTTP</strong></font></p>
+<ul>
+<li>服务器在发送响应后，仍保持<strong>TCP</strong>连接</li>
+<li>在相同客户端和服务器之后的后续请求和响应报文通过相连的连接进行传送</li>
+<li>客户端在遇到一个引用对象的时候，就可以尽快发送该对象的请求</li>
+</ul>
+<p><font color=red>非流水方式的持久<strong>HTTP</strong></font></p>
+<ul>
+<li>客户端只能在收到前一个响应后才能发出新的请求</li>
+<li>每个引用对象花费一个<strong>RTT</strong></li>
+</ul>
+<p><font color=red>流水方式的持久<strong>HTTP</strong></font></p>
+<ul>
+<li><strong>HTTP&#x2F;1.1</strong>的默认模式</li>
+<li>客户端遇到一个引用对象就立即产生一个请求</li>
+<li>所有引用（小）对象只花费一个<strong>RTT</strong>是可能的</li>
+</ul>
+<h2 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h2><ul>
+<li>两种类型的<strong>HTTP</strong>报文：<font color=red>请求、响应</font></li>
+</ul>
+<h3 id="HTTP请求报文-1"><a href="#HTTP请求报文-1" class="headerlink" title="HTTP请求报文"></a><font color=red><strong>HTTP</strong>请求报文</font></h3><pre><code class="language-url">GET /somedir/page.html HTTP/1.1
+Host: www.someschool.edu
+User-agent: Mozilla/4.0
+Connection: close
+Accept-language:fr
+</code></pre>
+<p>解析报文如下：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>举例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>请求行</td>
+<td>GET &#x2F;somedir&#x2F;page.html HTTP&#x2F;1.1</td>
+<td>命令： GET：获取数据；POST：上载数据；HEAD：仅仅获取相应头部，搜索引擎使用改命令得到头部之后建立索引资源路径：<code>/somedir/page.html</code>协议&#x2F;协议版本：<code>HTTP/1.1</code></td>
+</tr>
+<tr>
+<td>首部行</td>
+<td>Host: <a target="_blank" rel="noopener" href="http://www.someschool.edu/">www.someschool.edu</a> User-agent: Mozilla&#x2F;4.0 Connection: close Accept-language:fr</td>
+<td></td>
+</tr>
+<tr>
+<td>实体</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="HTTP请求报文：通用格式"><a href="#HTTP请求报文：通用格式" class="headerlink" title="HTTP请求报文：通用格式"></a>HTTP请求报文：通用格式</h3><p><img src="/images/41.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>sp是space空格<br>cr是回车<br>if是有可能有，有可能没有</p>
+</blockquote>
+<h3 id="提交表单输入"><a href="#提交表单输入" class="headerlink" title="提交表单输入"></a>提交表单输入</h3><p><font color=red><strong>Post方式</strong></font></p>
+<ul>
+<li>网页通常包括表单输入</li>
+<li>包含在实体主体中的输入被提交到服务器</li>
+</ul>
+<p><font color=red><strong>URL</strong>方式</font></p>
+<ul>
+<li>方法：<strong>GET</strong></li>
+<li>输入通过字段请求行的<strong>URL</strong>字段上载</li>
+</ul>
+<h3 id="方法类型"><a href="#方法类型" class="headerlink" title="方法类型"></a>方法类型</h3><p><font color=red><strong>HTTP 1.0</strong></font></p>
+<ul>
+<li><strong>GET</strong></li>
+<li><strong>POST</strong></li>
+<li><strong>HEAD</strong><ul>
+<li>要求服务器咋响应报文中不包含请求对象 -&gt; 故障跟踪</li>
+</ul>
+</li>
+</ul>
+<p><font color=red><strong>HTTP 1.1</strong></font></p>
+<ul>
+<li><strong>GET、POST、HEAD</strong></li>
+<li><strong>PUT</strong><ul>
+<li>将实体主体中的文件上载到<strong>URL</strong>字段限定的路径</li>
+</ul>
+</li>
+<li><strong>DELETE</strong><ul>
+<li>删除<strong>URL</strong>字段限定的文件</li>
+</ul>
+</li>
+</ul>
+<h2 id="HTTP响应报文"><a href="#HTTP响应报文" class="headerlink" title="HTTP响应报文"></a>HTTP响应报文</h2><pre><code class="language-url">HTTP/1.1 200 OK
+Connection close
+Date: Thu, 06 Aug 1998 12:00:15 GMT
+Server: Apache/1.3.0 (Unix)
+Last-Modified: Mon, 22 Jun 1998 …... 
+Content-Length: 6821
+Content-Type: text/html
+
+
+data data data data data ...
+</code></pre>
+<p>解析：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>举例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>状态行</td>
+<td>HTTP&#x2F;1.1 200 OK</td>
+<td>HTTP&#x2F;1.1是协议及版本，200是状态码，OK是状态码相应状态信息</td>
+</tr>
+<tr>
+<td>首部行</td>
+<td>Connection close Date: Thu, 06 Aug 1998 12:00:15 GMT Server: Apache&#x2F;1.3.0 (Unix) Last-Modified: Mon, 22 Jun 1998 …… Content-Length: 6821 Content-Type: text&#x2F;html</td>
+<td></td>
+</tr>
+<tr>
+<td>数据</td>
+<td>data data data data data …</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="HTTP响应状态码"><a href="#HTTP响应状态码" class="headerlink" title="HTTP响应状态码"></a>HTTP响应状态码</h3><p>位于服务器 -&gt; 客户端的响应报文中的首行<br>一些状态码的例子</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>状态信息</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>OK</td>
+<td>请求成功，请求对象包含在响应报文的后续部分</td>
+</tr>
+<tr>
+<td>301</td>
+<td>Moved Permanently</td>
+<td>请求的对象己经被永久转移了;新的URL在响应报文的Location:首部行中指定；客户端软件自动用新的URL去获取对象</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>一个通用的差错代码，表示该请求不能被服务器解读</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>请求的文档在该服务上没有找到</td>
+</tr>
+<tr>
+<td>505</td>
+<td>HTTP version Not supported</td>
+<td>版本不支持</td>
+</tr>
+</tbody></table>
+<h2 id="用户-服务器状态：cookies"><a href="#用户-服务器状态：cookies" class="headerlink" title="用户-服务器状态：cookies"></a>用户-服务器状态：cookies</h2><p>大多数主要的门户网站使用<strong>cookies</strong></p>
+<p><font color=red>4个组成部分</font></p>
+<ul>
+<li>在<strong>HTTP</strong>响应报文中有一个<strong>cookie</strong>的首部行</li>
+<li>在<strong>HTTP</strong>请求报文含有一个<strong>cookie</strong>的首部行</li>
+<li>在用户端系统中保留有一个<strong>cookie</strong>文件，由用户的浏览器管理</li>
+<li>在<strong>Web</strong>站点有一个后端数据库</li>
+</ul>
+<h3 id="Cookies-维护状态"><a href="#Cookies-维护状态" class="headerlink" title="Cookies:维护状态"></a>Cookies:维护状态</h3><p><img src="/images/42.png" alt="在这里插入图片描述"></p>
+<h3 id="Cookies能带来什么"><a href="#Cookies能带来什么" class="headerlink" title="Cookies能带来什么"></a>Cookies能带来什么</h3><ul>
+<li>用户验证</li>
+<li>购物车</li>
+<li>推荐</li>
+<li>用户状态</li>
+</ul>
+<h3 id="如何维持状态"><a href="#如何维持状态" class="headerlink" title="如何维持状态"></a><em>如何维持状态</em></h3><ul>
+<li>协议端节点：在多个事务上，发送端和接收端维持状态</li>
+<li>cookies：http报文携带状态信息</li>
+</ul>
+<h3 id="Cookies与隐私"><a href="#Cookies与隐私" class="headerlink" title="Cookies与隐私"></a>Cookies与隐私</h3><ul>
+<li><strong>Cookies</strong>允许站点知道许多关于用户的信息</li>
+<li>可能将他知道的东西卖给第三方</li>
+<li>使用重定向和<strong>cookie</strong>的搜索引擎还可能知道用户的更多信息</li>
+<li>广告公司从站点获得信息</li>
+</ul>
+<h2 id="Web缓存（代理服务器）"><a href="#Web缓存（代理服务器）" class="headerlink" title="Web缓存（代理服务器）"></a>Web缓存（代理服务器）</h2><p><font color=red>目标</font>：不访问<strong>原始</strong>服务器，就满足客户的请求</p>
+<ul>
+<li>用户设置浏览器：通过缓存访问<strong>Web</strong></li>
+<li>浏览器将所有的<strong>HTTP</strong>请求发送给缓存：<ul>
+<li>在缓存中的对象：缓存直接返回对象</li>
+<li>如对象不在缓存：缓存请求原始服务器，然后再将对象返回给客户端</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/43.png" alt="在这里插入图片描述"></p>
+<h3 id="Web缓存"><a href="#Web缓存" class="headerlink" title="Web缓存"></a>Web缓存</h3><ul>
+<li>缓存既是客户端又是服务器</li>
+<li>通常缓存是由<strong>ISP</strong>安装</li>
+</ul>
+<h3 id="为什么要使用Web缓存"><a href="#为什么要使用Web缓存" class="headerlink" title="为什么要使用Web缓存"></a>为什么要使用Web缓存</h3><ul>
+<li>降低客户端的请求响应时间</li>
+<li>可以大大减少一个机构内部网络与<strong>Internet</strong>接入链路上的流量</li>
+<li>互连网大量采用了缓存：可以使较弱的<strong>ICP</strong>也能够有效提供内容</li>
+</ul>
+<h3 id="缓存示例"><a href="#缓存示例" class="headerlink" title="缓存示例"></a>缓存示例</h3><p><img src="/images/44.png" alt="在这里插入图片描述"></p>
+<p>条件</p>
+<ul>
+<li>平均对象大小 &#x3D; 100kb（也就是请求的文件的平均大小是100kb）</li>
+<li>机构内浏览器对原始服务器的 平均请求率为 &#x3D; 15请求&#x2F;s</li>
+<li>平均到浏览器的速率：1.5Mbps（100kb * 15请求&#x2F;s）</li>
+<li>接入链路带宽：1.54Mbps</li>
+</ul>
+<p><font color=red><strong>相关数据计算</strong></font>：</p>
+<ul>
+<li><p>各种延时计算(Internet延时、接入延时、LAN延时)</p>
+</li>
+<li><p>延时如下：</p>
+<ul>
+<li>Internet延时：公共网(public Internet)路由器到原始服务器 再返回到路由器的的延时 （ Internet 延时）&#x3D; 2s；这个也是网络核心的延时吧</li>
+<li>接入延时：不确定，不过有公式：接入延时（主要还是排队延时）$d_{queue}$ &#x3D; I(1-I) * L &#x2F; R &#x3D; 2min</li>
+<li>LAN延时：客户端到LAN路由器再返回客户端的时间，为10ms</li>
+</ul>
+</li>
+<li><p>流量强度和排队延时计算:</p>
+<ul>
+<li>流量强度 I &#x3D; 平均到达浏览器的速率 &#x2F; 接入链路宽带</li>
+<li>排队延时 &#x3D; $t_{queue}$ &#x3D; I(1-I) * L &#x2F; R</li>
+<li>L&#x2F;R：一个分组的传输时间</li>
+</ul>
+</li>
+<li><p>结果:</p>
+<ul>
+<li>LAN的流量强度 &#x3D; 15%</li>
+<li>接入链路上的流量强度 &#x3D; 99% （排队延迟会非常大，排队延迟会随着分组的流量强度越接近于1趋近于无穷，此时排队延迟会非常大）</li>
+<li>总延时&#x3D; LAN延时+ 接入延时+ Internet 延时 &#x3D; ms + 分+ 2s</li>
+</ul>
+</li>
+</ul>
+<p>流量强度 &#x3D; 平均到达浏览器的速率 &#x2F; 接入链路宽带 &#x3D; 1.5 &#x2F; 1.54 &#x3D; 0.99</p>
+<p><font color=red><strong>优化方式</strong></font></p>
+<ul>
+<li><p>提高接入链路带宽</p>
+<ul>
+<li>假设：<ul>
+<li>平均对象大小 &#x3D; 100kb</li>
+<li>机构内浏览器对原始服务器的 平均请求率为 &#x3D; 15请求&#x2F;s</li>
+<li>平均到浏览器的速率：1.5Mbps</li>
+<li>接入链路带宽：1.54Mbps——&gt; 154Mbps（带宽提升）</li>
+</ul>
+</li>
+<li>延时：<ul>
+<li>Internet延时机构内部路由器到原始服务器 再返回到路由器的的延时 &#x3D; 2s</li>
+<li>LAN延时：客户端到LAN路由器再返回客户端的时间，为10ms</li>
+</ul>
+</li>
+<li>结果:<ul>
+<li>LAN的流量强度 &#x3D; 15%</li>
+<li>接入链路上的流量强度 &#x3D; 9.9%（可以看到强度降低了很多，排队延时也会下降）</li>
+<li>总延时 &#x3D; LAN延时 + 接入延时 + Internet 延时 &#x3D; ms + 分 + 2s</li>
+</ul>
+</li>
+<li>代价: 增加了接入链路带宽（非常昂贵！）</li>
+</ul>
+</li>
+<li><p>安装本地缓存</p>
+<ul>
+<li>假设:<ul>
+<li>平均对象大小 &#x3D; 100kb</li>
+<li>机构内浏览器对原始服务器的平均 请求率为 &#x3D; 15请求&#x2F;s</li>
+<li>平均到浏览器的速率：1.5Mbps</li>
+<li>机构内部路由器到原始服务器再返回到路由器的的延时 （Internet 延 时）&#x3D; 2s</li>
+<li>接入链路带宽：1.54Mbps</li>
+</ul>
+</li>
+<li>结果:<ul>
+<li>LAN 利用率: 15%</li>
+<li>接入网络利用率： ？</li>
+<li>总体延迟&#x3D; ? 代价: web缓存(廉价!)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>计算链路利用率，有缓存的延迟：</p>
+<ul>
+<li>假设:<ul>
+<li>缓存命中率0.4：40%请求在缓存中被满足，其他60%的请求 需要被原始服务器满足</li>
+<li>接入链路利用率: 60%的请求采用接入链路</li>
+<li>进过接入链路到达浏览器的数据速 率 &#x3D; 0.6*1.50 Mbps &#x3D; 0.9 Mbps</li>
+<li>利用率&#x3D; 0.9&#x2F;1.54 &#x3D; 0.58</li>
+<li>总体延迟 &#x3D; 0.6 * (从原始服务器获取对象的 延迟，也就是接入延时 + Internet延时) +0.4 * (从缓存获取对象的延迟，也就是LAN延时) &#x3D; 0.6 * (2s) + 0.4 * (msecs，这个很小，所以几乎不看了) &#x3D; 1.2 secs</li>
+<li>比安装154Mbps链路还来得小 (而且 比较便宜!)</li>
+</ul>
+</li>
+</ul>
+<h3 id="条件GET方法"><a href="#条件GET方法" class="headerlink" title="条件GET方法"></a>条件GET方法</h3><ul>
+<li><font color=red>目标</font>：如果缓存器中的对 象拷贝是最新的，就不要发送对象</li>
+<li>缓存器: 在HTTP请求中指 定缓存拷贝的日期 <code>If-modified-since:&lt;date&gt;</code></li>
+<li>服务器: 如果缓存拷贝陈 旧，则响应报文没包含对象: <code>HTTP/1.0 304 Not Modified</code></li>
+</ul>
+<p><img src="/images/45.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
