@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——20面向连接的传输：TCP | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——20面向连接的传输：TCP</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ff7d73">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>面向连接的传输：TCP</p>
+<span id="more"></span>
+
+<h1 id="面向连接的传输：TCP"><a href="#面向连接的传输：TCP" class="headerlink" title="面向连接的传输：TCP"></a>面向连接的传输：TCP</h1><h2 id="TCP：概述"><a href="#TCP：概述" class="headerlink" title="TCP：概述"></a>TCP：概述</h2><p><font color=red>点对点</font></p>
+<ul>
+<li>一个发送方、一个接收方</li>
+</ul>
+<p><font color=red>可靠的、按顺序的字节流</font></p>
+<ul>
+<li>没有报文边界</li>
+</ul>
+<p><font color=red>管道化（流水线）</font></p>
+<ul>
+<li>TCP拥塞控制和流量控制设置窗口大小</li>
+</ul>
+<p><font color=red>发送和接收缓存</font></p>
+<p><font color=red>全双工数据</font></p>
+<ul>
+<li>在同一连接中数据流双向流动</li>
+<li>MSS：最大报文段大小</li>
+</ul>
+<p><font color=red>面向连接</font></p>
+<ul>
+<li>在数据交换之前，通过握手（交换控制报文）初始化发送方、接收方的状态变量</li>
+</ul>
+<p><font color=red>有流量控制</font></p>
+<ul>
+<li>发送方不会淹没接收方</li>
+</ul>
+<h2 id="TCP报文段结构"><a href="#TCP报文段结构" class="headerlink" title="TCP报文段结构"></a>TCP报文段结构</h2><p><img src="/images/117.png" alt="在这里插入图片描述"></p>
+<h3 id="TCP序号，确认号"><a href="#TCP序号，确认号" class="headerlink" title="TCP序号，确认号"></a>TCP序号，确认号</h3><p><font color=red>序号</font></p>
+<ul>
+<li>报文段首字节的在字节流的编号</li>
+</ul>
+<p><font color=red>确认号</font></p>
+<ul>
+<li>期望从另一方收到的下一个字节的序号</li>
+<li>累计确认</li>
+</ul>
+<p>接收方如何处理乱序的报文段-没有规定</p>
+<p><img src="/images/118.png" alt="在这里插入图片描述"></p>
+<h3 id="TCP往返延时（RTT）和超时"><a href="#TCP往返延时（RTT）和超时" class="headerlink" title="TCP往返延时（RTT）和超时"></a>TCP往返延时（RTT）和超时</h3><p>怎样设置TCP超时</p>
+<ul>
+<li>比RTT要长<ul>
+<li>但RTT是变化的</li>
+</ul>
+</li>
+<li>太短：太早超时<ul>
+<li>不必要的重传</li>
+</ul>
+</li>
+<li>太长：对报文段丢失反应太慢，消极</li>
+</ul>
+<p>怎样估计RTT</p>
+<ul>
+<li><strong>SampleRTT</strong>：测量从报文段发出到收到确认的时间<ul>
+<li>如果有重传，忽略此次测量</li>
+</ul>
+</li>
+<li><strong>SampleRTT</strong>会变化，因此估计的RTT应该比较平滑<ul>
+<li>对几个最近的测量值求平均，而不是仅用当前的<strong>SampleRTT</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP序号和确认号"><a href="#TCP序号和确认号" class="headerlink" title="TCP序号和确认号"></a>TCP序号和确认号</h3><p><img src="/images/119.png" alt="在这里插入图片描述"></p>
+<h3 id="TCP往返延时和超时"><a href="#TCP往返延时和超时" class="headerlink" title="TCP往返延时和超时"></a>TCP往返延时和超时</h3><p>$EstimatedRTT &#x3D; (1- a)<em>EstimatedRTT + a</em>SampleRTT$</p>
+<ul>
+<li>指数加权移动平均</li>
+<li>过去样本的影响呈指数衰减</li>
+<li>推荐值：$a &#x3D; 0.125$</li>
+</ul>
+<p><img src="/images/120.png" alt="在这里插入图片描述"></p>
+<p><font color=red>设置超时</font></p>
+<ul>
+<li>$EstimtedRTT$ + 安全边界时间<ul>
+<li>$EstimatedRTT$变化大(方差大) → 较大的安全边界时间</li>
+</ul>
+</li>
+<li>$SampleRTT$会偏离$EstimatedRTT$多远：<ul>
+<li>$DevRTT &#x3D; (1-β)<em>DevRTT + β</em>|SampleRTT-EstimatedRTT|$</li>
+<li>推荐值：$β &#x3D; 0.25$</li>
+</ul>
+</li>
+</ul>
+<p>超时时间间隔设置为：</p>
+<ul>
+<li>$TimeoutInterval &#x3D; EstimatedRTT + 4*DevRTT$</li>
+</ul>
+<h2 id="TCP：可靠数据传输"><a href="#TCP：可靠数据传输" class="headerlink" title="TCP：可靠数据传输"></a>TCP：可靠数据传输</h2><ul>
+<li>TCP在IP不可靠服务的基础上建立了rdt<ul>
+<li>管道化的报文段<ul>
+<li>GBN or SR</li>
+</ul>
+</li>
+<li>累计确认</li>
+<li>单个重传定时器</li>
+<li>是否可以接受乱序的，没有规范</li>
+</ul>
+</li>
+<li>通过以下事件触发重传<ul>
+<li>超时（只重发那个最早的未确认段：SR）</li>
+<li>重复的确认</li>
+</ul>
+</li>
+<li>首先考虑简化的TCP发送方：<ul>
+<li>忽略重复的确认</li>
+<li>忽略流量控制和拥塞控制</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP发送方（简化版）"><a href="#TCP发送方（简化版）" class="headerlink" title="TCP发送方（简化版）"></a>TCP发送方（简化版）</h3><p><img src="/images/121.png" alt="在这里插入图片描述"></p>
+<h3 id="TCP发送方事件"><a href="#TCP发送方事件" class="headerlink" title="TCP发送方事件"></a>TCP发送方事件</h3><p>&lt;font color&#x3D;red从应用层接收数据</font>：</p>
+<ul>
+<li>用nextseq创建报文段</li>
+<li>序号nextseq为报文段首字节的字节流编号</li>
+<li>如果还没有运行，启动定时器<ul>
+<li>定时器与最早未确认的报文段关联（单个重传定时器）</li>
+<li>过期间隔：TimeOutInterval</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>超时</font>：</p>
+<ul>
+<li>重传后沿最老的报文段</li>
+<li>重新启动定时器</li>
+</ul>
+<p><font color=red>收到确认</font>：</p>
+<ul>
+<li>如果是对尚未确认的报文段确认<ul>
+<li>更新已被确认的报文序号（后沿移动）</li>
+<li>如果当前还有未被确认的报文段，重新启动定时器 (发完，就关掉定时器)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/122.png" alt="在这里插入图片描述"></p>
+<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h3><p>上述操作的伪代码</p>
+<pre><code class="language-c">// 初始化
+NextSeqNum = InitialSeqNum
+SendBase = InitialSeqNum
+
+// 一直循环
+loop (forever) &#123;
+	// 判断事件
+	switch(event)
+	
+	// 如果收到了应用层的数据
+    event: data received from application above
+    	// 用NextSeqNum创建TCPsegment
+		create TCP segment with sequence number NextSeqNum
+		// 如果定时器不在运行的话，开始
+		if (timer currently not running)
+			start timer
+		// 传给IP
+		pass segment to IP
+		// 前沿移动
+		NextSeqNum = NextSeqNum + length(data)
+
+    event: timer timeout
+		retransmit not-yet-acknowledged segment with
+		smallest sequence number
+	start timer
+
+    event: ACK received, with ACK field value of y
+		if (y &gt; SendBase) &#123;
+			SendBase = y
+			if (there are currently not-yet-acknowledged segments)
+			start timer
+		&#125;
+&#125; /* end of loop forever */
+</code></pre>
+<p>注释：</p>
+<ul>
+<li>SendBase-1: 最后一个累积确认的字节</li>
+<li>例：<ul>
+<li>SendBase-1 &#x3D; 71；y&#x3D; 73, 因此接收方期望73+ ; y是ACK的值</li>
+<li>y &gt; SendBase，因此新的数据被确认</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP：重传"><a href="#TCP：重传" class="headerlink" title="TCP：重传"></a>TCP：重传</h3><p><img src="/images/123.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/124.png" alt="在这里插入图片描述"></p>
+<h3 id="接收方产生TCP-ACK的建议"><a href="#接收方产生TCP-ACK的建议" class="headerlink" title="接收方产生TCP ACK的建议"></a>接收方产生TCP ACK的建议</h3><table>
+<thead>
+<tr>
+<th>接收方的事件</th>
+<th>TCP接收方动作</th>
+<th>补充</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>所期望序号的报文段按序到达。所有在期望序号之前的数据都已经被确认</td>
+<td>延迟发送ACK（提高效率，少发一个ACK）。对另一个按序报文段的到达最多等待500ms。如果下一个报文段在这个时间间隔内没有到达，则发送一个ACK。</td>
+<td>就是当接受到y0之后，不发送ACK&#x3D;y0+1，而是当顺序接受到y1之后，发送ACK&#x3D;y1+1注意必须是顺序接受到，如果是乱序，仍然请求y0+1,如果超时还未接受到，再发y0+1</td>
+</tr>
+<tr>
+<td>有期望序号的报文段到达。 另一个按序报文段等待发送ACK</td>
+<td>立即发送单个累积ACK，以确认两个按序报文段。</td>
+<td>就是上一条说的情况</td>
+</tr>
+<tr>
+<td>比期望序号大的报文段乱序到达。 检测出数据流中的间隔</td>
+<td>立即发送重复的ACK，指明下一个期待字节的序号</td>
+<td>如果收到了y0，然后乱序收到了y2，那么重新请求ACK&#x3D;y0 + 1</td>
+</tr>
+<tr>
+<td>能部分或完全填充接收数据间隔 的报文段到达</td>
+<td>若该报文段起始于间隔（gap）的低端，则立即发送ACK（给确认。反映下一段的需求）。</td>
+<td>请求ACK&#x3D;y0+1，此时已经乱序收到了y2的内容请求之后得到的gap并不能填充y0到y2的空间，只能达到y1，因此重新请求ACK&#x3D;y1 + 1</td>
+</tr>
+</tbody></table>
+<h2 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h2><ul>
+<li>超时周期往往太长<ul>
+<li>在重传丢失报文段之前的延时太长</li>
+</ul>
+</li>
+<li>通过&lt;font color&#x3D;red重复</font>的ACK来检测 报文段丢失<ul>
+<li>发送方通常连续发送大量 报文段</li>
+<li>如果报文段丢失，通常会引起多个重复的ACK</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/125.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>如果发送方收到同一数据 的3个冗余ACK，重传最 小序号的段：<ul>
+<li><font color=red>快速重传</font>：在定时器过时之前重发报文段</li>
+<li>它假设跟在被确认的数据 后面的数据丢失了<ul>
+<li>第一个ACK是正常的；（比如第一个ACK&#x3D;50，表明收到了49，是正常的，请求50）</li>
+<li>收到第二个该段的ACK，表 示接收方收到一个该段后的乱序段； （因为再次请求50）</li>
+<li>收到第3，4个该段的ack，表 示接收方收到该段之后的2个 ，3个乱序段，可能性非常大段丢失了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/126.png" alt="在这里插入图片描述"></p>
+<h3 id="快速重传算法"><a href="#快速重传算法" class="headerlink" title="快速重传算法"></a>快速重传算法</h3><pre><code class="language-c">event: ACK received, with ACK field value of y
+	if (y &gt; SendBase) &#123;
+		SendBase = y
+		if (there are currently not-yet-acknowledged segments)
+			start timer
+		&#125;
+		else &#123; // 已确认报文段的一个重复确认
+		increment count of dup ACKs received for y
+		if (count of dup ACKs received for y = 3) &#123;
+		resend segment with sequence number y  // 快速重传
+		&#125;
+</code></pre>
+<h2 id="TCP-流量控制"><a href="#TCP-流量控制" class="headerlink" title="TCP 流量控制"></a>TCP 流量控制</h2><p>接收方控制发送方，不让发送方发送的太多、太快以至于让 接收方的缓冲区溢出</p>
+<p><img src="/images/127.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>接收方在其向发送方的TCP段 头部的rwnd字段“通告”其空闲buffer大小<ul>
+<li>RcvBuffer大小通过socket选项设置 (典型默认大小为4096 字节)</li>
+<li>很多操作系统自动调整 RcvBuffer</li>
+<li>发送方限制未确认(“inflight”)字节的个数≤接收 方发送过来的 rwnd 值</li>
+</ul>
+</li>
+<li>保证接收方不会被淹没</li>
+</ul>
+<p><img src="/images/128.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/129.png" alt="在这里插入图片描述"></p>
+<h2 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h2><p>在正式交换数据之前，发送方和接收方握手建立通信关系:</p>
+<ul>
+<li>同意建立连接（每一方都知道对方愿意建立连接）</li>
+<li>同意连接参数</li>
+</ul>
+<p><img src="/images/130.png" alt="在这里插入图片描述"></p>
+<h3 id="同意建立连接"><a href="#同意建立连接" class="headerlink" title="同意建立连接"></a>同意建立连接</h3><p><img src="/images/131.png" alt="在这里插入图片描述"></p>
+<p>在网络中，2次握手建 立连接总是可行吗？</p>
+<ul>
+<li>变化的延迟（连接请求的段没有丢，但可能超时）</li>
+<li>由于丢失造成的重传 (e.g. req_conn(x))</li>
+<li>报文乱序</li>
+<li>相互看不到对方</li>
+</ul>
+<p>以下是两次握手的问题：</p>
+<ul>
+<li>半连接</li>
+<li>接受老数据问题</li>
+</ul>
+<p><img src="/images/132.png" alt="在这里插入图片描述"></p>
+<p>三次握手<br><img src="/images/133.png" alt="在这里插入图片描述"></p>
+<h3 id="三次握手解决：半连接和接收老数据问题"><a href="#三次握手解决：半连接和接收老数据问题" class="headerlink" title="三次握手解决：半连接和接收老数据问题"></a>三次握手解决：半连接和接收老数据问题</h3><p><img src="/images/134.png" alt="在这里插入图片描述"></p>
+<h3 id="TCP三次握手-FSM"><a href="#TCP三次握手-FSM" class="headerlink" title="TCP三次握手 FSM"></a>TCP三次握手 FSM</h3><p><img src="/images/135.png" alt="在这里插入图片描述"></p>
+<h2 id="TCP关闭连接"><a href="#TCP关闭连接" class="headerlink" title="TCP关闭连接"></a>TCP关闭连接</h2><ul>
+<li>客户端，服务器分别关闭它自己这一侧的连接<ul>
+<li>发送FIN bit &#x3D; 1的TCP段</li>
+</ul>
+</li>
+<li>一旦接收到FIN，用ACK回应<ul>
+<li>接到FIN段，ACK可以和它自己发出的FIN段一起发 送</li>
+</ul>
+</li>
+<li>可以处理同时的FIN交换</li>
+</ul>
+<p>接收老数据问题<br>[外链图片转存中…(img-IY4eQv16-1708397928036)]</p>
+<h3 id="TCP三次握手-FSM-1"><a href="#TCP三次握手-FSM-1" class="headerlink" title="TCP三次握手 FSM"></a>TCP三次握手 FSM</h3><p>[外链图片转存中…(img-JuahJ8RB-1708397928036)]</p>
+<h2 id="TCP关闭连接-1"><a href="#TCP关闭连接-1" class="headerlink" title="TCP关闭连接"></a>TCP关闭连接</h2><ul>
+<li>客户端，服务器分别关闭它自己这一侧的连接<ul>
+<li>发送FIN bit &#x3D; 1的TCP段</li>
+</ul>
+</li>
+<li>一旦接收到FIN，用ACK回应<ul>
+<li>接到FIN段，ACK可以和它自己发出的FIN段一起发 送</li>
+</ul>
+</li>
+<li>可以处理同时的FIN交换</li>
+</ul>
+<p><img src="/images/136.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

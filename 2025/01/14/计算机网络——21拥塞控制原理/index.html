@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——21拥塞控制原理 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——21拥塞控制原理</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #03a9f4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>拥塞控制原理</p>
+<span id="more"></span>
+
+<h1 id="拥塞控制原理"><a href="#拥塞控制原理" class="headerlink" title="拥塞控制原理"></a>拥塞控制原理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><font color=red>拥塞</font></p>
+<ul>
+<li>非正式的定义：“太多的数据需要网络传输，超过了网络的处理能力”</li>
+<li>与流量控制不同</li>
+<li>拥塞的表现<ul>
+<li>分组丢失（路由器缓冲区溢出）</li>
+<li>分组经历比较长时间的延迟（在路由器的队列中排队）</li>
+</ul>
+</li>
+<li>网络中前10位的问题</li>
+</ul>
+<h2 id="拥塞的原因-代价"><a href="#拥塞的原因-代价" class="headerlink" title="拥塞的原因&#x2F;代价"></a>拥塞的原因&#x2F;代价</h2><h3 id="场景一：缓冲无限大、无重传"><a href="#场景一：缓冲无限大、无重传" class="headerlink" title="场景一：缓冲无限大、无重传"></a>场景一：缓冲无限大、无重传</h3><ul>
+<li>2个发送端，2个接收端</li>
+<li>一个路由器，具备无限大的缓冲</li>
+<li>输出链路带宽：R</li>
+<li>没有重传</li>
+<li>$λ_{in}$为输入的速率，$λ_{out}$为输出的速率</li>
+</ul>
+<p><img src="/images/137.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/138.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>每个连接的最大吞吐量：R &#x2F; 2</li>
+<li>当进入的速率$λ_{in}$接近链路带宽R时，延迟增大</li>
+</ul>
+<h3 id="场景二：缓冲有限，有重传"><a href="#场景二：缓冲有限，有重传" class="headerlink" title="场景二：缓冲有限，有重传"></a>场景二：缓冲有限，有重传</h3><ul>
+<li>一个路由器，有限的缓冲</li>
+<li>分组丢失时，发送端重传<ul>
+<li>应用层的输入 &#x3D; 应用层的输出：$λ_{in} &#x3D; λ_{out}$</li>
+<li>传输层的输入包括重传：$λ^{‘’}<em>{in} \geq λ</em>{in}$</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/139.png" alt="在这里插入图片描述"></p>
+<p><strong>理想化：发送端有完美的信息</strong><br>发送端知道什么时候路由器的缓冲是可用的</p>
+<ul>
+<li>只在缓冲可用时发送</li>
+<li>不会丢失$λ^{‘}<em>{in} &#x3D; λ</em>{in}$</li>
+</ul>
+<p><img src="/images/140.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/141.png" alt="在这里插入图片描述"></p>
+<p><strong>理想化：<font color=red>掌握丢失信息</font></strong><br>分组可以丢失，在路由器由于缓冲器满而被丢弃</p>
+<ul>
+<li>如果发送端知道分组丢失了，发送方重传</li>
+</ul>
+<p><img src="/images/142.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/143.png" alt="在这里插入图片描述"></p>
+<p><strong>现实情况：<font color=red>重复</font></strong></p>
+<ul>
+<li>分组可能丢失，由于缓冲器满而被丢弃</li>
+<li>发送端最终<font color=red>超时</font>，发送第二个拷贝，2个分组都被传出</li>
+</ul>
+<p><img src="/images/144.png" alt="在这里插入图片描述"></p>
+<p><strong><font color=red>拥塞的“代价”</font></strong></p>
+<ul>
+<li>为了达到一个有效输出，网络需要更多的输入速率（重传）</li>
+<li>没有必要的重传（加剧了网络的拥塞），链路中包括了多个分组的拷贝<ul>
+<li>是那些没有丢失，经历的时间比较长（拥塞状态）但是超时的分组</li>
+<li>降低了的“goodput”</li>
+</ul>
+</li>
+</ul>
+<h3 id="场景三：死锁"><a href="#场景三：死锁" class="headerlink" title="场景三：死锁"></a>场景三：死锁</h3><p>四个发送端：A→D，D→A，B→C，C→B（就是AD，BC相互连接）</p>
+<p><img src="/images/145.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>当红色的增加时，所有到来的蓝色分组都在最上方的队列中丢弃了，蓝色吞吐-&gt;0</li>
+<li>同理，绿色的也可能抢走红色的（在右边的路由器）</li>
+<li>粉色的可能抢走绿色的（下边的路由器）</li>
+<li>蓝色的抢走粉色的（左边的路由器）</li>
+<li>总之，网络中有输入，但是没有输出</li>
+</ul>
+<p><img src="/images/146.png" alt="在这里插入图片描述"></p>
+<p><strong><font color=red>又一个拥塞的“代价”</font></strong></p>
+<ul>
+<li>当分组丢失时，任何“关于这个分组的上游传输能力” 都被浪费了</li>
+</ul>
+<h2 id="拥塞控制方法"><a href="#拥塞控制方法" class="headerlink" title="拥塞控制方法"></a>拥塞控制方法</h2><p>2种常用的拥塞控制方法:</p>
+<ul>
+<li><font color=red>端到端拥塞控制</font><ul>
+<li>没有来自网络的显式反馈</li>
+<li>端系统根据延迟和丢失事件推断是否有拥塞</li>
+<li>（TCP采用的方法）</li>
+</ul>
+</li>
+<li><font color=red>网络辅助的拥塞控制</font>:<ul>
+<li>路由器提供给端系统以反馈信息</li>
+<li>单个bit置位，显示有拥塞 (SNA, DECbit, TCP&#x2F;IP ECN, ATM)</li>
+<li>显式提供发送端可以采用的速率</li>
+</ul>
+</li>
+</ul>
+<h2 id="ATM-ABR拥塞控制"><a href="#ATM-ABR拥塞控制" class="headerlink" title="ATM ABR拥塞控制"></a>ATM ABR拥塞控制</h2><h3 id="ATM网络"><a href="#ATM网络" class="headerlink" title="ATM网络"></a>ATM网络</h3><p>ATM：异步传输网络，是物联网掺杂的网络</p>
+<ul>
+<li>数据传输单元(分组)是信元：53个字节，5个字节的头部，另外48个字节是数据部</li>
+<li>分组很小（53个字节），而且是固定长度</li>
+<li>所以在每个交换节点的存储转发时间很小而且可以控制</li>
+<li>线路交换在数据交换节点的延迟是1bit的延迟，分组交换的延迟是1个分组的延迟</li>
+<li>由于ATM的分组—信元大于1bit，但是远小于普通的一个分组，因此其延迟位于线路交换和分组交换之间</li>
+<li>而且延迟时间固定(一位信元字节数固定)，而且容易调度</li>
+<li>因此具有线路交换和分组交换的特性</li>
+<li>ATM本来认为是很有希望的网络形式</li>
+<li>后来因为网络技术比较复杂并没有流行开来</li>
+<li>但是在一些专用网络，比如银行网络使用的还是比较多的</li>
+</ul>
+<p>ATM有很多模式，ABR是其中一个</p>
+<h2 id="ABR模式"><a href="#ABR模式" class="headerlink" title="ABR模式"></a>ABR模式</h2><p>ABR: available bit rate:</p>
+<ul>
+<li>弹性服务：<ul>
+<li>如果网络轻载(不发送拥塞)，可以尽可能使用网络带宽</li>
+<li>如果网络拥塞了 ，发送方限制其发送的速度到一个 最小保障速率 上</li>
+</ul>
+</li>
+</ul>
+<p>在ATM网络中有两种信元：数据信元(data cell)和资源信元(RM cell)<br>RM (资源管理) 信元:</p>
+<ul>
+<li>由发送端发送,在数据信元中间隔插入</li>
+<li>RM信元中的比特被交换机设置 (网络辅助)<ul>
+<li>NI bit: no increase in rate (轻微拥塞)速率不要增加了</li>
+<li>CI bit: congestion indication 拥塞指示（表明已经拥塞了）</li>
+</ul>
+</li>
+<li>发送端发送的RM 信元被接收端返回, 接收端不做任何改变</li>
+</ul>
+<p><img src="/images/147.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>数据信元中的EFCI bit: 被拥塞的交换机设置成1</p>
+<ul>
+<li>如果在管理信元RM前面的数据信元EFCI被设置成了1, 接收端在 返回的RM信元中设置CI bit</li>
+<li>在RM信元中的2个字节 ER (explicit rate)字段 多大带宽</li>
+</ul>
+</li>
+<li><p>拥塞的交换机可能会降低信元中ER的值（但是不会提高）</p>
+<ul>
+<li>发送端接受到的RM的ER字段表示路由器可以支持的最低的速率</li>
+<li>发送端发送速度因此是最低的可支持速率</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
