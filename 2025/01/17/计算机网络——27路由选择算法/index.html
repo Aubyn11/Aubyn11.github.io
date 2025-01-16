@@ -1,0 +1,753 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——27路由选择算法 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——27路由选择算法</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/17
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>路由选择算法</p>
+<span id="more"></span>
+
+<h1 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h1><h2 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h2><p><font color=red><em>路由协议的目标</em></font>：确定从发送主机到接收主机之间，通过路由器的网络“较好”的路径（等价于路由器的序列）</p>
+<ul>
+<li>路径：路由器的序列，分组将会沿着该序列从源主机到达最后的目标主机</li>
+<li>“较好”：最小“代价”，“最快的”，“最不拥塞”</li>
+<li>路由：一个“top-10”网络挑战</li>
+</ul>
+<h2 id="路由的概念"><a href="#路由的概念" class="headerlink" title="路由的概念"></a>路由的概念</h2><ul>
+<li>路由：按照某种指标（传输延迟，所经过的站点数目等）找到一条从源节点到目标节点的较好路径<ul>
+<li>较好路径：按照某种指标较小的路径</li>
+<li>指标：站数、延迟、费用，队列长度等，或者是一些单纯指标的加权平均</li>
+<li>采用什么样的指标，表示网络使用者希望网络在什么方面表现突出，什么指标网络使用者比较重视</li>
+</ul>
+</li>
+<li>路由器 - 路由器之间的最优路径 &#x3D; 主机对之间的最优路径<ul>
+<li>路由器连接子网，子网到路由器之间的跳数就一跳，必须要走</li>
+<li>路由器到下一跳路由器（节点到节点）之间的最优路径找到了</li>
+<li>也就找到了从源子网向目标子网所有主机对之间的最优路径</li>
+<li>大大降低了路由计算的规模</li>
+<li>在路由计算中按照子网到子网的路径计算为目标，而不是主机到主机</li>
+</ul>
+</li>
+<li>路由选择算法：网络层软件的一部分，完成路由功能</li>
+</ul>
+<h2 id="网络的图抽象"><a href="#网络的图抽象" class="headerlink" title="网络的图抽象"></a>网络的图抽象</h2><h3 id="图抽象"><a href="#图抽象" class="headerlink" title="图抽象"></a>图抽象</h3><p><img src="/images/214.png" alt="在这里插入图片描述"></p>
+<p>图：G &#x3D; (N,E)<br>N &#x3D; 路由集合器 &#x3D; (u,v,w,x,y,z)<br>E &#x3D; 链路集合 &#x3D; ((u,v),(u,x),(v,x),(v,w),(x,w),(x,y),(w,y),(w,z),(y,z)) 边有代价</p>
+<h3 id="边和路径的代价"><a href="#边和路径的代价" class="headerlink" title="边和路径的代价"></a>边和路径的代价</h3><ul>
+<li>c(x,x’) &#x3D; 链路的代价(x,x’)</li>
+<li>代价可能总为1</li>
+<li>或是链路带宽的倒数</li>
+<li>或是拥塞情况的倒数</li>
+<li>cost of path($x_1,x_2,x_3,…,x_p$) &#x3D; c($x_1,x_2$) + c($x_2,x_3$) + … + c($x_{p-1},x_p$)</li>
+</ul>
+<h3 id="最优化原则"><a href="#最优化原则" class="headerlink" title="最优化原则"></a>最优化原则</h3><p>汇集树</p>
+<ul>
+<li>此节点到所有其他节点的最优路径形成的树</li>
+<li>路由选择算法就是为所有路由器<font color=red>找到</font>并<font color=red>使用</font>汇集树</li>
+</ul>
+<p><img src="/images/215.png" alt="在这里插入图片描述"></p>
+<h2 id="路由的原则"><a href="#路由的原则" class="headerlink" title="路由的原则"></a>路由的原则</h2><p>路由选择算法的原则</p>
+<ul>
+<li>正确性：算法必须是<font color=red>正确</font>的和<font color=red>完整</font>的，使分组一站一站接力，正确发向目标站；完整：目标所有的站地址，在路由表中都能找到相应的表项；没有处理不了的目标站地址</li>
+<li>简单性：算法在计算机上应简单：最优但复杂的算法，时间上延迟很大，不实用，不应为了获取路由信息增加很多的通信量</li>
+<li>健壮性：算法应能适应<font color=red>通信量</font>和<font color=red>网络拓扑</font>的变化：通信量变化，网络拓扑的变化算法能很快适应；不向很拥挤的链路发送数据，不向断了的链路发送数据</li>
+<li>稳定性：产生的路由不应该摇摆</li>
+<li>公平性：对每一个站点都公平</li>
+<li>最优性：某一个指标的最优，时间上，费用上等指标，或综合指标；实际上，获取最优的结果代价较高，可能是次优的</li>
+</ul>
+<h2 id="路由算法分类"><a href="#路由算法分类" class="headerlink" title="路由算法分类"></a>路由算法分类</h2><p><font color=red>全局或局部路由信息</font><br>全局：</p>
+<ul>
+<li>所有的路由器拥有完整的拓扑和边的代价的信息</li>
+<li><font color=red>“<strong>link state</strong>“算法</font></li>
+</ul>
+<p>分布式：</p>
+<ul>
+<li>路由器只知道与它有物理连接关系的邻居路由器，和到相应邻居路由器的代价值</li>
+<li>迭代地与邻居交换路由信息，计算路由信息</li>
+<li><font color=red>“**distance vector”算法</font></li>
+</ul>
+<p><font color=red>静态或动态</font><br>静态：</p>
+<ul>
+<li>路由随时间变化缓慢</li>
+</ul>
+<p>动态：</p>
+<ul>
+<li>路由变化很快<ul>
+<li>周期性更新</li>
+<li>根据链路代价的变化而变化</li>
+</ul>
+</li>
+</ul>
+<h2 id="链路静态路由（LS）"><a href="#链路静态路由（LS）" class="headerlink" title="链路静态路由（LS）"></a>链路静态路由（LS）</h2><h3 id="LS路由的工作过程"><a href="#LS路由的工作过程" class="headerlink" title="LS路由的工作过程"></a>LS路由的工作过程</h3><p>配置<font color=red>LS路由选择算法</font>的路由工作过程</p>
+<ul>
+<li>各点通过各种渠道获得<font color=red>整个网络拓扑</font>，网络中所有链路代价等信息（这部分和算法没关系，属于协议和实现）</li>
+<li>使用<font color=red>LS路由算法</font>，计算本站点到其他站点的最优路径（汇集树），得到路由表</li>
+<li>按照此路由表转发分组(datagram方式)<ul>
+<li>严格意义上说不是路由的一个步骤</li>
+<li>分发到输入端口的网络层</li>
+</ul>
+</li>
+</ul>
+<h3 id="LS路由的基本工作过程"><a href="#LS路由的基本工作过程" class="headerlink" title="LS路由的基本工作过程"></a>LS路由的基本工作过程</h3><ul>
+<li>发现相邻节点，获知对方网络地址</li>
+<li>测量到相邻节点的代价（延迟、开销）</li>
+<li>组装一个LS分组，描述它到相邻节点的代价情况</li>
+<li>将分组通过扩散的方式发到所有其他路由器<ul>
+<li>以上四步让每个路由器获得<font color=red>拓扑</font>和<font color=red>边代价</font></li>
+</ul>
+</li>
+<li>通过Dijkstra算法找出最短路径（这才是路由算法）<ul>
+<li>每个节点独立算出来到其他节点（路由器 &#x3D; 网络）的最短路径</li>
+<li>迭代算法：第k步能够知道本节点到k个其他节点的最短路径</li>
+</ul>
+</li>
+</ul>
+<h3 id="链路状态路由选择"><a href="#链路状态路由选择" class="headerlink" title="链路状态路由选择"></a>链路状态路由选择</h3><ol>
+<li>发现相邻节点，获知对方网络地址<ul>
+<li>一个路由器上电之后，向所有线路发送Hello分组</li>
+<li>其他路由器接收到Hello分组，回送应答，在应答分组中，告知自己的名字（全局唯一）</li>
+<li>在LAN中，通过广播Hello分组，获得其他路由器的信息，可以认为引入一个人工节点</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/216.png" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>测量到相邻节点的代价（延迟、开销）<ul>
+<li>实测法，发送一个分组要求对方立即响应</li>
+<li>回送一个ECHO分组</li>
+<li>通过测量时间可以估算出延迟情况</li>
+</ul>
+</li>
+<li>组装一个分组，描述相邻节点的情况<ul>
+<li>发送者名称</li>
+<li>序号，名称</li>
+<li>列表：给出他相邻节点，和它到相邻节点的延迟</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/217.png" alt="在这里插入图片描述"></p>
+<ol start="4">
+<li>将分组通过扩散的方法发送到所有其他路由器<ul>
+<li>序列号：用于控制无穷的扩散，每个路由器都记录（源路由号，顺序号），发现重复的或老的就不扩散<ul>
+<li>具体问题1：循环使用问题</li>
+<li>具体问题2：路由器崩溃之后序号从0开始</li>
+<li>具体问题3：序号出现错误</li>
+</ul>
+</li>
+<li>解决问题的方法：年龄字段<ul>
+<li>生成一个分组时，年龄字段不为0</li>
+<li>每一个时间段，AGE字段减一</li>
+<li>AGE字段为0的分组将被抛弃</li>
+</ul>
+</li>
+<li>关于扩散分组的数据结构<ul>
+<li>Source：从哪个节点收到LS分组</li>
+<li>Seq,Age：序号，年龄</li>
+<li>Send flags：发送标记，必须向指定的哪些相邻站点转发LS分组</li>
+<li>ACK flags：本站点必须向哪些相邻站点发送应答</li>
+<li>DATA：来自source站点的LS分组</li>
+<li>节点B的数据结构</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Seq</th>
+<th>Age</th>
+<th>Send flags A</th>
+<th>Send flags C</th>
+<th>Send flags F</th>
+<th>ACK flags A</th>
+<th>ACK flags C</th>
+<th>ACK flags F</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A(相邻)</td>
+<td>21</td>
+<td>60(初始TTL)</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1(A与B相邻，直接获取A的分组，给A ACK)</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>F(相邻)</td>
+<td>21</td>
+<td>60</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>E(通过A、F获取)</td>
+<td>21</td>
+<td>59(一次hop)</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1(E通过A获取，给A ACK)</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>C(相邻)</td>
+<td>20</td>
+<td>60</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>D(通过C、F获取)</td>
+<td>21</td>
+<td>59</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li>通过Dijkstra算法找出最短路径<ul>
+<li>路由器获得各站点LS分组和整个网络的拓扑</li>
+<li>通过Dijkstra算法计算出到其他服务器的最短路径（汇集树）</li>
+<li>将计算结果安装到路由表中</li>
+</ul>
+</li>
+</ol>
+<h4 id="LS的应用情况"><a href="#LS的应用情况" class="headerlink" title="LS的应用情况"></a>LS的应用情况</h4><ul>
+<li>OSPF协议是一种LS协议，被用于Internet上</li>
+<li>IS-IS(intermediate system - intermediate system)：被用于Internet主干中，Netware</li>
+</ul>
+<h4 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h4><p>符号标记</p>
+<ul>
+<li>c(i,j)：从节点i到j链路代价（初始状态下非相邻节点之间的链路代价为∞）</li>
+<li>D(v)：从源节点到节点V的当前路径代价（节点的代价）</li>
+<li>p(v)：从源到节点V的路径前序节点</li>
+<li>N’：当前已经知道最优路径的节点集合（永久节点的集合）</li>
+</ul>
+<p><img src="/images/218.png" alt="在这里插入图片描述"></p>
+<h4 id="LS路由选择算法的工作原理"><a href="#LS路由选择算法的工作原理" class="headerlink" title="LS路由选择算法的工作原理"></a>LS路由选择算法的工作原理</h4><p>节点标记：每一个节点使用(D(v),p(v))标记</p>
+<ul>
+<li>D(v)从源节点由已知最优路径到达本节点的距离</li>
+<li>P(v)前序节点来标注</li>
+</ul>
+<p>2类节点</p>
+<ul>
+<li>临时节点：还没有找到从源节点到此节点的最优路径的节点</li>
+<li>永久节点 N’：已经找到了从源节点到此节点的最优路径的节点</li>
+</ul>
+<h4 id="算法具体流程"><a href="#算法具体流程" class="headerlink" title="算法具体流程"></a>算法具体流程</h4><ul>
+<li>初始化<ul>
+<li>除了源节点外，所有节点都为临时节点</li>
+<li>节点<font color=red>代价</font>除了与源节点代价相邻的节点外，都为∞</li>
+</ul>
+</li>
+<li>从所有临时节点中找到一个<font color=red>节点代价最小</font>的临时节点，将之变为永久节点（当前结点）W</li>
+<li>对此节点的<font color=red>所有在临时节点集合中的邻节点</font>(V)<ul>
+<li>如 D(v)&gt;D(w) + c(w,v), 则重新标注此点, (D(W)+C(W,V), W)</li>
+<li>否则，不重新标注</li>
+</ul>
+</li>
+<li>开始一个新的循环</li>
+</ul>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p><img src="/images/219.png" alt="在这里插入图片描述"></p>
+<p>Dijkstra例子</p>
+<p><img src="/images/220.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/221.png" alt="在这里插入图片描述"></p>
+<h4 id="Dijkstra算法的讨论"><a href="#Dijkstra算法的讨论" class="headerlink" title="Dijkstra算法的讨论"></a>Dijkstra算法的讨论</h4><p>算法复杂度: n节点</p>
+<ul>
+<li>每一次迭代: 需要检查所有不在永久集合N中节点</li>
+<li>n(n+1)&#x2F;2 次比较: O(n2 )</li>
+<li>有很有效的实现: O(nlogn)</li>
+</ul>
+<p>可能会出现震荡问题：</p>
+<ul>
+<li>例如：链路代价 &#x3D; 链路承载的流量</li>
+<li>路径改变次数过多</li>
+</ul>
+<p><img src="/images/222.png" alt="在这里插入图片描述"></p>
+<h2 id="距离矢量路由选择"><a href="#距离矢量路由选择" class="headerlink" title="距离矢量路由选择"></a>距离矢量路由选择</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><ul>
+<li>各路由器维护一张路由表，结构如图</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>To(目标)</th>
+<th>Next(到达目标的代价最小的路径中，下一跳)</th>
+<th>cost(到目标的代价)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>Z</td>
+<td>14</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<ul>
+<li>各路由器与相邻路由器交换路由表(待续)</li>
+<li>根据获得的路由信息,更新路由表(待续)</li>
+</ul>
+<p><img src="/images/223.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>代价及相邻节点间代价的获得<ul>
+<li>跳数(hops), 延迟(delay),队列长度</li>
+<li>相邻节点间代价的获得：通过实测</li>
+</ul>
+</li>
+<li>路由信息的更新<ul>
+<li>根据实测 得到本节点A到相邻站点的代价（如:延迟）</li>
+<li>根据各相邻站点声称它们到目标站点B的代价，计算出本站点A经过各相邻站点到目标站点B的代价</li>
+<li>找到一个最小的代价，和相应的下一个节点Z，到达节点B经过此节点Z，并且代价为A-Z-B的代价</li>
+<li>其它所有的目标节点同样的计算方法</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/224.png" alt="在这里插入图片描述"></p>
+<h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><ul>
+<li>以当前节点J为例,相邻节点 A,I,H,K</li>
+<li>J测得到A,I,H,K的延迟为 8ms,10ms,12ms,6ms</li>
+<li>通过交换DV, 从A,I,H,K获得到 它们到G的延迟为 18ms,31ms,6ms,31ms</li>
+<li>因此从J经过A,I,H,K到G的延迟 为26ms(8 + 18),41ms(10 + 31),18ms(12 + 6), 37ms(31 + 6)</li>
+<li>将到G的路由表项更新为18ms, 下一跳为：H(18ms对应的节点)</li>
+<li>其它目标一样，除了本节点J</li>
+</ul>
+<p><img src="/images/225.png" alt="在这里插入图片描述"></p>
+<h3 id="DV的无穷计算问题"><a href="#DV的无穷计算问题" class="headerlink" title="DV的无穷计算问题"></a>DV的无穷计算问题</h3><ul>
+<li>DV的特点<ul>
+<li>好消息传的快，坏消息传的慢</li>
+</ul>
+</li>
+<li>好消息的传播以每一个交换周期前进一个路由器的速度进行<ul>
+<li>好消息：某个路由器接入或有更短的路径</li>
+<li>举例</li>
+</ul>
+</li>
+<li>坏消息的传播速度非常慢(无穷计算问题)</li>
+</ul>
+<p><img src="/images/226.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>例子:<ul>
+<li>AB之间断开了</li>
+<li>第一次交换之后, B从C处获得信息,C可以到达A(C-A, 要经过B本身),但是路径是2,因此B变成3,从C处走</li>
+<li>第二次交换,C从B处获得消息, B可以到达A,路径为3, 因此,C到A从B走,代价为3（因为每次改变都会向周围传递Dv ）</li>
+<li>无限此之后, 到A的距离变成INF,不可达</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/227.png" alt="在这里插入图片描述"></p>
+<h3 id="Bellman-Ford-方程（动态规划）"><a href="#Bellman-Ford-方程（动态规划）" class="headerlink" title="Bellman-Ford 方程（动态规划）"></a>Bellman-Ford 方程（动态规划）</h3><p>设 dx(y) :&#x3D; 从x到y的最小路径代价，那么 dx(y) &#x3D; min {c(x,v) + dv(y) }<br>其中：v是x的邻居</p>
+<h4 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h4><p><img src="/images/228.png" alt="在这里插入图片描述"></p>
+<p>明显的,<br>$d_v(z) &#x3D; 5, d_x(z) &#x3D; 3, d_w(z) &#x3D; 3$<br>由于B-F方程得到：<br>$d_u(z) &#x3D; min { c(u,v) + d_v(z), c(u,x) + d_x(z), c(u,w) + d_w(z) } &#x3D; min {2 + 5, 1 + 3, 5 + 3} &#x3D; 4$</p>
+<p>那个能够达到目标z最小代价的节点x，就在到目标节点的下一条路径上, 在转发表中使用</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><font color=red>$D_x(y)$</font> &#x3D; 节点x到y代价最小值的估计</p>
+<ul>
+<li>x 节点维护距离矢量<font color=red>$D_x &#x3D; [D_x (y): y ∈ N ]$</font></li>
+</ul>
+<p>节点x:</p>
+<ul>
+<li>知道到所有邻居v的代价: <font color=red>c(x,v)</font></li>
+<li>收到并维护一个它邻居的距离矢量集</li>
+<li>对于每个邻居, x 维护 <font color=red>$D_v &#x3D; [D_v (y): y є N]$</font></li>
+</ul>
+<p><font color=red>核心思路</font></p>
+<ul>
+<li>每个节点都将自己的距离矢量估计值传送给邻居，定时或者DV有变化时，让对方去算</li>
+<li>当x从邻居收到DV时，自己运算，更新它自己的距离矢量（采用B-F equation）</li>
+</ul>
+<p><font color=red>$D_x(y) ← min_v{c(x,v) + D_v(y)}$ 对于每个节点y ∈ N</font></p>
+<ul>
+<li>X往y的代价x到邻居v代价v声称到y的代价</li>
+<li>Dx(y)估计值最终收敛于实际的最小代价值$d_x(y)$</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p><font color=red>异步式,迭代</font>: 每次本地迭代被以下事件触发:</p>
+<ul>
+<li>本地链路代价变化了</li>
+<li>从邻居来了DV的更新消息</li>
+</ul>
+<p><font color=red>分布式</font>:</p>
+<ul>
+<li>每个节点只是在自己的DV改变之后向邻居通告</li>
+<li>然后邻居们在有必要的时候通知他们的邻居</li>
+</ul>
+<p><img src="/images/229.png" alt="在这里插入图片描述"></p>
+<h3 id="水平分裂-split-horizon-算法"><a href="#水平分裂-split-horizon-算法" class="headerlink" title="水平分裂(split horizon)算法"></a>水平分裂(split horizon)算法</h3><p>一种对无穷计算问题的解决办法 —— 结局坏消息传的慢的问题</p>
+<ul>
+<li>当AB断开之后，C进行交换</li>
+<li>C知道要经过B才能到达A，所以C向B报告它到A的距离 为INF；C 告诉D它到A的真实距离2（就这样一边传递INF，一边传递真实举例2，水平方向分裂）</li>
+<li>下一阶段，C发现到A的路径断开了，D进行交换</li>
+<li>D告诉E,它到A的距离,但D告诉C它通向A的距离为INF</li>
+<li>第一次交换: B通过测试发现到A的路径为INF,而C也告 诉B到A的距离为INF,因此,B到A的距离为INF</li>
+<li>第二次交换: C从B和D那里获知,到A的距离为INF,因此 将它到A的距离为INF</li>
+<li>……坏消息以一次交换一个节点的速度传播</li>
+</ul>
+<p><img src="/images/230.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/231.png" alt="在这里插入图片描述"></p>
+<h3 id="水平分裂算法问题"><a href="#水平分裂算法问题" class="headerlink" title="水平分裂算法问题"></a>水平分裂算法问题</h3><p>水平分裂的问题:在某些拓扑形式下会失败（存在环路）</p>
+<p><img src="/images/232.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>A,B到D的距离为2, C到D的距离为1</li>
+<li>如果C-D路径失败</li>
+<li>C获知到D为INF,从A,B获知到D的距离为INF,因此C认为D不可达</li>
+<li>A从C获知D的距离为INF,但从B处获知它到D的距离为2,因此A到B的距离为3,从B走</li>
+<li>B也有类似的问题</li>
+<li>经过无限次之后,A和B都知道到D的距离为INF</li>
+</ul>
+<p><img src="/images/233.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/234.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/235.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/236.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/237.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/238.png" alt="在这里插入图片描述"></p>
+<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><p><img src="/images/239.png" alt="在这里插入图片描述"></p>
+<h2 id="LS和DV算法的比较"><a href="#LS和DV算法的比较" class="headerlink" title="LS和DV算法的比较"></a>LS和DV算法的比较</h2><p>消息复杂度（DV胜出） O(NE)<br>收敛时间（LS胜出） O(NlogN)<br>健壮性（LS胜出） 节点之间影响较小</p>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>LS特点</th>
+<th>DV特点</th>
+<th>比较结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息复杂度</td>
+<td>有n 节点, E 条链路,发送报文O(nE)个；（局部的路由信息；全局传播）</td>
+<td>只和邻居交换信息（全局的路由信息，局部传播）</td>
+<td>DV胜出</td>
+</tr>
+<tr>
+<td>收敛时间</td>
+<td>O($n^2$) 算法；有可能震荡</td>
+<td>收敛较慢；可能存在路由环路；count-to-infinity 问题</td>
+<td>LS胜出</td>
+</tr>
+<tr>
+<td>健壮性(路由器故障会发生什么)</td>
+<td>节点会通告不正确的链路代价,每个节点只计算自己的路由表,错误信息影响较小，局部，路由较健壮</td>
+<td>节点可能通告对全网所有节点的不正确路径代价,每一个节点的路由表可能被其它节点使用,错误可以扩散到全网</td>
+<td>LS胜出</td>
+</tr>
+</tbody></table>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
