@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——25Internet-Protocol | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——25Internet-Protocol</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/17
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Internet-Protocol</p>
+<span id="more"></span>
+
+<h1 id="Internet-Protocol"><a href="#Internet-Protocol" class="headerlink" title="Internet Protocol"></a>Internet Protocol</h1><h2 id="互联网中的网络层"><a href="#互联网中的网络层" class="headerlink" title="互联网中的网络层"></a>互联网中的网络层</h2><p>主机、路由器中的网络层功能</p>
+<p><img src="/images/174.png" alt="在这里插入图片描述"></p>
+<h2 id="IP数据报格式"><a href="#IP数据报格式" class="headerlink" title="IP数据报格式"></a>IP数据报格式</h2><p><img src="/images/175.png" alt="在这里插入图片描述"></p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ver</td>
+<td>版本号，如Ipv4就是0100</td>
+</tr>
+<tr>
+<td>head len</td>
+<td>头部的长度，一般头部是20个字节(也就是上图中的5行)，但是也有可选项，也就是头部是变长的，因此可以使用head len来计算可选项</td>
+</tr>
+<tr>
+<td>type of service</td>
+<td>数据段的类型，本来为输出队列的调度机制提供参考的，但后来废弃了</td>
+</tr>
+<tr>
+<td>length</td>
+<td>数据报总厂</td>
+</tr>
+<tr>
+<td>16-bit的id，flags fragment offset</td>
+<td>后面的分片&#x2F;重组</td>
+</tr>
+<tr>
+<td>time to live（TTL）</td>
+<td>可用以ICMP协议</td>
+</tr>
+<tr>
+<td>upper layer</td>
+<td>将负载交给的上层协议，比如说TCP，还是UDP，还是ICMP，实际上是根据端口号区分的</td>
+</tr>
+<tr>
+<td>Internet checksum</td>
+<td>校验头部的</td>
+</tr>
+</tbody></table>
+<h2 id="IP分片和重组"><a href="#IP分片和重组" class="headerlink" title="IP分片和重组"></a>IP分片和重组</h2><ul>
+<li>网络链路有MTU (最大传输单元) –链路层帧所携带的最大数据长度<ul>
+<li>不同的链路类型</li>
+<li>不同的MTU</li>
+</ul>
+</li>
+<li>大的IP数据报在网络上被分片 (“fragmented”)<ul>
+<li>一个数据报被分割成若干个小 的数据报<ul>
+<li>相同的ID</li>
+<li>不同的偏移量</li>
+<li>最后一个分片标记为0</li>
+</ul>
+</li>
+<li>“重组”只在最终的目标主机进行：减少路由器的负担，要是每个路由器都重组再分片压力太大</li>
+<li>IP头部的信息被用于标识，排序相关分片</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/176.png" alt="在这里插入图片描述"></p>
+<p>例子：</p>
+<p><img src="/images/177.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>（接受到了）4000 字节数据报：<ul>
+<li>20字节头部</li>
+<li>3980字节数据</li>
+</ul>
+</li>
+<li>MTU &#x3D; 1500 bytes<ul>
+<li>第一片：20字节头部+1480字节数据；偏移量：0</li>
+<li>第二片：20字节头部+1480字节数据（1480字节应用数据）；偏移量：1480&#x2F;8&#x3D;185</li>
+<li>第三片：20字节头部+1020字节数据（应用数据）；偏移量：2960&#x2F;8&#x3D;370</li>
+</ul>
+</li>
+</ul>
+<h2 id="IP编址：引论"><a href="#IP编址：引论" class="headerlink" title="IP编址：引论"></a>IP编址：引论</h2><ul>
+<li><font color=red>IP地址</font>: 32位标示，对主机或者路由器的接口编址</li>
+<li><font color=red>接口</font>: 主机&#x2F;路由器和物 理链路的连接处<ul>
+<li>路由器通常拥有多个接口</li>
+<li>主机也有可能有多个接口</li>
+<li>IP地址和每一个接口关联</li>
+</ul>
+</li>
+<li><font color=red>一个IP地址和一个接口相关联</font></li>
+</ul>
+<p><img src="/images/178.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/179.png" alt="在这里插入图片描述"></p>
+<h2 id="子网"><a href="#子网" class="headerlink" title="子网"></a>子网</h2><ul>
+<li>IP地址：<ul>
+<li>子网部分（高位bits）</li>
+<li>主机部分（低位bits）</li>
+</ul>
+</li>
+<li>什么是子网？<ul>
+<li>一个子网内的节点（主 机或者路由器）它们的<font color=red>IP地址的高位部分相同</font> ，这些节点构成的网络的一部分叫做子网</li>
+<li>子网内节点的分组的收发<font color=red>无需路由器介入（借助交换机即可）</font>，子网内各主机可以在物理上相互直接到达 ——只需要交换机即可，一跳可达</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/180.png" alt="在这里插入图片描述"></p>
+<h3 id="划分子网方法"><a href="#划分子网方法" class="headerlink" title="划分子网方法"></a>划分子网方法</h3><ul>
+<li>要判断一个子网, 将每一个接口从主机或者路由 器上分开,构成了一个个网络的孤岛</li>
+<li><font color=red>每一个孤岛（网络）都 是一个都可以被称之为 subnet</font>.</li>
+</ul>
+<p><img src="/images/181.png" alt="在这里插入图片描述"></p>
+<h2 id="IP地址类型"><a href="#IP地址类型" class="headerlink" title="IP地址类型"></a>IP地址类型</h2><h3 id="IP地址分类"><a href="#IP地址分类" class="headerlink" title="IP地址分类"></a>IP地址分类</h3><p><img src="/images/182.png" alt="在这里插入图片描述"></p>
+<h3 id="特殊IP地址"><a href="#特殊IP地址" class="headerlink" title="特殊IP地址"></a>特殊IP地址</h3><ul>
+<li>一些约定：<ul>
+<li>子网(网络)部分全为0，表示本网络</li>
+<li>主机部分全为0，表示本主机</li>
+<li>主机部分全为1表示，广播地址，这个网络的所有主机</li>
+<li>除了前面的类号 全为1——在本地网络广播</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/183.png" alt="在这里插入图片描述"></p>
+<h3 id="内网-专用-IP地址"><a href="#内网-专用-IP地址" class="headerlink" title="内网(专用)IP地址"></a>内网(专用)IP地址</h3><ul>
+<li>专用地址：地址空间的一部份供专用地址使用</li>
+<li>永远不会被当做公用地址来分配, 不会与公用地址重复</li>
+<li>只在局部网络中有意义，区分不同的设备</li>
+<li>路由器不对目标地址是专用地址的分组进行转发</li>
+<li>专用地址范围</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>IP类型</th>
+<th>专用地址范围</th>
+<th>MASK</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A类</td>
+<td>10.0.0.0-10.255.255.255</td>
+<td>255.0.0.0</td>
+</tr>
+<tr>
+<td>B类</td>
+<td>172.16.0.0-172.31.255.255</td>
+<td>255.255.0.0</td>
+</tr>
+<tr>
+<td>C类</td>
+<td>192.168.0.0-192.168.255.255</td>
+<td>255.255.255.0</td>
+</tr>
+</tbody></table>
+<h3 id="CIDR-无类域间路由"><a href="#CIDR-无类域间路由" class="headerlink" title="CIDR(无类域间路由)"></a>CIDR(无类域间路由)</h3><ul>
+<li>子网部分可以在任意的位置（而不必是固定的位置）</li>
+<li>地址格式: <font color=red>a.b.c.d&#x2F;x</font>, 其中 x 是 地址中子网号的长度</li>
+</ul>
+<p>实例：</p>
+<p><img src="/images/184.png" alt="在这里插入图片描述"></p>
+<h3 id="转发表和转发算法"><a href="#转发表和转发算法" class="headerlink" title="转发表和转发算法"></a>转发表和转发算法</h3><table>
+<thead>
+<tr>
+<th>Destination Subnet Num</th>
+<th>Mask</th>
+<th>Next hop</th>
+<th>Interface</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>202.38.73.0</td>
+<td>255.255.255.192</td>
+<td>IPx</td>
+<td>Lan1</td>
+</tr>
+<tr>
+<td>202.38.64.0</td>
+<td>255.255.255.192</td>
+<td>IPy</td>
+<td>Lan2</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Default</td>
+<td></td>
+<td>IPz</td>
+<td>Lan0</td>
+</tr>
+</tbody></table>
+<ul>
+<li>获得IP数据报的目标地址IP Des addr</li>
+<li>遍历转发表中的每一个表项<ul>
+<li>如 (IP Des addr) &amp; (mask) &#x3D;&#x3D; destination, 则按照表项 对应的接口转发该数据报</li>
+<li>如果都没有找到,则使用默认表项转发数据报，一般是整个网络的出口 default Gateway</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何获得一个IP地址"><a href="#如何获得一个IP地址" class="headerlink" title="如何获得一个IP地址"></a>如何获得一个IP地址</h2><ul>
+<li>系统管理员将地址配置在一个文件中<ul>
+<li>Wintel: control-panel-&gt;network- &gt;configuration-&gt;tcp&#x2F;ip-&gt;properties</li>
+<li>UNIX: &#x2F;etc&#x2F;rc.config</li>
+</ul>
+</li>
+<li>DHCP：从服务器中动态获取一个IP地址<ul>
+<li>“plug-and-play”</li>
+</ul>
+</li>
+</ul>
+<h3 id="DHCP-Dynamic-Host-Configuration-Protocol"><a href="#DHCP-Dynamic-Host-Configuration-Protocol" class="headerlink" title="DHCP: Dynamic Host Configuration Protocol"></a>DHCP: Dynamic Host Configuration Protocol</h3><p>目标:</p>
+<ul>
+<li>允许主机在加入网络的时候，动态地从服务器那里获得IP地址<ul>
+<li>可以更新对主机在用IP地址的租用期-租期快到了</li>
+<li>重新启动时，允许重新使用以前用过的IP地址</li>
+<li>支持移动用户加入到该网络（短期在网）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/185.png" alt="在这里插入图片描述"></p>
+<p>DHCP工作概况:</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>含义</th>
+<th>源地址</th>
+<th>目标地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主机上限时广播“DHCP discover”报文</td>
+<td>问一下有活着的DHCP服务器吗</td>
+<td>0.0.0.0,32全0的本机地址，因为此时还没有分配ip地址</td>
+<td>255.255.255.255,（32位全1的广播地址，因为不知道DHCP服务在哪）</td>
+</tr>
+<tr>
+<td>DHCP服务器用“DHCP offer”单播提供报文响应</td>
+<td>DHCP服务器表明自己的存在；并且包含分配给主机的关于ip的配套信息(包括那四项)</td>
+<td>DHCP服务器的地址</td>
+<td>255.255.255.255,也是全局广播，根据事务号来区分</td>
+</tr>
+<tr>
+<td>主机单播请求IP地址:发送“DHCP request”报文</td>
+<td>主机向DHCP服务器确定ip配置信息</td>
+<td>0.0.0.0,也是表示自己的地址</td>
+<td>255.255.255.255,也是广播</td>
+</tr>
+<tr>
+<td>DHCP服务器发送地址:“DHCP ack”报文</td>
+<td>DHCP把配置信息给主机</td>
+<td>DHCP服务器的地址</td>
+<td>255.255.255.255,广播</td>
+</tr>
+</tbody></table>
+<p><img src="/images/186.png" alt="在这里插入图片描述"></p>
+<p>示例：</p>
+<p><img src="/images/187.png" alt="在这里插入图片描述"></p>
+<h3 id="机构获取ip子网部分"><a href="#机构获取ip子网部分" class="headerlink" title="机构获取ip子网部分"></a>机构获取ip子网部分</h3><p>假设某个学校，有八个校区，要获取ip子网</p>
+<ul>
+<li>首先从ISP获取大的网络，ISP’s block 11001000 00010111 00010000 00000000 200.23.16.0&#x2F;20</li>
+<li>然后再划分，由于有8个校区，也就是要划分成8个部分，用原有的20位后面的3位来表示子网，从而进行划分</li>
+</ul>
+<h3 id="ISP获取地址块"><a href="#ISP获取地址块" class="headerlink" title="ISP获取地址块"></a>ISP获取地址块</h3><p>Q：一个ISP如何获得一个地址块?</p>
+<p>A：向ICANN申请</p>
+<ul>
+<li>分配地址</li>
+<li>管理DNS</li>
+<li>分配域名，解决冲突</li>
+</ul>
+<h2 id="IP层次编址-路由聚集"><a href="#IP层次编址-路由聚集" class="headerlink" title="IP层次编址&#x2F;路由聚集"></a>IP层次编址&#x2F;路由聚集</h2><h3 id="路由聚集"><a href="#路由聚集" class="headerlink" title="路由聚集"></a>路由聚集</h3><p><img src="/images/188.png" alt="在这里插入图片描述"></p>
+<h3 id="最长精确匹配"><a href="#最长精确匹配" class="headerlink" title="最长精确匹配"></a>最长精确匹配</h3><p><img src="/images/189.png" alt="在这里插入图片描述"></p>
+<h2 id="NAT-网络地址转换"><a href="#NAT-网络地址转换" class="headerlink" title="NAT: 网络地址转换"></a>NAT: 网络地址转换</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><img src="/images/190.png" alt="在这里插入图片描述"></p>
+<p>特点:本地网络只有一个有效IP地址</p>
+<p>NAT 路由器必须:</p>
+<ul>
+<li>外出数据包：替换源地址:端口号为 NAT的IP地址:新的端口号，目标IP和端口不变；远端的C&#x2F;S将会用NAP IP地址，新端口号作为目标地址</li>
+<li>记住每个转换替换对(映射)（在NAT转换表中）源IP:端口 vs NAP IP:新端口</li>
+<li>进入数据包：替换目标IP地址和端口号，采用存储在NAT表中的mapping表项，用（源IP，端口）</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p><img src="/images/191.png" alt="在这里插入图片描述"></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>省钱：不需要从ISP分配一块地址，可用一个IP地址用于所有的（局域网）设备<br>可以在局域网改变设备的地址情况下而无须通知外界<br>可以改变ISP（地址变化）而不需要改变内部的设备地址<br>安全：局域网内部的设备没有明确的地址，对外是不可见的</p>
+<h3 id="NAT的争议和问题"><a href="#NAT的争议和问题" class="headerlink" title="NAT的争议和问题"></a>NAT的争议和问题</h3><p>NAT能够篡改接受的分组的端口信息</p>
+<ul>
+<li>路由器只应该对第3层做信息处理，而这里对端口号（4层）作了处理</li>
+<li>违反了end-to-end 原则<ul>
+<li>端到端原则：复杂性放到网络边缘<ul>
+<li>无需借助中转和变换，就可以直接传送到目标主机</li>
+</ul>
+</li>
+<li>NAT可能要被一些应用设计者考虑, eg, P2P applications</li>
+<li>外网的机器无法主动连接到内网的机器上</li>
+</ul>
+</li>
+<li>问题，NAT穿越： 如果客户端需要连接在NAT后面的服务器，如何操作</li>
+</ul>
+<p>地址短缺问题可以被IPv6 解决（因为NAT一开始解决的就是地址短缺的问题）</p>
+<h3 id="NAT-穿越问题"><a href="#NAT-穿越问题" class="headerlink" title="NAT 穿越问题"></a>NAT 穿越问题</h3><p><img src="/images/192.png" alt="在这里插入图片描述"></p>
+<p>客户端需要连接地址为 10.0.0.1的服务器</p>
+<ul>
+<li>服务器地址10.0.0.1 LAN本地地址 (客户端不能够使用其作为目标地址)</li>
+<li>整网只有一个外部可见地址: 138.76.29.7</li>
+</ul>
+<p><strong>静态配置NAT</strong><br>方案1: 静态配置NAT：转发 进来的对服务器特定端口连接 请求</p>
+<ul>
+<li>(123.76.29.7, port 2500) 总是转发到10.0.0.1 port 25000</li>
+</ul>
+<p><strong>IGD&#x2F;UPnP</strong><br>方案2: Universal Plug and Play (UPnP) Internet Gateway Device (IGD) 协议. 允许 NATted主机可以: 动态分配端口</p>
+<ul>
+<li>获知网络的公共 IP地址 (138.76.29.7)</li>
+<li>列举存在的端口映射</li>
+<li>增&#x2F;删端口映射 (在租用时间内)</li>
+</ul>
+<p><img src="/images/193.png" alt="在这里插入图片描述"></p>
+<p><strong>中继</strong><br>方案3：中继(used in Skype)</p>
+<p><img src="/images/194.png" alt="在这里插入图片描述"></p>
+<h2 id="IPV6协议"><a href="#IPV6协议" class="headerlink" title="IPV6协议"></a>IPV6协议</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><ul>
+<li>初始动机: 32-bit地址空间将会被很快用完，为了增加地址数量</li>
+<li>另外的动机:<ul>
+<li>改变头部格式，帮助加速处理和转发<ul>
+<li>TTL-1（之前的ICPM协议每次都要TTL-2）</li>
+<li>头部checksum （之前都会校验头部）</li>
+<li>分片 （当MTU小于分组的时候，要分片）</li>
+</ul>
+</li>
+<li>头部格式改变帮助QoS</li>
+</ul>
+</li>
+</ul>
+<h3 id="IPV6数据报"><a href="#IPV6数据报" class="headerlink" title="IPV6数据报"></a>IPV6数据报</h3><p>IPv6 数据报格式:</p>
+<ul>
+<li>固定的40字节头部</li>
+<li>IP地址由原先的32位改成了128位（16个字节）</li>
+<li>数据报传输过程中，不允许分片</li>
+</ul>
+<p><strong>IPV6头部</strong></p>
+<p><img src="/images/195.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>Priority: 标示流中数据报的优先级（优先级是与非技术方面结合的，比如收费等）</li>
+<li>Flow Label: 标示多个数据报在一个“flow” ( “flow”的概念没有被严格的定义)</li>
+<li>Next header: 标示上层协议（就是网络层以上传给哪个协议，TCP&#x2F;UDP）</li>
+</ul>
+<p><strong>和IPv4的其它变化</strong></p>
+<ul>
+<li><font color=red>Checksum</font>: 被移除掉，降低在每一段中的处理 速度</li>
+<li><font color=red>Options</font>: 允许，但是在头部之外, 被 “Next Header” 字段标示 (Next Header的格式是TLV type-length-value)</li>
+<li><font color=red>ICMPv6</font>: ICMP的新版本<ul>
+<li>附加了报文类型, e.g. “Packet Too Big”</li>
+<li>多播组管理功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="从IPv4到IPv6的过渡：隧道"><a href="#从IPv4到IPv6的过渡：隧道" class="headerlink" title="从IPv4到IPv6的过渡：隧道"></a>从IPv4到IPv6的过渡：隧道</h3><p><img src="/images/196.png" alt="在这里插入图片描述"></p>
+<p>隧道: 在IPv4路由器之间传输的IPv4数据报中携带IPv6数据报</p>
+<p><img src="/images/197.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/198.png" alt="在这里插入图片描述"></p>
+<h3 id="IPv6的应用"><a href="#IPv6的应用" class="headerlink" title="IPv6的应用"></a>IPv6的应用</h3><ul>
+<li>Google: 8% 的客户通过IPv6访问谷歌服务（当然现在还在增加）</li>
+<li>NIST: 全美国1&#x2F;3的政府域支持IPv6</li>
+<li>估计还需要很长时间进行部署 （20年）</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

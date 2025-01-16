@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——23网络层导论 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——23网络层导论</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/17
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>网络层导论</p>
+<span id="more"></span>
+
+<h1 id="网络层导论"><a href="#网络层导论" class="headerlink" title="网络层导论"></a>网络层导论</h1><h2 id="网络层服务"><a href="#网络层服务" class="headerlink" title="网络层服务"></a>网络层服务</h2><ul>
+<li>在发送主机和接收主机对之间传送<font color=red>段</font>（segment）</li>
+<li>在发送端将段封装到数据报中</li>
+<li>在接收端，将段上交给传输层实体</li>
+<li>网络层协议存在于每一个主机和路由器</li>
+<li>路由器检查每一个经过它的IP数据报的头部</li>
+</ul>
+<h2 id="网络层的关键功能"><a href="#网络层的关键功能" class="headerlink" title="网络层的关键功能"></a>网络层的关键功能</h2><p><font color=red>网络层功能</font></p>
+<ul>
+<li>转发: 将分组从路由器的输入接口转发到合适的输出接口</li>
+<li>路由: 使用路由算法来决定分组从发送主机到目标接收主机的路径<ul>
+<li>路由选择算法</li>
+<li>路由选择协议</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据平面、控制平面"><a href="#数据平面、控制平面" class="headerlink" title="数据平面、控制平面"></a>数据平面、控制平面</h2><p><font color=red>数据平面</font></p>
+<ul>
+<li>本地，每个路由器功能</li>
+<li>决定从路由器输入端口到达的分组如何转发到输出端口</li>
+<li>转发功能：<ul>
+<li>传统方式：基于目标 地址+转发表</li>
+<li>SDN方式：基于多个字段+流表</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>控制平面</font></p>
+<ul>
+<li>网络范围内的逻辑</li>
+<li>决定数据报如何在路由器之间 路由，决定数据报从源到目标主机之间的端到端路径</li>
+<li>2个控制平面方法:<ul>
+<li>传统的路由算法: 在路由器中被实现（功能单一：根据目标的IP地址进行转发）</li>
+<li>software-defined networking (SDN): 在远程的服务器中实现（匹配很多字段，功能更多：泛洪、转发、修改字段）</li>
+</ul>
+</li>
+</ul>
+<h2 id="传统方式：每一路由器-Per-router-控制平面"><a href="#传统方式：每一路由器-Per-router-控制平面" class="headerlink" title="传统方式：每一路由器(Per-router)控制平面"></a>传统方式：每一路由器(Per-router)控制平面</h2><p>在<font color=red>每一个路由器</font>中的单独路由器算法元件，在控制平面进行交互</p>
+<p><img src="/images/158.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/159.png" alt="在这里插入图片描述"></p>
+<h2 id="SDN方式：逻辑集中的控制平面"><a href="#SDN方式：逻辑集中的控制平面" class="headerlink" title="SDN方式：逻辑集中的控制平面"></a>SDN方式：逻辑集中的控制平面</h2><p>一个不同的（通常是远程的）控制器与本地控制代理（CAs） 交互</p>
+<p><img src="/images/160.png" alt="在这里插入图片描述"></p>
+<h2 id="网络服务模型"><a href="#网络服务模型" class="headerlink" title="网络服务模型"></a>网络服务模型</h2><p>从发送方主机到接收方主机传输数据报的“通道” ，网络提供什么样的服务模型？</p>
+<p><font color=red>对于单个数据报的服务</font>:</p>
+<ul>
+<li>可靠传送</li>
+<li>延迟保证，如：少于 40ms的延迟</li>
+</ul>
+<p><font color=red>对于数据报流的服务</font>:</p>
+<ul>
+<li>保序数据报传送</li>
+<li>保证流的最小带宽</li>
+<li>分组之间的延迟差（延迟差为0，那么发送就会立即接受到，对于多媒体来说很好）</li>
+</ul>
+<h2 id="连接建立"><a href="#连接建立" class="headerlink" title="连接建立"></a>连接建立</h2><ul>
+<li>在某些网络提供有连接的网络<ul>
+<li>ATM, frame relay, X.25</li>
+</ul>
+</li>
+<li>在分组传输之前，在两个主机之间，在通过一些 路由器所构成的路径上建立一个网络层连接<ul>
+<li>涉及到路由器</li>
+</ul>
+</li>
+<li>网络层和传输层连接服务区别:<ul>
+<li><font color=red>网络层</font>: 在2个主机之间，涉及到路径上的一些路由器 —— 有连接</li>
+<li><font color=red>传输层</font>: 在2个进程之间，很可能只体现在端系统上 (TCP连接) —— 面向连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络层服务模型"><a href="#网络层服务模型" class="headerlink" title="网络层服务模型"></a>网络层服务模型</h2><table>
+<thead>
+<tr>
+<th>网络架构</th>
+<th>服务模型</th>
+<th>是否保证带宽</th>
+<th>是否保证丢失</th>
+<th>是否保序</th>
+<th>是否保证延迟</th>
+<th>拥塞反馈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Internet</td>
+<td>best effort(尽力而为)</td>
+<td>none</td>
+<td>no</td>
+<td>no</td>
+<td>no</td>
+<td>no(inferred via loss)</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>CBR恒定速率</td>
+<td>constant rate</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no congestion</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>VBR 变化速率</td>
+<td>guaranteed rate</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no congestion</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>ABR 可用比特率</td>
+<td>guaranteed rate</td>
+<td>no</td>
+<td>yes</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>UBR 不指明比特率</td>
+<td>one</td>
+<td>no</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody></table>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>

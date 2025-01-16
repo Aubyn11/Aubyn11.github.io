@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——24路由器组成 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——24路由器组成</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/1/17
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>路由器组成</p>
+<span id="more"></span>
+
+<h1 id="路由器组成"><a href="#路由器组成" class="headerlink" title="路由器组成"></a>路由器组成</h1><h2 id="路由器的结构概况"><a href="#路由器的结构概况" class="headerlink" title="路由器的结构概况"></a>路由器的结构概况</h2><p>高层面(非常简化的)通用路由器体系架构</p>
+<ul>
+<li>路由：运行<font color=red>路由</font>选择算法／协议 (RIP, OSPF, BGP) - 生成 路由表</li>
+<li>转发：从输入到输出链路交换数据报 - 根据路由表进行分组的<font color=red>转发</font></li>
+</ul>
+<p><img src="/images/161.png" alt="在这里插入图片描述"></p>
+<h2 id="输入端口功能"><a href="#输入端口功能" class="headerlink" title="输入端口功能"></a>输入端口功能</h2><p><img src="/images/162.png" alt="在这里插入图片描述"></p>
+<p><strong>分布式交换</strong>：</p>
+<ul>
+<li>根据数据报（网络层分组）头部的信息如：目的地址，在输入端口内存中的转发表中查找合适的输出端口（匹配+行动）</li>
+<li><font color=red>基于目标的转发</font>：仅仅依赖于IP数据报的目标IP地址（传统方法）</li>
+<li><font color=red>通用转发</font>：基于头部字段的任意集合进行转发</li>
+</ul>
+<p>功能如下：</p>
+<ul>
+<li>物理层：链路上的数字信号（比如电信号、光信号等）转换成bit(有的是bit，有的是word)</li>
+<li>数据链路层：将转换成的bit分成帧(判断哪里是帧头，哪里是帧尾)，检查有无出错，判断帧的目标Mac和网卡的Mac是否一致（判断是否接受这个帧），然后取出帧中的数据部分（也就是IP的分组，数据链路层将IP的分组包装成帧了）</li>
+<li>数据链路层将IP分组交给网络层实体，网络层实体在链路当中排队，排到队头的按照路由表交给合适的端口输出</li>
+<li>传统的IP分组是根据分组头部的目标ip，根据路由表来转发</li>
+<li>如果是SDN，则会查头部的多个信息，匹配相应流表的字段，按照流标的操作</li>
+</ul>
+<h2 id="输入端口缓存"><a href="#输入端口缓存" class="headerlink" title="输入端口缓存"></a>输入端口缓存</h2><ul>
+<li>交换机构的速率小于输入端口的汇聚速率时， 在输入端口可能要排队<ul>
+<li><font color=red><em>排队延迟和由于输入缓存溢出造成丢失</em></font></li>
+</ul>
+</li>
+<li><font color=red>Head-of-the-Line (HOL) blocking</font>: 排在队头的数据报 阻止了队列中其他数据报向前移动</li>
+</ul>
+<p><img src="/images/163.png" alt="在这里插入图片描述"></p>
+<h2 id="交换结构"><a href="#交换结构" class="headerlink" title="交换结构"></a>交换结构</h2><ul>
+<li>将分组从输入缓冲区传输到合适的输出端口</li>
+<li>交换速率：分组可以按照该速率从输入传输到输 出<ul>
+<li>运行速度经常是输入&#x2F;输出链路速率的若干倍 (因为输入端口和输出端口有多个)</li>
+<li>N 个输入端口：交换机构的交换速度是输入线路速度的N倍比较理 想，才不会成为瓶颈</li>
+</ul>
+</li>
+</ul>
+<p><strong>三种典型的交换机构</strong></p>
+<p><img src="/images/164.png" alt="在这里插入图片描述"></p>
+<h3 id="通过内存交换"><a href="#通过内存交换" class="headerlink" title="通过内存交换"></a>通过内存交换</h3><p><font color=red>第一代路由器</font></p>
+<ul>
+<li>在CPU直接控制下的交换，采用传统的计算机（通过计算机的软件来实现）</li>
+<li>分组被拷贝到系统内存，CPU从分组的头部提取出目标地址，查找转发表，找到对应的输出端口，拷贝到输出端口</li>
+<li>分组要过系统总线两次（input→memory，memory→output），因此系统总线成为了速率的瓶颈（转发速率被内存的带宽限制）</li>
+<li>一次只能转发一个分组</li>
+</ul>
+<p><img src="/images/165.png" alt="在这里插入图片描述"></p>
+<h3 id="通过总线交换"><a href="#通过总线交换" class="headerlink" title="通过总线交换"></a>通过总线交换</h3><ul>
+<li>数据报通过共享总线，从输入端转发到输出端口</li>
+<li>分组加上输出端口的地址被送往总线，分组通过bus的时候所有的输出分组都能够读到，如果是本输出端口的地址就拿到</li>
+<li><font color=red>总线竞争</font>: 交换速度受限于总线带宽</li>
+<li>1次处理一个分组，分组只经过一次bus</li>
+<li>1 Gbps bus, Cisco 1900； 32 Gbps bus, Cisco 5600；</li>
+<li>对于接 入或企业级路由器，速度足够（ 但不适合区域或骨干网络）</li>
+</ul>
+<p><img src="/images/166.png" alt="在这里插入图片描述"></p>
+<h3 id="通过互联网络-crossbar等-的交换"><a href="#通过互联网络-crossbar等-的交换" class="headerlink" title="通过互联网络(crossbar等)的交换"></a>通过互联网络(crossbar等)的交换</h3><ul>
+<li>同时并发转发多个分组，克服总线带宽限制</li>
+<li>Banyan(榕树〉网络，crossbar(纵横)和其它的互联网络被开发，将多个处理器连接成多处理器</li>
+<li>当分组从端口A到达，转给端口Y;控制器短接相应的两个总线</li>
+<li>高级设计:将数据报分片为固定长度的信元，通过交换网络交换</li>
+<li>Cisco12000:以60Gbps的交换速率通过互联网络<br><img src="/images/167.png" alt="在这里插入图片描述"></li>
+</ul>
+<h2 id="输出端口"><a href="#输出端口" class="headerlink" title="输出端口"></a>输出端口</h2><p><img src="/images/168.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>当数据报从交换机构的到达速度比传输速率快就需要输出端口<font color=red>缓存</font>（数据报（分组）可能会被丢弃，由于拥塞，缓冲区没有空间）</li>
+<li>由<font color=red>调度规则</font>选择排队的数据报进行传输</li>
+</ul>
+<h3 id="输出端口排队"><a href="#输出端口排队" class="headerlink" title="输出端口排队"></a>输出端口排队</h3><p><img src="/images/169.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>假设交换速率$R_{switch}$是$R_{line}$的N倍（N：输入端口的数量）</li>
+<li>当多个输入端口同时向输出端口发送时，缓冲该分组（当通 过交换网络到达的速率超过输出速率则缓存）</li>
+<li><font color=red>排队带来延迟，由于输出端口缓存溢出则丢弃数据报</font></li>
+</ul>
+<h3 id="调度机制"><a href="#调度机制" class="headerlink" title="调度机制"></a>调度机制</h3><ul>
+<li><em><font color=red>调度</font></em>: 选择下一个要通过链路传输的分组</li>
+</ul>
+<h4 id="FIFO-first-in-first-out-scheduling"><a href="#FIFO-first-in-first-out-scheduling" class="headerlink" title="FIFO (first in first out) scheduling"></a>FIFO (first in first out) scheduling</h4><ul>
+<li>按照分组到来的次序发送</li>
+<li>丢弃策略: 如果分组到达一个满的队列，哪个分组将会 被抛弃?<ul>
+<li>tail drop: 丢弃刚到达的分组</li>
+<li>priority: 根据优先权丢失&#x2F;移除分组（分组是有优先权的，比如有VIP）</li>
+<li>random: 随机地丢弃&#x2F;移除</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/170.png" alt="在这里插入图片描述"></p>
+<h4 id="优先权"><a href="#优先权" class="headerlink" title="优先权"></a>优先权</h4><p><em><font color=red>优先权调度</font></em>：发送最高优先权的分组</p>
+<ul>
+<li>多类，不同类别有不同的 优先权<ul>
+<li>类别可能依赖于标记或者其 他的头部字段, e.g. IP source&#x2F;dest, port numbers, ds，etc.</li>
+<li>先传高优先级的队列中的分 组，除非没有</li>
+<li>高（低）优先权中的分组传 输次序：FIFO</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/171.png" alt="在这里插入图片描述"></p>
+<h4 id="Round-Robin-RR-scheduling"><a href="#Round-Robin-RR-scheduling" class="headerlink" title="Round Robin (RR) scheduling"></a>Round Robin (RR) scheduling</h4><ul>
+<li>多类</li>
+<li>循环扫描不同类型的队列, 发送完一类的一个分组 ，再发送下一个类的一个分组，循环所有类</li>
+</ul>
+<p><img src="/images/172.png" alt="在这里插入图片描述"></p>
+<h4 id="Weighted-Fair-Queuing-WFQ"><a href="#Weighted-Fair-Queuing-WFQ" class="headerlink" title="Weighted Fair Queuing (WFQ)"></a>Weighted Fair Queuing (WFQ)</h4><ul>
+<li>一般化的Round Robin</li>
+<li>在一段时间内，每个队列得到的服务时间是： $W_i$ &#x2F;(XIGMA($W_i$ )) *t ，和权重成正比</li>
+<li>每个类在每一个循环中获得不同权重的服务量</li>
+<li>现实例子</li>
+</ul>
+<p><img src="/images/173.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
