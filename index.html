@@ -186,6 +186,54 @@
         
 
 <div class="post">
+    <a href="/2025/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9433%E5%A4%9A%E7%82%B9%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE/">
+        <h2 class="post-title">计算机网络——33多点访问协议</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/8
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>多点访问协议</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">计算机网络</a>
+        </span>
+        
+    </div>
+    <a href="/2025/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9433%E5%A4%9A%E7%82%B9%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/2025/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9432%E5%B7%AE%E9%94%99%E6%A3%80%E6%B5%8B%E5%92%8C%E7%BA%A0%E6%AD%A3/">
         <h2 class="post-title">计算机网络——32差错检测和纠正</h2>
     </a>
@@ -212,66 +260,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <span id="more"></span>
-
-<h1 id="差错检测和纠正"><a href="#差错检测和纠正" class="headerlink" title="差错检测和纠正"></a>差错检测和纠正</h1><h2 id="错误检测"><a href="#错误检测" class="headerlink" title="错误检测"></a>错误检测</h2><p>EDC &#x3D; 差错检测和纠错位（冗余位）<br>D &#x3D; 数据由差错检测保护，可以包含头部字段<br>错误检测不是100%可靠的</p>
-<ul>
-<li>协议会泄露一些错误，但是很少</li>
-<li>更长的EDC字段可以得到更好的检测和纠正效果</li>
-</ul>
-<p><img src="/images/260.png" alt="在这里插入图片描述"></p>
-<h2 id="奇偶校验"><a href="#奇偶校验" class="headerlink" title="奇偶校验"></a>奇偶校验</h2><h3 id="单bit奇偶校验"><a href="#单bit奇偶校验" class="headerlink" title="单bit奇偶校验"></a>单bit奇偶校验</h3><p>检测单个bit级错误</p>
-<p><img src="/images/261.png" alt="在这里插入图片描述"></p>
-<h3 id="二维奇偶校检"><a href="#二维奇偶校检" class="headerlink" title="二维奇偶校检"></a>二维奇偶校检</h3><p>检测和纠正单个bit错误</p>
-<p><img src="/images/262.png" alt="在这里插入图片描述"></p>
-<p><img src="/images/263.png" alt="在这里插入图片描述"></p>
-<h2 id="Internet校检和"><a href="#Internet校检和" class="headerlink" title="Internet校检和"></a>Internet校检和</h2><p><font color=red>目标</font>：检测在传输报文时的错误（如位翻转），（注：仅仅用在传输层）<br><font color=red>发送方</font></p>
-<ul>
-<li>将报文段看成16-bit整数</li>
-<li>报文段的校检和：和（1’的补码和）</li>
-<li>发送方将checksum的值放在’UDP校检和’字段</li>
-</ul>
-<p><font color=red>接收方</font></p>
-<ul>
-<li><font color=red>计算</font>接收到的报文段的校检和</li>
-<li>检查是否与<font color=red>携带</font>校检和字段值<font color=red>一致</font><ul>
-<li>不一致：检出错误</li>
-<li>一致：没有检出错误，但可能还是有错误</li>
-</ul>
-</li>
-</ul>
-<p><font color=red>有更简单的检查方法：全部加起来看是不是全1</font></p>
-<h2 id="检验和：CRC（循环冗余校检）"><a href="#检验和：CRC（循环冗余校检）" class="headerlink" title="检验和：CRC（循环冗余校检）"></a>检验和：CRC（循环冗余校检）</h2><ul>
-<li>强大的差错检测码</li>
-<li>将数据比特<font color=red> D </font>看成是二进制的数据</li>
-<li>生成多项式<font color=red> G </font>：双方协商r + 1模式（r次方）<ul>
-<li>生成和检查所使用的位模式</li>
-</ul>
-</li>
-<li>目标：选择r位CRC附加位R，使得<ul>
-<li>&lt;D,R&gt;正好被G整除（modulo 2）</li>
-<li>接收方知道G，将&lt;D,R&gt;除以G，如果非0余数：检查出错误</li>
-<li>能检出所有少于r + 1位的突发错误</li>
-</ul>
-</li>
-<li>实际中广泛使用（以太网、802.11 WiFi、ATM）</li>
-</ul>
-<p><img src="/images/264.png" alt="在这里插入图片描述"></p>
-<h3 id="CRC例子"><a href="#CRC例子" class="headerlink" title="CRC例子"></a>CRC例子</h3><p>需要：<br>$D\cdot 2^r \times OR R &#x3D; nG$<br>等价于：<br>$D\cdot 2^r &#x3D; nG \times OR R$<br>等价于：<br>两边同除G<br>得到余数$R &#x3D; \dots$</p>
-<p>$R &#x3D;remainder \begin{bmatrix}<br>\frac{D\cdot 2^r}{G}<br>\end{bmatrix}$</p>
-<p>最后求得：<br><img src="/images/265.png" alt="在这里插入图片描述"></p>
-<h3 id="CRC性能分析"><a href="#CRC性能分析" class="headerlink" title="CRC性能分析"></a>CRC性能分析</h3><ul>
-<li>突发错误和突发长度</li>
-<li>CRC检错性能描述<ul>
-<li>能够检查出所有的1bit错误</li>
-<li>能够检查出所有的双bit的错误</li>
-<li>能够检测出所有长度 &#x3D; r或者 &lt;r 位的错误</li>
-<li>出现长度为r + 1的突发错误，检查不出的概率是<br>  $\frac{1}{2^{r-1}}$</li>
-<li>出现长度大于r + 1的突发错误，检查不出的概率<br>  $\frac{1}{2^r}$</li>
-</ul>
-</li>
-</ul>
-
+            <p>差错检测和纠正</p>
             
         </div>
     </div>
@@ -285,7 +274,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #03a9f4">计算机网络</a>
         </span>
         
     </div>
@@ -333,7 +322,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ff7d73">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">计算机网络</a>
         </span>
         
     </div>
@@ -381,7 +370,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">计算机网络</a>
         </span>
         
     </div>
@@ -429,7 +418,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ff7d73">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">计算机网络</a>
         </span>
         
     </div>
@@ -525,7 +514,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ff7d73">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">计算机网络</a>
         </span>
         
     </div>
@@ -573,7 +562,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #03a9f4">计算机网络</a>
         </span>
         
     </div>
@@ -621,7 +610,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">计算机网络</a>
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">计算机网络</a>
         </span>
         
     </div>
@@ -674,54 +663,6 @@
         
     </div>
     <a href="/2025/01/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9424%E8%B7%AF%E7%94%B1%E5%99%A8%E7%BB%84%E6%88%90/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/01/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9423%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AF%BC%E8%AE%BA/">
-        <h2 class="post-title">计算机网络——23网络层导论</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                计算机网络
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/1/17
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>网络层导论</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #ffa2c4">计算机网络</a>
-        </span>
-        
-    </div>
-    <a href="/2025/01/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%9423%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AF%BC%E8%AE%BA/" class="go-post">阅读全文</a>
 </div>
 
 
