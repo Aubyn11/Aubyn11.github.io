@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——34LANs | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——34LANs</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/8
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00a596">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>LANs</p>
+<span id="more"></span>
+
+<h1 id="LANs"><a href="#LANs" class="headerlink" title="LANs"></a>LANs</h1><h2 id="MAC地址和ARP"><a href="#MAC地址和ARP" class="headerlink" title="MAC地址和ARP"></a>MAC地址和ARP</h2><ul>
+<li>32bit IP地址<ul>
+<li>网络层地址</li>
+<li>用于使数据到达目标IP子网：前n - 1跳</li>
+<li>从而到达子网中的目标节点：最后一跳</li>
+</ul>
+</li>
+<li>LAN（MAC&#x2F;物理&#x2F;以太网）地址：<ul>
+<li>用于使帧从一个网卡传递到与其物理连接的另一个网卡（在同一个物理网络中）</li>
+<li>48bit MAC地址固化在适配器的ROM，有时也可以通过软件设定</li>
+<li>理论上全球任何2个网卡的MAC地址都不相同</li>
+<li>e.g：1A-2F-BB-76-09-AD</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络地址和mac地址分离"><a href="#网络地址和mac地址分离" class="headerlink" title="网络地址和mac地址分离"></a>网络地址和mac地址分离</h3><p>IP地址和MAC地址的作用不同</p>
+<ol>
+<li>IP地址是分层的<ol>
+<li>一个子网所有站点网络号一致，路由聚集，减少路由表<ol>
+<li>需要一个网络中的站点网络号一致，如果捆绑需要定制网卡非常麻烦</li>
+</ol>
+</li>
+<li>希望网络层地址是配置的：IP地址完成网络到网络的交付</li>
+</ol>
+</li>
+<li>mac地址是一个<font color=red>平面</font>的<ol>
+<li>网卡在生产时不知道被用于哪个网络，因此给网卡一个唯一的标示，用于区分一个网络内部不同的网卡即可</li>
+<li>可以完成一个物理网络内部的节点到节点的数据交付</li>
+</ol>
+</li>
+</ol>
+<p>分离好处</p>
+<ul>
+<li>网卡坏了，ip不变，可以捆绑到另外一个网卡的mac上</li>
+<li>物理网络还可以除IP之外支持其他网络层协议，链路协议为上层网络协议，如IPX等</li>
+</ul>
+<p>捆绑的问题</p>
+<ul>
+<li>如果仅仅使用IP地址，不是mac地址，那么它仅支持IP协议</li>
+<li>每次上电都要重新写入网卡IP地址</li>
+<li>另外一个选择就是不使用任何地址：不用MAC地址，则每到来一个帧都要上传到IP层次，由它判断是不是需要接受，干扰一次</li>
+</ul>
+<h2 id="LAN地址和ARP"><a href="#LAN地址和ARP" class="headerlink" title="LAN地址和ARP"></a>LAN地址和ARP</h2><ul>
+<li><p>局域网上每个适配器都有一个唯一的<font color=red>LAN</font>地址<br><img src="/images/JSJWL/34/1.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>MAC地址由IEEE管理和分配</p>
+</li>
+<li><p>制造商购入MAC地址空间（保证唯一性）</p>
+</li>
+<li><p>类比：</p>
+<ul>
+<li>MAC地址：社会安全号</li>
+<li>IP地址：通讯地址</li>
+</ul>
+</li>
+<li><p>MAC平面地址 -&gt; 支持移动</p>
+<ul>
+<li>可以将网卡接到其他网络</li>
+</ul>
+</li>
+<li><p>IP地址有层次 - 不能移动</p>
+<ul>
+<li>依赖于节点连接的IP子网，与子网的网络号相同（有与其相连的子网相同的网络前缀）</li>
+</ul>
+</li>
+</ul>
+<h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p>问题：已知B的IP地址，如何确定B的MAC地址</p>
+<ul>
+<li>在LAN上的每个IP节点都有一个<font color=red>ARP</font>表</li>
+<li>ARP表：包括一些LAN节点IP&#x2F;MAC地址的映射</li>
+</ul>
+<p><font color=red>&lt;TP address MAC address TTL&gt;</font><br>    - TTL时间是指地址映射失效的时间<br>    - 典型是20min</p>
+<h3 id="路由到其他LAN"><a href="#路由到其他LAN" class="headerlink" title="路由到其他LAN"></a>路由到其他LAN</h3><p>Walkthrough：发送数据报：由A通过R到B，假设A知道B的IP地址</p>
+<ul>
+<li>在R上有两个ARP表，分别对应两个LAN</li>
+<li>在源主机的路由表中，发现到目标主机的下一跳时111.111.111.110</li>
+<li>在源主机的ARP表中，发现其MAC地址是E6-E9-00-17-BB-4B,etc</li>
+</ul>
+<p><img src="/images/JSJWL/34/2.png" alt="在这里插入图片描述"></p>
+<h4 id="编址：路由到其他LAN"><a href="#编址：路由到其他LAN" class="headerlink" title="编址：路由到其他LAN"></a>编址：路由到其他LAN</h4><p><img src="/images/JSJWL/34/3.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/JSJWL/34/4.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/JSJWL/34/5.png" alt="在这里插入图片描述"></p>
+<p><img src="/images/JSJWL/34/6.png" alt="在这里插入图片描述"></p>
+<h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><ul>
+<li>目前最流行的LAN技术：98%占有率</li>
+<li>廉价：30元RMB 100Mbps</li>
+<li>最早广泛应用的LAN技术</li>
+<li>比令牌网和ATM网络简单、廉价</li>
+<li>带宽不断提升：10M、100M、1G、10G</li>
+</ul>
+<p><img src="/images/JSJWL/34/7.png" alt="在这里插入图片描述"></p>
+<h3 id="以太网：物理拓扑"><a href="#以太网：物理拓扑" class="headerlink" title="以太网：物理拓扑"></a>以太网：物理拓扑</h3><ul>
+<li><font color=red>总线</font>：在上个世纪90年代中期很流行<ul>
+<li>所有节点在一个碰撞域内，依次只允许一个节点发送</li>
+<li>可靠性差，如果介质破损，截面形成信号的反射，发送节点认为是冲突，总是冲突</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/34/8.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><ul>
+<li><font color=red>星型</font>：目前最主流<ul>
+<li>连接选择：hub或者switch</li>
+<li>现在一般是交换机在中心</li>
+<li>每个节点以及相连的交换机端口使用（独立的）以太网协议（不会和其他节点的发送产生碰撞）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/34/9.png" alt="在这里插入图片描述"></p>
+<h3 id="以太帧结构"><a href="#以太帧结构" class="headerlink" title="以太帧结构"></a>以太帧结构</h3><p>发送方适配器在<font color=red>以太网帧</font>中封装IP数据报，或其他网络层协议数据单元</p>
+<p><img src="/images/JSJWL/34/10.png" alt="在这里插入图片描述"></p>
+<p><font color=red>前导码</font></p>
+<ul>
+<li>7B 10101010 + 1B 10101011</li>
+<li>用来同步接收方和发送方的时钟速率<ul>
+<li>使得接收方将自己的时钟调到发送端的时钟</li>
+<li>从而可以按照发送端的时钟来接收所发送的帧</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>地址</font>：6字节源MAC地址，目标MAC地址</p>
+<ul>
+<li>如：帧目标地址 &#x3D; 本站MAC地址，或是广播地址，接收，递交帧中的数据到网络层</li>
+<li>否则，适配器忽略该帧</li>
+</ul>
+<p><font color=red>类型</font>：指出高层协议（大多情况下是IP，但也支持其他网络层协议Novell IPX和Apple Talk）</p>
+<p><font color=red>CRC</font>：在接收方校检</p>
+<ul>
+<li>如果没有通过校检，丢弃错误帧</li>
+</ul>
+<h3 id="以太网：无连接、不可靠的服务"><a href="#以太网：无连接、不可靠的服务" class="headerlink" title="以太网：无连接、不可靠的服务"></a>以太网：无连接、不可靠的服务</h3><ul>
+<li><font color=red>无连接</font>：帧传输前，发送方和接收方之间没有握手</li>
+<li><font color=red>不可靠</font>：接收方适配器不发送ACKs或NAKs给发送方<ul>
+<li>递交给网络层的数据报流可能有gap</li>
+<li>如上层使用像传输层TCP协议这样的rdt，gap会被补上（源主机，TCP实体）</li>
+<li>否则，应用层会看到gap</li>
+</ul>
+</li>
+<li>以太网的MAC协议：采用<font color=red>二进制退避的CSMA&#x2F;CD</font>介质访问控制形式</li>
+</ul>
+<h3 id="以太网标准：链路层和物理层"><a href="#以太网标准：链路层和物理层" class="headerlink" title="以太网标准：链路层和物理层"></a>以太网标准：链路层和物理层</h3><ul>
+<li><font color=red>很多</font>不同的以太网标准<ul>
+<li>相同的MAC协议（介质访问控制）和帧结构</li>
+<li>不同的速率：2 Mbps、10 Mbps、100 Mbps、1Gbps、10Gbps</li>
+<li>不同的物理层标准</li>
+<li>不同的物理层媒介：光纤，同轴电缆和双绞线</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/34/11.png" alt="在这里插入图片描述"></p>
+<h3 id="以太网使用CSMA-CD"><a href="#以太网使用CSMA-CD" class="headerlink" title="以太网使用CSMA&#x2F;CD"></a>以太网使用CSMA&#x2F;CD</h3><ul>
+<li>没有时隙</li>
+<li>NIC如果侦听到其他NIC在发送就不发送：载波侦听(<font color=red>carrier sence</font>)</li>
+<li>发送时，适配器当侦听到其他适配器在发送就放弃对当前帧的发送：冲突检测(<font color=red>collision detection</font>)</li>
+<li>冲突后尝试重传，重传前适配器等待一个随机时间：随机访问(<font color=red>random access</font>)</li>
+</ul>
+<h3 id="10BaseT-and-100BaseT"><a href="#10BaseT-and-100BaseT" class="headerlink" title="10BaseT and 100BaseT"></a>10BaseT and 100BaseT</h3><ul>
+<li>100Mbps速率也被称之为”fast ethernet”</li>
+<li>T代表双绞线</li>
+<li>节点连接到HUB上：”star topology”物理上是星型<ul>
+<li>逻辑上总线型，盒中总线</li>
+</ul>
+</li>
+<li>节点和HUB间的最大距离是100m</li>
+</ul>
+<h3 id="Hubs"><a href="#Hubs" class="headerlink" title="Hubs"></a>Hubs</h3><p>Hubs本质上是物理层的中继器</p>
+<ul>
+<li>从一个端口收，转发到所有其他端口</li>
+<li>速率一致</li>
+<li>没有帧的缓存</li>
+<li>在hub接口端没有CSMA&#x2F;CD机制：适配器检测冲突</li>
+<li>提供网络管理服务</li>
+</ul>
+<h3 id="Manchester编码"><a href="#Manchester编码" class="headerlink" title="Manchester编码"></a>Manchester编码</h3><p><img src="/images/JSJWL/34/12.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>在10BaseT中使用</li>
+<li>每一个bit的位时中间有一个信号跳变</li>
+<li>允许在接收方和发送方节点之间进行时钟同步<ul>
+<li>节点间不需要集中的和全局的时钟</li>
+</ul>
+</li>
+<li>10Mbps，使用20M带宽，效率50%</li>
+</ul>
+<h3 id="千兆以太网"><a href="#千兆以太网" class="headerlink" title="千兆以太网"></a>千兆以太网</h3><ul>
+<li>采用标准的以太帧格式</li>
+<li>允许点对点链路和共享广播信道</li>
+<li>物理编码：8b10b编码</li>
+<li>在共享模式，继续使用CSMA&#x2F;CA MAC技术，节点间需要较短距离以提高利用率</li>
+<li>交换模式：全双工千兆可用与点对点链路<ul>
+<li>站点使用专用信道，基本不会冲突，效率高</li>
+<li>除非发往同一个目标点</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hub：集线器"><a href="#Hub：集线器" class="headerlink" title="Hub：集线器"></a>Hub：集线器</h2><ul>
+<li>网段(LAN segments)：可以允许一个站点发送的网络范围<ul>
+<li>在一个碰撞域，同时只允许一个站点在发送</li>
+<li>如果有2个节点同时发送，则会碰撞</li>
+<li>通常有相同的词缀，比IP子网更详细的前缀</li>
+</ul>
+</li>
+<li>所有以hub连到一起的站点处在一个网段，处在一个碰撞域<ul>
+<li>骨干hub将所有网段连接到了一起</li>
+</ul>
+</li>
+<li>通过hub可拓展节点之间的最大距离</li>
+<li>通过HUB，不能将10BaseT和100BaseT的网络连接到一起</li>
+</ul>
+<p><img src="/images/JSJWL/34/13.png" alt="在这里插入图片描述"></p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><ul>
+<li><font color=red>链路层设备：扮演主动角色（端口执行以太网协议）</font><ul>
+<li>对帧进行存储和转发</li>
+<li>对于到来的帧，检查帧头，根据目标MAC地址进行<fong color=red>选择性转发</font></li>
+<li>当帧需要向某个（些）网段进行转发，需要使用CSMA&#x2F;CD进行接入控制</li>
+<li>通常一个交换机端口一个独立网段</li>
+</ul>
+</li>
+<li><font color=red>透明</font>：主机对交换机的存在可以不关心<ul>
+<li>通过交换机相连的各节点好像这些站点是直接相连的一样</li>
+<li>有MAC地址：无IP地址</li>
+</ul>
+</li>
+<li><font color=red>即插即用、自学习</font><ul>
+<li>交换机无需配置</li>
+</ul>
+</li>
+</ul>
+<h3 id="交换机：多路同时传输"><a href="#交换机：多路同时传输" class="headerlink" title="交换机：多路同时传输"></a>交换机：多路同时传输</h3><ul>
+<li>主机有一个<font color=red>专用</font>和<font color=red>直接</font>到交换机的连接</li>
+<li>交换机缓存到来的帧</li>
+<li>对每个帧进入链路使用以太网协议，没有碰撞：全双工<ul>
+<li>每条链路都是一个独立的碰撞域</li>
+<li>MAC协议在其中的作用弱化了</li>
+</ul>
+</li>
+<li><font color=red>交换</font>：A - to - A’ 和 B - to - B’可以同时传输，没有碰撞</li>
+</ul>
+<p><img src="/images/JSJWL/34/14.png" alt="在这里插入图片描述"></p>
+<h3 id="交换机转发表"><a href="#交换机转发表" class="headerlink" title="交换机转发表"></a>交换机转发表</h3><p>Q：交换机如何知道通过接口1到达A，通过接口5到达B’？</p>
+<p>A：每个交换机都有一个交换表(<font color=red>switch table</font>)，每个表项：</p>
+<ul>
+<li>主机的MAC地址，到达该MAC经过的接口、时戳）</li>
+<li>比较像路由表</li>
+</ul>
+<h3 id="交换机：自学习"><a href="#交换机：自学习" class="headerlink" title="交换机：自学习"></a>交换机：自学习</h3><p>交换机通过<font color=red>学习</font>得到哪些主机（mac地址）可以通过哪些端口到达</p>
+<ul>
+<li>当接收到帧，交换机学习到发送站点所在的端口（网段）</li>
+<li>记录发送方MAC地址&#x2F;进入端口映射关系在交换表中</li>
+</ul>
+<p><img src="/images/JSJWL/34/15.png" alt="在这里插入图片描述"></p>
+<h3 id="交换机：过滤-转发"><a href="#交换机：过滤-转发" class="headerlink" title="交换机：过滤&#x2F;转发"></a>交换机：过滤&#x2F;转发</h3><p>当交换机接收到一个帧：</p>
+<ul>
+<li>记录进入链路，发送主机的MAC地址</li>
+<li>使用目标MAC地址对交换表进行索引</li>
+</ul>
+<pre><code>//如果在转发表中找到了目标项
+if entry found for destination
+then&#123;
+    //如果目标MAC就是对应着进来的端口
+    if dest on segment from which frame arrived //过滤
+        //抛弃掉该帧
+        then drop the frame
+    //转发
+    else forward the frame on interface indicated
+    &#125;
+//泛洪
+else found
+</code></pre>
+<h3 id="交换机-vs-路由器"><a href="#交换机-vs-路由器" class="headerlink" title="交换机 vs. 路由器"></a>交换机 vs. 路由器</h3><p><img src="/images/JSJWL/34/16.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>都是存储转发设备，但层次不同<ul>
+<li>交换机：链路层设备（检查链路层头部）</li>
+<li>路由器：网络层设备（检查网络层的头部）</li>
+</ul>
+</li>
+<li>都有转发表<ul>
+<li><font color=red>交换机</font>：维护交换表，按照MAC地址转发<ul>
+<li>执行过滤、自学习和生成树算法</li>
+<li>即插即用：二层设备，速率高</li>
+<li>执行生成树算法，限制广播帧的转发</li>
+<li>ARP表项随着站点数量增多而增多</li>
+</ul>
+</li>
+<li><font color=red>路由器</font>：维护路由表，执行路由算法<ul>
+<li>路由算法能够避免环路，无需执行生成树算法，可以以各种拓扑构建网络</li>
+<li>对广播分组做限制</li>
+<li>不是即插即用的，配置网络地址（子网前缀）</li>
+<li>三层设备，速率低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/34/17.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
