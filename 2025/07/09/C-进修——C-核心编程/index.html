@@ -1,0 +1,3180 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>C++进修——C++核心编程 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>C++进修——C++核心编程</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/C/" style="color: #00bcd4">
+                    C++
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>C++核心编程</p>
+<span id="more"></span>
+
+<h1 id="内存分区模型"><a href="#内存分区模型" class="headerlink" title="内存分区模型"></a>内存分区模型</h1><p>&emsp;&emsp;C++程序在执行时，将内存大方向划分为4个区域</p>
+<ul>
+<li>代码区：存放函数体的二进制编码，由操作系统进行管理</li>
+<li>全局区：存放全局变量和静态变量以及常量</li>
+<li>栈区：由编译器自动分配释放，存放函数的参数值，局部变量等</li>
+<li>堆区：由程序员分配和释放，若程序员不释放，程序结束时由操作系统回收</li>
+</ul>
+<p>&emsp;&emsp;<strong>内存4区意义</strong>：</p>
+<ul>
+<li>不同的区域存放不同的数据，赋予不同的生命周期，给我们更大的灵活编程</li>
+</ul>
+<h2 id="程序运行前"><a href="#程序运行前" class="headerlink" title="程序运行前"></a>程序运行前</h2><p>&emsp;&emsp;在程序编译后，生成了exe可执行程序，<strong>未执行该程序前</strong>分为两个区域</p>
+<p>&emsp;&emsp;<strong>代码区</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;存放CPU执行的机器指令</p>
+<p>&emsp;&emsp;&emsp;&emsp;代码区是共享的，共享的目的是对于频繁被执行的程序，只需要在内存中有一份代码即可</p>
+<p>&emsp;&emsp;&emsp;&emsp;代码区是<strong>只读</strong>的，使其只读的原因是防止程序意外的修改了它的指令</p>
+<p>&emsp;&emsp;<strong>全局区</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;全局变量和静态变量存放在此</p>
+<p>&emsp;&emsp;&emsp;&emsp;全局区还包括了常量区，字符串常量和其他常量也存放在此</p>
+<p>&emsp;&emsp;&emsp;&emsp;<mark>该区域的数据在程序结束之后由操作系统释放</mark></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int g_a = 10;
+int g_b = 10;
+
+const int c_g_a = 10;
+const int c_g_b = 10;
+
+int main()&#123;
+	//局部变量不在全局区
+	int a = 10;
+	int b = 10;
+
+	cout &lt;&lt; (int)&amp;a &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;a &lt;&lt; endl;
+
+	cout &lt;&lt; (int)&amp;g_a &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;g_b &lt;&lt; endl;
+
+	static int s_a = 10;
+	static int s_b = 10;
+
+	cout &lt;&lt; (int)&amp;s_a &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;s_b &lt;&lt; endl;
+
+	cout &lt;&lt; (int)&amp;&quot;hello world&quot; &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;&quot;hello world1&quot; &lt;&lt; endl;
+
+	cout &lt;&lt; (int)&amp;c_g_a &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;c_g_b &lt;&lt; endl;
+
+	//局部常量不在全局区中
+	const int c_l_a = 10;
+	const int c_l_b = 10;
+
+	cout &lt;&lt; (int)&amp;c_l_a &lt;&lt; endl;
+	cout &lt;&lt; (int)&amp;c_l_b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="程序运行后"><a href="#程序运行后" class="headerlink" title="程序运行后"></a>程序运行后</h2><p>&emsp;&emsp;<strong>栈区</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;由编译器自动释放，存放函数的参数值，局部变量等</p>
+<p>&emsp;&emsp;&emsp;&emsp;注意事项：不要返回局部变量的地址，栈区开辟的数据由编译器自动释放</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int * func()&#123;
+	int a = 10;
+	return &amp;a;
+&#125;
+
+int main()&#123;
+	int *p = func();
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+	cout &lt;&lt; *p &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;注意：</p>
+<p>&emsp;&emsp;&emsp;&emsp;x64函数的调用通常使用寄存器来传递参数和返回值，如果想要达到x86的效果，可以在两次输出之前输入<code>system(&quot;pause&quot;)</code></p>
+<p>&emsp;&emsp;<strong>堆区</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;由程序员分配释放，若程序员不能释放，程序结束时由操作系统回收</p>
+<p>&emsp;&emsp;&emsp;&emsp;在C++中主要利用new在堆区开辟内存</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int* func() &#123;
+	int* a = new int(10);
+	return a;
+&#125;
+
+int main() &#123;
+	int* p = func();
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+	cout &lt;&lt; *p &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="new操作符"><a href="#new操作符" class="headerlink" title="new操作符"></a>new操作符</h2><p>&emsp;&emsp;C++中利用<mark>new</mark>操作符在堆区开辟数据</p>
+<p>&emsp;&emsp;堆区开辟的数，由程序员手动开辟，手动释放，释放利用操作符<mark>delete</mark></p>
+<p>&emsp;&emsp;语法：<code>new 数据类型</code></p>
+<p>&emsp;&emsp;利用new创建的数据，会返回该数据对应的类型的指针</p>
+<p>基本语法：</p>
+<pre><code class="language-cpp">int* func() &#123;
+	int* a = new int(10);
+	return a;
+&#125;
+
+int main() &#123;
+	int* p = func();
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+	cout &lt;&lt; *p &lt;&lt; endl;
+
+	delete p;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-cpp">int main() &#123;
+	int* arr = new int[10];
+
+	for (int i = 0; i &lt; 10; i++) &#123;
+		arr[i] = i + 100;
+	&#125;
+
+	for (int i = 0; i &lt; 10; i++) &#123;
+		cout &lt;&lt; arr[i] &lt;&lt; endl;
+	&#125;
+
+	delete[] arr;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><h2 id="引用的基本使用"><a href="#引用的基本使用" class="headerlink" title="引用的基本使用"></a>引用的基本使用</h2><p>&emsp;&emsp;<strong>作用</strong>：给变量起别名</p>
+<p>&emsp;&emsp;<strong>语法</strong>：<code>数据类型 &amp;别名 = 原名</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	int &amp;b = a;
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	b = 100;
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="引用注意事项"><a href="#引用注意事项" class="headerlink" title="引用注意事项"></a>引用注意事项</h2><ul>
+<li>引用必须初始化</li>
+<li>引用在初始化后，不可以改变</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	int b = 20;
+
+	//错误，引用必须初始化
+	//int &amp;c;
+
+	//一旦初始化后，就不可以改变
+	int &amp;c = a;
+
+	//这是赋值操作，不是更改引用	
+	c = b;
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+	cout &lt;&lt; c &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="引用做函数参数"><a href="#引用做函数参数" class="headerlink" title="引用做函数参数"></a>引用做函数参数</h2><p>&emsp;&emsp;<strong>作用</strong>：函数传参时，可以利用引用的技术让形参修饰实参<br>&emsp;&emsp;<strong>优点</strong>：可以简化指针修改实参</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void mySwap01(int a, int b) &#123;
+	int temp = a;
+	a = b;
+	b = temp;
+&#125;
+
+void mySwap02(int* a, int* b) &#123;
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+&#125;
+
+void mySwap03(int&amp; a, int&amp; b) &#123;
+	int temp = a;
+	a = b;
+	b = temp;
+&#125;
+
+int main() &#123;
+	int a = 10;
+	int b = 20;
+
+	mySwap01(a, b);
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	mySwap02(&amp;a, &amp;b);
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	mySwap03(a, b);
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="引用做函数返回值"><a href="#引用做函数返回值" class="headerlink" title="引用做函数返回值"></a>引用做函数返回值</h2><p>&emsp;&emsp;<strong>作用</strong>：引用是可以作为函数的返回值存在的</p>
+<p>&emsp;&emsp;<strong>注意</strong>：不要返回局部变量引用</p>
+<p>&emsp;&emsp;<strong>用法</strong>：函数调用作为左值</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int&amp; test01()&#123;
+	int a = 10;
+	return a;
+&#125;
+
+int&amp; test02()&#123;
+	static int a = 20;
+	return a;
+&#125;
+
+int main()&#123;
+	int&amp; ref = test01();
+
+	cout &lt;&lt; ref &lt;&lt; endl;
+	cout &lt;&lt; ref &lt;&lt; endl;
+
+	int&amp; ref2 = test02();
+
+	cout &lt;&lt; ref2 &lt;&lt; endl;
+	cout &lt;&lt; ref2 &lt;&lt; endl;
+
+	test02() = 1000;
+
+	cout &lt;&lt; ref2 &lt;&lt; endl;
+	cout &lt;&lt; ref2 &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="引用的本质"><a href="#引用的本质" class="headerlink" title="引用的本质"></a>引用的本质</h2><p>&emsp;&emsp;<strong>本质</strong>：引用的本质在c++内部实现是一个指针常量</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void func(int&amp; ref)&#123;
+	ref = 100;
+&#125;
+
+int main()&#123;
+	int a = 10;
+
+	int&amp; ref = a;
+	ref = 20;
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; ref &lt;&lt; endl;
+
+	func(a);
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="常量引用"><a href="#常量引用" class="headerlink" title="常量引用"></a>常量引用</h2><p>&emsp;&emsp;<strong>作用</strong>：常量引用主要用来修饰形参，防止误操作</p>
+<p>&emsp;&emsp;在函数形参列表中，可以加<mark>const修饰形参</mark>，防止形参改变实参</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void showValue(const int&amp; v)&#123;
+	//v += 10;
+	cout &lt;&lt; v &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	//引用本身需要一个合法的内存空间，因此运行错误
+	//int&amp; ref = 10;
+
+	//加入const就不会报错
+	const int&amp; ref = 10;
+
+	cout &lt;&lt; ref &lt;&lt; endl;
+
+	int a = 10;
+	showValue(a);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="函数提高"><a href="#函数提高" class="headerlink" title="函数提高"></a>函数提高</h1><h2 id="函数默认参数"><a href="#函数默认参数" class="headerlink" title="函数默认参数"></a>函数默认参数</h2><p>&emsp;&emsp;在C++中，函数的形参列表中的形参是可以由默认值的</p>
+<p>&emsp;&emsp;语法：<code>返回值类型 函数名(参数 = 默认值)&#123;&#125;</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int func(int a,int b = 10,int c = 10)&#123;
+	return a + b + c;
+&#125;
+
+//如果某个位置参数有默认值，那么从这个位置往后，从左向右，必须都要有默认值
+//如果函数声明有默认值，函数实现的时候就不能有默认参数
+
+int func2(int a = 10,int b = 10);
+int func2(int a,int b)&#123;
+	return a + b;
+&#125;
+
+int main()&#123;
+	cout &lt;&lt; func(20,20) &lt;&lt; endl;
+	cout &lt;&lt; func(100) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="函数占位参数"><a href="#函数占位参数" class="headerlink" title="函数占位参数"></a>函数占位参数</h2><p>&emsp;&emsp;C++中函数的形参列表里可以有占位参数，用来做占位，调用函数时必须填补该位置</p>
+<p>&emsp;&emsp;<strong>语法</strong>：<code>返回值类型 函数名(数据类型)&#123;&#125;</code></p>
+<p>&emsp;&emsp;在现阶段函数的占位参数存在意义不大，但是后面会用到该技术</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void func(int a,int)&#123;
+	cout &lt;&lt; &quot;func&quot; &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	//占位符必须填补
+	func(10,10);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><h3 id="函数重载概述"><a href="#函数重载概述" class="headerlink" title="函数重载概述"></a>函数重载概述</h3><p>&emsp;&emsp;<strong>作用</strong>：函数名可以使用，提高复用性</p>
+<p>&emsp;&emsp;<strong>函数重载满足条件</strong>：</p>
+<ul>
+<li>同一个作用于下</li>
+<li>函数名称相同</li>
+<li>函数参数<strong>类型不同</strong> 或者 <strong>个数不同</strong> 或者 <strong>顺序不同</strong></li>
+</ul>
+<p>&emsp;&emsp;<strong>注意</strong>：函数的返回值不可以作为函数重载的条件</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void func()&#123;
+	cout &lt;&lt; &quot;func&quot; &lt;&lt; endl;
+&#125;
+void func(int a)&#123;
+	cout &lt;&lt; &quot;int a&quot; &lt;&lt; endl;
+&#125;
+
+void func(double a)&#123;
+	cout &lt;&lt; &quot;double a&quot; &lt;&lt; endl;
+&#125;
+
+void func(int a,double b)&#123;
+	cout &lt;&lt; &quot;double b&quot; &lt;&lt; endl;
+&#125;
+
+void func(double a,int b)&#123;
+	cout &lt;&lt; &quot;int b&quot; &lt;&lt; endl;
+&#125;
+
+//函数返回值不可以作为函数重载条件
+/*int func(double a,int b)&#123;
+	cout &lt;&lt; &quot;double a&quot; &lt;&lt; endl;
+&#125;*/
+
+int main()&#123;
+	func();
+	func(10);
+	func(3.14);
+	func(10,3.14);
+	func(3.14,10);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="函数重载注意事项"><a href="#函数重载注意事项" class="headerlink" title="函数重载注意事项"></a>函数重载注意事项</h3><ul>
+<li>引用作为重载条件</li>
+<li>函数重载碰到函数默认参数</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">void func(int &amp;a)&#123;
+	cout &lt;&lt; &quot;&amp;a&quot; &lt;&lt; endl;
+&#125;
+
+void func(const int &amp;a)&#123;
+	cout &lt;&lt; &quot;const&quot; &lt;&lt; endl;
+&#125;
+
+void func2(int a,int b = 10)&#123;
+	cout &lt;&lt; &quot;a,b = 10&quot; &lt;&lt; endl;
+&#125;
+
+void func2(int a)&#123;
+	cout &lt;&lt; &quot;a&quot; &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	int a = 10;
+
+	//调用无const
+	func(a);
+
+	//调用有const
+	func(10);
+
+	//碰到默认参数产生歧义，需要避免
+	//func2(10);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h1><p>&emsp;&emsp;C++面向对象的三大特性为：<mark>封装、继承、多态</mark></p>
+<p>&emsp;&emsp;C++认为<mark>万事万物皆为对象</mark>，对象上有其属性和行为</p>
+<p>&emsp;&emsp;<strong>例如</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;人可以作为对象，属性有姓名、年龄等，行为有走、跑等</p>
+<p>&emsp;&emsp;&emsp;&emsp;车作为对象，属性有轮胎、方向盘等，行为有载人、放音乐等</p>
+<p>&emsp;&emsp;&emsp;&emsp;具有相同性质的<mark>对象</mark>，可以抽象称为<mark>类</mark></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="封装的意义"><a href="#封装的意义" class="headerlink" title="封装的意义"></a>封装的意义</h3><p>&emsp;&emsp;封装是C++面向对象三大特性之一</p>
+<p>&emsp;&emsp;封装的意义：</p>
+<p>&emsp;&emsp;&emsp;&emsp;将属性和行为作为一个整体，表现生活中的事物</p>
+<p>&emsp;&emsp;&emsp;&emsp;将属性和行为加以权限控制</p>
+<p>&emsp;&emsp;<strong>封装的意义一</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;在设计类的时候，属性和行为写在一起，表现事物</p>
+<p>&emsp;&emsp;<strong>语法</strong>：<code>class 类名&#123;访问权限:属性/行为&#125;;</code></p>
+<p>示例：设计一个圆类，求圆的周长</p>
+<pre><code class="language-cpp">const double pi = 3.14;
+
+class Circle&#123;
+public:
+	int m_r;
+
+	double calculate()&#123;
+		return 2 * pi * m_r;
+	&#125;
+&#125;;
+
+int main()&#123;
+	Circle c1;
+	c1.m_r = 10;
+
+	cout &lt;&lt; c1.calculate() &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;<strong>封装意义二</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;类在设计时，可以把属性和行为放在不同的权限下，加以控制</p>
+<p>&emsp;&emsp;访问权限有三种：</p>
+<p>&emsp;&emsp;&emsp;&emsp;1. public 公共权限</p>
+<p>&emsp;&emsp;&emsp;&emsp;2. protected  保护权限</p>
+<p>&emsp;&emsp;&emsp;&emsp;3. private 私有权限</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	string m_Name;
+
+protected:
+	string m_Car;
+
+private:
+	int m_Password;
+
+public:
+	void func()&#123;
+		m_Name = &quot;张三&quot;;
+		m_Car = &quot;汽车&quot;;
+		m_Password = 123456;
+	&#125;
+&#125;;
+
+int main()&#123;
+	Person p;
+
+	p.m_Name = &quot;李四&quot;;
+
+	//在类外访问不到
+	//p.m_Car = &quot;aodi&quot;;
+
+	//在类外访问不到
+	//p1.m_Password = 123;
+
+	p.func();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="struct-和-class-区别"><a href="#struct-和-class-区别" class="headerlink" title="struct 和 class 区别"></a>struct 和 class 区别</h3><p>&emsp;&emsp;在 C++ 中 struct 和 class 唯一的<strong>区别</strong>就在于<strong>默认的访问权限不同</strong></p>
+<p>&emsp;&emsp;区别：</p>
+<ul>
+<li>struct 默认权限为公共</li>
+<li>class 默认权限为私有</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">class C1&#123;
+	int m_A;
+&#125;;
+
+struct C2&#123;
+	int m_A;
+&#125;;
+
+int main()&#123;
+	C1 c1;
+	c1.m_A = 10;
+
+	C2 c2;
+	c2.m_A = 10;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="成员属性设置为私有"><a href="#成员属性设置为私有" class="headerlink" title="成员属性设置为私有"></a>成员属性设置为私有</h3><p>&emsp;&emsp;<strong>优点1</strong>：将所有成员属性设置为私有，可以自己控制读写权限</p>
+<p>&emsp;&emsp;<strong>优点2</strong>：对于写权限，可以检测数据的有效性</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	void SetName(string name)&#123;
+		m_Name = name;
+	&#125;
+	
+	string GetName()&#123;
+		return m_Name;
+	&#125;
+
+	int GetAge()&#123;
+		return m_Age;
+	&#125;
+
+	void SetAge(int age)&#123;
+		m_Age = age;
+	&#125;
+
+	void SetIdol(string idol)&#123;
+		m_Idol = idol;
+	&#125;
+
+private:
+	string m_Name;
+	int m_Age = 18;
+	string m_Idol;
+&#125;;
+
+int main()&#123;
+	Person p;
+
+	p.SetName(&quot;张三&quot;);
+	cout &lt;&lt; p.GetName() &lt;&lt; endl;
+
+	cout &lt;&lt; p.GetAge() &lt;&lt; endl;
+
+	p.SetIdol(&quot;小明&quot;);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="对象的初始化和清理"><a href="#对象的初始化和清理" class="headerlink" title="对象的初始化和清理"></a>对象的初始化和清理</h2><p>&emsp;&emsp;C++中的每个对象都会有初始设置以及对象销毁前的清理数据的设置</p>
+<h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><p>&emsp;&emsp;对象的<strong>初始化</strong>和<strong>清理</strong>也是两个非常重要的安全问题</p>
+<p>&emsp;&emsp;&emsp;&emsp;一个对象或变量没有初始状态，对其使用后果是未知</p>
+<p>&emsp;&emsp;&emsp;&emsp;同样的使用完一个对象或变量，没有及时清理，也会造成一定的安全问题</p>
+<p>&emsp;&emsp;C++利用了<strong>构造函数</strong>和<strong>析构函数</strong>解决上述问题，这两个函数将会被连一起自动调用，完成对象初始化和清理工作</p>
+<p>&emsp;&emsp;对象的初始化和清理工作是编译器强制要求做的事情，因此如果<strong>不提供构造和析构，编译器会提供编译器提供的构造函数和析构函数是空实现</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;构造函数：主要作用在于创建对象时为对象的成员属性赋值，构造函数由编译器自动调用，无需手动调用</p>
+<p>&emsp;&emsp;&emsp;&emsp;析构函数：主要作用在于<strong>对象销毁前</strong>系统自动调用，执行一些工作</p>
+<p>&emsp;&emsp;<strong>构造函数语法</strong>：<code>类名()&#123;&#125;</code></p>
+<p>&emsp;&emsp;&emsp;&emsp;构造函数没有返回值也不写void</p>
+<p>&emsp;&emsp;&emsp;&emsp;函数名称和类名相同</p>
+<p>&emsp;&emsp;&emsp;&emsp;构造函数可以有参数，因此可以发生重载</p>
+<p>&emsp;&emsp;&emsp;&emsp;程序在调用对象时候会自动调用构造，无需手动调用，而且只会调用一次</p>
+<p>&emsp;&emsp;<strong>析构函数语法</strong>：<code>~类名()&#123;&#125;</code></p>
+<p>&emsp;&emsp;&emsp;&emsp;析构函数，没有返回值也不写void</p>
+<p>&emsp;&emsp;&emsp;&emsp;函数名称与类名相同，在名称前加上符号~</p>
+<p>&emsp;&emsp;&emsp;&emsp;析构函数不可以有参数，因此不可以发生重载</p>
+<p>&emsp;&emsp;&emsp;&emsp;程序在对象销毁前会自动调用析构，无需手动调用，而且只会调用一次</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	Person()&#123;
+		cout &lt;&lt; &quot;构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	~Person()&#123;
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void Test()&#123;
+	Person p;
+&#125;
+
+int main()&#123;
+	Test();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="构造函数的分类和调用"><a href="#构造函数的分类和调用" class="headerlink" title="构造函数的分类和调用"></a>构造函数的分类和调用</h3><p>&emsp;&emsp;两种分类方式：</p>
+<p>&emsp;&emsp;&emsp;&emsp;按参数分为：有参构造和无参构造</p>
+<p>&emsp;&emsp;&emsp;&emsp;按类型分为：普通构造和拷贝构造</p>
+<p>&emsp;&emsp;三种调用方式：</p>
+<p>&emsp;&emsp;&emsp;&emsp;括号法</p>
+<p>&emsp;&emsp;&emsp;&emsp;显示法</p>
+<p>&emsp;&emsp;&emsp;&emsp;隐式转换发</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	//无参（默认）构造函数
+	Person()&#123;
+		cout &lt;&lt; &quot;无参构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	//有参构造函数
+	Person(int a)&#123;
+		age = a;
+		cout &lt;&lt; &quot;有参构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	//拷贝构造函数
+	Person(const Person&amp; p)&#123;
+		age = p.age;
+		cout &lt;&lt; &quot;拷贝构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	//析构函数
+	~Person()&#123;
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+	&#125;
+
+public:
+	int age;
+&#125;;
+
+void test01()&#123;
+	Person p;
+&#125;
+
+void test02()&#123;
+	//括号法（常用）
+	Person p1(10);
+
+	//注意：调用无参构造函数不能加括号，如果加了编译器认为是一个函数声明
+	//Person p2();
+
+	//显式法
+	Person p2 = Person(10);
+	Person p3 = Person(p2);
+
+	//单独写就是匿名对象，当前行结束，马上析构
+	//Person(10);
+
+	//隐式转换法
+	Person p4 = 10;
+	Person p5 = p4;
+
+	//注意：不能利用拷贝构造函数，初始化匿名对象，编译器认为是对象声明
+	//Person p5(p4);
+&#125;
+
+int main()&#123;
+	test01();
+
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="拷贝构造函数调用时机"><a href="#拷贝构造函数调用时机" class="headerlink" title="拷贝构造函数调用时机"></a>拷贝构造函数调用时机</h3><p>&emsp;&emsp;C++中拷贝构造函数调用时机通常有三种情况</p>
+<p>&emsp;&emsp;&emsp;&emsp;使用一个已经创建完毕的对象来初始化一个新对象</p>
+<p>&emsp;&emsp;&emsp;&emsp;值传递的方式给函数参数传递</p>
+<p>&emsp;&emsp;&emsp;&emsp;以值方式返回局部对象</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	Person()&#123;
+		cout &lt;&lt; &quot;默认构造函数&quot; &lt;&lt; endl;
+		mAge = 0;
+	&#125;
+
+	Person(int age)&#123;
+		cout &lt;&lt; &quot;有参构造函数&quot; &lt;&lt; endl;
+		mAge = age;
+	&#125;
+	
+	Person(const Person&amp; p)&#123;
+		cout &lt;&lt; &quot;拷贝构造函数&quot; &lt;&lt; endl;
+		mAge = p.mAge;
+	&#125;
+
+	~Person()&#123;
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+	&#125;
+
+	int mAge;
+&#125;;
+	
+void test01()&#123;
+	Person p1(20);
+	Person p2(p1);
+
+	cout &lt;&lt; p2.mAge &lt;&lt; endl;
+&#125;
+
+void doWork(Person p)&#123;
+	
+&#125;
+
+void test02()&#123;
+	Person p;
+	doWork(p);
+&#125;
+
+Person doWork2()&#123;
+	Person p1;
+	return p1;
+&#125;
+
+void test03()&#123;
+	Person p = doWork2();
+&#125;
+
+int main()&#123;
+	test01();
+	
+	test02();
+
+	test03();
+
+	system(&quot;pause&quot;);
+	return 0;
+	&#125;
+</code></pre>
+<h3 id="构造函数调用规则"><a href="#构造函数调用规则" class="headerlink" title="构造函数调用规则"></a>构造函数调用规则</h3><p>&emsp;&emsp;默认情况下，C++编译器至少给一个类添加3个函数</p>
+<p>&emsp;&emsp;&emsp;&emsp;默认构造函数（无参，函数体为空）</p>
+<p>&emsp;&emsp;&emsp;&emsp;默认析构函数（无参，函数体为空）</p>
+<p>&emsp;&emsp;&emsp;&emsp;默认拷贝构造函数，对属性值进行拷贝</p>
+<p>&emsp;&emsp;构造函数调用规则如下：</p>
+<p>&emsp;&emsp;&emsp;&emsp;如果用户定义有参构造函数，C++不在提供默认无参构造，但是会提供默认拷贝函数</p>
+<p>&emsp;&emsp;&emsp;&emsp;如果用户定义拷贝构造函数，C++不会再提供其他构造函数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	Person()&#123;
+		cout &lt;&lt; &quot;默认构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	Person(int a)&#123;
+		age = a;
+		cout &lt;&lt; &quot;有参构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	Person(Person&amp; p)&#123;
+		m_Age = p.m_Age;
+		cout &lt;&lt; &quot;拷贝构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	~Person()&#123;
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+	&#125;
+
+	int m_Age;
+&#125;;
+
+void test01()&#123;
+	Person p;
+	p.m_Age = 18;
+
+	Person p2(p);
+
+	cout &lt;&lt; p2.m_Age &lt;&lt; endl;
+&#125;
+
+void test02()&#123;
+	Person p;
+	Person p2(18);
+	Person p3(p2);
+	
+	cout &lt;&lt; p3.m_Age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	test01();
+
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h3><p>&emsp;&emsp;浅拷贝：简单的赋值拷贝操作</p>
+<p>&emsp;&emsp;深拷贝：在堆区重新申请空间、进行拷贝工作</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	Person()&#123;
+		cout &lt;&lt; &quot;无参构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	Person(int age,int height)&#123;
+		cout &lt;&lt; &quot;有参构造函数&quot; &lt;&lt; endl;
+
+		m_Age = age;
+		m_hight = new int(height);
+	&#125;
+
+	Person(const Person&amp; p)&#123;
+		cout &lt;&lt; &quot;拷贝构造函数&quot; &lt;&lt; endl;
+
+		m_Age = p.m_Age;
+
+		//深拷贝操作
+		m_height = new int(*p.m_height);
+	&#125;
+
+	~Person()&#123;
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+		if(m_height != NULL)&#123;
+			delete m_height;
+		&#125;
+	&#125;
+
+	public:
+		int age;
+		int* m_height;
+&#125;;
+
+void test01()&#123;
+	Person p1(10,100);
+	Person p2(p1);
+
+	cout &lt;&lt; p1.m_Age &lt;&lt; *p1.m_height &lt;&lt; endl;
+	cout &lt;&lt; p2.m_Age &lt;&lt; *p2.m_height &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;如果属性在堆区开辟，一定要自己提供拷贝构造函数，防止浅拷贝带来的问题（堆区重复释放）</p>
+<h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p>&emsp;&emsp;<strong>作用</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;C++提供了初始化列表语法，用来初始化属性</p>
+<p>&emsp;&emsp;<strong>语法</strong>：<code>构造函数():属性1(值1),属性2(值2)...&#123;&#125;</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	// 传统方式初始化
+	/*
+	Person(int a,int b,int c)&#123;
+		m_A = a;
+		m_B = b;
+		m_C = c;
+	&#125;
+	*/
+
+	//初始化列表初始化属性
+	Person(int a,int b,int c):m_A(a),m_B(b),m_C(c)&#123;
+
+	&#125;
+
+	int m_A;
+	int m_B;
+	int m_C;
+&#125;;
+
+void test01()&#123;
+	//Person p(10,20,30);
+
+	Person p(30,20,10);
+
+	cout &lt;&lt; p.m_A &lt;&lt; endl;
+	cout &lt;&lt; p.m_B &lt;&lt; endl;
+	cout &lt;&lt; p.m_C &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="类对象作为类成员"><a href="#类对象作为类成员" class="headerlink" title="类对象作为类成员"></a>类对象作为类成员</h3><p>&emsp;&emsp;C++中的类可以是另一个类的对象，将该对象称为对象成员</p>
+<p>例如：</p>
+<pre><code class="language-cpp">class A&#123;&#125;
+class B&#123;
+	A a;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;B类中有对象A作为成员，A为对象成员</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Phone &#123;
+public:
+	Phone(string pName) &#123;
+		cout &lt;&lt; &quot;phone&quot; &lt;&lt; endl;
+		m_PName = pName;
+	&#125;
+
+	~Phone() &#123;
+		cout &lt;&lt; &quot;phone ~&quot; &lt;&lt; endl;
+	&#125;
+
+	string m_PName;
+&#125;;
+
+class Person &#123;
+public:
+	Person(string name, string pName) :m_Name(name), phone(pName)&#123;
+		cout &lt;&lt; &quot;Person&quot; &lt;&lt; endl;
+	&#125;
+
+	~Person() &#123;
+		cout &lt;&lt; &quot;Person ~&quot; &lt;&lt; endl;
+	&#125;
+
+	string m_Name;
+	Phone phone;
+&#125;;
+
+void test01() &#123;
+	Person p(&quot;张三&quot;, &quot;Apple&quot;);
+
+	cout &lt;&lt; p.m_Name &lt;&lt; endl;
+	cout &lt;&lt; p.phone.m_PName &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;总结：</p>
+<p>&emsp;&emsp;&emsp;&emsp;当其他类对象作为本类成员，构造时候先构造类对象，再构造自身</p>
+<p>&emsp;&emsp;&emsp;&emsp;析构的顺序与构造的相反</p>
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><p>&emsp;&emsp;静态成员就是在成员变量和成员函数前加上关键字static，称为静态成员</p>
+<p>&emsp;&emsp;静态成员分为：</p>
+<p>&emsp;&emsp;&emsp;&emsp;静态成员变量</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;所有对象共享的一份数据</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;在编译阶段分配内存</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;类内生命，类外初始化</p>
+<p>&emsp;&emsp;&emsp;&emsp;静态成员函数</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;所有对象共享同一个函数</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;静态成员函数只能访问静态成员变量</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	static int m_A;
+&#125;;
+
+int Person::m_A = 100;
+
+void test01()&#123;
+	Person p;
+
+	cout &lt;&lt; p.m_A &lt;&lt; endl;
+
+	Person p2;
+	p.m_A = 200;
+
+	//输出的值为200，所以说明所有对象共享同一个数据
+	cout &lt;&lt; p.m_A &lt;&lt; endl;
+&#125;
+
+void test02()&#123;
+	/*Person p;
+	
+	cout &lt;&lt; p.m_A &lt;&lt; endl;
+	*/
+
+	cout &lt;&lt; Person::m_A &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	static void func()&#123;
+		cout &lt;&lt; &quot;func&quot; &lt;&lt; endl;
+	&#125;
+
+	static int m_A;
+	int m_B;
+
+private:
+	static void func2()&#123;
+		cout &lt;&lt; &quot;func2&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+int Person::m_A = 10;
+
+void test01()&#123;
+	Person p1;
+	p1.func();
+
+	Person::func();
+
+	//访问不到
+	//Person::func2();
+&#125;
+
+int main()&#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="C-对象模型和this指针"><a href="#C-对象模型和this指针" class="headerlink" title="C++对象模型和this指针"></a>C++对象模型和this指针</h2><h3 id="成员变量和成员函数分开存储"><a href="#成员变量和成员函数分开存储" class="headerlink" title="成员变量和成员函数分开存储"></a>成员变量和成员函数分开存储</h3><p>&emsp;&emsp;在C++中，类内的成员变量和成员函数分开存储</p>
+<p>&emsp;&emsp;只有非静态成员变量才属于类的对象上</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	int m_A;
+
+	static int m_B;
+
+	void func()&#123;&#125;
+
+	static void func2()&#123;&#125;
+&#125;;
+
+int Person::m_B = 0;
+
+void test01()&#123;
+	Person p;
+
+	cout &lt;&lt; sizeof(p) &lt;&lt; endl;
+&#125;
+
+void test02()&#123;
+	Person p;
+	cout &lt;&lt; sizeof(p) &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;<strong>总结</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;空对象占用内存空间为1</p>
+<p>&emsp;&emsp;&emsp;&emsp;C++编译器会给每个空对象也分配一个空间，时为了区分空对象占内存的情况</p>
+<p>&emsp;&emsp;&emsp;&emsp;每个空对象也应该有一个独一无二的内存地址</p>
+<h3 id="this指针概念"><a href="#this指针概念" class="headerlink" title="this指针概念"></a>this指针概念</h3><p>&emsp;&emsp;C++通过提供特殊的对象指针，this指针，解决区分某个对象调用自己，<strong>this指向被调用的成员函数所属的对象</strong></p>
+<p>&emsp;&emsp;this指针是隐含每一个非静态成员函数内的一种指针</p>
+<p>&emsp;&emsp;this指针不需要定义，直接使用即可</p>
+<p>&emsp;&emsp;this指针的用途：</p>
+<p>&emsp;&emsp;&emsp;&emsp;当形参和成员变量同名时，可用 this 指针来区分</p>
+<p>&emsp;&emsp;&emsp;&emsp;在类的非静态成员函数中返回对象本身，可使用 return *this</p>
+<p>示例:</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	Person(int age)&#123;
+		this -&gt; age = age;
+	&#125;
+
+	Person&amp; PersonAddAge(Person &amp;p)&#123;
+		this -&gt; age +=p.age;
+		return *this;
+	&#125;
+
+	int age;
+&#125;;
+
+void test01()&#123;
+	Person p1(18);
+	cout &lt;&lt; p1.age &lt;&lt; endl;
+&#125;
+
+void test02()&#123;
+	Person p1(10);
+	Person p2(10);
+
+	p2.PersonAddAge(p1).PersonAddAge(p1);
+	cout &lt;&lt; p2.age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	test01();
+
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="空指针访问成员函数"><a href="#空指针访问成员函数" class="headerlink" title="空指针访问成员函数"></a>空指针访问成员函数</h3><p>&emsp;&emsp;C++中空指针也是可以调用成员函数的，但是也要注意有没有用到 this 指针</p>
+<p>&emsp;&emsp;如果用到 this 指针，需要加以判断保证代码的健壮性</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person &#123;
+public:
+	void showClassName() &#123;
+		cout &lt;&lt; &quot;Person&quot; &lt;&lt; endl;
+	&#125;
+
+	void showPersonAge() &#123;
+		if (this == NULL) &#123;
+			return;
+		&#125;
+
+		cout &lt;&lt; m_Age &lt;&lt; endl;
+	&#125;
+
+	int m_Age;
+&#125;;
+
+void test01() &#123;
+	Person* p = NULL;
+
+	p-&gt;showClassName();
+
+	//报错，因为传入的指针为空
+	//p -&gt; showPersonAge();
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="const修饰成员函数"><a href="#const修饰成员函数" class="headerlink" title="const修饰成员函数"></a>const修饰成员函数</h3><p>&emsp;&emsp;<strong>常函数</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;成员函数后加const后称这个数为<strong>常函数</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;常函数内不可以修改成员属性</p>
+<p>&emsp;&emsp;&emsp;&emsp;成员属性声明时加关键字 muteble 后，在常函数中依旧可以修改</p>
+<p>&emsp;&emsp;<strong>常对象</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;声明对象前加const称该对象为常对象</p>
+<p>&emsp;&emsp;&emsp;&emsp;常对象只能调用常函数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">class Person&#123;
+public:
+	void showPerson() const&#123;
+		//this -&gt; m_A = 100;
+
+		this -&gt; m_B = 100;
+	&#125;
+
+	int m_A;
+	mutable int m_B;
+
+	void func()&#123;&#125;
+&#125;;
+
+void test01()&#123;
+	Person p;
+	p.showPerson();
+&#125;
+
+void test02()&#123;
+	const Person p;
+
+	//p.m_A = 100;
+	p.m_B = 100;
+
+	//p.func();
+&#125;
+
+int main()&#123;
+	test01();
+
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;总结：</p>
+<p>&emsp;&emsp;&emsp;&emsp;this指针的本质是指针常量，指针的指向是不可以修改的</p>
+<p>&emsp;&emsp;&emsp;&emsp;this指针不可以修改指针的指向的</p>
+<p>&emsp;&emsp;&emsp;&emsp;在成员函数后面加const，修饰的是this指向，让指针指向的值也不可以修改</p>
+<p>&emsp;&emsp;&emsp;&emsp;加关键字mutable的特殊变量，即使在常函数中，也可以修改这个值</p>
+<p>&emsp;&emsp;&emsp;&emsp;加了muteble的特殊变量，在常对象下也可以修改</p>
+<p>&emsp;&emsp;&emsp;&emsp;常对象只能调用常函数，不可以调用普通成员函数，因为普通成员函数可以修改属性</p>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p>&emsp;&emsp;在程序里，有些私有属性想让类外特殊的一些函数或者类进行访问，就需要用到友元的技术</p>
+<p>&emsp;&emsp;友元的目的就是让一个函数或者类访问另一个类中私有成员</p>
+<p>&emsp;&emsp;友元的关键字为 <mark>friend</mark></p>
+<p>&emsp;&emsp;友元的三种实现</p>
+<p>&emsp;&emsp;&emsp;&emsp;全局函数做友元</p>
+<p>&emsp;&emsp;&emsp;&emsp;类做友元</p>
+<p>&emsp;&emsp;&emsp;&emsp;成员函数做友元</p>
+<h3 id="全局函数做友元"><a href="#全局函数做友元" class="headerlink" title="全局函数做友元"></a>全局函数做友元</h3><pre><code class="language-cpp">class Building &#123;
+	//goodGay可以访问Building中的私有成员
+	friend void goodGay(Building&amp; building);
+
+public:
+	string m_SittingRoom;
+
+	Building() &#123;
+		m_SittingRoom = &quot;客厅&quot;;
+		m_BedRoom = &quot;卧室&quot;;
+	&#125;
+
+private:
+	string m_BedRoom;
+&#125;;
+
+void goodGay(Building&amp; building) &#123;
+	cout &lt;&lt; building.m_SittingRoom &lt;&lt; endl;
+
+	cout &lt;&lt; building.m_BedRoom &lt;&lt; endl;
+&#125;
+
+void test01() &#123;
+	Building building;
+	goodGay(building);
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="类做友元"><a href="#类做友元" class="headerlink" title="类做友元"></a>类做友元</h3><pre><code class="language-cpp">class Building;
+
+class Building &#123;
+	//GoodGay可以访问本类中的私有成员
+	friend class GoodGay;
+
+public:
+	Building();
+
+	string m_SittingRoom;
+
+private:
+	string m_BedRoom;
+&#125;;
+
+class GoodGay &#123;
+public:
+	GoodGay();
+
+	void visit();
+
+	Building* building;
+&#125;;
+
+
+void GoodGay::visit() &#123;
+	cout &lt;&lt; building-&gt;m_SittingRoom &lt;&lt; endl;
+
+	cout &lt;&lt; building-&gt;m_BedRoom &lt;&lt; endl;
+&#125;
+
+
+
+Building::Building() &#123;
+	m_SittingRoom = &quot;客厅&quot;;
+	m_BedRoom = &quot;卧室&quot;;
+&#125;
+
+
+GoodGay::GoodGay() &#123;
+	building = new Building;
+&#125;
+
+void test01() &#123;
+	GoodGay gg;
+	gg.visit();
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="成员函数做友元"><a href="#成员函数做友元" class="headerlink" title="成员函数做友元"></a>成员函数做友元</h3><pre><code class="language-cpp">class Building;
+
+class GoodGay &#123;
+public:
+	GoodGay();
+
+	//让visit函数可以访问私有成员
+	void visit();
+
+	void visit2();
+private:
+	Building* building;
+&#125;;
+
+class Building &#123;
+	//告诉编译器，GoodGay下的visit成员函数作为本类的友元，可以访问私有的成员
+	friend void GoodGay::visit();
+
+public:
+	Building();
+
+	string m_SittingRoom;
+
+private:
+	string m_BedRoom;
+&#125;;
+
+Building::Building() &#123;
+	m_SittingRoom = &quot;客厅&quot;;
+	m_BedRoom = &quot;卧室&quot;;
+&#125;
+
+
+
+GoodGay::GoodGay() &#123;
+	building = new Building;
+&#125;
+
+void GoodGay::visit() &#123;
+	cout &lt;&lt; building-&gt;m_SittingRoom &lt;&lt; endl;
+
+	cout &lt;&lt; building-&gt;m_BedRoom &lt;&lt; endl;
+&#125;
+
+void GoodGay::visit2()&#123;
+	cout &lt;&lt; building -&gt; m_SittingRoom &lt;&lt; endl;
+
+	//cout &lt;&lt; building -&gt; m_BedRoom &lt;&lt; endl;
+&#125;
+
+void test01() &#123;
+	GoodGay gg;
+	gg.visit();
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><p>&emsp;&emsp;运算符重载概念：对已有的运算符重新进行定义，赋予其另一种功能，以适应不同的数据类型</p>
+<h3 id="加号运算符重载"><a href="#加号运算符重载" class="headerlink" title="加号运算符重载"></a>加号运算符重载</h3><p>&emsp;&emsp;作用：实现两个自定义数据类型相加的运算</p>
+<p>&emsp;&emsp;注意：</p>
+<p>&emsp;&emsp;&emsp;&emsp;对于内置的数据类型的表达式的运算符是不可以改变的</p>
+<p>&emsp;&emsp;&emsp;&emsp;不能滥用运算符重载</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+
+class Person &#123;
+public:
+	//成员函数重载+
+	/*Person operator+(Person&amp; p) &#123;
+		Person temp;
+		temp.m_A = this-&gt;m_A + p.m_A;
+		temp.m_B = this-&gt;m_B + p.m_B;
+		return temp;
+	&#125;*/
+
+	int m_A;
+	int m_B;
+&#125;;
+
+Person operator+(Person&amp; p1, Person&amp; p2) &#123;
+	Person temp;
+	temp.m_A = p1.m_A + p2.m_B;
+	temp.m_B = p1.m_B + p2.m_B;
+	return temp;
+&#125;
+
+Person operator+(Person&amp; p1, int a) &#123;
+	Person temp;
+	temp.m_A = p1.m_A + a;
+	temp.m_B = p1.m_B + a;
+	return temp;
+&#125;
+
+void test01() &#123;
+	Person p1;
+	p1.m_A = 10;
+	p1.m_B = 10;
+	Person p2;
+	p2.m_A = 10;
+	p2.m_B = 10;
+
+	Person p3 = p1 + p2;
+	Person p4 = p1 + 100;
+
+	cout &lt;&lt; p3.m_A &lt;&lt; endl;
+	cout &lt;&lt; p3.m_B &lt;&lt; endl;
+
+	cout &lt;&lt; p4.m_A &lt;&lt; endl;
+	cout &lt;&lt; p4.m_B &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="左移运算符重载"><a href="#左移运算符重载" class="headerlink" title="左移运算符重载"></a>左移运算符重载</h3><p>&emsp;&emsp;作用：可以输出自定义数据类型</p>
+<p>&emsp;&emsp;重载左移运算符配合友元可以实现输出自定义数据类型</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Person &#123;
+	friend ostream&amp; operator&lt;&lt;(ostream&amp; cout, Person p);
+
+public:
+	Person(int a, int b) &#123;
+		m_A = a;
+		m_B = b;
+	&#125;
+
+private:
+	int m_A;
+	int m_B;
+&#125;;
+
+ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person p) &#123;
+	cout &lt;&lt; p.m_A &lt;&lt; endl;
+	cout &lt;&lt; p.m_B &lt;&lt; endl;
+	return cout;
+&#125;
+
+void test01() &#123;
+	Person p(10,10);
+	cout &lt;&lt; p &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="递增运算符重载"><a href="#递增运算符重载" class="headerlink" title="递增运算符重载"></a>递增运算符重载</h3><p>&emsp;&emsp;通过重载递增运算符，实现自己的整型数据</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class MyInteger &#123;
+	friend ostream&amp; operator&lt;&lt; (ostream&amp; cout, MyInteger myint);
+
+public:
+	MyInteger() &#123;
+		m_Num = 0;
+	&#125;
+
+	//重载前置++运算符
+	//返回引用是为了一直对一个数据进行递增操作
+	MyInteger&amp; operator++() &#123;
+		m_Num++;
+		return *this;
+	&#125;
+
+	//重载后置++运算符
+	//参数中的占位参数int可以作为区分前置和后置递增
+	MyInteger operator++(int) &#123;
+		MyInteger temp = *this;
+		m_Num++;
+		return temp;
+	&#125;
+	
+private:
+	int m_Num;
+&#125;;
+
+ostream&amp; operator&lt;&lt; (ostream &amp; cout, MyInteger myint) &#123;
+	cout &lt;&lt; myint.m_Num;
+	return cout;
+&#125;
+
+void test01() &#123;
+	MyInteger myint;
+
+	cout &lt;&lt; ++myint &lt;&lt; endl;
+&#125;
+
+void test02() &#123;
+	MyInteger myint;
+
+	cout &lt;&lt; myint++ &lt;&lt; endl;
+	cout &lt;&lt; myint &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="赋值运算符重载"><a href="#赋值运算符重载" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h3><p>&emsp;&emsp;C++编译器至少给一个类添加4个函数</p>
+<p>&emsp;&emsp;&emsp;&emsp;1.默认构造函数（无参，函数体为空）</p>
+<p>&emsp;&emsp;&emsp;&emsp;2.默认析构函数（无参，函数体为空）</p>
+<p>&emsp;&emsp;&emsp;&emsp;3.默认拷贝构造函数，对属性进行值拷贝</p>
+<p>&emsp;&emsp;&emsp;&emsp;4.赋值运算符 operator&#x3D;，对属性进行值拷贝</p>
+<p>&emsp;&emsp;如果类中有属性指向堆区，做复制操作时也会出现深浅拷贝问题</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	Person(int age) &#123;
+		m_Age = new int(age);
+	&#125;
+
+	int* m_Age;
+
+	~Person() &#123;
+		if (m_Age != NULL) &#123;
+			delete m_Age;
+			m_Age = NULL;
+		&#125;
+	&#125;
+
+	Person&amp; operator=(Person&amp; p) &#123;
+		if (m_Age != NULL) &#123;
+			delete m_Age;
+			m_Age = NULL;
+		&#125;
+
+		m_Age = new int(*p.m_Age);
+
+		return *this;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	Person p1(16);
+	Person p2(20);
+	Person p3(30);
+
+	p3 = p2 = p1;
+
+	cout &lt;&lt; *p1.m_Age &lt;&lt; endl;
+	cout &lt;&lt; *p2.m_Age &lt;&lt; endl;
+	cout &lt;&lt; *p3.m_Age &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="关系运算符重载"><a href="#关系运算符重载" class="headerlink" title="关系运算符重载"></a>关系运算符重载</h3><p><strong>作用</strong>：重载关系运算符，可以让两个自定义类型对象进行对比操作</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	Person(string name, int age) &#123;
+		this-&gt;age = age;
+		this-&gt;name = name;
+	&#125;
+
+	bool operator==(Person&amp; p) &#123;
+		if (this-&gt;age == p.age &amp;&amp; this-&gt;name == p.name) &#123;
+			return true;
+		&#125;
+		return false;
+	&#125;
+
+	string name;
+	int age;
+&#125;;
+
+void test01() &#123;
+	Person p1(&quot;Tom&quot;, 12);
+	Person p2(&quot;Tom&quot;, 12);
+
+	cout &lt;&lt; (p1 == p2) &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="函数调用运算符重载"><a href="#函数调用运算符重载" class="headerlink" title="函数调用运算符重载"></a>函数调用运算符重载</h3><ul>
+<li>函数调用运算符()也可以重载</li>
+<li>由于重载后使用的方式非常像函数的调用，因此成为仿函数</li>
+<li>仿函数没有固定方法，非常灵活</li>
+</ul>
+<p><strong>示例</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class MyPrint &#123;
+public:
+	void operator()(string test) &#123;
+		cout &lt;&lt; test &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	MyPrint myprint;
+
+	//由于使用起来类似于函数调用，因此成为仿函数
+	myprint(&quot;helloWorld&quot;);
+&#125;
+
+class MyAdd &#123;
+public:
+	int operator()(int num1, int num2) &#123;
+		return num1 + num2;
+	&#125;
+&#125;;
+
+void test02() &#123;
+	MyAdd myAdd;
+
+	int res = myAdd(1, 2);
+	cout &lt;&lt; res &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p><strong>继承是面向对象三大特征之一</strong></p>
+<h3 id="继承的基本语法"><a href="#继承的基本语法" class="headerlink" title="继承的基本语法"></a>继承的基本语法</h3><p>继承的优点：减少重复代码</p>
+<p><strong>语法</strong>：<code>class 子类 : public 父类</code><br>子类也被称为派生类<br>父类也被称为基类</p>
+<p><strong>派生类中的成员，包含两大部分</strong>：</p>
+<ul>
+<li>一类是从基类继承过来的，一类是自己增加的成员</li>
+<li>从基类继承过来的表现其共性，而新增的成员体现了其个性</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class BasePage &#123;
+public:
+	void header() &#123;
+		cout &lt;&lt; &quot;这是网页头部&quot; &lt;&lt; endl;
+	&#125;
+
+	void footer() &#123;
+		cout &lt;&lt; &quot;这是网页底部&quot; &lt;&lt; endl;
+	&#125;
+
+	void left() &#123;
+		cout &lt;&lt; &quot;这是网页左侧边框展示&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Java : public BasePage &#123;
+public:
+	void content() &#123;
+		cout &lt;&lt; &quot;Java学科视频&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Python : public BasePage &#123;
+public:
+	void content() &#123;
+		cout &lt;&lt; &quot;Python学科视频&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Cpp : public BasePage &#123;
+public:
+	void content() &#123;
+		cout &lt;&lt; &quot;C++学科视频&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	cout &lt;&lt; &quot;Java如下&quot; &lt;&lt; endl;
+	Java ja;
+	ja.content();
+	ja.footer();
+	ja.header();
+	ja.left();
+	cout &lt;&lt; &quot;------------------&quot; &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;Python如下&quot; &lt;&lt; endl;
+	Python py;
+	py.content();
+	py.footer();
+	py.header();
+	py.left();
+	cout &lt;&lt; &quot;------------------&quot; &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;C++如下&quot; &lt;&lt; endl;
+	Cpp cpp;
+	cpp.content();
+	cpp.footer();
+	cpp.header();
+	cpp.left();
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="继承方式"><a href="#继承方式" class="headerlink" title="继承方式"></a>继承方式</h3><p>继承的语法：<code>class 子类 : 继承方式 父类</code></p>
+<p><strong>继承方式一共有三种</strong>：</p>
+<ul>
+<li>公共继承</li>
+<li>保护继承</li>
+<li>私有继承</li>
+</ul>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/3cdb983c7374f6301398565a50941768.png#pic_center" alt="在这里插入图片描述"></p>
+<p>示例:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Base1 &#123;
+public:
+	int m_A;
+protected:
+	int m_B;
+private:
+	int m_C;
+&#125;;
+
+class Son1 : public Base1 &#123;
+public:
+	void func() &#123;
+		//父类中的公共权限成员 到子类中依然是公共权限
+		m_A = 10;
+
+		//父类中的保护权限成员 到子类中依然是保护权限
+		m_B = 20;
+
+		//父类中的四有权限成员 子类访问不到
+		//m_C = 30;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	Son1 s1;
+	s1.m_A = 100;
+
+	//由于是保护权限，所以类外访问不到这个成员
+	//s1.m_B = 100;
+&#125;
+
+class Son2 : protected Base1 &#123;
+public:
+	void func() &#123;
+		m_A = 100;
+		m_B = 100;
+
+		//私有权限依旧访问不到
+		//m_C = 100;
+	&#125;
+&#125;;
+
+void test02() &#123;
+	Son2 son2;
+
+	//protected继承方式将父类中的public权限的变量转换成了protected权限，无法类外访问
+	//son2.m_A;
+	//son2.m_B;
+&#125;
+
+class Son3 : private Base1 &#123;
+public:
+	void func() &#123;
+		m_A = 10;
+		m_B = 10;
+		
+		//依旧无法访问到私有权限成员变量
+		//m_C = 10;
+	&#125;
+&#125;;
+
+void test03() &#123;
+	//private继承方式将父类中的成员都变成了private权限，无法在外部访问
+	//m_A = 1;
+	//m_B = 2;
+&#125;
+</code></pre>
+<h3 id="继承中的对象模型"><a href="#继承中的对象模型" class="headerlink" title="继承中的对象模型"></a>继承中的对象模型</h3><p><strong>问题</strong>：从父类继承过来的成员，哪些属于子类对象？</p>
+<p>父类中私有成员也被子类继承了，只是由编译器给隐藏后访问不到</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;;
+using namespace std;
+
+class Base &#123;
+public:
+	int m_A;
+protected:
+	int m_B;
+private:
+	int m_C;
+&#125;;
+
+class Son : public Base &#123;
+public:
+	int m_D;
+&#125;;
+
+//利用开发人员命令提示工具查看对象模型
+//跳转盘符  F:
+//跳转文件路径 cd 具体路径
+//查看命名
+//cl /d1 reportSingleClassLayout类名 文件名
+
+void test01() &#123;
+	cout &lt;&lt; &quot;size of Son = &quot; &lt;&lt; sizeof(Son) &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="继承中构造和析构顺序"><a href="#继承中构造和析构顺序" class="headerlink" title="继承中构造和析构顺序"></a>继承中构造和析构顺序</h3><p>子类继承父类后，当创建子类对象，也会调用父类对象中的构造函数</p>
+<p><strong>问题</strong>：父类和子类的构造函数谁先调用？</p>
+<p>顺序如下：</p>
+<ul>
+<li>先构造父类，再构造子类</li>
+<li>析构的顺序与构造的顺序相反</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Base &#123;
+public:
+	Base() &#123;
+		cout &lt;&lt; &quot;Base构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	~Base() &#123;
+		cout &lt;&lt; &quot;Base析构函数&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Son : public Base &#123;
+public:
+	Son() &#123;
+		cout &lt;&lt; &quot;Son构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	~Son() &#123;
+		cout &lt;&lt; &quot;Son析构函数&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	Son son;
+&#125;
+
+int main() &#123;
+	test01();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="继承同名成员处理方式"><a href="#继承同名成员处理方式" class="headerlink" title="继承同名成员处理方式"></a>继承同名成员处理方式</h3><p>问题：当子类成员与父类出现同名的成员，如何通过子类对象，访问到子类或父类中同名的数据？</p>
+<ul>
+<li>访问子类同名成员 直接访问即可</li>
+<li>访问父类同名成员 需要加作用域</li>
+</ul>
+<ol>
+<li>子类对象可以直接访问到子类中同名成员</li>
+<li>子类对象加作用域可以访问到父类同名成员</li>
+<li>当子类和父类拥有同名的成员函数，子类会隐藏掉父类中同名成员函数，加作用域可以访问到父类中同名函数</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+
+class Base &#123;
+public:
+	Base() &#123;
+		m_A = 100;
+	&#125;
+
+	void func() &#123;
+		cout &lt;&lt; &quot;Base调用&quot; &lt;&lt; endl;
+	&#125;
+
+	int m_A;
+&#125;;
+
+class Son : public Base &#123;
+public:
+	Son() &#123;
+		m_A = 200;
+	&#125;
+
+	void func() &#123;
+		cout &lt;&lt; &quot;Son调用&quot; &lt;&lt; endl;
+	&#125;
+
+	int m_A;
+&#125;;
+
+void test01() &#123;
+	Son s;
+	cout &lt;&lt; s.m_A &lt;&lt; endl;
+
+	//如果通过子类对象访问到父类中的同名成员，需要加作用域
+	cout &lt;&lt; s.Base::m_A &lt;&lt; endl;
+&#125;
+
+void test02() &#123;
+	Son s;
+	s.func();
+
+	s.Base::func();
+&#125;
+
+int main() &#123;
+	test01();
+	test02();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="继承同名静态成员处理方式"><a href="#继承同名静态成员处理方式" class="headerlink" title="继承同名静态成员处理方式"></a>继承同名静态成员处理方式</h3><p>问题：继承中同名的静态成员在子类对象上如何进行访问？</p>
+<p>静态成员和非静态成员出现同名，处理方式一致：</p>
+<ul>
+<li>访问子类同名成员 直接访问即可</li>
+<li>访问父类同名成员 需要加作用域</li>
+</ul>
+<p>同名静态成员处理方式和非静态处理方式一样，只不过有两种访问方式（通过对象和通过类名）</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Base &#123;
+public:
+	static int m_A;
+
+	static void func() &#123;
+		cout &lt;&lt; &quot;Base静态&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+int Base::m_A = 100;
+
+class Son : public Base &#123;
+public:
+	static int m_A;
+
+	static void func() &#123;
+		cout &lt;&lt; &quot;Son静态&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+int Son::m_A = 200;
+
+void test01() &#123;
+	//通过对象访问
+	Son s;
+	cout &lt;&lt; s.m_A &lt;&lt; endl;
+	cout &lt;&lt; s.Base::m_A &lt;&lt; endl;
+
+	//通过类名访问
+	cout &lt;&lt; Son::m_A &lt;&lt; endl;
+	cout &lt;&lt; Son::Base::m_A &lt;&lt; endl;
+&#125;
+
+void test02() &#123;
+	//通过对象访问
+	Son s;
+	s.func();
+	s.Base::func();
+
+	//通过类名访问
+	Son::func();
+	Son::Base::func();
+&#125;
+
+int main() &#123;
+	test01();
+	test02();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="多继承语法"><a href="#多继承语法" class="headerlink" title="多继承语法"></a>多继承语法</h3><p>C++允许<strong>一个类继承多个类</strong></p>
+<p>语法：<code>class 子类 : 继承方式 父类1,继承方式 父类2...</code></p>
+<p>多继承可能会引发父类中有同名成员出现，需要加作用域区分</p>
+<p><strong>C++实际开发中不建议用多继承</strong></p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Base1 &#123;
+public:
+	Base1() &#123;
+		m_A = 1;
+	&#125;
+
+	int m_A;
+&#125;;
+
+class Base2 &#123;
+public:
+	Base2() &#123;
+		m_B = 2;
+	&#125;
+
+	int m_B;
+&#125;;
+
+class Son : public Base1, public Base2 &#123;
+public:
+	Son() &#123;
+		m_C = 3;
+		m_D = 4;
+	&#125;
+
+	int m_C;
+	int m_D;
+&#125;;
+
+void test01() &#123;
+	Son s;
+	cout &lt;&lt; sizeof(s) &lt;&lt; endl;
+
+	cout &lt;&lt; s.Base1::m_A &lt;&lt; endl;
+	cout &lt;&lt; s.Base2::m_B &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h3><p><strong>菱形继承概念</strong></p>
+<ul>
+<li>两个派生类继承同一个基类</li>
+<li>又有某个类同时继承两个派生类</li>
+<li>这种继承被称为菱形继承，或者钻石继承</li>
+</ul>
+<p><strong>案例</strong>：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/30d585fa5fa6b484d0e310be46972eb8.png#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>分析案例中出现的问题</strong></p>
+<ol>
+<li>羊继承了动物的数据，驼同样继承了动物的数据，当羊驼使用数据时，会产生二义性</li>
+<li>羊驼继承自动物的数据变成了两份，其实一份即可</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Animal&#123;
+public:
+	int m_Age;
+&#125;;
+
+//因为菱形继承导致数据有两份，资源浪费
+//利用虚继承 加上关键字 virtual 变为虚继承
+//Animal类称为 虚基类
+class Sheep : virtual public Animal &#123;
+
+&#125;;
+
+class Tuo : virtual public Animal&#123;&#125;;
+
+class SheepTuo : public Sheep,public Tuo&#123;&#125;;
+
+void test01() &#123;
+	SheepTuo st;
+	st.Sheep::m_Age = 10;
+	st.Tuo::m_Age = 11;
+
+	//当菱形继承，两个父类拥有相同数据，需要加以作用域区分
+	cout &lt;&lt; st.Sheep::m_Age &lt;&lt; endl;
+	cout &lt;&lt; st.Tuo::m_Age &lt;&lt; endl;
+	cout &lt;&lt; st.m_Age &lt;&lt; endl;
+
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="多态的基本概念"><a href="#多态的基本概念" class="headerlink" title="多态的基本概念"></a>多态的基本概念</h3><p>&emsp;&emsp;<strong>多态是C++面向对象三大特性之一</strong></p>
+<p>&emsp;&emsp;多态分为两类</p>
+<p>&emsp;&emsp;&emsp;&emsp;静态多态：函数重载和运算符重载属于静态多态，复用函数名</p>
+<p>&emsp;&emsp;&emsp;&emsp;动态多态：派生类和虚函数实现运行时多态</p>
+<p>&emsp;&emsp;静态多态和动态多态区别：</p>
+<p>&emsp;&emsp;&emsp;&emsp;静态多态的函数地址早绑定 - 编译阶段确定函数地址</p>
+<p>&emsp;&emsp;&emsp;&emsp;动态多态的函数地址晚绑定 - 运行阶段确定函数地址</p>
+<p>&emsp;&emsp;动态多态满足条件：</p>
+<p>&emsp;&emsp;&emsp;&emsp;有继承关系</p>
+<p>&emsp;&emsp;&emsp;&emsp;子类重写父类的虚函数</p>
+<p>&emsp;&emsp;动态多态使用：</p>
+<p>&emsp;&emsp;&emsp;&emsp;父类的指针或引用指向子类对象</p>
+<p>&emsp;&emsp;重写：函数返回值类型 函数名 参数列表完全一致成为重写</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Animal &#123;
+public:
+	virtual void speak() &#123;
+		cout &lt;&lt; &quot;说话&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Cat : public Animal &#123;
+public:
+	void speak() &#123;
+		cout &lt;&lt; &quot;猫说话&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Dog :public Animal &#123;
+public:
+	void speak() &#123;
+		cout &lt;&lt; &quot;狗说话&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+//地址早绑定 在编译阶段确定函数地址
+//如果想让猫说话 那么这个函数地址就不能提前绑定 需要在运行阶段进行绑定 地址晚绑定
+void doSpeak(Animal &amp;animal) &#123;
+	animal.speak();
+&#125;
+
+void test01() &#123;
+	Cat cat;
+	doSpeak(cat);
+
+	Dog dog;
+	doSpeak(dog);
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="多态案例一：计算器类"><a href="#多态案例一：计算器类" class="headerlink" title="多态案例一：计算器类"></a>多态案例一：计算器类</h3><p>&emsp;&emsp;案例描述：</p>
+<p>&emsp;&emsp;&emsp;&emsp;分别利用普通写法和多态技术，设计实现两个操作数进行运算的计算机类</p>
+<p>&emsp;&emsp;多态的优点：</p>
+<p>&emsp;&emsp;&emsp;&emsp;代码组织结构清晰</p>
+<p>&emsp;&emsp;&emsp;&emsp;可读性强</p>
+<p>&emsp;&emsp;&emsp;&emsp;利于前期和后期的拓展和维护</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Caculator &#123;
+public:
+	int getResult(string oper) &#123;
+		if (oper == &quot;+&quot;) &#123;
+			return num1 + num2;
+		&#125;
+		else if (oper == &quot;-&quot;) &#123;
+			return num1 - num2;
+		&#125;
+		else if (oper == &quot;*&quot;) &#123;
+			return num1 * num2;
+		&#125;
+
+	&#125;
+
+	int num1;
+	int num2;
+&#125;;
+
+void test01() &#123;
+	Caculator c;
+	c.num1 = 1;
+	c.num2 = 2;
+
+	cout &lt;&lt; c.getResult(&quot;+&quot;) &lt;&lt; endl;
+	cout &lt;&lt; c.getResult(&quot;-&quot;) &lt;&lt; endl;
+	cout &lt;&lt; c.getResult(&quot;*&quot;) &lt;&lt; endl;
+&#125;
+
+class AbstractCalculator &#123;
+public:
+	virtual int getResult() &#123;
+		return 0;
+	&#125;
+
+	int num1;
+	int num2;
+&#125;;
+
+class AddCalculator : public AbstractCalculator &#123;
+public:
+	int getResult() &#123;
+		return num1 + num2;
+	&#125;
+&#125;;
+
+class SubCalculator : public AbstractCalculator &#123;
+public:
+	int getResult() &#123;
+		return num1 - num2;
+	&#125;
+&#125;;
+
+class MulCalculator : public AbstractCalculator &#123;
+public:
+	int getResult() &#123;
+		return num1 * num2;
+	&#125;
+&#125;;
+
+void test02() &#123;
+	AbstractCalculator* abc = new AddCalculator;
+	abc-&gt;num1 = 1;
+	abc-&gt;num2 = 2;
+
+	cout &lt;&lt; abc-&gt;getResult() &lt;&lt; endl;
+	delete abc;
+
+	abc = new SubCalculator;
+	abc-&gt;num1 = 1;
+	abc-&gt;num2 = 2;
+	cout &lt;&lt; abc-&gt;getResult() &lt;&lt; endl;
+	delete abc;
+
+	abc = new MulCalculator;
+	abc-&gt;num1 = 1;
+	abc-&gt;num2 = 2;
+	cout &lt;&lt; abc-&gt;getResult() &lt;&lt; endl;
+	delete abc;
+&#125;
+
+int main() &#123;
+	test01();
+	test02();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="纯虚函数和抽象类"><a href="#纯虚函数和抽象类" class="headerlink" title="纯虚函数和抽象类"></a>纯虚函数和抽象类</h3><p>&emsp;&emsp;在多态中，通常父类中虚函数的实现是毫无意义的，主要都是调用子类重写的内容</p>
+<p>&emsp;&emsp;因此可以将虚函数改为<strong>纯虚函数</strong></p>
+<p>&emsp;&emsp;纯虚函数语法：<code>virtual 返回值类型 函数名 (参数列表) = 0;</code></p>
+<p>&emsp;&emsp;当类中有了纯虚函数，这个类也称为<mark>抽象类</mark></p>
+<p>&emsp;&emsp;<strong>抽象类特点</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;无法实例化对象</p>
+<p>&emsp;&emsp;&emsp;&emsp;子类必须重写抽象类中的纯虚函数，否则也属于抽象类</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+
+class Base &#123;
+public:
+	//只要有一个纯虚函数，这个类成为抽象类
+	virtual void func() = 0;
+&#125;;
+
+class Son : public Base&#123;
+public:
+	
+&#125;;
+
+class Son2 :public Base &#123;
+public:
+	virtual void func() &#123;
+		cout &lt;&lt; &quot;调用&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	//无论堆区还是栈区，都无法实例化对象
+	//Base b;
+	//new Base;
+
+	//抽象类的子类必须重写父类中的纯虚函数，否则也属于抽象类，无法实例化对象
+	//Son s;
+
+	Base* b = new Son2;
+	b-&gt;func();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="多态案例二-制作饮品"><a href="#多态案例二-制作饮品" class="headerlink" title="多态案例二-制作饮品"></a>多态案例二-制作饮品</h3><p>&emsp;&emsp;案例描述</p>
+<p>&emsp;&emsp;&emsp;&emsp;制作饮品的大致流程为：煮水、冲泡、导入杯中、加入辅料</p>
+<p>&emsp;&emsp;利用多态技术实现本案例，提供抽象制作饮品基类，提供子类制作咖啡和茶叶</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/adbe918a1b4c5dd338d47f603e419e31.png#pic_center" alt="在这里插入图片描述"></p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class AbstractDrinking &#123;
+public:
+	virtual void Boil() = 0;
+
+	virtual void Brew() = 0;
+
+	virtual void PourInCup() = 0;
+
+	virtual void PutSomething() = 0;
+
+	void makeDrink() &#123;
+		Boil();
+		Brew();
+		PourInCup();
+		PutSomething();
+	&#125;
+&#125;;
+
+class Coffee : public AbstractDrinking &#123;
+public:
+	virtual void Boil() &#123;
+		cout &lt;&lt; &quot;煮水&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void Brew() &#123;
+		cout &lt;&lt; &quot;冲咖啡&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void PourInCup() &#123;
+		cout &lt;&lt; &quot;倒咖啡&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void PutSomething() &#123;
+		cout &lt;&lt; &quot;加糖&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class Tea : public AbstractDrinking &#123;
+public:
+	virtual void Boil() &#123;
+		cout &lt;&lt; &quot;煮矿泉水&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void Brew() &#123;
+		cout &lt;&lt; &quot;冲茶叶&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void PourInCup() &#123;
+		cout &lt;&lt; &quot;倒茶叶&quot; &lt;&lt; endl;
+	&#125;
+
+	virtual void PutSomething() &#123;
+		cout &lt;&lt; &quot;加枸杞&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void doWork(AbstractDrinking* a) &#123;
+	a-&gt;makeDrink();
+	delete a;
+&#125;
+
+void test01() &#123;
+	doWork(new Coffee);
+	doWork(new Tea);
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h3><p>&emsp;&emsp;多态使用时，如果子类中有属性开辟到堆区，那么父类指针在释放时无法调用到子类的析构代码</p>
+<p>&emsp;&emsp;解决方式：</p>
+<p>&emsp;&emsp;&emsp;&emsp;将父类中的析构函数改为<strong>虚析构</strong>或者<strong>纯虚析构</strong></p>
+<p>&emsp;&emsp;虚析构和纯虚析构共性：</p>
+<p>&emsp;&emsp;&emsp;&emsp;可以解决父类指针释放子类对象</p>
+<p>&emsp;&emsp;&emsp;&emsp;都需要有具体的函数实现</p>
+<p>&emsp;&emsp;虚析构和纯虚析构区别：</p>
+<p>&emsp;&emsp;&emsp;&emsp;如果是纯虚析构，该类属于抽象类，无法实例化对象</p>
+<p>&emsp;&emsp;虚析构语法：<code>virtual ~类名()&#123;&#125;</code></p>
+<p>&emsp;&emsp;纯虚析构语法：<code>virtual ~类名()&#123;&#125; = 0;</code></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>类名::~类名()&#123;&#125;</code></p>
+<p>&emsp;&emsp;虚析构或纯虚析构就是用来解决通过父类指针释放子类对象</p>
+<p>&emsp;&emsp;如果子类中没有堆区数据，可以不写为虚析构或者纯虚析构</p>
+<p>&emsp;&emsp;拥有纯虚析构函数的类也属于抽象类</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+#include&lt;string&gt;;
+using namespace std;
+
+class Animal &#123;
+public:
+	Animal() &#123;
+		cout &lt;&lt; &quot;Animal构造函数&quot; &lt;&lt; endl;
+	&#125;
+
+	//利用虚析构可以解决 父类指针释放子类对象时不干净的问题
+	//virtual ~Animal() &#123;
+	//	cout &lt;&lt; &quot;Animal析构函数&quot; &lt;&lt; endl;
+	//&#125;
+
+	//纯虚析构
+	//需要声明也需要实现
+	//有了纯虚析构之后，这个类也属于抽象类，无法实例化对象
+	virtual ~Animal() = 0;
+
+	virtual void speak() = 0;
+&#125;;
+
+Animal :: ~Animal() &#123;
+	cout &lt;&lt; &quot;Animal纯虚析构&quot; &lt;&lt; endl;
+&#125;
+
+class Cat : public Animal &#123;
+public:
+	Cat(string name) &#123;
+		cout &lt;&lt; &quot;Cat构造&quot; &lt;&lt; endl;
+		m_name = new string(name);
+	&#125;
+
+	~Cat() &#123;
+		if (m_name != NULL) &#123;
+			cout &lt;&lt; &quot;Cat析构&quot; &lt;&lt; endl;
+			delete m_name;
+			m_name = NULL;
+		&#125;
+	&#125;
+
+	virtual void speak() &#123;
+		cout &lt;&lt; *m_name &lt;&lt; &quot;猫叫&quot; &lt;&lt; endl;
+	&#125;
+
+	string* m_name;
+&#125;;
+
+void test01() &#123;
+	Animal* a = new Cat(&quot;Tom&quot;);
+	a-&gt;speak();
+
+	//父类指针在析构的时候 不会调用子类中析构函数 导致子类中如果有堆区属性 出现内存泄漏
+	delete a;
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="多态案例三-电脑组装"><a href="#多态案例三-电脑组装" class="headerlink" title="多态案例三-电脑组装"></a>多态案例三-电脑组装</h3><p>&emsp;&emsp;<strong>案例描述</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;电脑主要组成部件为CPU（用于计算），显卡（用于显示），内存条（用于存储）</p>
+<p>&emsp;&emsp;&emsp;&emsp;将每个零件封装出抽象基类，并且提供不同的厂商生产不同的零件，例如Inter厂商和Lenovo厂商</p>
+<p>&emsp;&emsp;&emsp;&emsp;创建电脑类提供让电脑工作的函数，并且调用每个零件工作的接口</p>
+<p>&emsp;&emsp;&emsp;&emsp;测试时组装三台不同的电脑进行工作</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+using namespace std;
+
+class Cpu &#123;
+public:
+	virtual void calculate() = 0;
+&#125;;
+
+class VideoCard &#123;
+public:
+	virtual void display() = 0;
+&#125;;
+
+class Memory &#123;
+public:
+	virtual void storage() = 0;
+&#125;;
+
+class Computer &#123;
+public:
+	Computer(Cpu* m_Cpu, VideoCard* m_vc, Memory* m_mem) &#123;
+		cpu = m_Cpu;
+		vc = m_vc;
+		mem = m_mem;
+	&#125;
+
+	void work() &#123;
+		cpu-&gt;calculate();
+		vc-&gt;display();
+		mem-&gt;storage();
+	&#125;
+
+	~Computer() &#123;
+		if (cpu != NULL) &#123;
+			delete cpu;
+			cpu = NULL;
+		&#125;
+		if (vc != NULL) &#123;
+			delete vc;
+			vc = NULL;
+		&#125;
+		if (mem != NULL) &#123;
+			delete mem;
+			mem = NULL;
+		&#125;
+	&#125;
+
+private:
+	Cpu* cpu;
+	VideoCard* vc;
+	Memory* mem;
+&#125;;
+
+class InterCPU : public Cpu &#123;
+	virtual void calculate() &#123;
+		cout &lt;&lt; &quot;Inter Cpu&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class InterVideoCard : public VideoCard &#123;
+	virtual void display() &#123;
+		cout &lt;&lt; &quot;Inter VideoCard&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class InterMemory : public Memory &#123;
+	virtual void storage() &#123;
+		cout &lt;&lt; &quot;Inter Memory&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class LenovoCPU : public Cpu &#123;
+	virtual void calculate() &#123;
+		cout &lt;&lt; &quot;Lenovo Cpu&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class LenovoVideoCard : public VideoCard &#123;
+	virtual void display() &#123;
+		cout &lt;&lt; &quot;Lenovo VideoCard&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+class LenovoMemory : public Memory &#123;
+	virtual void storage() &#123;
+		cout &lt;&lt; &quot;Lenovo Memory&quot; &lt;&lt; endl;
+	&#125;
+&#125;;
+
+void test01() &#123;
+	Cpu* inter = new InterCPU;
+	VideoCard* card = new InterVideoCard;
+	Memory* mem = new InterMemory;
+	Computer* c1 = new Computer(inter, card, mem);
+	c1-&gt;work();
+	delete c1;
+
+	Computer* c2 = new Computer(new LenovoCPU, new LenovoVideoCard, new LenovoMemory);
+	c2-&gt;work();
+	delete c2;
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><p>&emsp;&emsp;程序运行时产生的数据都属于临时数据，程序一旦运行结束都会被释放</p>
+<p>&emsp;&emsp;通过<strong>文件可以将数据持久化</strong></p>
+<p>&emsp;&emsp;C++中对文件操作需要包含头文件<mark>&lt;fstream&gt;</mark></p>
+<p>&emsp;&emsp;文件类型分为两种</p>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>文本文件</strong>：文件以文本的<strong>ASCII码</strong>形式存储在计算机中</p>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>二进制文件</strong>：文件以文本的<strong>二进制</strong>形式存储在计算机中，用户一般不能直接读懂它们</p>
+<p>&emsp;&emsp;操作文件的三大类</p>
+<p>&emsp;&emsp;&emsp;&emsp;ofstream：写操作</p>
+<p>&emsp;&emsp;&emsp;&emsp;ifstream：读操作</p>
+<p>&emsp;&emsp;&emsp;&emsp;fstream：读写操作</p>
+<h2 id="文本文件"><a href="#文本文件" class="headerlink" title="文本文件"></a>文本文件</h2><h3 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h3><p>&emsp;&emsp;写文件步骤如下：</p>
+<p>&emsp;&emsp;&emsp;&emsp;包含头文件 #include &lt;fstream&gt;</p>
+<p>&emsp;&emsp;&emsp;&emsp;创建流对象 ofstream ofs;</p>
+<p>&emsp;&emsp;&emsp;&emsp;打开文件 ofs.open(“文件路径”,打开方式);</p>
+<p>&emsp;&emsp;&emsp;&emsp;写数据 ofs &lt;&lt; “写入的数据”;</p>
+<p>&emsp;&emsp;&emsp;&emsp;关闭文件 ofs.close();</p>
+<p>&emsp;&emsp;文件打开方式</p>
+<table>
+<thead>
+<tr>
+<th>打开方式</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ios::in</td>
+<td>为读文件而打开文件</td>
+</tr>
+<tr>
+<td>ios::out</td>
+<td>为写文件而打开文件</td>
+</tr>
+<tr>
+<td>ios::state</td>
+<td>初始位置：文件尾</td>
+</tr>
+<tr>
+<td>ios::app</td>
+<td>追加方式写文件</td>
+</tr>
+<tr>
+<td>ios::trunc</td>
+<td>如果文件存在先删除，再创建</td>
+</tr>
+<tr>
+<td>ios::binary</td>
+<td>二进制方式</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;<strong>注意</strong>：文件打开方式可以配合使用，利用|操作符</p>
+<p>&emsp;&emsp;<strong>例如</strong>：用二进制方式写文件 <code>ios::binary | ios::out</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;;
+#include &lt;fstream&gt;;
+using namespace std;
+
+void test01() &#123;
+	ofstream ofs;
+	ofs.open(&quot;test.txt&quot;, ios::out);
+	ofs &lt;&lt; &quot;姓名：张三&quot; &lt;&lt; endl;
+	ofs &lt;&lt; &quot;性别：男&quot; &lt;&lt; endl;
+	ofs &lt;&lt; &quot;年龄：18&quot; &lt;&lt; endl;
+	ofs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><p>&emsp;&emsp;读文件与写文件步骤相似，但是读取方式相对较多</p>
+<p>&emsp;&emsp;读文件步骤如下：</p>
+<p>&emsp;&emsp;&emsp;&emsp;包含头文件 #include &lt;fstream&gt;</p>
+<p>&emsp;&emsp;&emsp;&emsp;创建流对象 ifstream ifs;</p>
+<p>&emsp;&emsp;&emsp;&emsp;打开文件并判断文件是否打开成功 ifs.open(“文件路径”,打开方式);</p>
+<p>&emsp;&emsp;&emsp;&emsp;读数据 四种方式读取</p>
+<p>&emsp;&emsp;&emsp;&emsp;关闭文件 ifs.close();</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;;
+#include&lt;fstream&gt;;
+#include&lt;string&gt;;
+using namespace std;
+
+void test01() &#123;
+	ifstream ifs;
+	ifs.open(&quot;test.txt&quot;, ios::in);
+	if (!ifs.is_open()) &#123;
+		cout &lt;&lt; &quot;打开失败&quot; &lt;&lt; endl;
+		return;
+	&#125;
+
+	//第一种读取方法
+	/*char buffer[1024] = &#123; 0 &#125;;
+	while (ifs &gt;&gt; buffer) &#123;
+		cout &lt;&lt; buffer &lt;&lt; endl;
+	&#125;*/
+
+	//第二种读取方法
+	/*char buffer[1024] = &#123; 0 &#125;;
+	while (ifs.getline(buffer, sizeof(buffer))) &#123;
+		cout &lt;&lt; buffer &lt;&lt; endl;
+	&#125;*/
+
+	//第三种读取方法
+	string buffer;
+	while (getline(ifs, buffer)) &#123;
+		cout &lt;&lt; buffer &lt;&lt; endl;
+	&#125;
+
+	//第四种读取方法（不常用）
+	/*char c;
+	while ((c = ifs.get()) != EOF) &#123;
+		cout &lt;&lt; c &lt;&lt; endl;
+	&#125;*/
+
+	ifs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p>&emsp;&emsp;以二进制的方式对文件进行读写操作</p>
+<p>&emsp;&emsp;打开方式要指定<mark>ios::binary</mark></p>
+<h3 id="写文件-1"><a href="#写文件-1" class="headerlink" title="写文件"></a>写文件</h3><p>&emsp;&emsp;二进制方式写文件主要利用流对象调用成员函数write</p>
+<p>&emsp;&emsp;函数原型：<code>ostream&amp; write(const char * buffer,int len);</code></p>
+<p>&emsp;&emsp;参数解释：字符指针buffer指向内存中一段存储空间，len是读写的字节数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;fstream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	char m_Name[64];
+	int m_Age;
+&#125;;
+
+void test01() &#123;
+	ofstream ofs;
+	ofs.open(&quot;person.txt&quot;, ios::out | ios::binary);
+	Person p = &#123; &quot;张三&quot;,18 &#125;;
+	ofs.write((const char*)&amp;p, sizeof(Person));
+	ofs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="读文件-1"><a href="#读文件-1" class="headerlink" title="读文件"></a>读文件</h3><p>&emsp;&emsp;二进制方式读文件主要利用流对象调用成员函数read</p>
+<p>&emsp;&emsp;函数原型：<code>istream&amp; read(char*buffer,int len);</code></p>
+<p>&emsp;&emsp;参数解释：字符指针buffer指向内存中一段存储空间，len是读写的字节数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;fstream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	char m_Name[64];
+	int m_Age;
+&#125;;
+
+void test01() &#123;
+	ifstream ifs;
+	ifs.open(&quot;person.txt&quot;, ios::in | ios::binary);
+	if (!ifs.is_open()) &#123;
+		cout &lt;&lt; &quot;打开失败&quot; &lt;&lt; endl;
+		return;
+	&#125;
+	Person p;
+	ifs.read((char*)&amp;p, sizeof(Person));
+	cout &lt;&lt; p.m_Name &lt;&lt; endl;
+	cout &lt;&lt; p.m_Age &lt;&lt; endl;
+	ifs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+) &#123;
+		cout &lt;&lt; buffer &lt;&lt; endl;
+	&#125;*/
+
+	//第三种读取方法
+	string buffer;
+	while (getline(ifs, buffer)) &#123;
+		cout &lt;&lt; buffer &lt;&lt; endl;
+	&#125;
+
+	//第四种读取方法（不常用）
+	/*char c;
+	while ((c = ifs.get()) != EOF) &#123;
+		cout &lt;&lt; c &lt;&lt; endl;
+	&#125;*/
+
+	ifs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h2 id="二进制文件-1"><a href="#二进制文件-1" class="headerlink" title="二进制文件"></a>二进制文件</h2><p>&emsp;&emsp;以二进制的方式对文件进行读写操作</p>
+<p>&emsp;&emsp;打开方式要指定<mark>ios::binary</mark></p>
+<h3 id="写文件-2"><a href="#写文件-2" class="headerlink" title="写文件"></a>写文件</h3><p>&emsp;&emsp;二进制方式写文件主要利用流对象调用成员函数write</p>
+<p>&emsp;&emsp;函数原型：<code>ostream&amp; write(const char * buffer,int len);</code></p>
+<p>&emsp;&emsp;参数解释：字符指针buffer指向内存中一段存储空间，len是读写的字节数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;fstream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	char m_Name[64];
+	int m_Age;
+&#125;;
+
+void test01() &#123;
+	ofstream ofs;
+	ofs.open(&quot;person.txt&quot;, ios::out | ios::binary);
+	Person p = &#123; &quot;张三&quot;,18 &#125;;
+	ofs.write((const char*)&amp;p, sizeof(Person));
+	ofs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+<h3 id="读文件-2"><a href="#读文件-2" class="headerlink" title="读文件"></a>读文件</h3><p>&emsp;&emsp;二进制方式读文件主要利用流对象调用成员函数read</p>
+<p>&emsp;&emsp;函数原型：<code>istream&amp; read(char*buffer,int len);</code></p>
+<p>&emsp;&emsp;参数解释：字符指针buffer指向内存中一段存储空间，len是读写的字节数</p>
+<p>示例：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;fstream&gt;
+using namespace std;
+
+class Person &#123;
+public:
+	char m_Name[64];
+	int m_Age;
+&#125;;
+
+void test01() &#123;
+	ifstream ifs;
+	ifs.open(&quot;person.txt&quot;, ios::in | ios::binary);
+	if (!ifs.is_open()) &#123;
+		cout &lt;&lt; &quot;打开失败&quot; &lt;&lt; endl;
+		return;
+	&#125;
+	Person p;
+	ifs.read((char*)&amp;p, sizeof(Person));
+	cout &lt;&lt; p.m_Name &lt;&lt; endl;
+	cout &lt;&lt; p.m_Age &lt;&lt; endl;
+	ifs.close();
+&#125;
+
+int main() &#123;
+	test01();
+
+	return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
