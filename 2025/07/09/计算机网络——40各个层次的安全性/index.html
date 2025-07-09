@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——40各个层次的安全性 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——40各个层次的安全性</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>各个层次的安全性</p>
+<span id="more"></span>
+
+<h1 id="各个层次的安全性"><a href="#各个层次的安全性" class="headerlink" title="各个层次的安全性"></a>各个层次的安全性</h1><h2 id="安全电子邮件"><a href="#安全电子邮件" class="headerlink" title="安全电子邮件"></a>安全电子邮件</h2><p>Alice需要发送机密的报文m给Bob</p>
+<p><img src="/images/JSJWL/40/1.png" alt="在这里插入图片描述"></p>
+<p><font color=red>Alice</font></p>
+<ul>
+<li>产生随机的对称秘钥，$K_s$</li>
+<li>使用$K_s$对报文进行加密（为了效率）</li>
+<li>对$K_s$使用Bob的公钥进行加密</li>
+<li>发送$K_s(m)$和$K_B(K_S)$给Bob</li>
+</ul>
+<p><font color=red>Bob</font></p>
+<ul>
+<li>使用自己的私钥解密$K_S$</li>
+<li>使用$K_S$解密$K_S(m)$得到报文</li>
+</ul>
+<p>Alice数字签署文件<br>发送报文（明文）和数字签名</p>
+<p>Alice 需要提供源端的报文完整性和可认证性</p>
+<p><img src="/images/JSJWL/40/2.png" alt="在这里插入图片描述"></p>
+<p>Alice加密：</p>
+<ul>
+<li>Alice 数字签署文件(采用自己的私钥签署报文的散列)</li>
+<li>发送报文（明文）和数字签名<br>Bob解密：</li>
+<li>Bob使用散列函数计算报文的散列 H(m)</li>
+<li>使用Alice的公钥解密报文的散列 $K_A^+(K_A^-(m))$</li>
+<li>比较 H(m) &#x3D; $K_A+(K_A^-(m))$？</li>
+<li>如果相等，说明m就是正确的</li>
+<li>能采用Alice的公钥解密，说明是用Alice的私钥加密的，保证了源端可认证性</li>
+<li>采用散列比较，保证了报文完整性（如果报文被修改，得到的散列也会被修改）</li>
+</ul>
+<p>Alice 需要提供机密性，源端可认证性和报文的完整性</p>
+<p><img src="/images/JSJWL/40/3.png" alt="在这里插入图片描述"></p>
+<p>Alice使用了3个keys：自己的私钥，Bob的公钥，新产生出的对称式密钥</p>
+<h3 id="Pretty-good-privacy-PGP"><a href="#Pretty-good-privacy-PGP" class="headerlink" title="Pretty good privacy(PGP)"></a>Pretty good privacy(PGP)</h3><ul>
+<li>Internet e-mail加密方案，事实上的标准.</li>
+<li>使用前面讲述的：对称密钥加密，公开密钥加密，散列函数和数字签名.</li>
+<li>能够提供机密性，源端的可认证性和报文完整性.</li>
+<li>发明者, Phil Zimmerman, 是３年的犯罪调查的目标</li>
+</ul>
+<pre><code>/*A PGP signed message: */
+---BEGIN PGP SIGNED MESSAGE---
+Hash: SHA1
+Bob:My husband is out of town tonight.Passionately yours, Alice
+---BEGIN PGP SIGNATURE---
+Version: PGP 5.0
+Charset: noconv
+yhHJRHhGJGhgg/12EpJ+lo8gE4vB3
+mqJhFEvZP9t6n7G6m5Gw2
+---END PGP SIGNATURE---
+</code></pre>
+<h2 id="Secure-sockets-layer-SSL"><a href="#Secure-sockets-layer-SSL" class="headerlink" title="Secure sockets layer(SSL)"></a>Secure sockets layer(SSL)</h2><ul>
+<li><font color=red>为使用SSL服务的、基于TCP的应用提供传输层次的安全性</font><ul>
+<li>e.g.在Web的浏览器和服务器之间进行电子商务的交易(shttp)</li>
+</ul>
+</li>
+<li>所提供的安全服务：<ul>
+<li>服务器的可认证性，数据加密，客户端的可认证性（可选）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/40/4.png" alt="在这里插入图片描述"></p>
+<h3 id="SSL三个阶段"><a href="#SSL三个阶段" class="headerlink" title="SSL三个阶段"></a>SSL三个阶段</h3><p><font color=red>握手</font></p>
+<ul>
+<li>Bob和Alice建立TCP连接</li>
+<li>通过AC签署的证书认证Alice的身份</li>
+<li>创建、加密（采用Alice的公钥），传输主密钥给Alice<ul>
+<li>不重数交换没有显示</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/40/5.png" alt="在这里插入图片描述"></p>
+<p><font color=red>密钥导出</font></p>
+<ul>
+<li>Alice,Bob采用共享的MS产生4个keys<ul>
+<li>$E_B$：Bob -&gt; Alice 数据加密key</li>
+<li>$E_A$：Alice -&gt; Bob 数据加密key</li>
+<li>$M_B$：Bob -&gt; Alice MAC(报文鉴别编码) key</li>
+<li>$M_A$：Alice -&gt; Bob MAC key</li>
+</ul>
+</li>
+<li>加密和MAC算法在Bob,Alice之间协商</li>
+<li>为什么要4个keys？<ul>
+<li>更安全</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>数据传输</font></p>
+<p><img src="/images/JSJWL/40/6.png" alt="在这里插入图片描述"></p>
+<h2 id="IPsec：网络层次的安全性"><a href="#IPsec：网络层次的安全性" class="headerlink" title="IPsec：网络层次的安全性"></a>IPsec：网络层次的安全性</h2><ul>
+<li><font color=red>网络层次的机密性</font><ul>
+<li>发送端主机IP数据报中的数据进行加密</li>
+<li>数据：TCP或者UDP的段；ICMP和SNMP报文</li>
+</ul>
+</li>
+<li><font color=red>网络层次的可认可性</font><ul>
+<li>目标主机可以认证源主机的IP地址</li>
+</ul>
+</li>
+<li><font color=red>2个主要协议</font><ul>
+<li>认证头部（AH）协议</li>
+<li>封装安全载荷 encapsulation security payload(ESP) 协议</li>
+</ul>
+</li>
+<li><font color=red>不管AH还是ESP，源和目标在通信之前要握手</font><ul>
+<li>创建一个网络层次的逻辑通道：安全关联 security assocication(SA)</li>
+</ul>
+</li>
+<li><font color=red>每一个SA都是单向</font></li>
+<li><font color=red>由以下元组唯一确定</font><ul>
+<li>安全协议（AH 或 ESP）</li>
+<li>源IP地址</li>
+<li>32bit连接ID</li>
+</ul>
+</li>
+</ul>
+<h2 id="Authentication-Header-AH-协议"><a href="#Authentication-Header-AH-协议" class="headerlink" title="Authentication Header(AH)协议"></a>Authentication Header(AH)协议</h2><ul>
+<li>提供源端的可认证性，数据完整性，但是不提供机密性</li>
+<li>在IP头部和数据字段之间插入AH的头部</li>
+<li>协议字段：51</li>
+<li>中间的路由器按照常规处理这个数据报</li>
+</ul>
+<p><font color=red>AH头部包括</font></p>
+<ul>
+<li>连接ID</li>
+<li>认证数据：对原始数据计算报文摘要，使用源端的私钥进行数字签名</li>
+<li>下一个字段定义了数据的类型（e.g. TCP,UDP,ICMP）</li>
+</ul>
+<p><img src="/images/JSJWL/40/7.png" alt="在这里插入图片描述"></p>
+<h2 id="ESP协议"><a href="#ESP协议" class="headerlink" title="ESP协议"></a>ESP协议</h2><ul>
+<li>提供机密性，主机的可认证性，数据的完整性</li>
+<li>数据和ESP尾部部分被加密</li>
+<li>next header字段在ESP尾部</li>
+<li>ESP认证的头部与AH类似</li>
+<li>协议号 &#x3D; 50</li>
+</ul>
+<p><img src="/images/JSJWL/40/8.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
