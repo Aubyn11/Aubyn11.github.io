@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>UnityShader——基础篇之UnityShader基础 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>UnityShader——基础篇之UnityShader基础</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/UnityShader/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                UnityShader
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UnityShader/" style="color: #00bcd4">
+                    UnityShader
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>基础篇之UnityShader基础</p>
+<span id="more"></span>
+
+<h1 id="UnityShader基础"><a href="#UnityShader基础" class="headerlink" title="UnityShader基础"></a>UnityShader基础</h1><h2 id="UnityShader概述"><a href="#UnityShader概述" class="headerlink" title="UnityShader概述"></a>UnityShader概述</h2><h3 id="材质和UnityShader"><a href="#材质和UnityShader" class="headerlink" title="材质和UnityShader"></a>材质和UnityShader</h3><p>&emsp;&emsp;总的来说，在Unity中需要配合使用<strong>材质</strong>(<strong>Material</strong>)和 Unity Shader 才能达到需要的效果，常见流程为：</p>
+<ul>
+<li>创建一个材质</li>
+<li>创建一个 Unity Shader，并把它赋给上一步中创建的材质</li>
+<li>把材质赋给需要渲染的对象</li>
+<li>在材质面板中调整 Unity Shader 的属性，以得到满意的效果</li>
+</ul>
+<p><img src="/images/UnityShader/2/1.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;Unity Shader定义了渲染所需的各种代码（如顶点着色器和片元着色器）、属性（如使用哪些纹理等）和指令（渲染和标签设置等）</p>
+<p>&emsp;&emsp;材质允许调节这些属性，将其最终赋给对应的模型</p>
+<h3 id="Unity-中的材质"><a href="#Unity-中的材质" class="headerlink" title="Unity 中的材质"></a>Unity 中的材质</h3><p>&emsp;&emsp;Unity 中的材质需要结合一个 GameObject 的 Mesh 或者 Particle systems 组件来工作，它决定了游戏对象看起来是什么样子的（也需要 Unity Shader 的配合）</p>
+<p>&emsp;&emsp;创建一个新的材质，可以在 Unity 的菜单栏中选择 Assets -&gt; Create -&gt; Material 来创建，也可以直接在 Project 视图中右击 -&gt; Create -&gt; Material 来创建</p>
+<p>&emsp;&emsp;当创建了一个材质后，就可以把它赋值给一个对象，这可以通过把材质直接拖拽到 Scene 视图中的对象来实现，或者在该对象的 Mesh Renderer 组件中直接赋值，如图：</p>
+<p><img src="/images/UnityShader/2/2.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;在 Unity 的 2020.x 版本中，默认情况下，一个新建的材质将使用Unity内置的 Standard Shader，这是一种基于物理渲染的着色器</p>
+<p>&emsp;&emsp;Unity的材质和许多建模软件（如 Cinema 4D、Maya 等）中提供的材质工鞥呢类似，他们都提供了一个面板来调整材质的各个参数，这种可视化的方法使得开发者不再需要自行在代码中设置和改变所需的各种参数，如图：</p>
+<p><img src="/images/UnityShader/2/3.png" alt="在这里插入图片描述"></p>
+<h3 id="Unity-中的-Shader"><a href="#Unity-中的-Shader" class="headerlink" title="Unity 中的 Shader"></a>Unity 中的 Shader</h3><p>&emsp;&emsp;创建一个新的 Unity Shader，可以在 Unity 的菜单栏中选择 Assets -&gt; Create -&gt; Shader 来创建，也可以直接在 Project 视图中右击 -&gt; Create -&gt; Shader 来创建，Unity 一共提供了5种 Unity Shader 模板供选择 —— Shader Surface Shader, Unlit Shader, Image Effect Shader, Compute Shader 以及 Ray Tracing Shader。</p>
+<p>&emsp;&emsp;Standard Surface Shader 会产生一个包含了标准光照模型的表面着色器模板</p>
+<p>&emsp;&emsp;Unlit Shader会产生一个不包含光照（但包含雾效）的基本的顶点&#x2F;片元着色器</p>
+<p>&emsp;&emsp;Image Effect Shader 为实现各种屏幕后处理效果提供了一个基本模板</p>
+<p>&emsp;&emsp;Compute Shader 会产生一种特殊的 Shader 文件，这类 Shader 旨在利用 GPU 的并行性来进行一些常规渲染流水线无关的计算</p>
+<p>&emsp;&emsp;Ray Tracing Shader是一种用于Unity中的实时光线追踪的Shader。光线追踪是一种通过追踪从相机到场景中各个像素的光线的技术，以模拟光线在真实世界中的传播和反射。Ray Tracing Shader可以帮助开发者实现更加逼真的光影效果，包括实时反射、折射、阴影和环境光照等效果。</p>
+<br/>
+
+<p>&emsp;&emsp;一个单独的 Unity Shader 是无法发挥任何作用的，它必须和材质结合起来。</p>
+<p>&emsp;&emsp;所以，可以在材质面板最上方的下拉菜单中选择需要使用的 Unity Shader，当选择完毕后，材质面板中就会出现该 Unity Shader 可用的各种属性。这些属性可以是颜色、纹理、浮点数、滑动条（限制了范围的浮点数）、向量等</p>
+<p>&emsp;&emsp;当把材质赋给场景中的一个对象，就可以看到调整属性所发生的视觉变化</p>
+<br/>
+
+<p>&emsp;&emsp;Unity Shader本质上就是一个文本文件，和 Unity 中的很多外部文件类似，Unity Shader 也有<strong>导入设置</strong>(Import Settings)面板，在 <strong>Project</strong>视图中选中某个 Unity Shader即可看到，如图：</p>
+<p><img src="/images/UnityShader/2/4.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;在该面板上，可以在 <strong>Default Maps</strong> 中指定该 Unity Shader 使用的默认纹理。当任何材质第一次使用该 Unity Shader 时，这些纹理就会自动被赋予到相应的属性上。在下方的面板中，Unity 会显示出和该 Unity 相关的信息，例如它是否是一个表面着色器（Surface Shader）、是否是一个固定函数着色器（Fixed Function Shader）等，还有一些信息是和在 Unity Shader 中的标签设置有关，例如是否会投射阴影、使用的渲染队列、LOD值等</p>
+<p>&emsp;&emsp;对于表面着色器来说，可以通过单击 Show generated code 按钮来打开一个新的文件，在该文件里将显示 Unity 在背后为该表面着色器生成的顶点&#x2F;片元着色器。这可以方便对这些生成的代码进行修改（需要复制到一个新的 Unity Shader 中才可保存）和研究</p>
+<p>&emsp;&emsp;如果 Unity Shader 使一个固定函数着色器，在 Fixed function 的后面也会出现一个 Show generated code 按钮，来查看该固定函数着色器生成的顶点&#x2F;片元着色器。Compile and show code 下拉列表可以让开发者检查该 Unity Shader 针对不同图像编程接口（例如 OpenGL、D3D9、D3D11等）最终编译成的 Shader 代码，如图所示：</p>
+<p><img src="/images/UnityShader/2/5.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;直接单击该按钮可以查看生成的底层的汇编指令。可以利用这些代码来分析和优化着色器</p>
+<p>&emsp;&emsp;除此之外，Unity Shader 的导入面板还可以方便地查看其使用的渲染队列（Reder queue）、是否关闭批处理（Disable batching）、属性列表（Properties）等信息</p>
+<h2 id="Unity-Shader-的基础：ShaderLab"><a href="#Unity-Shader-的基础：ShaderLab" class="headerlink" title="Unity Shader 的基础：ShaderLab"></a>Unity Shader 的基础：ShaderLab</h2><h3 id="什么是-ShaderLab"><a href="#什么是-ShaderLab" class="headerlink" title="什么是 ShaderLab"></a>什么是 ShaderLab</h3><p>&emsp;&emsp;Unity Shader 是 Unity 为研发者提供的高层记得渲染抽象层，Unity 希望以这种方式来让开发者更加轻松的控制渲染，见下图：</p>
+<p><img src="/images/UnityShader/2/6.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;在 Unity 中，所有的 Unity Shader 都是使用 ShaderLab 来编写的</p>
+<p>&emsp;&emsp;ShaderLab 是 Unity 编写 Unity Shader 的一种说明性语言，它使用了一些嵌套在花括号内部的**语义&amp;&amp;（<strong>syntax</strong>）来描述一个 Unity Shader 文件的结构，这些结构包含了许多渲染所需的数据，例如 Properties 语句块中定义了着色器所需的各种属性，这些属性将会出现在材质面板中</p>
+<p>&emsp;&emsp;从设计上来说，ShaderLab 类似于 CgFX 和 Direct3D Effects（FX）语言，他们都定义了要显示一个材质所需的所有东西，而<strong>不仅仅是着色器代码</strong></p>
+<p>&emsp;&emsp;一个 Unity Shader 的基础结构如下所示：</p>
+<pre><code>Shader &quot;ShaderName&quot;&#123;
+    Properties&#123;
+        //属性
+    &#125;
+    SubShader&#123;
+        //显卡A使用的子着色器
+    &#125;
+    SubShader&#123;
+        //显卡B使用的子着色器
+    &#125;
+    Fallback &quot;VertexLit&quot;
+&#125;
+</code></pre>
+<h2 id="UnityShader的结构"><a href="#UnityShader的结构" class="headerlink" title="UnityShader的结构"></a>UnityShader的结构</h2><h3 id="给Shader起名字"><a href="#给Shader起名字" class="headerlink" title="给Shader起名字"></a>给Shader起名字</h3><p>&emsp;&emsp;每个Unity Shader文件的第一行都需要通过 Shader 语义来制定该 Unity Shader 的名字，这个名字由一个字符串来定义</p>
+<p>&emsp;&emsp;当为材质选择使用的 Unity Shader 时，这些名称就会出现在材质面板的下拉列表里，通过在字符串中添加斜杠(“&#x2F;“)，可以控制 Unity Shader 在材质面板中出现的位置，如下：</p>
+<pre><code>Shader &quot;Unlit/001Shader&quot;&#123;&#125;
+</code></pre>
+<p>&emsp;&emsp;那么，这个 Unity Shader在材质面板中的位置就是：Shader -&gt; Unlit -&gt; 001Shader，如图：</p>
+<p><img src="/images/UnityShader/2/7.png" alt="在这里插入图片描述"></p>
+<h3 id="材质和-Unity-Shader-的桥梁：Properties"><a href="#材质和-Unity-Shader-的桥梁：Properties" class="headerlink" title="材质和 Unity Shader 的桥梁：Properties"></a>材质和 Unity Shader 的桥梁：Properties</h3><p>&emsp;&emsp;Properties语义块中包含了一系列<strong>属性</strong>(<strong>property</strong>)，这些属性将会出现在材质面板中</p>
+<p>&emsp;&emsp;Properties语义块的定义通常如下：</p>
+<pre><code>Properties&#123;
+    Name(&quot;display name&quot;,PropertyType) = DefaultValue
+    Name(&quot;display name&quot;,PropertyType) = DefaultValue
+    //更多属性
+&#125;
+</code></pre>
+<p>&emsp;&emsp;开发者声明这些属性是为了在材质面板中能够方便的调整各种材质属性</p>
+<p>&emsp;&emsp;如果需要在 Shader 中访问它们，就需要使用每个属性的<strong>名字</strong>(<strong>Name</strong>)，Unity中，这些属性的名字通常由一个下划线开始，<strong>显示的名称</strong>(<strong>display name</strong>)则是出现在材质面板上的名字，需要为每个属性指定它的<strong>类型</strong>(<strong>PropertyType</strong>)，常见的属性如表：</p>
+<table>
+<thead>
+<tr>
+<th>属性类型</th>
+<th>默认值的定义语法</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Int</td>
+<td>number</td>
+<td>_Int(“Int”,Int) &#x3D; 2</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>number</td>
+<td>_Float(“Float”,Float) &#x3D; 1.5</td>
+</tr>
+<tr>
+<td>Range(min,max)</td>
+<td>number</td>
+<td>_Range(“Range”,Range(0.0,5.0) &#x3D; 3.0</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>(number,number,number,number)</td>
+<td>_Color(“Color”,Color) &#x3D; (1,1,1,1)</td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>(number,number,number,number)</td>
+<td>_Verctor(“Vector”,Vector) &#x3D; (2,3,6,1)</td>
+</tr>
+<tr>
+<td>2D</td>
+<td>“defaulttexture”{}</td>
+<td>_2D(“2D”,2D) &#x3D; “”{}</td>
+</tr>
+<tr>
+<td>Cube</td>
+<td>“defaulttexture”{}</td>
+<td>_Cube(“Cube”,Cube) &#x3D; “white”{}</td>
+</tr>
+<tr>
+<td>3D</td>
+<td>“defaulttexture”{}</td>
+<td>_3D(“3D”,3D) &#x3D; “black”</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;除此之外，还需要为每个属性指定一个默认值，在第一次把该 Unity Shader 赋给某个素材时，菜盒子面板显示的就是这些默认值</p>
+<p>&emsp;&emsp;&emsp;&emsp;对于 <strong>Int、Float、Range</strong> ，这些数字类型的属性，其默认值就是一个单独的数；</p>
+<p>&emsp;&emsp;&emsp;&emsp;对于 <strong>Color</strong> 和 <strong>Vector</strong> 这类属性，默认值是用圆括号包围的一个四维向量；</p>
+<p>&emsp;&emsp;&emsp;&emsp;对于 <strong>2D、Cube、3D</strong> 这3种纹理类型，默认值的类型稍微复杂，他们的默认值是通过一个字符串后跟一个花括号来指定的，其中，字符串要么是空的，要么是内置的纹理名称，如 “white””black””gray” 或者 “bump”。或括号的用处原本是用于制定一些纹理属性的。</p>
+<p>&emsp;&emsp;如果需要控制固定管线的纹理坐标的生成，就需要再顶点着色器中编写计算相应纹理坐标的代码</p>
+<p>&emsp;&emsp;如下方的代码：</p>
+<pre><code>Shader &quot;Unlit/001Shader&quot;
+&#123;
+    Properties
+    &#123;
+        _Int(&quot;Int&quot;,int) = 2
+        _Float(&quot;Float&quot;,float) = 1.5
+        _Range(&quot;Range&quot;,range(0.0,5.0)) = 1.0
+        _Color(&quot;Color&quot;,Color) = (1,1,1,1)
+        _Vector(&quot;Vector&quot;,Vector) = (2,3,6,1)
+        _2D(&quot;2D&quot;,2D) = &quot;&quot;&#123;&#125;
+        _Cube(&quot;Cube&quot;,Cube) = &quot;white&quot;&#123;&#125;
+        _3D(&quot;3D&quot;,3D) = &quot;black&quot;&#123;&#125;
+    &#125;
+
+	FallBack &quot;diffuse&quot;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;材质面板中的显示结果，如图：</p>
+<p><img src="/images/UnityShader/2/8.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;Unity 允许重载默认的材质编辑面板，以提供更多自定义的数据类型</p>
+<p>&emsp;&emsp;为了在 Unity 中可以访问到这些属性，需要在 Cg 代码片中定义和这些属性类型相匹配的变量，需要说明的是，即使不在 Properties 语义块中生命这些属性，也可以直接在 Cg 代码片中定义变量</p>
+<p>&emsp;&emsp;此时，可以通过脚本向 Shader 中换地这些属性，因此，Properties与一块的作用仅仅是为了让这些属性可以出现在材质面板中</p>
+<h3 id="SubShader"><a href="#SubShader" class="headerlink" title="SubShader"></a>SubShader</h3><p>&emsp;&emsp;每一个 Unity Shader 文件可以包含多个 SubShader 语义块，但最少要有一个。</p>
+<p>&emsp;&emsp;&emsp;&emsp;当 Unity 需要加载这个 Unity Shader 时，Unity 会扫描所有的 SubShader 语义块，然后选择第一个能够在目标平台运行的SubShader</p>
+<p>&emsp;&emsp;&emsp;&emsp;如果都不支持的话，Unity 就会使用 Fallback 语义指定的 Unity Shader</p>
+<p>&emsp;&emsp;Unity 提供这种语义的原因在于，不同的显卡具有不同的能力。例如：一些旧的显卡仅能支持一定数目的操作指令，而一些更高级的显卡可以支持更多的指令数</p>
+<p>&emsp;&emsp;那么就希望在旧的显卡上使用计算复杂度低的着色器，在高级的显卡上使用计算复杂度较高的着色器，以便提供更出色的画面</p>
+<p>&emsp;&emsp;SubShader 语义块中包含的定义通常如下</p>
+<pre><code>SubShader&#123;
+    //可选
+    Tags
+
+    //可选
+    RenderSetup
+
+    Pass&#123;&#125;
+
+    //Other Passes
+&#125;
+</code></pre>
+<p>&emsp;&emsp;SubShader 中定义了一系列 Pass 以及可选的<strong>状态</strong>(RenderSetup)和<strong>标签</strong>(Tags)设置。</p>
+<p>&emsp;&emsp;每个 Pass 定义了一个完整的渲染流程，但如果 Pass 数目过多，往往会造成渲染性能的下降</p>
+<p>&emsp;&emsp;因此，应该尽量使用最小数目的 Pass，状态和标签同样可以在 Pass 声明，不同的是，SubShader 中的一些标签是特定的</p>
+<p>&emsp;&emsp;也就是说，这些标签设置和 Pass 中使用的标签是不一样的，对于状态设置来说，使用的语法是相同的</p>
+<p>&emsp;&emsp;但是如果在 SubShader 进行了这些设置，呢么将会用于所有的 Pass</p>
+<p>&emsp;&emsp;<strong>状态设置</strong></p>
+<p>&emsp;&emsp;ShaderLab 提供了一系列渲染状态的设置指令，这些指令可以设置显卡的各种状态，例如是否开启混合&#x2F;深度测试等</p>
+<p>&emsp;&emsp;ShaderLab 中常见的渲染状态设置选项如下表：</p>
+<table>
+<thead>
+<tr>
+<th>状态名称</th>
+<th>设置指令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cull</td>
+<td>Cull Back|Front|Off</td>
+<td>设置剔除模式：剔除背面&#x2F;正面&#x2F;关闭剔除</td>
+</tr>
+<tr>
+<td>ZTest</td>
+<td>ZTest Less Greater|LEqqual|GEqual|Equal|NotEqual|Always</td>
+<td>设置深度测试时使用的函数</td>
+</tr>
+<tr>
+<td>ZWrite</td>
+<td>ZWrite On|Off</td>
+<td>开启&#x2F;关闭深度写入</td>
+</tr>
+<tr>
+<td>Blend</td>
+<td>Blend SrcFactor DstFactor</td>
+<td>开启并设置混合模式</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;当在 SubShader 块中设置了上述渲染状态时，将会应用到所有的 Pass，如果不想这样（如在双面渲染中，希望第一个 Pass 中剔除正面来对背面进行渲染，在第二个 Pass 中剔除背面来对正面进行渲染），可以在 Pass 语义块中单独进行上面的设置</p>
+<p>&emsp;&emsp;<strong>SubShader</strong>的标签</p>
+<p>&emsp;&emsp;SubShader 的标签（Tags）是一个<strong>键值对</strong>（Key&#x2F;Value Pair），它的键和值都是字符串类型，这些键值对是 SubShader 和渲染引擎之间的沟通桥梁。它们用来告诉 Unity 的渲染引擎希望怎样以及何时渲染这个对象：</p>
+<p>&emsp;&emsp;标签的结构如下：</p>
+<pre><code>Tags&#123;&quot;TagName1&quot; = &quot;Value1&quot; &quot;TagName2&quot; = &quot;Value2&quot;&#125;
+</code></pre>
+<p>&emsp;&emsp;SubShader 的标签快支持的标签类型如表：</p>
+<table>
+<thead>
+<tr>
+<th>标签类型</th>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Queue</td>
+<td>控制渲染顺序，指定该物体属于哪一个渲染队列，通过这种方式可以保证所有的透明物体可以在所有不透明物体后面被渲染，也可以自定义使用的渲染队列来控制物体的渲染顺序</td>
+<td>Tags{“Queue” &#x3D; “Transparent”}</td>
+</tr>
+<tr>
+<td>RenderTyep</td>
+<td>对着色器进行分类，例如这是一个不同明德着色器，或是一个透明的着色器等，这可以被用于着色器替换(Shader Replacement)功能</td>
+<td>Tags{“renderType”&#x3D;”Opaque”}</td>
+</tr>
+<tr>
+<td>DisableBatching</td>
+<td>一些 SubShader 在使用 Unity 的批处理功能时会出现问题，例如使用了模型空间下的坐标进行顶点动画，这是可以通过该标签来直接指明是否对该 SubShader 使用批处理</td>
+<td>Tags{“DisableBatching” &#x3D; “True”</td>
+</tr>
+<tr>
+<td>ForceNoShadowCasting</td>
+<td>控制使用该 SubShader 的物体是否会投射阴影</td>
+<td>Tags{“ForceNoShadowCasting”&#x3D;”True”</td>
+</tr>
+<tr>
+<td>IgnoreProjector</td>
+<td>如果该标签为”True”，那么使用该 SubShader 的物体将不会受 Projector 的影响，通常用于半透明物体</td>
+<td>Tags{“IgnoreProjector”&#x3D;”True”}</td>
+</tr>
+<tr>
+<td>CanUseSpriteAtlas</td>
+<td>当该 SubShader 是用于精灵(sprite)时，将该标签设置为”False”</td>
+<td>Tags{“CanUseSpriteAtlas”&#x3D;”False”</td>
+</tr>
+<tr>
+<td>PreviewType</td>
+<td>知名材质面板将如何预览改材质。默认情况下，材质将显示为一个球形，可以通过把这些标签的值设为”Plane””SkyBox”来改变预览类型</td>
+<td>Tags{“PreviewType”&#x3D;”Plane”}</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;需要注意的是，上述标签仅可以在 SubShader 中声明，而不可以在 Pass 块中声明。Pass 块虽然也可以定义标签，但这些标签是不同于 SubShader 的标签类型</p>
+<p>&emsp;&emsp;<strong>Pass</strong> 语义块</p>
+<p>&emsp;&emsp;Pass 语义块包含的语义如下：</p>
+<pre><code>Pass&#123;
+    Name
+    Tags
+    RenderSetup
+&#125;
+</code></pre>
+<p>&emsp;&emsp;首先，可以在 Pass 中定义该 Pass 的名称，例如：</p>
+<pre><code>Name &quot;MyPassName&quot;
+</code></pre>
+<p>&emsp;&emsp;通过这个名称，可以使用 ShaderLab 的 UsePass 命令来直接使用其他 UnityShader 中的 Pass，例如：</p>
+<pre><code>UsePass &quot;MyShader/MYPASSNAME&quot;
+</code></pre>
+<p>&emsp;&emsp;这样可以提高代码的复用性，需要注意的是，由于 Unity 内部会把所有 Pass 的名称转换成大写字母的表示，因此，在使用 UsePass 命令时必须使用大写形式的名字</p>
+<p>&emsp;&emsp;其次，可以对 Pass 设置渲染状态。SubShader 的状态设置同样适用于 Pass。除了上面提到的状态设置外，在 Pass 中我们还可以使用固定管线的着色器命令</p>
+<p>&emsp;&emsp;Pass 同样可以设置标签，但它的标签不同于 SubShader 的标签，这些标签也是用于告诉渲染引擎希望怎样来渲染该物体</p>
+<p>&emsp;&emsp;Pass 中使用的标签类型如下表：</p>
+<table>
+<thead>
+<tr>
+<th>标签类型</th>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LightMode</td>
+<td>定义该 Pass 在 Unity 的渲染流水线中的角色</td>
+<td>Tags{“LightMode”&#x3D;”ForwardBase”}</td>
+</tr>
+<tr>
+<td>RequireOptions</td>
+<td>用于指定当满足某些条件时才渲染该 Pass，它的值是一个由空格分割的字符串。</td>
+<td>Tags{“RequireOptions”&#x3D;”SoftVegetation”}</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;除了上面普通的 Pass 定义外，UnityShader 还支持一些特殊的 Pass，以便进行代码复用或实现更复杂的效果：</p>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>UsePass</strong>：如之前提到的一样，可以使用该命令来复用其他 UnityShader 中的 Pass</p>
+<p>&emsp;&emsp;&emsp;&emsp;<strong>GrabPass</strong>：该 Pass 负责抓取屏幕并将结果存储在一张纹理中，以用于后续的 Pass 处理</p>
+<h3 id="Fallback"><a href="#Fallback" class="headerlink" title="Fallback"></a>Fallback</h3><p>&emsp;&emsp;紧跟在各个 SubShader 语义块后面的，可以是一个 Fallback 指令，它用于告诉 Unity，”如果上面所有的 SubShader 在这块显卡上都不能运行，那么就是用这个最低级的 Shader”</p>
+<p>&emsp;&emsp;它的语义如下：</p>
+<pre><code>Fallback &quot;name&quot;
+//或者
+Fallback Off
+</code></pre>
+<p>&emsp;&emsp;如上所述，可以通过一个字符串来告诉 Unity 这个“最低级的 UnityShader”是谁，也可以关闭 Fallback 功能，但一旦这么做，那么意思就是“如果一块显卡跑不了上面所有的 Shader，那就不管他了”</p>
+<p>&emsp;&emsp;例子如下：</p>
+<pre><code>Fallback &quot;VertexLit&quot;
+</code></pre>
+<p>&emsp;&emsp;事实上，Fallback还会影响阴影的投射</p>
+<p>&emsp;&emsp;在渲染阴影纹理时，Unity 会在每个 UnityShader 中寻找一个阴影投射的 Pass，通常情况下，不需要自己专门实现一个 Pass，这是因为 Fallback 使用的内置 Shader 中包含了这样一个通用的 Pass，因此，为每个 UnityShader 正确设置 Fallback 是非常重要的</p>
+<h3 id="ShaderLab还有其他的语义吗"><a href="#ShaderLab还有其他的语义吗" class="headerlink" title="ShaderLab还有其他的语义吗"></a>ShaderLab还有其他的语义吗</h3><p>&emsp;&emsp;除了上述的语义，还有一些不常用到的寓意。</p>
+<p>&emsp;&emsp;例如：如果不满足于 Unity 内置的属性类型，想要自定义材质面板的编辑界面，就可以使用 CustomEditor 语义来拓展编辑界面。还可以使用 Category 语义来对 UnityShader 中的命令进行分组。</p>
+<h2 id="UnitySahder-的形式"><a href="#UnitySahder-的形式" class="headerlink" title="UnitySahder 的形式"></a>UnitySahder 的形式</h2><p>&emsp;&emsp;尽管 UnityShader 可以做的事情很多（例如设置渲染状态等），但其最重要的任务还是指定各种着色器所需的代码。这些着色器代码可以写在 SubShader 语义块中（表面着色器的做法），也可以写在 Pass 语义块中（顶点&#x2F;片元着色器和固定函数着色器的做法）</p>
+<p>&emsp;&emsp;在 Unity 中，可以使用下面 3 种形式来编写 UnityShader，而不管使用哪种形式，真正意义上的 Shader 代码都需要包含在 ShaderLab 语义块中，如下所示：</p>
+<pre><code>Shader &quot;MyShader&quot;&#123;
+    Properties&#123;
+        //所需的各种属性
+    &#125;
+
+    SubShader&#123;
+        //真正意义上的 Shader 代码会出现在这里
+        //表面着色器&#123;Surface Shader&#125;或者
+        //顶点/片元着色器&#123;Vertex/Fragment Shader&#125;或者
+        //固定函数着色器&#123;Fixed Function Shader&#125;
+    &#125;
+
+    SubShader&#123;
+        //和上一个 SubShader 类似
+    &#125;
+&#125;
+</code></pre>
+<h3 id="表面着色器"><a href="#表面着色器" class="headerlink" title="表面着色器"></a>表面着色器</h3><p>&emsp;&emsp;<strong>表面着色器（Surface Shader）</strong> 是 Unity 自己创造的一种着色器代码类型，他需要的代码量很少，Unity 在背后做了很多工作，渲染的代价比较大。</p>
+<p>&emsp;&emsp;本质上和顶点&#x2F;片元着色器是一样的，当给Unity提供一个便面着色器的时候，在背后仍旧需要把它装换成对应的顶点&#x2F;片元着色器</p>
+<p>&emsp;&emsp;它的价值在于：Unity 处理了很多光照细节，不需要去操心这些“烦人的事情”</p>
+<p>&emsp;&emsp;示例代码如下：</p>
+<pre><code>Shader &quot;Custom/Simple Surface Shader&quot;&#123;
+    SubSHader&#123;
+        Tags&#123;&quot;RenderType&quot;=&quot;Opaque&quot;&#125;
+        CGPROGAM
+        #pragma surface surf Lambert
+        struct Input&#123;
+            float4 color : COLOR;
+        &#125;;
+        void surf(Input IN,inout SurfaceOutput o)&#123;
+            o.Albedo = 1;
+        &#125;
+        ENDCG
+    &#125;
+    Fallback &quot;Diffuse&quot;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;表面着色器被定义在 SubShader 语义块（不是 Pass 语义块）中的 CGPROGRAM 和 ENDCG 之间</p>
+<p>&emsp;&emsp;原因是表面着色器不需要开发者关心使用多少个 Pass，每个 Pass 如何渲染等问题，Unity 会在背后做好这些事情</p>
+<p>&emsp;&emsp;CGPROGRAM 和 ENDCG 之间的代码是使用 Cg&#x2F;HLSL 编写的，也就是说，需要把 Cg&#x2F;HLSL 语言嵌套在 ShaderLab 语言中</p>
+<p>&emsp;&emsp;这里的 Cg&#x2F;HLSL 是 Unity 经封装后提供的，它的语法和标准的 Cg&#x2F;HLSL 语法几乎一样，但还是有细微的不同</p>
+<h3 id="顶点-片元着色器"><a href="#顶点-片元着色器" class="headerlink" title="顶点&#x2F;片元着色器"></a>顶点&#x2F;片元着色器</h3><p>&emsp;&emsp;Unity 中可以使用 Cg&#x2F;HLSL 语言来编写<strong>顶点&#x2F;片元着色器（Vertex&#x2F;Fragment Shader）</strong>。它们更加复杂，但灵活性更高</p>
+<p>&emsp;&emsp;示例代码如下：</p>
+<pre><code>Shader &quot;Custom/Simple VertexFragment Shader&quot;&#123;
+    SubShader&#123;
+        Pass&#123;
+            CGPROGRAM
+
+            #progama vetex vert
+            #pragma fragment frag
+
+            float4 vert(float4 v : POSITION) : SV_POSITON&#123;
+                return mul(UNITY_MATRIX_MVP,v);
+            &#125;
+
+            fixed4 frag() : SV_Target&#123;
+                return fixed4(1.0,0.0,0.0,1.0);
+            &#125;
+
+            ENDCG
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;顶点&#x2F;片元着色器的代码需要定义在 CGPROGRAM 和 ENDCG 之间，不同的是，顶点&#x2F;片元着色器是写在 Pass 语义块内，而非 SubShader内的</p>
+<p>&emsp;&emsp;这样的原因是，需要自己定义每个 Pass 需要使用的 Shader 代码，虽然可能需要编写更多的代码，但好处是灵活性很高，更重要的是，可以空时渲染的实现细节</p>
+<h3 id="固定函数着色器"><a href="#固定函数着色器" class="headerlink" title="固定函数着色器"></a>固定函数着色器</h3><p>&emsp;&emsp;对于一些较旧的设备（其GPU仅支持 DirectX 7.0、OpenGL 1.5 或 OpenGL ES 1.1），它们不支持可编程管线着色器，因此，这时候就需要使用<strong>固定函数着色器（Fixed Function Shader）</strong> 来完成渲染。这些着色器网网址可以完成一个非常简单的效果</p>
+<p>&emsp;&emsp;示例代码如下：</p>
+<pre><code>Shader &quot;Tutorial/Basic&quot;&#123;
+    Properties&#123;
+        _Color(&quot;Main Color&quot;,Color&#125; = &#123;1,0.5,0.5,1&#125;
+    &#125;
+    SubShader&#123;
+        Pass&#123;
+            Material&#123;
+                Diffuse [_Color]
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>&emsp;&emsp;固定着色器的代码被定义在 Pass 语义块中，这些代码相当于 Pass 中的一些渲染设置</p>
+<p>&emsp;&emsp;对于固定函数着色器来说，需要完全使用 ShaderLab 的语法（使用 ShaderLab 的渲染设置命令）来编写，而不是使用 Cg&#x2F;HLSL</p>
+<p>&emsp;&emsp;由于现在绝大多数 GPU 都支持可编程的渲染管线，这种编程方式已经被逐渐抛弃，在新版的 Unity 中，所有固定函数着色器都会在背后被 Unity 编译成对应的顶点&#x2F;片元着色器</p>
+<h3 id="选择哪种-UnityShader-形式"><a href="#选择哪种-UnityShader-形式" class="headerlink" title="选择哪种 UnityShader 形式"></a>选择哪种 UnityShader 形式</h3><p>&emsp;&emsp;如果有非常明确的需求必须要使用固定函数着色器，否则使用可编程管线的着色器，即表面着色器或顶点&#x2F;片元着色器</p>
+<p>&emsp;&emsp;如果要和各种光源打交道，可能更需要使用表面着色器，但需要小新在移动平台中的性能表现</p>
+<p>&emsp;&emsp;如果需要使用的光照数目非常少，那么使用顶点&#x2F;片元着色器使一个更好的选择</p>
+<p>&emsp;&emsp;如果有很多自定义的渲染效果，使用顶点&#x2F;片元着色器</p>
+<h2 id="其他的一些问题"><a href="#其他的一些问题" class="headerlink" title="其他的一些问题"></a>其他的一些问题</h2><h3 id="UnityShader-真正的Shader"><a href="#UnityShader-真正的Shader" class="headerlink" title="UnityShader !&#x3D; 真正的Shader"></a>UnityShader !&#x3D; 真正的Shader</h3><p>&emsp;&emsp;尽管UnityShader翻译过来就是Unity着色器，在Unity里，UnityShader实际上指的就是一个ShaderLab文件——硬盘上以.shader作为文件后缀的一种文件</p>
+<p>&emsp;&emsp;在UnityShader里，可以做的事情远多于一个传统意义上的Shader</p>
+<p>&emsp;&emsp;&emsp;&emsp;传统的Shader中，仅可以编写特定类型的Shader,例如顶点着色器、片元着色器等，在UnityShader中，可以在同一个文件里同时包含需要的顶点着色器和片元着色器代码</p>
+<p>&emsp;&emsp;&emsp;&emsp;在传统的Shader中，无法设置一些渲染设置，例如是否开启混合、深度测试等，这些是开发者在另外的代码中自行设置的。而在UnityShader中，通过一行特定的指令就可以完成这些设置</p>
+<p>&emsp;&emsp;&emsp;&emsp;在传统的Shader中，我们需要编写荣昌的代码来设置着色器的输入和输出，要小心的处理这些输入输出的位置对应关系等。而在UnityShader中，只需要在特定的语句块中生命一些属性，就可以依靠材质来方便的改变这些属性。而且对于模型自带的数据（如定点位置、纹理坐标、法线等），UnityShader也提供了直接访问的方法，不需要开发者自行编码来传给着色器</p>
+<p>&emsp;&emsp;UnityShader出了上述这些优点外，也有一些缺点。</p>
+<p>&emsp;&emsp;&emsp;&emsp;由于UnityShader的高度封装性，可以编写的Shader类型和语法都被限制了。对于一些类型的Shader，例如曲面细分着色器（Tessellation Shader）、几何着色器（Geometry Shader）等，Unity的支持就相对差一些。例如：Unity 4.x 仅在 DirectX 11平台下提供曲面细分着色器、几何着色器的相关功能，而对于OpenGL平台则没有这些支持。除此之外，一些高级的Shader语法UnityShader也不支持</p>
+<p>&emsp;&emsp;可以说，UnityShader提供了一种让开发者同时控制渲染流水线中多个阶段的一种方式，不仅仅是提供Shader代码。作为开发者而言，绝大部分时候只需要和UnityShader打交道，而不需要关心渲染引擎底层的实现细节</p>
+<h3 id="UnityShader和Cg-HLSL之间的关系"><a href="#UnityShader和Cg-HLSL之间的关系" class="headerlink" title="UnityShader和Cg&#x2F;HLSL之间的关系"></a>UnityShader和Cg&#x2F;HLSL之间的关系</h3><p>&emsp;&emsp;UnityShader是用ShaderLab语言编写的，但对于表面着色器和顶点&#x2F;片元着色器，可以在ShaderLab内部嵌套Cg&#x2F;HLSL语言来编写这些着色器代码。这些Cg&#x2F;HLSL代码是嵌套在 CGPROGRAM 和 ENDCG 之间的。由于Cg和DX9风格的HLSL从写法上来说几乎是同一种语言，因此在Unity里Cg和HLSL是等价的。可以说，Cg&#x2F;HLSL代码是区别于ShaderLab的另一个世界</p>
+<p>&emsp;&emsp;通常，Cg的代码片段是位于Pass语义块内部的，如下所示</p>
+<pre><code>Pass&#123;
+    //Pass的标签和状态设置
+
+    CGPROGRAM
+    //编译指令，例如：
+    #pragma vertex vert
+    #pragma fragment frag
+
+    //Cg代码
+
+    ENDCG
+    //其他一些设置
+&#125;
+</code></pre>
+<p>&emsp;&emsp;在提供给编程人员这些便利的背后，Unity编辑器会把这些Cg片段编译成低级语言，如汇编语言等。同城，Unity会自动把这些诶Cg片段编译到所有相关平台（这里的平台是指不同的渲染平台，如Dirext3D 9、OpenGL、Direct3D 11、OpenGL ES等）上。这些编译过程比较复杂，Unity会使用不同的编译器来吧Cg转换成对应平台的代码。这样就不会在切换平台时再重新编译，而且如果代码在某些平台上发生错误就可以立刻得到错误信息。</p>
+<p>&emsp;&emsp;可以在UnityShader的导入设置面板上查看这些编译后的代码，查看这些代码有助于进行Debug或优化等</p>
+<p>&emsp;&emsp;如图：</p>
+<p><img src="/images/UnityShader/2/9.png" alt="在UnityShader的导入设置面板中可以通过Compile and show code按钮来查看Unity对Cg片段编译后的代码，通过单击Compile and show按钮右侧的倒三角可以打开下拉菜单，在这个下拉菜单中可以选择变异的平台种类，如职位当前的显卡设备编译特定的汇编代码，或为所有的平台编译汇编代码，也可以自定义选择编译到哪些平台上"><br>&emsp;&emsp;但当发布游戏的时候，游戏数据文件中质保函目标平台需要的编译代码，而那些在目标平台上不需要的代码部分就会被移除。例如，当发布到Mac OS X平台上时，DirectX对应的代码部分就会被移除。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
