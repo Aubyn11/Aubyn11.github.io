@@ -1,0 +1,2291 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>C++进修——C++基础入门 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>C++进修——C++基础入门</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/C/" style="color: #ffa2c4">
+                    C++
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>C++基础入门</p>
+<span id="more"></span>
+
+<h1 id="初识C"><a href="#初识C" class="headerlink" title="初识C++"></a>初识C++</h1><h2 id="书写HelloWorld"><a href="#书写HelloWorld" class="headerlink" title="书写HelloWorld"></a>书写HelloWorld</h2><pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() &#123;
+	cout &lt;&lt; &quot;HelloWorldd&quot; &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+
+	return 0;
+&#125;
+</code></pre>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><strong>作用</strong>：在代码中加一些说明和解释，方便自己或其他程序员阅读代码<br><strong>两种格式</strong>：</p>
+<ul>
+<li><strong>单行注释</strong>：<code>//描述信息</code><ul>
+<li>通常放在一行代码的上方，或者一条语句的末尾，<code>对该行代码说明</code></li>
+</ul>
+</li>
+<li><strong>多行注释</strong>：<code>/*描述信息*/</code><ul>
+<li>通常放在一段代码的上方，<code>对该段代码做整体说明</code><blockquote>
+<p>提示：编译器在编译代码时，会忽略注释的内容</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><strong>作用</strong>：给一段指定的内存空间起名，方便操作这段内存</p>
+<p><strong>语法</strong>：<code>数据类型 数据名 = 初始值</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() &#123;
+
+	int a = 10;
+
+	cout &lt;&lt; &quot;a = &quot; &lt;&lt; a &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p><strong>作用</strong>：用于记录程序中不可更改的数据<br>C++定义常量两种方式</p>
+<ul>
+<li>#define 宏常量：<code>#define 常量名 常量值</code><ul>
+<li><code>通常在文件上定义</code>，表示一个常量</li>
+</ul>
+</li>
+<li>const修饰的变量：<code>const 数据类型 常量名 = 常量值</code><ul>
+<li><code>通常在变量定义前加关键字const</code>，修饰该变量为常量，不可修改</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+//宏常量
+#define day 365
+
+int main() &#123;
+
+	cout &lt;&lt; &quot;一年一共有&quot; &lt;&lt; day &lt;&lt; &quot;天&quot; &lt;&lt; endl;
+
+	//const修饰的常量
+	const int date = 7;
+
+	cout &lt;&lt; &quot;一周一共有&quot; &lt;&lt; date &lt;&lt; &quot;天&quot; &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	
+	return 0;
+&#125;
+</code></pre>
+<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p><strong>作用</strong>：关键字是C++中预先保留的单词（标识符）</p>
+<ul>
+<li><strong>在定义变量或者常量的时候，不要用关键字</strong></li>
+</ul>
+<p>C++关键字如下：</p>
+<table>
+<thead>
+<tr>
+<th>asm</th>
+<th>do</th>
+<th>if</th>
+<th>return</th>
+<th>typeof</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auto</td>
+<td>double</td>
+<td>inline</td>
+<td>short</td>
+<td>typeid</td>
+</tr>
+<tr>
+<td>bool</td>
+<td>dynamic_cast</td>
+<td>int</td>
+<td>signed</td>
+<td>typename</td>
+</tr>
+<tr>
+<td>break</td>
+<td>else</td>
+<td>long</td>
+<td>sizeof</td>
+<td>union</td>
+</tr>
+<tr>
+<td>case</td>
+<td>enum</td>
+<td>mutable</td>
+<td>static</td>
+<td>unsinged</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>explicit</td>
+<td>namespace</td>
+<td>static_cast</td>
+<td>using</td>
+</tr>
+<tr>
+<td>char</td>
+<td>export</td>
+<td>new</td>
+<td>struct</td>
+<td>void</td>
+</tr>
+<tr>
+<td>const</td>
+<td>false</td>
+<td>private</td>
+<td>template</td>
+<td>volatile</td>
+</tr>
+<tr>
+<td>const_cast</td>
+<td>float</td>
+<td>protected</td>
+<td>this</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>public</td>
+<td>throw</td>
+<td>while</td>
+</tr>
+<tr>
+<td>default</td>
+<td>friend</td>
+<td>register</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>delete</td>
+<td>goto</td>
+<td>reinterpret_cast</td>
+<td>try</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>提示：在给变量或者常量起名称的时候，不要用C++的关键字，否则会产生歧义</p>
+</blockquote>
+<p>示例：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() &#123;
+
+	//int int = 10;
+	//第二个int是关键字，不可以做为变量的名称
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="标识符命名规则"><a href="#标识符命名规则" class="headerlink" title="标识符命名规则"></a>标识符命名规则</h2><p><strong>作用</strong>：C++规定给标识符（常量、变量）命名时，有一套自己的规则</p>
+<ul>
+<li>标识符不能是关键字</li>
+<li>标识符只能由字母、数字、下划线组成</li>
+<li>第一个字符必须为字母或下划线</li>
+<li>标识符中字母区分大小写</li>
+</ul>
+<blockquote>
+<p>建议：给标识符命名时，争取做到见名知意的效果，方便自己和他人的阅读</p>
+</blockquote>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><strong>作用</strong>：整型变量表示的是<code>整数类型</code>的数据<br>C++中能够表示整型的数据类型有以下几种方式，<strong>区别在于内存空间不同</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>占用空间</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>short(短整型)</td>
+<td>2字节</td>
+<td>$-2^{15}$ ~ $2^{15}$ - 1</td>
+</tr>
+<tr>
+<td>int(整型)</td>
+<td>4字节</td>
+<td>$-2^{31}$ ~ $2^{31}$ - 1</td>
+</tr>
+<tr>
+<td>long(长整型)</td>
+<td>Windows为4字节，Linux为4字节（32位），8字节（64位）</td>
+<td>$-2^{31}$ ~ $2^{31} - 1$</td>
+</tr>
+<tr>
+<td>long long(长长整型)</td>
+<td>8字节</td>
+<td>$-2^{63} ~ 2^{63} - 1$</td>
+</tr>
+</tbody></table>
+<h2 id="sizeof关键字"><a href="#sizeof关键字" class="headerlink" title="sizeof关键字"></a>sizeof关键字</h2><p><strong>作用</strong>：利用sizeof关键字可以<code>统计数据类型所占内存大小</code><br><strong>语法</strong>：<code>sizeof(数据类型/变量)</code><br><strong>示例</strong></p>
+<pre><code class="language-cpp">int main()&#123;
+	cout &lt;&lt; &quot;short类型所占内存空间为：&quot; &lt;&lt; sizeof(short) &lt;&lt; endl;
+	cout &lt;&lt; &quot;int类型所占内存空间为：&quot; &lt;&lt; sizeof(int) &lt;&lt; endl;
+	cout &lt;&lt; &quot;long类型所占内存空间为：&quot; &lt;&lt; sizeof(long) &lt;&lt; endl;
+	cout &lt;&lt; &quot;long long类型所占内存空间为：&quot; &lt;&lt; sizeof(long long) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="实型（浮点型）"><a href="#实型（浮点型）" class="headerlink" title="实型（浮点型）"></a>实型（浮点型）</h2><p><strong>作用</strong>：用于<code>表示小数</code><br>浮点型变量分为两种：</p>
+<ul>
+<li>单精度float</li>
+<li>双精度double</li>
+</ul>
+<p>两者的区别在于表示的有效数字范围不同</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>占用空间</th>
+<th>有效数字范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>4字节</td>
+<td>7位有效数字</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8字节</td>
+<td>15~16位有效数字</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	float f1 = 3.14f;
+	double d1 = 3.14;
+
+	//默认情况下，输出一个小数，会显示出6位有效数字
+
+	cout &lt;&lt; f1 &lt;&lt; endl;
+	cout &lt;&lt; d1 &lt;&lt; endl;
+
+	//科学计数法
+	//3 * 10^2
+	float f2 = 3e2;
+	cout &lt;&lt; f2 &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p><strong>作用</strong>：字符型变量用于显示单个字符<br><strong>语法</strong>：<code>char ch = &#39;a&#39;</code></p>
+<blockquote>
+<p>注意1：在显示字符型变量时，用单引号将字符括起来，不要用双引号<br>注意2：单引号只能有一个字符，不能是字符串</p>
+</blockquote>
+<ul>
+<li>C和C++种字符型变量只占用<code>1个字节</code></li>
+<li>字符型变量并不是把字符本身放到内存中存储，而是将对应的ASCII编码放入到存储单元</li>
+</ul>
+<p>示例</p>
+<pre><code class="language-cpp">int main()&#123;
+	char ch = &#39;a&#39;;
+	cout &lt;&lt; ch &lt;&lt; endl;
+	cout &lt;&lt; sizeof(char) &lt;&lt; endl;
+	
+	//ch = &quot;abcde&quot; //错误，不可以用双引号
+	//ch = &#39;abcde&#39; //错误，单引号只能引用一个字符
+
+	cout &lt;&lt; (int)ch &lt;&lt; endl;//查看字符ch对应的ASCII码
+	ch = 97;//可以直接用ASCII给字符型变量赋值
+	cout &lt;&lt; ch &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<p>ASCII码大知由以下<strong>两部分</strong>组成：</p>
+<ul>
+<li>ASCII非打印字符：ASCII表上的数字<strong>0~31</strong>分配给了<code>控制字符</code>，用于控制像打印机等一些外围设备</li>
+<li>ASCII打印字符：数字<strong>32~126</strong>分配给了能在键盘上找到的字符，当查看或打印文档时就会出现</li>
+</ul>
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p><strong>作用</strong>：用于表示一些<code>不能显示出来的ASCII字符</code><br>现阶段常用的字符有：<code>\n \\ \t</code></p>
+<table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>含义</th>
+<th>ASCII码值（十进制）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\a</td>
+<td>警报</td>
+<td>007</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>退格，将当前位置移到前一列</td>
+<td>008</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页，将当前位置移到下一页开头</td>
+<td>012</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行，将当前位置移到下一行开头</td>
+<td>010</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车，将当前位置移到本行开头</td>
+<td>013</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>水平制表（跳到下一个tab位置）</td>
+<td>009</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表</td>
+<td>011</td>
+</tr>
+<tr>
+<td>\</td>
+<td>代表一个反斜线字符”&quot;</td>
+<td>092</td>
+</tr>
+<tr>
+<td>&#39;</td>
+<td>代表一个单引号字符</td>
+<td>039</td>
+</tr>
+<tr>
+<td>&quot;</td>
+<td>代表一个双引号字符</td>
+<td>034</td>
+</tr>
+<tr>
+<td>?</td>
+<td>代表一个问号</td>
+<td>063</td>
+</tr>
+<tr>
+<td>\0</td>
+<td>数字0</td>
+<td>000</td>
+</tr>
+<tr>
+<td>\ddd</td>
+<td>8进制转义字符，d范围0~7</td>
+<td>3位8进制</td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>16进制转义字符，h范围$0_{9,a}$f,A~F</td>
+<td>3位16进制</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	cout &lt;&lt; &quot;\n&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;\\&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;\tHello&quot; &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="字符串型"><a href="#字符串型" class="headerlink" title="字符串型"></a>字符串型</h2><p><strong>作用</strong>：用于表示一串字符<br><strong>两种风格</strong>：</p>
+<ol>
+<li><strong>C风格字符串</strong>：<code>char 变量名[] = &quot;字符串值&quot;</code></li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-C">int main()&#123;
+	char str1[] = &quot;hello world&quot;;
+	cout &lt;&lt; str1 &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<blockquote>
+<p>注意：C风格的字符串要用双引号括起来</p>
+</blockquote>
+<ol start="2">
+<li><strong>C++风格字符串</strong>：<code>string 变量名 = &quot;字符串值&quot;</code></li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">//需要引用命名空间string，即
+#include &lt;string&gt;
+
+int main()&#123;
+	string str1 = &quot;hello world&quot;;
+	cout &lt;&lt; str1 &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<blockquote>
+<p>注意：C++风格字符串，需要加入头文件<code>#include &lt;string&gt;</code></p>
+</blockquote>
+<h2 id="布尔类型-bool"><a href="#布尔类型-bool" class="headerlink" title="布尔类型 bool"></a>布尔类型 bool</h2><p><strong>作用</strong>：布尔数据类型代表真或假的值<br>bool类型只有两个值：</p>
+<ul>
+<li>ture - 真（本质为1）</li>
+<li>false - 假（本质为0）</li>
+</ul>
+<p><strong>bool</strong>类型占一个字节大小</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	bool flag = true;
+	cout &lt;&lt; flag &lt;&lt; endl;
+
+	flag = flase;
+	cout &lt;&lt; &quot;size of bool = &quot; &lt;&lt; sizeof(bool) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<blockquote>
+<p>注意：布尔类型非0的值都代表为true</p>
+</blockquote>
+<h2 id="数据的输入"><a href="#数据的输入" class="headerlink" title="数据的输入"></a>数据的输入</h2><p><strong>作用</strong>：用于从键盘获取数据<br><strong>关键字</strong>：cin<br><strong>语法</strong>：<code>cin &gt;&gt; 变量</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 0;
+	cout &lt;&lt; &quot;请输入整型变量&quot; &lt;&lt; endl;
+	cin &gt;&gt; a;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	float b = 0;
+	cout &lt;&lt; &quot;请输入浮点型变量&quot; &lt;&lt; endl;
+	cin &gt;&gt; b;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	char ch = &#39;a&#39;;
+	cout &lt;&lt; &quot;请输入字符型变量&quot; &lt;&lt; endl;
+	cin &gt;&gt; ch;
+	cout &lt;&lt; ch &lt;&lt; endl;
+
+	string str = &quot; &quot;;
+	cout &lt;&lt; &quot;请输入字符串变量&quot; &lt;&lt; endl;
+	cin &gt;&gt; str;
+	cout &lt;&lt; str &lt;&lt; endl;
+
+	bool flag = false;
+	cout &lt;&lt; &quot;请输入布尔变量&quot; &lt;&lt; endl;
+	cin &gt;&gt; flag;
+	cout &lt;&lt; flag &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><p><strong>作用</strong>：用于处理四则运算</p>
+<p>算术运算符包括以下符号：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>正号</td>
+<td>+3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>-</td>
+<td>负号</td>
+<td>-3</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>+</td>
+<td>加</td>
+<td>10 + 5</td>
+<td>15</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+<td>10 - 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+<td>10 * 5</td>
+<td>50</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>除</td>
+<td>10 &#x2F; 5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模(取余)</td>
+<td>10 % 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>++</td>
+<td>前置递增</td>
+<td>a &#x3D; 2,b &#x3D; ++a;</td>
+<td>a &#x3D; 3,b &#x3D; 3</td>
+</tr>
+<tr>
+<td>++</td>
+<td>后置递增</td>
+<td>a &#x3D; 2,b &#x3D; a++;</td>
+<td>a &#x3D; 3,b &#x3D; 2</td>
+</tr>
+<tr>
+<td>–</td>
+<td>前置递减</td>
+<td>a &#x3D; 2,b &#x3D; –a;</td>
+<td>a &#x3D; 1,b &#x3D; 1</td>
+</tr>
+<tr>
+<td>–</td>
+<td>后置递减</td>
+<td>a &#x3D; 2,b &#x3D; a–;</td>
+<td>a &#x3D; 1,b &#x3D; 2</td>
+</tr>
+</tbody></table>
+<p>示例1：</p>
+<pre><code class="language-cpp">// 加减乘除
+int main()&#123;
+	int a = 10;
+	int b = 3;
+
+	cout &lt;&lt; a + b &lt;&lt; endl;
+	cout &lt;&lt; a - b &lt;&lt; endl;
+	cout &lt;&lt; a * b &lt;&lt; endl;
+	//结果向下取整
+	cout &lt;&lt; a / b &lt;&lt; endl;
+
+	int m = 10;
+	int n = 20;
+
+	cout &lt;&lt; m / n &lt;&lt; endl;
+
+	int x = 10;
+	int y = 0;
+	//会报错，除数为0
+	cout &lt;&lt; x / y &lt;&lt; endl;
+
+	double c = 0.5;
+	double d = 0.25;
+
+	cout &lt;&lt; c / d &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>示例2：</p>
+<pre><code class="language-cpp">//取模
+int main()&#123;
+	int a = 10;
+	int b = 3;
+
+	cout &lt;&lt; a % b &lt;&lt; endl;
+
+	int x = 10;
+	int y = 20;
+
+	cout &lt;&lt; x % y &lt;&lt; endl;
+	
+	int m = 10;
+	int n = 0;
+	//因为基于除法运算，所以依旧会报错
+	cout &lt;&lt; m % n &lt;&lt; endl;
+
+	double c = 3.14;
+	double d = 1.1;
+	//两个小数不可以进行取模运算
+	cout &lt;&lt; c % d &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	reutrn 0;
+&#125;
+</code></pre>
+<p>示例3：</p>
+<pre><code class="language-cpp">//递增递减
+int main()&#123;
+	int a = 10;
+	a++;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	int b = 10;
+	++b;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	int c = 10;
+	int d = c++ * 10;
+	cout &lt;&lt; c &lt;&lt; endl;
+	cout &lt;&lt; d &lt;&lt; endl;
+
+	int e = 10;
+	int f = ++e * 10;
+	cout &lt;&lt; e &lt;&lt; endl;
+	cout &lt;&lt; f &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><p><strong>作用</strong>：用于将表达式的值赋值给变量</p>
+<p>赋值运算符包括以下几个符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>赋值</td>
+<td>a &#x3D; 2,b &#x3D; 3</td>
+<td>a &#x3D; 2,b &#x3D; 3</td>
+</tr>
+<tr>
+<td>+&#x3D;</td>
+<td>加等于</td>
+<td>a &#x3D; 0,a +&#x3D; 2</td>
+<td>a &#x3D; 2</td>
+</tr>
+<tr>
+<td>-&#x3D;</td>
+<td>减等于</td>
+<td>a &#x3D; 5,a -&#x3D; 3</td>
+<td>a &#x3D; 2</td>
+</tr>
+<tr>
+<td>*&#x3D;</td>
+<td>乘等于</td>
+<td>a &#x3D; 2,a *&#x3D; 2</td>
+<td>a &#x3D; 4</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td>除等于</td>
+<td>a &#x3D; 4,a &#x2F;&#x3D; 2</td>
+<td>a &#x3D; 2</td>
+</tr>
+<tr>
+<td>%&#x3D;</td>
+<td>模等于</td>
+<td>a &#x3D; 3,a %&#x3D; 2</td>
+<td>a &#x3D; 1</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	a += 2;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	a = 10;
+	a -= 2;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	a = 10;
+	a *= 2;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	a = 10;
+	a /= 2;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	a = 10;
+	a %= 2;
+	cout &lt;&lt; a &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h2><p><strong>作用</strong>：用于表达式的比较，并返回一个真值或假值</p>
+<p>比较运算符有以下符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;&#x3D;</td>
+<td>相等于</td>
+<td>4 &#x3D;&#x3D; 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>!&#x3D;</td>
+<td>不等于</td>
+<td>4 !&#x3D; 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+<td>4 &lt; 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+<td>4 &gt; 3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+<td>4 &lt;&#x3D; 3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+<td>4 &gt;&#x3D; 3</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>示例</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	int b = 20;
+
+	cout &lt;&lt; (a == b) &lt;&lt; endl;
+	cout &lt;&lt; (a != b) &lt;&lt; endl;
+	cout &lt;&lt; (a &gt; b) &lt;&lt; endl;
+	cout &lt;&lt; (a &lt; b) &lt;&lt; endl;
+	cout &lt;&lt; (a &gt;= b) &lt;&lt; endl;
+	cout &lt;&lt; (a &lt;= b) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p><strong>作用</strong>：用于根据表达式的值返回真值或假值</p>
+<p>逻辑运算符有以下符号</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>术语</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>!</td>
+<td>非</td>
+<td>!a</td>
+<td>如果a为假，则!a为真，反之同理</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>与</td>
+<td>a &amp;&amp; b</td>
+<td>如果a,b都为真，则结果才为真</td>
+</tr>
+<tr>
+<td>||</td>
+<td>或</td>
+<td>a || b</td>
+<td>如果a或b至少有一个为真，则结果为真</td>
+</tr>
+</tbody></table>
+<p>示例1：</p>
+<pre><code class="language-cpp">//逻辑非
+int main()&#123;
+	int a = 10;
+
+	cout &lt;&lt; !a &lt;&lt; endl;
+	cout &lt;&lt; !!a &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p>示例2：</p>
+<pre><code class="language-cpp">//逻辑与
+int main()&#123;
+	int a = 10;
+	int b = 10;
+
+	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;
+
+	b = 0;
+
+	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;
+
+	a = 0;
+
+	cout &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<p>示例3</p>
+<pre><code class="language-cpp">//逻辑或
+int main()&#123;
+	int a = 10;
+	int b = 10;
+
+	cout &lt;&lt; (a || b) &lt;&lt; endl;
+
+	b = 0;
+
+	cout &lt;&lt; (a || b) &lt;&lt; endl;
+
+	a = 0;
+
+	cout &lt;&lt; (a || b) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="程序流程结构"><a href="#程序流程结构" class="headerlink" title="程序流程结构"></a>程序流程结构</h1><h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><p><strong>作用</strong>：执行满足条件的语句</p>
+<p>if语句的三种形式</p>
+<ul>
+<li>单行格式if语句</li>
+<li>多行格式if语句</li>
+<li>多条件的if语句</li>
+</ul>
+<ol>
+<li>单行格式if语句：<code>if(条件)(条件满足执行的语句)</code></li>
+</ol>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/c4c476ea8082a35d6ef5c2b1db7c32be.png" alt="在这里插入图片描述"></p>
+<p>示例</p>
+<pre><code class="language-cpp">int main()&#123;
+	int score = 0;
+	cout &lt;&lt; &quot;请输入一个分数&quot; &lt;&lt; endl;
+	cin &gt;&gt; score;
+
+	cout &lt;&lt; &quot;您输入的分数为：&quot; &lt;&lt; score &lt;&lt; endl;
+
+	if(score &gt; 600)&#123;
+		cout &lt;&lt; &quot;恭喜你考上了一本&quot; &lt;&lt; endl;
+	&#125;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<ol start="2">
+<li>多行格式if语句：<code>if(条件)&#123;条件满足执行的语句&#125;else&#123;条件不满足执行的语句&#125;</code></li>
+</ol>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/b150da70822a6e579cfd43524f9b14ec.png" alt="在这里插入图片描述"></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int score = 0;
+	cout &lt;&lt; &quot;请输入考试分数&quot; &lt;&lt; endl;
+	cin &gt;&gt; score;
+
+	if(score &gt; 600)&#123;
+		cout &lt;&lt; &quot;恭喜考上了一本大学&quot; &lt;&lt; endl;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;未考上一本大学&quot; &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<ol start="3">
+<li>多条件的if语句：<code>if(条件1)&#123;条件1满足执行的语句&#125;else if(条件2)&#123;条件2满足执行的语句&#125;...else&#123;都不满足执行的语句&#125;</code></li>
+</ol>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d9356ed60fd989fb37338b6d74d33cb2.png" alt="在这里插入图片描述"></p>
+<pre><code class="language-cpp">int main()&#123;
+	int score = 0;
+	cout &lt;&lt; &quot;请输入考试分数&quot; &lt;&lt; endl;
+	cin &gt;&gt; score;
+
+	if(score &gt; 600)&#123;
+		cout &lt;&lt; &quot;考上了一本大学&quot; &lt;&lt; endl;
+	&#125;
+	else if(score &gt; 500)&#123;
+		cout &lt;&lt; &quot;考上了二本大学&quot; &lt;&lt; endl;
+	&#125;
+	else if(score &gt; 400)&#123;
+		cout &lt;&lt; &quot;考上了三本大学&quot; &lt;&lt; endl;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;未考上大学&quot; &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p><strong>嵌套if语句</strong>：在if语句中，可以嵌套使用if语句，达到更准确的条件判断</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int score = 0;
+	cout &lt;&lt; &quot;请输入考试分数&quot; &lt;&lt; endl;
+	cin &gt;&gt; score;
+
+	if(score &gt; 600)&#123;
+		if(score &gt;700)&#123;
+			cout &lt;&lt; &quot;考上了清华&quot; &lt;&lt; endl;
+		&#125;
+		else if(score &gt; 650)&#123;
+			cout &lt;&lt; &quot;考上了北大&quot; &lt;&lt; endl;
+		&#125;
+		else&#123;
+			cout &lt;&lt; &quot;考上了人大&quot; &lt;&lt; endl;
+		&#125;
+	&#125;
+	else if(score &gt; 500)&#123;
+		cout &lt;&lt; &quot;考上了二本大学&quot; &lt;&lt; endl;
+	&#125;
+	else if(score &gt; 400)&#123;
+		cout &lt;&lt; &quot;考上了三本大学&quot; &lt;&lt; endl;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;未考上大学&quot; &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h3><p><strong>作用</strong>：通过三目运算符实现简单的判断</p>
+<p><strong>语法</strong>：<code>表达式1 ? 表达式2 : 表达式3</code></p>
+<p><strong>解释</strong>：如果表达式1为真，则执行表达式2，否则执行表达式3</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	int b = 20;
+	int c = 0;
+
+	c = a &gt; b ? a : b;
+	cout &lt;&lt; c &lt;&lt; endl;
+
+	(a &gt; b ? a : b) = 100;
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h3><p><strong>作用</strong>：执行多条件分支语句<br><strong>语法</strong>：</p>
+<pre><code class="language-cpp">switch(表达式)&#123;
+	case 结果1:执行语句;break;
+	case 结果2:执行语句;break;
+	...
+	default:执行语句;break;
+&#125;
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	cout &lt;&lt; &quot;请给电影打分&quot; &lt;&lt; endl;
+
+	int score = 0;
+	cin &lt;&lt; score;
+
+	switch(score)&#123;
+		case 10:
+			cout &lt;&lt; &quot;经典电影&quot; &lt;&lt; endl;
+			break;
+		case 9:
+			cout &lt;&lt; &quot;经典电影&quot; &lt;&lt; endl;
+			break;
+		case 8:
+			cout &lt;&lt; &quot;非常好的电影&quot; &lt;&lt; endl;
+			break;
+		case 7:
+			cout &lt;&lt; &quot;非常好的电影&quot; &lt;&lt; endl;
+			break;
+		case 6:
+			cout &lt;&lt; &quot;一般电影&quot; &lt;&lt; endl;
+			break;
+		case 5:
+			cout &lt;&lt; &quot;一般电影&quot; &lt;&lt; endl;
+			break;
+		default:
+			cout &lt;&lt; &quot;烂片&quot; &lt;&lt; endl;
+			break;
+	&#125;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="while循环语句"><a href="#while循环语句" class="headerlink" title="while循环语句"></a>while循环语句</h3><p><strong>作用</strong>：满足循环条件，执行循环语句</p>
+<p><strong>语法</strong>：<code>while(循环条件)&#123;循环语句&#125;</code></p>
+<p><strong>解释</strong>：只要循环条件的结果为真，就执行循环语句</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/58f08f1d741eb815a973d99a2625d3ae.png" alt="在这里插入图片描述"></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int num = 0;
+
+	while(num &lt; 10)&#123;
+		cout &lt;&lt; num &lt;&lt; endl;
+		num++;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="do…while循环语句"><a href="#do…while循环语句" class="headerlink" title="do…while循环语句"></a>do…while循环语句</h3><p><strong>作用</strong>：满足循环条件，执行循环语句</p>
+<p><strong>语法</strong>：<code>do&#123;循环语句&#125;while(循环条件)</code></p>
+<p><strong>注意</strong>：与while的区别在于do…while会先执行一次循环语句，再判断循环条件</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/42009af099cc8be8b1227568981810b0.png" alt="在这里插入图片描述"></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int num = 0;
+
+	do&#123;
+		cout &lt;&lt; num &lt;&lt; endl;
+		num++;
+	&#125;while(num &lt; 10)
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h3><p><strong>作用</strong>：满足循环条件，执行循环语句</p>
+<p><strong>语法</strong>：<code>for(起始表达式;条件表达式;末尾循环体)&#123;循环语句;&#125;</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	for(int i = 0;i &lt; 10;i++)&#123;
+		cout &lt;&lt; i &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h3 id="嵌套循环"><a href="#嵌套循环" class="headerlink" title="嵌套循环"></a>嵌套循环</h3><p><strong>作用</strong>：在循环体中再嵌套一层循环，解决一些实际问题</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	for(int i = 0;i &lt; 10;i++)&#123;
+		for(int j = 0;j &lt; 10;j++)&#123;
+			cout &lt;&lt; &quot;* &quot; &lt;&lt; endl;
+		&#125;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h2><h3 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a>break语句</h3><p><strong>作用</strong>：用于跳出<code>选择结构</code>或者<code>循环结构</code></p>
+<p>break使用的时机：</p>
+<ul>
+<li>出现在switch条件语句中，作用是终止case并跳出switch</li>
+<li>出现在循环语句中，作用是跳出当前的循环语句</li>
+<li>出现在嵌套循环中，跳出最近的循环语句</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	cout &lt;&lt; &quot;请选择你挑战的副本&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;1. 普通&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;2. 中等&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;3. 困难&quot; &lt;&lt; endl;
+
+	int num = 0;
+
+	cin &lt;&lt; num;
+
+	switch(num)&#123;
+		case 1:
+			cout &lt;&lt; &quot;普通难度&quot; &lt;&lt; endl;
+			break;
+		case 2:
+			cout &lt;&lt; &quot;中等难度&quot; &lt;&lt; endl;
+			break;
+		case 3:
+			cout &lt;&lt; &quot;困难难度&quot; &lt;&lt; endl;
+			break;
+		default:
+			cout &lt;&lt; &quot;参数错误&quot; &lt;&lt; endl;
+			break;
+	&#125;
+
+	for(int i = 0; i &lt; 10; i++)&#123;
+		cout &lt;&lt; i &lt;&lt; endl;
+		if(i == 5)&#123;
+			break;
+		&#125;
+	&#125;
+
+	for(int i = 0; i &lt; 10; i++)&#123;
+		for(int j = 0; j &lt; 10; j++)&#123;
+			if(j == 5)&#123;
+				break;
+			&#125;
+			cout &lt;&lt; &quot;*&quot; &lt;&lt; endl;
+		&#125;
+		cout &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a>continue语句</h3><p><strong>作用</strong>：在<code>循环语句</code>中，跳过本次循环中余下尚未执行的语句，继续执行下一次循环</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	for(int i = 0; i &lt; 100; i++)&#123;
+		if(i % 2 == 0)&#123;
+			continue;
+		&#125;
+		cout &lt;&lt; i &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="goto语句"><a href="#goto语句" class="headerlink" title="goto语句"></a>goto语句</h3><p><strong>作用</strong>：可以无条件语句</p>
+<p><strong>语法</strong>：<code>goto 标记</code></p>
+<p><strong>注意</strong>：如果标记的名称存在，执行到goto语句时，会跳转到标记的位置</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	cout &lt;&lt; &quot;1&quot; &lt;&lt; endl;
+
+	goto FLAG;
+
+	cout &lt;&lt; &quot;2&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;3&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;4&quot; &lt;&lt; endl;
+
+	FLAG;
+
+	cout &lt;&lt; &quot;5&quot; &lt;&lt; endl;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>数组就是一个集合，里面存放了相同类型的数据元素</p>
+<p><strong>特点1</strong>：数组中的每个<code>数据元素都是相同的数据类型</code></p>
+<p><strong>特点2</strong>：数组是由<code>连续的内存</code>位置构成的</p>
+<h2 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h2><h3 id="一维数组定义方式"><a href="#一维数组定义方式" class="headerlink" title="一维数组定义方式"></a>一维数组定义方式</h3><p>一维数组定义的三种方式：</p>
+<ul>
+<li><code>数据类型 数组名[数组长度];</code></li>
+<li><code>数据类型 数组名[数组长度] = &#123;值1,值2,值3&#125;;</code></li>
+<li><code>数据类型 数组名[] = &#123;值1,值2,值3&#125;;</code></li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int score[10];
+
+	score[0] = 100;
+	score[1] = 99;
+	score[2] = 85;
+
+	cout &lt;&lt; score[0] &lt;&lt; endl;
+	cout &lt;&lt; score[1] &lt;&lt; endl;
+	cout &lt;&lt; score[2] &lt;&lt; endl;
+
+	int score2[10] = &#123;100,90,80,70,60,50,40,30,20,10&#125;;
+
+	for(int i = 0; i &lt; 10; i++)&#123;
+		cout &lt;&lt; score2[i] &lt;&lt; endl;
+	&#125;
+
+	int score3[] = &#123;100,90,80,70,60,50,40,30,20,10&#125;;
+
+	for(int i = 0; i &lt; 10; i++)&#123;
+		cout &lt;&lt; score2[i] &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);	
+	return 0;
+&#125;
+</code></pre>
+<h3 id="一维数组数组名"><a href="#一维数组数组名" class="headerlink" title="一维数组数组名"></a>一维数组数组名</h3><p>一维数组名称的<strong>用途</strong>：</p>
+<ul>
+<li>可以统计整个数组在内存中的长度</li>
+<li>可以获取数组在内存中的首地址</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int arr[10] = &#123;1,2,3,4,5,6,7,8,9,10&#125;;
+
+	cout &lt;&lt; &quot;整个数组所占内存空间为：&quot; &lt;&lt; sizeof(arr) &lt;&lt; endl;
+	cout &lt;&lt; &quot;每个元素所占内存空间为：&quot; &lt;&lt; sizeof(arr[0]) &lt;&lt; endl;
+	cout &lt;&lt; &quot;数组的元素个数为：&quot; &lt;&lt; sizeof(arr) / sizeof(arr[0]) &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;数组首地址为：&quot; &lt;&lt; (int)arr &lt;&lt; endl;
+	cout &lt;&lt; &quot;数组中第一个元素地址为：&quot; &lt;&lt; (int)arr[0] &lt;&lt; endl;
+	cout &lt;&lt; &quot;数组中第二个元素地址为：&quot; &lt;&lt; (int)arr[1] &lt;&lt; endl;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p><strong>作用</strong>：最常用的排序算法，对数组内元素进行排序</p>
+<ul>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个</li>
+<li>对每一组相邻元素做同样的工作，执行完毕后，找到第一个最大值</li>
+<li>重复以上的步骤，每次比较次数-1，直到不需要比较</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int arr[9] = &#123;4,2,8,0,5,7,1,3,9&#125;;
+
+	for(int i = 0; i &lt; 8; i++)&#123;
+		for(int j = 0; j &lt; 8 - i;j++&#123;
+			if(arr[j] &gt; arr[j + 1])&#123;
+				int temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			&#125;
+		&#125;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><p>二维数组就是在一维数组上多加一个维度</p>
+<h3 id="二维数组定义方式"><a href="#二维数组定义方式" class="headerlink" title="二维数组定义方式"></a>二维数组定义方式</h3><p>二维数组定义的四种方式：</p>
+<ol>
+<li><code>数据类型 数组名[行数][列数];</code></li>
+<li><code>数据类型 数组名[行数][列数] = &#123;&#123;数据1,数据2&#125;,&#123;数据3,数据4&#125;&#125;;</code></li>
+<li><code>数据类型 数组名[行数][列数] = &#123;数据1,数据2,数据3,数据4&#125;;</code></li>
+<li><code>数据类型 数组名[][列数] = &#123;数据1,数据2,数据3,数据4&#125;;</code></li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int arr[2][3];
+	arr[0][0] = 1;
+	arr[0][1] = 2;
+	arr[0][2] = 3;
+	arr[1][0] = 4;
+	arr[1][1] = 5;
+	arr[1][2] = 6;
+
+	for(int i = 0; i &lt; 2; i++)&#123;
+		for(int j = 0; j &lt; 3; j++)&#123;
+			cout &lt;&lt; arr[i][j] &lt;&lt; &quot; &quot;;
+		&#125;
+		cout &lt;&lt; endl;
+	&#125;
+
+	int arr2[2][3] = &#123;
+		&#123;1,2,3&#125;,
+		&#123;4,5,6&#125;
+	&#125;;
+
+	int arr3[2][3] = &#123;1,2,3,4,5,6&#125;;
+
+	int arr4[][3] = &#123;1,2,3,4,5,6&#125;;
+	
+	system(&quot;pause&quot;);
+	retrun 0;
+&#125;
+</code></pre>
+<h3 id="二维数组数组名"><a href="#二维数组数组名" class="headerlink" title="二维数组数组名"></a>二维数组数组名</h3><p><strong>用途</strong>：</p>
+<ul>
+<li>查看二维数组所占空间</li>
+<li>获取二维数组首地址</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int arr[2][3] = &#123;
+		&#123;1,2,3&#125;,
+		&#123;4,5,6&#125;
+	&#125;;
+
+	cout &lt;&lt; &quot;二维数组大小：&quot; &lt;&lt; sizeof(arr) &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组一行大小&quot; &lt;&lt; sizeof(arr[0]) &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组元素大小&quot; &lt;&lt; sizeof(arr[0][0]) &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;二维数组行数&quot; &lt;&lt; sizeof(arr) / sizeof(arr[0]) &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组列数&quot; &lt;&lt; sizeof(arr[0]) / sizeof(arr[0][0]) &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;二维数组首地址&quot; &lt;&lt; (int)arr &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组第一行地址&quot; &lt;&lt; (int)arr[0] &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组第二行地址&quot; &lt;&lt; (int)arr[1] &lt;&lt; endl;
+
+	cout &lt;&lt; &quot;二维数组第一个元素地址&quot; &lt;&lt; &amp;arr[0][0] &lt;&lt; endl;
+	cout &lt;&lt; &quot;二维数组第二个元素地址&quot; &lt;&lt; &amp;arr[0][1] &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p><strong>作用</strong>：将一段经常使用的代码封装起来，减少重复代码</p>
+<h2 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h2><p>函数的定义一般主要有5个步骤：</p>
+<ol>
+<li>返回值类型</li>
+<li>函数名</li>
+<li>参数表列</li>
+<li>函数体语句</li>
+<li>return 表达式</li>
+</ol>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-cpp">返回值类型 函数名(参数列表)&#123;
+	函数体语句
+
+	return表达式
+&#125;
+</code></pre>
+<ul>
+<li>返回值类型：一个函数可以返回一个值。在函数定义中</li>
+<li>函数名：给函数起个名称</li>
+<li>参数列表：使用该函数时，传入的数据</li>
+<li>函数体语句：花括号内的代码，函数内需要执行的语句</li>
+<li>return表达式：和返回值类型挂钩，函数执行完后，返回相应的数据</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">int add(int num1,int num2)&#123;
+	int sum = num1 + num2;
+	return sum;
+&#125;
+</code></pre>
+<h2 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h2><p><strong>功能</strong>：使用定义好的函数<br><strong>语法</strong>：<code>函数名(参数)</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int add(int num1, int num2)&#123;
+	int sum = num1 + num2;
+	return sum;
+&#125;
+
+int main()&#123;
+	int a = 10;
+	int b = 10;
+
+	int sum = add(a,b);
+
+	cout &lt;&lt; sum &lt;&lt; endl;
+
+	a = 100;
+	b = 100;
+
+	sum = add(a,b);
+
+	cout &lt;&lt; sum &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="值传递"><a href="#值传递" class="headerlink" title="值传递"></a>值传递</h2><ul>
+<li>值传递就是函数调用时实参数值传入给形参</li>
+<li>值传递时，<code>如果形参发生，并不会影响实参</code></li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">void swap(int num1,int num2)&#123;
+	int temp = num1;
+	num1 = num2;
+	num2 = temp;
+&#125;
+
+int main()&#123;
+	int a = 10;
+	int b = 20;
+
+	swap(a,b);
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="函数的常见样式"><a href="#函数的常见样式" class="headerlink" title="函数的常见样式"></a>函数的常见样式</h2><p>常见的函数样式有四种</p>
+<ol>
+<li>无参无返</li>
+<li>有参无返</li>
+<li>无参有返</li>
+<li>有参有返</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">void test01()&#123;
+	cout &lt;&lt; &quot;test01&quot; &lt;&lt; endl;
+&#125;
+
+void test02(int num)&#123;
+	cout &lt;&lt; &quot;test02&quot; &lt;&lt; num &lt;&lt; endl;
+&#125;
+
+int test03()&#123;
+	cout &lt;&lt; &quot;test03&quot; &lt;&lt; endl;
+	return 10;
+&#125;
+
+int test04(int a)&#123;
+	cout &lt;&lt; &quot;test04&quot; &lt;&lt; a &lt;&lt; endl;
+	return a;
+&#125;
+
+int main()&#123;
+	test01();
+	
+	test02(100);
+
+	int num1 = test03();
+	cout &lt;&lt; num1 &lt;&lt; endl;
+
+	int num2 = test04();
+	cout &lt;&lt; num2 &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="函数的声明"><a href="#函数的声明" class="headerlink" title="函数的声明"></a>函数的声明</h2><p><strong>作用</strong>：告诉编译器函数名称及如何调用函数。函数的实际主体可以单独定义</p>
+<p>函数的<strong>声明可以多次</strong>，但是函数的<strong>定义只能有一次</strong></p>
+<p>示例</p>
+<pre><code class="language-cpp">int max(int a,int b);
+int max(int a,int b);
+
+int max(int a,int b)&#123;
+	return a &gt; b ? a : b;
+&#125;
+
+int main()&#123;
+	int a = 10;
+	int b = 20;
+
+	cout &lt;&lt; max(a,b) &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="函数的分文件编写"><a href="#函数的分文件编写" class="headerlink" title="函数的分文件编写"></a>函数的分文件编写</h2><p><strong>作用</strong>：让代码结构更加清晰</p>
+<p>函数分文件编写一般有4个步骤</p>
+<ol>
+<li>创建后缀名为.h的头文件</li>
+<li>创建后缀名为.cpp的源文件</li>
+<li>在头文件中写函数的声明</li>
+<li>在源文件中写函数的定义</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">// swap.h
+#include &lt;iostream&gt;
+using namespace std;
+
+swap(int a,int b);
+
+// swap.cpp
+#include &quot;swap.h&quot;
+
+void swap(int a,int b)&#123;
+	int temp = a;
+	a = b;
+	b = temp;
+&#125;
+</code></pre>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="指针的基本概念"><a href="#指针的基本概念" class="headerlink" title="指针的基本概念"></a>指针的基本概念</h2><p><strong>指针的作用</strong>：可以通过指针间接访问内存</p>
+<ul>
+<li>内存编号是从0开始记录的，一般用16进制数字表示</li>
+<li>可以利用指针变量保存地址</li>
+</ul>
+<h2 id="指针变量的定义和使用"><a href="#指针变量的定义和使用" class="headerlink" title="指针变量的定义和使用"></a>指针变量的定义和使用</h2><p>指针变量定义语法：<code>数据类型 * 变量名;</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+
+	int * p;
+
+	p = &amp;a;
+	cout &lt;&lt; &amp;a &lt;&lt; endl;
+	cout &lt;&lt; p &lt;&lt; endl;
+
+	cout &lt;&lt; * p &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="指针所占内存空间"><a href="#指针所占内存空间" class="headerlink" title="指针所占内存空间"></a>指针所占内存空间</h2><p>在32位系统下，指针占4位字节空间大小，64位为8位字节空间大小</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+
+	int * p = &amp;a;
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+	cout &lt;&lt; sizeof(p) &lt;&lt; endl;
+	cout &lt;&lt; sizeof(int *) &lt;&lt; endl;
+	cout &lt;&lt; sizeof(double *) &lt;&lt; endl;
+	cout &lt;&lt; sizeof(float *) &lt;&lt; endl;
+	cout &lt;&lt; sizeof(char *) &lt;&lt; endl;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="空指针和野指针"><a href="#空指针和野指针" class="headerlink" title="空指针和野指针"></a>空指针和野指针</h2><p><strong>空指针</strong>：指针变量指向内存中编号为0的空间</p>
+<p><strong>用途</strong>：初始化指针变量</p>
+<p><strong>注意</strong>：空指针指向的内存是不可以访问的，0~255号内存为系统占用内存</p>
+<p>示例1：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int * p = NULL;
+
+	//会报错
+	cout &lt;&lt; *p &lt;&lt;endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<p><strong>野指针</strong>：指针变量指向非法的内存空间</p>
+<p>示例2：</p>
+<pre><code class="language-cpp">int main()&#123;
+	//指针变量指向内存编号为0x1100的空间
+	int * p = (int *)0x1100;
+
+	//报错
+	cout &lt;&lt; *p &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="const修饰指针"><a href="#const修饰指针" class="headerlink" title="const修饰指针"></a>const修饰指针</h2><p>const修饰指针有三种情况：</p>
+<ol>
+<li>const修饰指针——常量指针</li>
+<li>const修饰常量——指针常量</li>
+<li>const既修饰指针，又修饰常量</li>
+</ol>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int a = 10;
+	int b = 10;
+
+	//const修饰的是指针，指针的指向可以改，指针指向的值不可以修改
+	const int * p1 = &amp;a;
+	p1 = &amp;b;
+
+	//报错
+	*p1 = 100;
+
+	//const修饰的是常量，指针指向不可以改，指针指向的值可以更改
+	int * const p2 = &amp;a;
+
+	//报错
+	p2 = &amp;b;
+
+	//const既修饰指针又修饰常量
+	const int * const p3 = &amp;a;
+
+	//都报错
+	p3 = &amp;b;
+	p3 = 20;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="指针和数组"><a href="#指针和数组" class="headerlink" title="指针和数组"></a>指针和数组</h2><p><strong>作用</strong>：利用指针访问数组中元素</p>
+<p>示例：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int arr[] = &#123;1,2,3,4,5,6,7,8,9,10&#125;;
+
+	int *p = arr;
+
+	cout &lt;&lt; &quot;第一个元素&quot; &lt;&lt; arr[0] &lt;&lt; endl;
+	cout &lt;&lt; &quot;指针访问第一个元素&quot; &lt;&lt; *p &lt;&lt; endl;
+
+	for(int i = 0; i &lt; 10; i++)&#123;
+		cout &lt;&lt; *p &lt;&lt; endl;
+		p++;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="指针和函数"><a href="#指针和函数" class="headerlink" title="指针和函数"></a>指针和函数</h2><p><strong>作用</strong>：利用指针作函数参数，可以修改实参的值</p>
+<p>示例：</p>
+<pre><code class="language-cpp">//值传递
+void swap1(int a,int b)&#123;
+	int temp = a;
+	a = b;
+	b = temp;
+&#125;
+
+//地址传递
+void swap2(int * p1,int * p2)&#123;
+	int temp = *p1;
+	*p1 = *p2;
+	*p2 = temp;
+&#125;
+
+int main()&#123;
+	int a = 10;
+	int b = 20;
+
+	//值传递不会改变实参
+	swap1(a,b);
+
+	//地址传递会改变实参
+	swap2(a,b);
+
+	cout &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h2 id="指针，数组，函数"><a href="#指针，数组，函数" class="headerlink" title="指针，数组，函数"></a>指针，数组，函数</h2><p><strong>案例描述</strong>：封装一个函数，利用冒泡排序，实现对整形数组的升序排列</p>
+<p>示例：</p>
+<pre><code class="language-cpp">void bubbleSort(int * arr,int len)&#123;
+	for(int i = 0;i &lt; len - 1;i++)&#123;
+		for(int j = 0;j &lt; len - 1;j++&#123;
+			if(arr[j] &gt; arr[j - 1])&#123;
+				int temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			&#125;
+		&#125;
+	&#125;
+&#125;
+
+void printArray(int * arr,int len)&#123;
+	for(int i = 0;i &lt; len;i++)&#123;
+		cout &lt;&lt; arr[i] &lt;&lt; endl;
+	&#125;
+&#125;
+
+int main()&#123;
+	int arr[10] = &#123;4,3,6,9,1,2,10,8,7,5&#125;;
+
+	int len = sizeof(arr) / sizeof(arr[0]);
+
+	bubbleSort(arr,len);
+
+	printArray(arr,len);
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><h2 id="结构体基本概念"><a href="#结构体基本概念" class="headerlink" title="结构体基本概念"></a>结构体基本概念</h2><p>结构体属于<mark>自定义的数据类型</mark>，允许用户存储不同的数据类型</p>
+<h2 id="结构体定义和使用"><a href="#结构体定义和使用" class="headerlink" title="结构体定义和使用"></a>结构体定义和使用</h2><p><strong>语法</strong>：<code>struct 结构体名 &#123;结构体成员列表&#125;;</code></p>
+<p>通过结构体创建变量的方式有三种：</p>
+<ul>
+<li>struct 结构体名 变量名</li>
+<li>struct 结构体名 变量名 &#x3D; {成员1值，成员2值}</li>
+<li>定义结构体时顺便创建变量</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+int main()&#123;
+	student stu1;
+
+	stu1.name = &quot;张三&quot;;
+	stu1.age = 18;
+	stu1.score = 100;
+
+	cout &lt;&lt; stu1.name &lt;&lt; endl;
+	cout &lt;&lt; stu1.age &lt;&lt; endl;
+	cout &lt;&lt; stu1.score &lt;&lt; endl;
+
+	student stu2 = &#123;&quot;李四&quot;,19,60&#125;;
+
+	cout &lt;&lt; stu2.name &lt;&lt; endl;
+	cout &lt;&lt; stu2.age &lt;&lt; endl;
+	cout &lt;&lt; stu2.score &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h2 id="结构体数组"><a href="#结构体数组" class="headerlink" title="结构体数组"></a>结构体数组</h2><p><strong>作用</strong>：将自定义的结构体放入到数组中方便维护</p>
+<p><strong>语法</strong>：<code>struct 结构体名 数组名[元素个数] = &#123;&#123;&#125;,&#123;&#125;,&#123;&#125;&#125;</code></p>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;
+
+int main()&#123;
+	struct student arr[3] = &#123;
+		&#123;&quot;张三&quot;,18,80&#125;,
+		&#123;&quot;李四&quot;,19,60&#125;,
+		&#123;&quot;王五&quot;,20,88&#125;
+	&#125;
+
+	arr[2].name = &quot;赵六&quot;;
+	arr[2].age = 17;
+	arr[2].score = 90;
+
+	for(int i = 0;i &lt; 3;i++)&#123;
+		cout &lt;&lt; stu[i].name &lt;&lt; endl;
+		cout &lt;&lt; stu[i].age &lt;&lt; endl;
+		cout &lt;&lt; stu[i].score &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h2 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h2><p><strong>作用</strong>：通过指针访问结构体中的成员</p>
+<ul>
+<li>利用操作符 <code>-&gt;</code> 可以通过结构体指针访问结构体属性</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,18,100&#125;;
+
+	student *p = &amp;stu;
+
+	p -&gt; score = 80;
+
+	cout &lt;&lt; p -&gt; name &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体嵌套结构体"><a href="#结构体嵌套结构体" class="headerlink" title="结构体嵌套结构体"></a>结构体嵌套结构体</h2><p><strong>作用</strong>：结构体中的成员可以是另一个结构体</p>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+struct teacher&#123;
+	int id;
+	string name;
+	int age;
+	struct student stu;
+&#125;;
+
+int main()&#123;
+	teacher t1;
+	t1.id = 10000;
+	t1.name = &quot;张三&quot;;
+	t1.age = 40;
+
+	t1.stu.name = &quot;李四&quot;;
+	t1.stu.age = 15;
+	t1.stu.score = 59;
+
+	cout &lt;&lt; t1.id &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体做函数参数"><a href="#结构体做函数参数" class="headerlink" title="结构体做函数参数"></a>结构体做函数参数</h2><p><strong>作用</strong>：将结构体作为参数向函数中传递</p>
+<p>传递方式有两种：</p>
+<ul>
+<li>值传递</li>
+<li>地址传递</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+void printStudent(student stu)&#123;
+	stu.age = 28;
+	cout &lt;&lt; stu.age &lt;&lt; endl;
+&#125;
+
+void printStudent1(student *stu)&#123;
+	stu -&gt; age = 29;
+	cout &lt;&lt; stu -&gt; age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,15,100&#125;;
+
+	printStudent(stu);
+	cout &lt;&lt; stu.age &lt;&lt; endl;
+
+	printStudent2(&amp;stu);
+	cout &lt;&lt; sut.age &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体中const使用场景"><a href="#结构体中const使用场景" class="headerlink" title="结构体中const使用场景"></a>结构体中const使用场景</h2><p><strong>作用</strong>：用const来防止误操作</p>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+void printStudent(const student *stu)&#123;
+	//无法操作，因为加了const修饰
+	stu -&gt; age = 199;
+	cout &lt;&lt; stu -&gt; age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,15,199&#125;;
+
+	printStudent(&amp;stu);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+五&quot;,20,88&#125;
+	&#125;
+
+	arr[2].name = &quot;赵六&quot;;
+	arr[2].age = 17;
+	arr[2].score = 90;
+
+	for(int i = 0;i &lt; 3;i++)&#123;
+		cout &lt;&lt; stu[i].name &lt;&lt; endl;
+		cout &lt;&lt; stu[i].age &lt;&lt; endl;
+		cout &lt;&lt; stu[i].score &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre>
+<h2 id="结构体指针-1"><a href="#结构体指针-1" class="headerlink" title="结构体指针"></a>结构体指针</h2><p><strong>作用</strong>：通过指针访问结构体中的成员</p>
+<ul>
+<li>利用操作符 <code>-&gt;</code> 可以通过结构体指针访问结构体属性</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,18,100&#125;;
+
+	student *p = &amp;stu;
+
+	p -&gt; score = 80;
+
+	cout &lt;&lt; p -&gt; name &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体嵌套结构体-1"><a href="#结构体嵌套结构体-1" class="headerlink" title="结构体嵌套结构体"></a>结构体嵌套结构体</h2><p><strong>作用</strong>：结构体中的成员可以是另一个结构体</p>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+struct teacher&#123;
+	int id;
+	string name;
+	int age;
+	struct student stu;
+&#125;;
+
+int main()&#123;
+	teacher t1;
+	t1.id = 10000;
+	t1.name = &quot;张三&quot;;
+	t1.age = 40;
+
+	t1.stu.name = &quot;李四&quot;;
+	t1.stu.age = 15;
+	t1.stu.score = 59;
+
+	cout &lt;&lt; t1.id &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体做函数参数-1"><a href="#结构体做函数参数-1" class="headerlink" title="结构体做函数参数"></a>结构体做函数参数</h2><p><strong>作用</strong>：将结构体作为参数向函数中传递</p>
+<p>传递方式有两种：</p>
+<ul>
+<li>值传递</li>
+<li>地址传递</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+void printStudent(student stu)&#123;
+	stu.age = 28;
+	cout &lt;&lt; stu.age &lt;&lt; endl;
+&#125;
+
+void printStudent1(student *stu)&#123;
+	stu -&gt; age = 29;
+	cout &lt;&lt; stu -&gt; age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,15,100&#125;;
+
+	printStudent(stu);
+	cout &lt;&lt; stu.age &lt;&lt; endl;
+
+	printStudent2(&amp;stu);
+	cout &lt;&lt; sut.age &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="结构体中const使用场景-1"><a href="#结构体中const使用场景-1" class="headerlink" title="结构体中const使用场景"></a>结构体中const使用场景</h2><p><strong>作用</strong>：用const来防止误操作</p>
+<p>示例：</p>
+<pre><code class="language-cpp">struct student&#123;
+	string name;
+	int age;
+	int score;
+&#125;;
+
+void printStudent(const student *stu)&#123;
+	//无法操作，因为加了const修饰
+	stu -&gt; age = 199;
+	cout &lt;&lt; stu -&gt; age &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	student stu = &#123;&quot;张三&quot;,15,199&#125;;
+
+	printStudent(&amp;stu);
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
