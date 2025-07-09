@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算机网络——36加密原理 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算机网络——36加密原理</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/8
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                计算机网络
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="color: #00bcd4">
+                    计算机网络
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>加密原理</p>
+<span id="more"></span>
+
+<h1 id="加密原理"><a href="#加密原理" class="headerlink" title="加密原理"></a>加密原理</h1><h2 id="加密语言"><a href="#加密语言" class="headerlink" title="加密语言"></a>加密语言</h2><p><img src="/images/JSJWL/36/1.png" alt="在这里插入图片描述"></p>
+<p><font color=red>对称密钥密码学</font>：发送方和接收方的秘钥相同<br><font color=red>公开秘钥密码学</font>：发送方使用接收方的公钥进行加密，接收方使用自己的私钥进行解密</p>
+<h2 id="对称秘钥加密"><a href="#对称秘钥加密" class="headerlink" title="对称秘钥加密"></a>对称秘钥加密</h2><p><font color=red>替换密码</font>：将一个事情换成另一个事情</p>
+<ul>
+<li>单码替换密码：将一个字母替换成另一个字母</li>
+</ul>
+<p><img src="/images/JSJWL/36/2.png" alt="在这里插入图片描述"></p>
+<p><font color=red>对称密钥密码</font>：Bob和Alice共享一个对称式的秘钥：$K_{A-B}$</p>
+<ul>
+<li>e.g. 秘钥在单码替换加密方法中是替换模式</li>
+</ul>
+<h3 id="对称密钥加密学：DES"><a href="#对称密钥加密学：DES" class="headerlink" title="对称密钥加密学：DES"></a>对称密钥加密学：DES</h3><p><font color=red>DES:Data Encryption Standard</font></p>
+<ul>
+<li>US加密标准[NIST 1993]</li>
+<li>56-bit对称密码，64-bit明文输入</li>
+<li>DES有多安全？<ul>
+<li>DES挑战：56-bit密钥加密的短语(“Strong cryptography makes the world a safe place”)被解密，用了4个月的时间</li>
+<li>可能有后门</li>
+</ul>
+</li>
+<li>使得DES更安全：<ul>
+<li>使用3个key，3条DES运算</li>
+<li>密文分组成串技术</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/36/3.png" alt="在这里插入图片描述"></p>
+<p>初始替换<br>16轮一样的函数应用，每一轮使用的不同的48bit秘钥<br>最终替换</p>
+<h3 id="AES-Advanced-Encryption-Standard"><a href="#AES-Advanced-Encryption-Standard" class="headerlink" title="AES:Advanced Encryption Standard"></a>AES:Advanced Encryption Standard</h3><ul>
+<li>新的对称密钥NIST标准(Nov,2001)用于替换DES</li>
+<li>数据128bit成组加密</li>
+<li>128，192 or 256 bit keys</li>
+<li>穷尽算法如果使用1秒钟破解DES，需要花费149万亿年破解AES</li>
+</ul>
+<h3 id="块密码"><a href="#块密码" class="headerlink" title="块密码"></a>块密码</h3><ul>
+<li>一个循环：一个输入bit影响8个输出bit</li>
+<li>多重循环：每个输入比特影响所有的输出bit</li>
+<li>块密码：DES，3DES，AES</li>
+</ul>
+<p><img src="/images/JSJWL/36/4.png" alt="在这里插入图片描述"></p>
+<h3 id="密码块链"><a href="#密码块链" class="headerlink" title="密码块链"></a>密码块链</h3><ul>
+<li>密码块：如果输入块重复，将会得到相同的密文块</li>
+<li><font color=red>密码块链</font>：异或第i轮输入m(i)，与前一轮的密文c(i-1)<ul>
+<li>c(0)明文传输到接收端</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/JSJWL/36/5.png" alt="在这里插入图片描述"></p>
+<h2 id="公开秘钥密码学"><a href="#公开秘钥密码学" class="headerlink" title="公开秘钥密码学"></a>公开秘钥密码学</h2><p><font color=red>对称密钥密码学</font></p>
+<ul>
+<li>需要发送方和接收方对共享式对称密钥达成一致</li>
+<li>Q：但是他们如何第一次达成一致（特别是他们永远不可能见面的情况下）</li>
+</ul>
+<p><font color=red>公开密钥密码学</font></p>
+<ul>
+<li>完全不同的方法[Differ - Hellman76,RSA78]</li>
+<li>发送方和接收方无需共享密钥</li>
+<li>一个实体的公钥公之于众</li>
+<li>私钥只有他自己知道</li>
+</ul>
+<p><img src="/images/JSJWL/36/6.png" alt="在这里插入图片描述"></p>
+<p>要求：</p>
+<ul>
+<li>需要$K^{+}_B$(-)和$K^{-}_B$(-)，满足<font color=red>$K^{-}_B(K^{+}_B(m)) &#x3D; m$</font></li>
+<li>给定一个公钥$K^{+}_B$推出私钥$K^{-}_B$计算上不可行</li>
+</ul>
+<p><font color=red>RSA</font>：Rivest,Shamir,Adelson algorithim</p>
+<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><h3 id="RSA：选择秘钥"><a href="#RSA：选择秘钥" class="headerlink" title="RSA：选择秘钥"></a>RSA：选择秘钥</h3><ul>
+<li>选择两个很大的质数p,q(e.g. 1024 bit each)</li>
+<li>计算 n &#x3D; pq,z &#x3D; (p - 1)(z - 1)</li>
+<li>选择一个e(要求 e &lt; n)和z没有一个公共因子，互素</li>
+<li>选择d使得ed - 1正好能够被z整除(也就是：ed mod z &#x3D; 1)</li>
+<li>公钥<font color=red>$\underbrace{(n,e)}_{K^{+}_B}$</font>，私钥<font color=red>$\underbrace{(n,d)}_{K^{-}_B}$</font></li>
+</ul>
+<h3 id="RSA：加密，解密"><a href="#RSA：加密，解密" class="headerlink" title="RSA：加密，解密"></a>RSA：加密，解密</h3><ul>
+<li>给定按照上述算法得到的(n,e)和(n,d)</li>
+<li>加密一个bit模式，m，如此计算</li>
+</ul>
+<p><font color=red>$c &#x3D; m^e mod n$</font> (i.e.,$m^e$除以n的余数)</p>
+<ul>
+<li>对接收到的密文c解密，如此计算</li>
+</ul>
+<p><font color=red>$m &#x3D; c^d mod n$</font> (i.e.,$c^d$除以n的余数)</p>
+<p><font color=blue>Magic happens</font> $m &#x3D; \underbrace{(m^e mod\ n)^d}_{c} mod\ n$</p>
+<p>一个简单的数学定理：如果p,q都是素数n &#x3D; pq，那么</p>
+<p><img src="/images/JSJWL/36/7.png" alt="在这里插入图片描述"></p>
+<h3 id="RSA：另外一个重要的特性"><a href="#RSA：另外一个重要的特性" class="headerlink" title="RSA：另外一个重要的特性"></a>RSA：另外一个重要的特性</h3><font color=red>
+$\underbrace{K^{-}_B(K^{+}_B(m))}_{先用公钥，然后用私钥}=m=\underbrace{K^{+}_B(K^{-}_B(m))}_{先用私钥，然后用公钥}$
+</font>
+
+<p><font color=blue><strong>结果一致</strong></font></p>
+<h2 id="解密的几种类型"><a href="#解密的几种类型" class="headerlink" title="解密的几种类型"></a>解密的几种类型</h2><ul>
+<li>加密的算法已知，求秘钥</li>
+<li>加密算法和秘钥均不知道</li>
+<li>唯密文攻击</li>
+<li>已知明文攻击<ul>
+<li>已经知道部分密文和明文的对应关系</li>
+</ul>
+</li>
+<li>选择明文攻击<ul>
+<li>攻击者能够选择一段明文，并得到密文</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
