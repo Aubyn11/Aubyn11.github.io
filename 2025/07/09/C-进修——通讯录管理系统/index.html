@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>C++进修——通讯录管理系统 | Aubyn的学习小屋</title>
+    <meta name="author" content="Aubyn11" />
+    <meta name="description" content="Hello World" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/1C-灯.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>AUBYN的学习小屋</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;AUBYN的学习小屋</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>C++进修——通讯录管理系统</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/C/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                C++
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/C/" style="color: #ff7d73">
+                    C++
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>通讯录管理系统</p>
+<span id="more"></span>
+
+<h1 id="通讯录管理系统"><a href="#通讯录管理系统" class="headerlink" title="通讯录管理系统"></a>通讯录管理系统</h1><h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><p>系统中需要实现的功能如下：</p>
+<ul>
+<li>添加联系人：向通讯录中添加新人，信息包括（姓名、性别、年龄、联系电话、家庭住址），最多记录1000人</li>
+<li>显示联系人：显示通讯录中所有联系人信息</li>
+<li>删除联系人：按照姓名进行删除指定联系人</li>
+<li>查找联系人：按照姓名查看指定联系人信息</li>
+<li>修改联系人：按照姓名重新修改指定联系人</li>
+<li>清空联系人：清空通讯录中所有信息</li>
+<li>退出通讯录：退出当前使用的通讯录</li>
+</ul>
+<h2 id="菜单功能"><a href="#菜单功能" class="headerlink" title="菜单功能"></a>菜单功能</h2><p><strong>功能描述</strong>：用户选择功能的界面</p>
+<p><strong>步骤</strong>：</p>
+<ul>
+<li>封装函数显示该界面，如<code>void showMenu()</code></li>
+<li>在main函数中调用封装好的函数</li>
+</ul>
+<p>代码：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+
+void showMenu()&#123;
+	cout &lt;&lt; &quot;**************************&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  1.添加联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  2.显示联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  3.删除联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  4.查找联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  5.修改联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  6.清空联系人  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;*****  0.退出通讯录  *****&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;**************************&quot; &lt;&lt; endl;
+&#125;
+
+int main()&#123;
+	showMenu();
+
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="退出功能"><a href="#退出功能" class="headerlink" title="退出功能"></a>退出功能</h2><p><strong>功能描述</strong>：退出通讯录系统</p>
+<p><strong>思路</strong>：根据用户不同的选择，进入不同的功能，可以选择switch分支结构，将整个架构进行搭建</p>
+<p>当用户输入0的时候退出系统，其他输入先不考虑</p>
+<p>代码：</p>
+<pre><code class="language-cpp">int main()&#123;
+	int select = 0;
+
+	while(true)&#123;
+		showMenu();
+
+		cin &gt;&gt; select;
+
+		switch(select)&#123;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 0:
+				cout &lt;&lt; &quot;欢迎下次使用&quot; &lt;&lt; endl;
+				system(&quot;pause&quot;);
+				return 0;
+			default:
+				cout &lt;&lt; &quot;输入非法&quot; &lt;&lt; endl;
+				break;
+		&#125;
+	&#125;
+	
+	system(&quot;pause&quot;);
+	return 0;
+&#125;
+</code></pre>
+<h2 id="添加联系人"><a href="#添加联系人" class="headerlink" title="添加联系人"></a>添加联系人</h2><p><strong>功能描述</strong>：实现添加联系人功能，联系上限为1000人，联系人信息包括姓名、性别、年龄、联系电话、家庭住址</p>
+<p>添加联系人实现步骤：</p>
+<ul>
+<li>设计联系人结构体</li>
+<li>设计通讯录结构体</li>
+<li>main函数中创建通讯录</li>
+<li>封装添加联系人函数</li>
+<li>测试添加联系人功能</li>
+</ul>
+<h3 id="设计联系人结构体"><a href="#设计联系人结构体" class="headerlink" title="设计联系人结构体"></a>设计联系人结构体</h3><p>联系人信息已经给出</p>
+<p>代码：</p>
+<pre><code class="language-cpp">#include&lt;string&gt;
+
+struct Person&#123;
+	string m_Name;
+	int m_Sex;
+	int m_Age;
+	string m_Phone;
+	string m_Addr;
+&#125;;
+</code></pre>
+<h3 id="设计通讯录结构体"><a href="#设计通讯录结构体" class="headerlink" title="设计通讯录结构体"></a>设计通讯录结构体</h3><p>设计的时候可以维护一个容量为1000的存放联系人的数组，并记录当前通讯录中联系人数量</p>
+<p>代码：</p>
+<pre><code class="language-cpp">#define MAX 1000
+
+struct Addressbooks&#123;
+	struct Person personArray[MAX];
+	int m_Size;
+&#125;;
+</code></pre>
+<h3 id="main函数中创建通讯录"><a href="#main函数中创建通讯录" class="headerlink" title="main函数中创建通讯录"></a>main函数中创建通讯录</h3><p>添加联系人函数封装好，在main函数中创建一个通讯录变量，这个就是需要已知维护的通讯录</p>
+<pre><code class="language-cpp">main函数起始位置添加：
+
+	Addressbooks abs;
+	abs.m_Size = 0;
+</code></pre>
+<h3 id="封装添加联系人函数"><a href="#封装添加联系人函数" class="headerlink" title="封装添加联系人函数"></a>封装添加联系人函数</h3><p><strong>思路</strong>：添加联系人前先判断通讯录是否已满，如果满了就不再添加，未满情况将新联系人信息逐个加入到通讯录</p>
+<p>代码：</p>
+<pre><code class="language-cpp">void addPerson(Addressbooks *abs)&#123;
+	if(abs -&gt; m_Size == MAX)&#123;
+		cout &lt;&lt; &quot;通讯录已满，无法添加&quot; &lt;&lt; endl;
+		return;
+	&#125;
+	else&#123;
+		string name;
+		cout &lt;&lt; &quot;请输入名字&quot; &lt;&lt; endl;
+		cin &gt;&gt; name;
+		abs -&gt; personArray[abs -&gt; m_Size].m_Name = name;
+
+		cout &lt;&lt; &quot;请输入性别&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;1 -- 男&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;2 -- 女&quot; &lt;&lt; endl;
+
+		int sex = 0;
+		while(true)&#123;
+			cin &gt;&gt; sex;
+			if(sex == 1 || sex == 2)&#123;
+				abs -&gt; personArray[abs -&gt; m_Size].m_Sex = sex;
+				break;
+			&#125;
+			cout &lt;&lt; &quot;输入错误，重新输入&quot; &lt;&lt; endl;
+		&#125;
+
+		cout &lt;&lt; &quot;请输入年龄&quot; &lt;&lt; endl;
+		int age = 0;
+		cin &gt;&gt; age;
+		abs -&gt; personArray[abs -&gt; m_Size].m_Age = age;
+
+		cout &lt;&lt; &quot;请输入电话号码&quot; &lt;&lt; endl;
+		string phone = &quot;&quot;;
+		cin &gt;&gt; phone;
+		abs -&gt; personArray[abs -&gt; m_Size].m_Phone = phone;
+
+		cout &lt;&lt; &quot;请输入家庭住址&quot; &lt;&lt; endl;
+		string address = &quot;&quot;;
+		cin &gt;&gt; address;
+		abs -&gt; personArray[abs -&gt; m_Size].m_Addr = address;
+
+		abs -&gt; m_Size++;
+
+		cout &gt;&gt; &quot;添加成功&quot; &gt;&gt; endl;
+		
+		system(&quot;pause&quot;);
+		system(&quot;cls&quot;);
+	&#125;
+&#125;
+</code></pre>
+<h3 id="测试添加联系人功能"><a href="#测试添加联系人功能" class="headerlink" title="测试添加联系人功能"></a>测试添加联系人功能</h3><p>在switch case中，case 1里添加</p>
+<pre><code class="language-cpp">case 1:
+	addPerson(&amp;abs);
+	break;
+</code></pre>
+<h2 id="显示联系人"><a href="#显示联系人" class="headerlink" title="显示联系人"></a>显示联系人</h2><p><strong>功能描述</strong>：显示通讯录中已有的联系人信息</p>
+<p>显示联系人实现步骤：</p>
+<ul>
+<li>封装显示联系人函数</li>
+<li>测试显示联系人功能</li>
+</ul>
+<h3 id="封装显示联系人函数"><a href="#封装显示联系人函数" class="headerlink" title="封装显示联系人函数"></a>封装显示联系人函数</h3><p><strong>思路</strong>：判断如果当前通讯录中没有人员，就提示记录为空，人数大于0，显示通讯录中所有信息</p>
+<p>代码：</p>
+<pre><code class="language-cpp">void showPerson(Addressbooks *abs)&#123;
+	if(abs -&gt; m_Size == 0)&#123;
+		cout &lt;&lt; &quot;当前记录为空&quot; &lt;&lt; endl;
+	&#125;
+	else&#123;
+		for(int i = 0;i &lt; abs -&gt; m_Size;i++)&#123;
+			cout &lt;&lt; &quot;姓名：&quot; &lt;&lt; abs -&gt; personArray[i].m_Name &lt;&lt; &quot;\t&quot;;
+			cout &lt;&lt; &quot;性别：&quot; &lt;&lt; abs -&gt; (personArray[i].m_Sex == 1 ? &quot;男&quot; : &quot;女&quot;) &lt;&lt; &quot;\t&quot;;
+			cout &lt;&lt; &quot;年龄：&quot; &lt;&lt; abs -&gt; personArray[i].m_Age &lt;&lt; &quot;\t&quot;;
+			cout &lt;&lt; &quot;电话：&quot; &lt;&lt; abs -&gt; personArray[i].m_Phone &lt;&lt; &quot;\t&quot;;
+			cout &lt;&lt; &quot;住址：&quot; &lt;&lt; abs -&gt; personArray[i].m_Addr &lt;&lt; endl;
+		&#125;
+	&#125;
+
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+&#125;
+</code></pre>
+<h3 id="测试显示联系人功能"><a href="#测试显示联系人功能" class="headerlink" title="测试显示联系人功能"></a>测试显示联系人功能</h3><p>在switch case语句中，case 2里添加</p>
+<pre><code class="language-cpp">case 2:
+	showPerson(&amp;abs);
+	break;
+</code></pre>
+<h2 id="删除联系人"><a href="#删除联系人" class="headerlink" title="删除联系人"></a>删除联系人</h2><p><strong>功能描述</strong>：按照姓名进行删除指定联系人</p>
+<p>删除联系人实现步骤：</p>
+<ul>
+<li>封装检测联系人是否存在</li>
+<li>封装删除联系人函数</li>
+<li>测试删除联系人功能</li>
+</ul>
+<h3 id="封装检测联系人是否存在"><a href="#封装检测联系人是否存在" class="headerlink" title="封装检测联系人是否存在"></a>封装检测联系人是否存在</h3><p><strong>设计思路</strong>：</p>
+<p>&emsp;&emsp;删除联系人前，需要先判断用户输入的联系人是否存在，如果存在则删除，不存在则提示用户没有要删除的联系人，</p>
+<p>&emsp;&emsp;所以把检测联系人是否存在封装成一个函数，如果存在，返回所在位置，不存在返回 -1</p>
+<p>代码：</p>
+<pre><code class="language-cpp">int isExist(Addressbooks *abs,string name)&#123;
+	for(int i = 0; i &lt; abs -&gt; m_Size;i++)&#123;
+		if(abs -&gt; personArray[i].m_Name == name)&#123;
+			return i;
+		&#125;
+		return -1;
+	&#125;
+&#125;
+</code></pre>
+<h3 id="封装删除联系人函数"><a href="#封装删除联系人函数" class="headerlink" title="封装删除联系人函数"></a>封装删除联系人函数</h3><p>根据用户输入的联系人判断该通讯录中是否有此人</p>
+<p>查找到进行删除，并提示删除成功</p>
+<p>查不到提示查无此人</p>
+<pre><code class="language-cpp">void deletePerson(Address *abs)&#123;
+	cout &lt;&lt; &quot;请输入要删除的联系人&quot; &lt;&lt; endl;
+	string name;
+	cin &gt;&gt; name;
+
+	int ret = isExist(abs,name);
+	if(ret != 1)&#123;
+		for(int i = ret;i &lt; abs -&gt; m_Size;i++)&#123;
+			abs -&gt; personArray[i] = abs -&gt; personArray[i+1];
+			abs -&gt; m_Size--;
+		&#125;
+		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;查无此人&quot; &lt;&lt; endl;
+	&#125;
+&#125;
+</code></pre>
+<h2 id="查找联系人"><a href="#查找联系人" class="headerlink" title="查找联系人"></a>查找联系人</h2><p><strong>功能描述</strong>：按照姓名查看指定联系人信息</p>
+<p>查找联系人实现步骤：</p>
+<ul>
+<li>封装查找联系人函数</li>
+<li>测试查找指定联系人</li>
+</ul>
+<h3 id="封装查找联系人函数"><a href="#封装查找联系人函数" class="headerlink" title="封装查找联系人函数"></a>封装查找联系人函数</h3><p><strong>实现思路</strong>：判断用户指定的联系人是否存在，如果存在显示信息，不存在则提示查无此人</p>
+<p>代码：</p>
+<pre><code class="language-cpp">void findPerson(Addressbooks *abs)&#123;
+	cout &lt;&lt; &quot;请输入你要查找的联系人&quot; &lt;&lt; endl;
+	string name;
+	cin &gt;&gt; name;
+
+	int ret = isExist(abs,name);
+	if(ret != -1)&#123;
+		cout &lt;&lt; &quot;姓名：&quot; &lt;&lt; abs -&gt; personArray[i].m_Name &lt;&lt; &quot;\t&quot;;
+		cout &lt;&lt; &quot;性别：&quot; &lt;&lt; abs -&gt; (personArray[i].m_Sex == 1 ? &quot;男&quot; : &quot;女&quot;) &lt;&lt; &quot;\t&quot;;
+		cout &lt;&lt; &quot;年龄：&quot; &lt;&lt; abs -&gt; personArray[i].m_Age &lt;&lt; &quot;\t&quot;;
+		cout &lt;&lt; &quot;电话：&quot; &lt;&lt; abs -&gt; personArray[i].m_Phone &lt;&lt; &quot;\t&quot;;
+		cout &lt;&lt; &quot;住址：&quot; &lt;&lt; abs -&gt; personArray[i].m_Addr &lt;&lt; endl;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;查无此人&quot; &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+&#125;
+</code></pre>
+<h2 id="修改联系人"><a href="#修改联系人" class="headerlink" title="修改联系人"></a>修改联系人</h2><p><strong>功能描述</strong>：按照姓名重新修改指定联系人</p>
+<p>修改联系人实现步骤：</p>
+<ul>
+<li>封装修改联系人函数</li>
+<li>测试修改联系人功能</li>
+</ul>
+<h3 id="封装修改联系人函数"><a href="#封装修改联系人函数" class="headerlink" title="封装修改联系人函数"></a>封装修改联系人函数</h3><p><strong>实现思路</strong>：查找用户输入的联系人，如果查找成功进行修改操作，查找失败提示查无此人</p>
+<p>代码：</p>
+<pre><code class="language-cpp">void modifyPerson(Addressbooks *abs)&#123;
+	cout &lt;&lt; &quot;请输入要修改的联系人&quot; &lt;&lt; endl;
+	string name;
+	cin &gt;&gt; name;
+
+	int ret = isExist(abs,name);
+	if(ret != -1)&#123;
+		string name;
+		cout &lt;&lt; &quot;请输入姓名&quot; &lt;&lt; endl;
+		cin &gt;&gt; name;
+		abs -&gt; personArray[ret].m_Name = name;
+
+		cout &lt;&lt; &quot;请输入性别&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;1 -- 男&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;2 -- 女&quot; &lt;&lt; endl;
+
+		int sex = 0;
+		while(true)&#123;
+			cin &gt;&gt; sex;
+			if(sex == 1 || sex == 2)&#123;
+				abs -&gt; personArray[ret].m_Sex = sex;
+				break;
+			&#125;
+			cout &lt;&lt; &quot;输入错误，重新输入&quot; &lt;&lt; endl;
+		&#125;
+
+		cout &lt;&lt; &quot;请输入年龄&quot; &lt;&lt; endl;
+		int age = 0;
+		cin &gt;&gt; age;
+		abs -&gt; personArray[ret].m_Age = age;
+
+		cout &lt;&lt; &quot;请输入电话号码&quot; &lt;&lt; endl;
+		string phone = &quot;&quot;;
+		cin &gt;&gt; phone;
+		abs -&gt; personArray[ret].m_Phone = phone;
+
+		cout &lt;&lt; &quot;请输入家庭住址&quot; &lt;&lt; endl;
+		string address = &quot;&quot;;
+		cin &gt;&gt; address;
+		abs -&gt; personArray[ret].m_Addr = address;
+	&#125;
+	else&#123;
+		cout &lt;&lt; &quot;查无此人&quot; &lt;&lt; endl;
+	&#125;
+
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+&#125;
+</code></pre>
+<h3 id="测试修改联系人功能"><a href="#测试修改联系人功能" class="headerlink" title="测试修改联系人功能"></a>测试修改联系人功能</h3><p>在switch case中，case 5里添加：</p>
+<pre><code class="language-cpp">case 5:
+	modifyPerson(&amp;abs);
+	break;
+</code></pre>
+<h2 id="清空联系人"><a href="#清空联系人" class="headerlink" title="清空联系人"></a>清空联系人</h2><p><strong>功能描述</strong>：清空通讯录中的所有信息</p>
+<p>清空联系人实现步骤：</p>
+<ul>
+<li>封装清空联系人函数</li>
+<li>测试清空联系人</li>
+</ul>
+<h3 id="封装清空联系人函数"><a href="#封装清空联系人函数" class="headerlink" title="封装清空联系人函数"></a>封装清空联系人函数</h3><p><strong>实现思路</strong>：将通讯录所有联系人信息删除掉，只要将通讯录记录的联系人数量置为0，做逻辑清空即可</p>
+<p>代码：</p>
+<pre><code class="language-cpp">void clearPerson(Addressbooks *abs)&#123;
+	abs -&gt; m_Size = 0;
+	cout &lt;&lt; &quot;通讯录已清空&quot; &lt;&lt; endl;
+	
+	system(&quot;pause&quot;);
+	system(&quot;cls&quot;);
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+    <div id="comment">
+        <div id="waline-container"></div>
+    </div>
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 Aubyn的学习小屋
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Aubyn11
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+        <div>
+            备案号：
+            
+            
+            
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+<script>
+    Waline.init({
+        el: "#waline-container",
+        serverURL: "https://6qiqik4q.api.lncldglobal.com",
+        commentCount: true,
+        pageview: false,
+        emoji: "https://unpkg.com/@waline/emojis@1.2.0/weibo,https://unpkg.com/@waline/emojis@1.2.0/alus,https://unpkg.com/@waline/emojis@1.2.0/bilibili,https://unpkg.com/@waline/emojis@1.2.0/qq,https://unpkg.com/@waline/emojis@1.2.0/tieba,https://unpkg.com/@waline/emojis@1.2.0/tw-emoji".split(","),
+        meta: "nick,mail,link".split(","),
+        requiredMeta: "nick".split(","),
+        lang: "zh-CN",
+        wordLimit: 0,
+        pageSize: "10",
+        login: "enable",
+        
+    });
+</script>
+
+
+
+    
+</body>
+</html>
